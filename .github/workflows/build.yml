@@ -19,12 +19,13 @@ jobs:
           shell: bash
           if: always()
           run: |
+               checkout=$(git log -1 --pretty=format:"__Checkout:%d: %s__")
                errors=$(bash -c 'cat build_output | grep "error: " -A 2 | python3 -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])"')
                if [[ -z $errors ]]; then
                   errors="No errors."
                fi
                errors_count=$(bash -c 'cat build_output | grep "error: " | wc -l')
-               echo '{"content": "**'$GITHUB_REPOSITORY'**\nCompilation: '$errors_count' errors.\n```\n'$errors'\n```"}' > notification_data
+               echo '{"content": "**'$GITHUB_REPOSITORY'** - $checkout\nCompilation: '$errors_count' errors.\n```\n'$errors'\n```"}' > notification_data
                cat notification_data
                curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
         - uses: actions/upload-artifact@v2
@@ -41,12 +42,13 @@ jobs:
           shell: bash
           if: always()
           run: |
+               checkout=$(git log -1 --pretty=format:"__Checkout:%d: %s__")
                warnings=$(bash -c 'cat build_output_debug | grep "warning: " -A 2 | python -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])"')
                if [[ -z $warnings ]]; then
                   warnings="No warnings."
                fi
                warnings_count=$(bash -c 'cat build_output_debug | grep "warning: " | wc -l')
-               echo '{"content": "**'$GITHUB_REPOSITORY'**\nDebug compilation: '$warnings_count' warnings.\n```\n'$warnings'\n```"}' > notification_data
+               echo '{"content": "**'$GITHUB_REPOSITORY'** - $checkout\nDebug compilation: '$warnings_count' warnings.\n```\n'$warnings'\n```"}' > notification_data
                cat notification_data
                curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
         - uses: actions/upload-artifact@v2
