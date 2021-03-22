@@ -34,18 +34,65 @@ typedef struct resource {
     };
 } resource_t;
 
+///
+/// Create a resource of type from the file.
+///
+/// You would rather use other methods like `create_texture`, `create_font`,
+/// `create_sound` instead
+///
 resource_t *create_resource(game_t *game, char *file, enum resource_type type);
+
+///
+/// Destroy the specified resource, freeing it.
+///
 void destroy_resource(game_t *game, resource_t *resource);
+
+///
+/// Get resource by name.
+///
 resource_t *get_resource(game_t *game, char *file);
+
+///
+/// Destroy resource by name, freeing it.
+///
 void destroy_resource_by_name(game_t *game, char *file);
 
+///
+/// Create and register a texture, with a size of rect.
+/// If texture is already in memory, will return the existing instance.
+///
 sfTexture *create_texture(game_t *game, char *file, sfIntRect *rect);
+
+///
+/// Destroy textures.
+/// count is the number of textures.
+/// Other arguments are sfTexture*
+///
 void destroy_textures(int count, ...);
 
+///
+/// Create and register a font.
+/// If font is already in memory, will return the existing instance.
+///
 sfFont *create_font(game_t *game, char *filepath);
+
+///
+/// Destroy fonts by instances.
+/// count is the number of items.
+/// Other arguments are sfFont*
+///
 void destroy_fonts(int count, ...);
 
+///
+/// Create and register a sound (and the appropriate soundbuffer automatically).
+/// If sound is already in memory, will return the existing instance.
+///
 sfSound *create_sound(game_t *game, char *filepath);
+
+///
+/// Create and register a music.
+/// If music is already in memory, will return the existing instance.
+///
 sfMusic *create_music(game_t *game, char *filepath);
 
 #define DESTROY_TEXTURES(...) \

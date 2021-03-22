@@ -38,36 +38,79 @@ typedef struct entity_info {
 #define ENTITY(type, ...) \
     (entity_info_t) { NULL, type, __VA_ARGS__ }
 
+///
+/// Create the entity of specified type.
+///
 entity_t *create_entity(game_t *game, int type);
 
+///
+/// Get entity info from its type.
+///
 entity_info_t *get_entity_info(game_t *game, int type);
 
+///
+/// Register an entity to the registry.
+///
 void register_entity(game_t *game, entity_info_t *entity);
 
+///
+/// Add a detached or externally allocated entity to the scene entities.
+///
 void add_to_entities(game_t *game, entity_t *entity);
 
+///
+/// Register several entities to the registry.
+///
 void register_entities(game_t *game, entity_info_t **entities);
 
+///
+/// Call the draw function of the entity.
+///
 void draw_entity(game_t *game, entity_t *entity);
 
+///
+/// Call the update function of the entity.
+///
 void update_entity(game_t *game, entity_t *entity);
 
+///
+/// Deallocate an entity.
+/// Calls the destroy function of the entity.
+///
 void destroy_entity(game_t *game, entity_t *entity);
 
 #define REGISTER_ENTITIES(game, ...) \
     register_entities(game, ((entity_info_t *[]){ 0, ## __VA_ARGS__, NULL })+1)
 
+///
+/// Get the next entity in the list that matches the specified type.
+///
+/// You may want to use the GET_ENTITY(game, type) macro or
+/// FOREACH_ENTITY_OF_TYPE(...) {} instead.
+///
 entity_t *get_next_entity_of_type(entity_t *entity, int type);
 
 #define GET_ENTITY(game, entity_type) \
     get_next_entity_of_type(game->scene->entities, entity_type)
 
+///
+/// Call the following instruction block each time.
+///
+/// If you don't have an list of entities for the second argument,
+/// put `game->scene->entities`.
+///
+/// The third argument will be the name of the newly created variable.
+///
 #define FOREACH_ENTITY_OF_TYPE(entity_type, entities, entity) \
     for (entity_t *entity = (entities->type == entity_type ? entities \
         : get_next_entity_of_type(entities, entity_type)) \
         ; entity != NULL; \
         entity = get_next_entity_of_type(entity, entity_type))
 
+///
+/// Move the entity towards the target position.
+/// Movement will be of the specified distance.
+///
 sfVector2f move_entity_towards(entity_t *entity, sfVector2f target,
     float distance);
 

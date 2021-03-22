@@ -27,28 +27,64 @@ float v2fdistance(sfVector2f *v1, sfVector2f *v2);
 
 float v2idistance(sfVector2i *v1, sfVector2i *v2);
 
+///
+/// Add v1 with v2
+///
 sfVector2f v2fadd(sfVector2f v1, sfVector2f v2);
 
+///
+/// Add v1 with v2
+///
 sfVector2i v2iadd(sfVector2i v1, sfVector2i v2);
 
+///
+/// Substract v1 with v2
+///
 sfVector2f v2fsub(sfVector2f v1, sfVector2f v2);
 
+///
+/// Substract v1 with v2
+///
 sfVector2i v2isub(sfVector2i v1, sfVector2i v2);
 
+///
+/// Multiply v1 with f
+///
 sfVector2f v2fmulf(sfVector2f v1, float f);
 
+///
+/// Multiply v1 with f
+///
 sfVector2i v2imulf(sfVector2i v1, float f);
 
+///
+/// Add v2 to v1, returns v1
+///
 sfVector2f *pv2fadd(sfVector2f *v1, sfVector2f *v2);
 
+///
+/// Add v2 to v1, returns v1
+///
 sfVector2i *pv2iadd(sfVector2i *v1, sfVector2i *v2);
 
+///
+/// Substract v2 to v1, returns v1
+///
 sfVector2f *pv2fsub(sfVector2f *v1, sfVector2f *v2);
 
+///
+/// Substract v2 to v1, returns v1
+///
 sfVector2i *pv2isub(sfVector2i *v1, sfVector2i *v2);
 
+///
+/// Multiply f to v1, returns v1
+///
 sfVector2f *pv2fmulf(sfVector2f *v1, float f);
 
+///
+/// Multiply f to v1, returns v1
+///
 sfVector2i *pv2imulf(sfVector2i *v1, float f);
 
 #define ABS(x) (x < 0 ? -x : x)
