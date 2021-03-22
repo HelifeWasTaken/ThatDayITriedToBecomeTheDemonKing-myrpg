@@ -26,7 +26,7 @@ bool raycast_hit_all(game_t *game, ray_t *ray, entity_t **collided)
         return (false);
     while (v2fdistance(&ray->base, &position) < ray->max_distance) {
         last_position = position;
-        v2fadd(&position, &ray->direction);
+        pv2fadd(&position, &ray->direction);
         if (!is_v2f_on_screen(game, position))
             break;
         for (float g = 0; g < 1; g += 0.1) {
@@ -59,7 +59,7 @@ bool raycast_hit(game_t *game, ray_t *ray, rayhit_t *collided)
         return (false);
     while (v2fdistance(&ray->base, &position) < ray->max_distance) {
         last_position = position;
-        v2fadd(&position, &direction);
+        pv2fadd(&position, &direction);
         if (!is_v2f_on_screen(game, position))
             return (false);
         for (float f = 0; f < 1; f += 0.5) {

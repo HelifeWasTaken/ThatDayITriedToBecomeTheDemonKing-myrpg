@@ -15,8 +15,8 @@
 sfVector2f move_entity_towards(entity_t *entity, sfVector2f target,
     float distance)
 {
-    sfVector2f movement = v2fnormalized(v2fsub(&target, &entity->pos));
+    sfVector2f movement = v2fnormalized(pv2fsub(&target, &entity->pos));
 
-    v2fadd(&entity->pos, v2fmulf(&movement, distance));
+    pv2fadd(&entity->pos, pv2fmulf(&movement, distance));
     return movement;
 }
