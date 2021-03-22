@@ -14,6 +14,8 @@ void register_scene(game_t *game, int id, int (*lifecycle)(game_t *game))
 {
     scene_info_t *scene = malloc(sizeof(scene_t));
 
+    if (scene == NULL)
+        return;
     scene->id = id;
     scene->lifecycle = lifecycle;
     scene->next = game->scenes;
