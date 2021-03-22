@@ -68,9 +68,9 @@ entity_t *get_entity_colliding_at(game_t *game, sfVector2f *point);
 ///
 /// Get all the entities that can collide the point.
 ///
-/// Will get the value pointed by of append_pos and set the value pointed to
-/// the new appendable position, in sort that after the function call,
-/// `output_collided[*append_pos] = NULL`.
+/// Will get the value pointed by of append_pos as start index and set the
+/// value pointed to the new appendable position, in sort that after the
+/// function call, `output_collided[*append_pos] = NULL`.
 ///
 bool get_entities_colliding_at(game_t *game, sfVector2f *point,
     entity_t **output_collided, int *append_pos);
