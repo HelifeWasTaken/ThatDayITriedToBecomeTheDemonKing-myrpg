@@ -15,6 +15,8 @@ entity_t *create_entity(game_t *game, int type)
     entity_t *entity = malloc(sizeof(entity_t));
     entity_info_t *info = get_entity_info(game, type);
 
+    if (entity == NULL || info == NULL)
+        return (NULL);
     if (info == NULL)
         print_error("Entity is not registered!");
     entity->type = type;

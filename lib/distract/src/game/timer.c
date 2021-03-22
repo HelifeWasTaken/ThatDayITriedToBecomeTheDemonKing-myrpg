@@ -12,6 +12,8 @@ pausable_clock_t *create_pausable_clock(game_t *game)
 {
     pausable_clock_t *clock = malloc(sizeof(pausable_clock_t));
 
+    if (clock == NULL)
+        return (NULL);
     clock->game = game;
     clock->has_game_pause = true;
     clock->is_paused = false;

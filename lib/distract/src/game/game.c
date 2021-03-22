@@ -11,11 +11,15 @@
 game_t *create_game(void)
 {
     game_t *game = malloc(sizeof(game_t));
+    scene_t *scene = malloc(sizeof(scene_t));
+
+    if (game == NULL || scene == NULL)
+        return (NULL);
     game->window = NULL;
     game->state = NULL;
     game->is_paused = false;
     game->scenes = NULL;
-    game->scene = malloc(sizeof(scene_t));
+    game->scene = scene;
     game->scene->entities = NULL;
     game->scene->resources = NULL;
     game->scene->gui_elements = NULL;

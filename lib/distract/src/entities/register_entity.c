@@ -18,6 +18,8 @@ void register_entity(game_t *game, entity_info_t *entity)
     entity_info_t *entity_info = malloc(sizeof(entity_info_t));
     if (entity == NULL)
         print_error("You're trying to register a null entity!");
+    if (entity_info == NULL)
+        return;
     entity_info->type = entity->type;
     entity_info->create = entity->create;
     entity_info->destroy = entity->destroy;

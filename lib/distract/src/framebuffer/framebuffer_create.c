@@ -15,6 +15,8 @@ framebuffer_t *framebuffer_create(int width, int height)
     int buffersize = 4 * width * height;
     sfUint8 *pixels = malloc(sizeof(sfUint8) * buffersize);
 
+    if (framebuffer == NULL || pixels == NULL)
+        return (NULL);
     framebuffer->pixels = pixels;
     framebuffer->width = width;
     framebuffer->height = height;

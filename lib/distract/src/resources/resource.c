@@ -16,6 +16,8 @@ resource_t *create_resource(game_t *game, char *file, enum resource_type type)
 {
     resource_t *resource = malloc(sizeof(resource_t));
 
+    if (resource == NULL)
+        return (NULL);
     resource->prev = NULL;
     resource->next = game->scene->resources;
     resource->type = type;
