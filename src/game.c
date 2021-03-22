@@ -42,6 +42,8 @@ int load_game(void)
     int code = 0;
     game_t *game = create_game();
 
+    if (game == NULL)
+        return (84);
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
     do {
