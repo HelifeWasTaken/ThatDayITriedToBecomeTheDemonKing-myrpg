@@ -19,7 +19,7 @@ jobs:
           shell: bash
           if: always()
           run: |
-               checkout=$(git log -1 --pretty=format:"__Checkout:%d: %h %s__")
+               checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
                errors=$(bash -c 'cat build_output | grep "error: " -A 2 | python3 -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])"')
                if [[ -z $errors ]]; then
                   errors="No errors."
@@ -42,7 +42,7 @@ jobs:
           shell: bash
           if: always()
           run: |
-               checkout=$(git log -1 --pretty=format:"__Checkout:%d: %h %s__")
+               checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
                warnings=$(bash -c 'cat build_output_debug | grep "warning: " -A 2 | python -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])"')
                if [[ -z $warnings ]]; then
                   warnings="No warnings."
