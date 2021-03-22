@@ -1,0 +1,55 @@
+name: Build
+
+on:
+    push:
+        branches:
+        - dev
+        - main
+        - master
+jobs:
+    build:
+        runs-on: ubuntu-20.04
+        container: docker://epitechcontent/epitest-docker
+        steps:
+        - uses: actions/checkout@v2
+        - name: Build
+          shell: bash
+          run: "make 2>&1 | tee build_output"
+        - name: Send notification
+          shell: bash
+          if: always()
+          run: |
+               errors=$(bash -c 'cat build_output | grep "error: " -A 2 | python3 -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])"')
+               if [[ -z $errors ]]; then
+                  errors="No errors."
+               fi
+               errors_count=$(bash -c 'cat build_output | grep "error: " | wc -l')
+               echo '{"content": "**'$GITHUB_REPOSITORY'**\nCompilation: '$errors_count' errors.\n```\n'$errors'\n```"}' > notification_data
+               cat notification_data
+               curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
+        - uses: actions/upload-artifact@v2
+          with:
+            name: build_output
+            path: build_output
+        - name: Preparing a clean env
+          run: find . -type f \( -name "*.gc*" -o -name "*.o" -o -name "*.a" \) -delete
+        - name: Build with debug mode
+          if: always()
+          shell: bash
+          run: "EPIDEBUG=1 make 2>&1 | tee build_output_debug"
+        - name: Send notification
+          shell: bash
+          if: always()
+          run: |
+               warnings=$(bash -c 'cat build_output_debug | grep "warning: " -A 2 | python -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])"')
+               if [[ -z $warnings ]]; then
+                  warnings="No warnings."
+               fi
+               warnings_count=$(bash -c 'cat build_output_debug | grep "warning: " | wc -l')
+               echo '{"content": "**'$GITHUB_REPOSITORY'**\nDebug compilation: '$warnings_count' warnings.\n```\n'$warnings'\n```"}' > notification_data
+               cat notification_data
+               curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
+        - uses: actions/upload-artifact@v2
+          with:
+            name: build_output_debug
+            path: build_output_debug

@@ -1,0 +1,14 @@
+-Wall
+-Winit-self
+-Wshadow
+-Wpointer-arith
+-Wduplicated-cond
+-Wswitch-enum
+-Wdeclaration-after-statement
+-Wfloat-equal
+-Wtautological-compare
+-Warray-bounds
+-Walloc-zero
+-Wcast-qual
+-Wextra
+-I./include
