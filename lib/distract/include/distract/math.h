@@ -9,22 +9,50 @@
 #define DISTRACT_MATH_H
 #include "SFML/Graphics.h"
 
+///
+/// Linear interpolation between two floats
+///
 float lerp(float a, float b, float t);
 
+///
+/// Linear interpolation between two vectors
+///
 sfVector2f v2flerp(sfVector2f *v1, sfVector2f *v2, float t);
 
+///
+/// Linear interpolation between two vectors
+///
 sfVector2i v2ilerp(sfVector2i *v1, sfVector2i *v2, float t);
 
+///
+/// Magnitude of a vector
+///
 float v2fmagnitude(sfVector2f *vector);
 
+///
+/// Magnitude of a vector
+///
 float v2imagnitude(sfVector2i *vector);
 
+///
+/// Normalized vector
+///
 sfVector2f v2fnormalized(sfVector2f *vector);
 
+///
+/// Normalized vector
+///
 sfVector2i v2inormalized(sfVector2i *vector);
 
+
+///
+/// Distance between v1 and v2
+///
 float v2fdistance(sfVector2f *v1, sfVector2f *v2);
 
+///
+/// Distance between v1 and v2
+///
 float v2idistance(sfVector2i *v1, sfVector2i *v2);
 
 ///

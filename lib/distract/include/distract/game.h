@@ -11,13 +11,42 @@
 #include "SFML/Graphics.h"
 
 typedef struct game {
+
+    ///
+    /// CSFML Render Window
+    ///
     sfRenderWindow *window;
+
+    ///
+    /// Scenes registry
+    ///
     struct scene_info *scenes;
+
+    ///
+    /// Entities registry
+    ///
     struct entity_info *entities;
-    struct gui_element_info *gui_elements;
+
+    ///
+    /// Current scene
+    ///
     struct scene *scene;
+
+    ///
+    /// Screen video mode
+    ///
     sfVideoMode mode;
+
+    ///
+    /// Is game paused?
+    /// Mutable
+    ///
     sfBool is_paused;
+
+    ///
+    /// Storage for global game state
+    /// Mutable
+    ///
     void *state;
 } game_t;
 
@@ -38,11 +67,28 @@ void destroy_game(game_t *game);
 ///
 void close_game(game_t *game);
 
+///
+/// Basically an sfClock that can be paused
+///
 typedef struct pausable_clock {
     game_t *game;
     sfClock *frame_clock;
+
+    ///
+    /// Time since clock start.
+    /// Don't forget to call `tick_pausable_clock(clock);` on each frame.
+    /// Mutable
+    ///
     float time;
+
+    ///
+    /// Is the clock paused?
+    ///
     sfBool is_paused;
+
+    ///
+    /// Should the clock also be paused when the game is paused?
+    ///
     sfBool has_game_pause;
 } pausable_clock_t;
 

@@ -12,22 +12,64 @@
 #include "distract/def.h"
 #include "stdio.h"
 
+///
+/// Living entity in the scene
+///
 typedef struct entity {
     struct entity *next;
     struct entity *prev;
+
+    ///
+    /// Pointer to the registry informations of the entity
+    ///
     struct entity_info *info;
+
+    ///
+    /// Position of the entity
+    ///
     sfVector2f pos;
+
+    ///
+    /// Type of the entity
+    ///
     int type;
+
+    ///
+    /// Z-order of the entity.
+    /// Highest value means that the entity will be updated/drawn last.
+    ///
     int z;
+
+    ///
+    /// Storage for the entity instance
+    ///
     void *instance;
+
+    ///
+    /// Function called to check if a position collides with a point
+    /// of the object
+    ///
     bool (*do_collide_point)(struct entity *entity, sfVector2f *pos);
+
+    ///
+    /// Function called to check if a rectangle collides with a point of the
+    /// object
+    ///
     bool (*do_collide_rect)(struct entity *entity, sfFloatRect *rect,
         sfFloatRect *overlap);
 } entity_t;
 
+///
+/// Informations about an entity, in the entities registry
+///
 typedef struct entity_info {
     struct entity_info *next;
+
+    ///
+    /// Type of the entity
+    ///
     int type;
+    
     void (*create)(game_t *game, entity_t *entity);
     void (*draw)(game_t *game, entity_t *entity);
     void (*destroy)(game_t *game, entity_t *entity);

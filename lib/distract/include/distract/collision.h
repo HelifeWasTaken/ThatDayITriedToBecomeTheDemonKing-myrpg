@@ -11,19 +11,43 @@
 #include "distract/game.h"
 #include "distract/entity.h"
 
+///
+/// Details about the raycast
+///
 typedef struct ray {
+    ///
+    /// Origin of the ray
+    ///
     sfVector2f base;
+
+    ///
+    /// Direction to send the ray towards
+    ///
     sfVector2f direction;
+
+    ///
+    /// Max distance of the base
+    ///
     float max_distance;
 } ray_t;
 
+///
+/// Element hit by the raycast
+///
 typedef struct rayhit {
     sfVector2f point;
     entity_t *target;
 } rayhit_t;
 
+///
+/// Cast a ray and hit the nearest element.
+/// Will fill the structure at output_collided with the data.
+///
 bool raycast_hit(game_t *game, ray_t *ray, rayhit_t *output_collided);
 
+///
+/// Cast a ray and hit as many elements as possible.
+///
 bool raycast_hit_all(game_t *game, ray_t *ray, entity_t **output_collided);
 
 ///

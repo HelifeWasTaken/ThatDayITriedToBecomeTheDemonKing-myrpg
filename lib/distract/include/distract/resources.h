@@ -12,6 +12,9 @@
 #include "distract/def.h"
 #include "distract/game.h"
 
+///
+/// Type of resource in registry
+///
 enum resource_type {
     R_TEXTURE,
     R_MUSIC,
@@ -20,6 +23,9 @@ enum resource_type {
     R_FONT
 };
 
+///
+/// Resource in the resources registry
+///
 typedef struct resource {
     struct resource *next;
     struct resource *prev;
