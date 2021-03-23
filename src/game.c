@@ -16,7 +16,7 @@
 
 static void configure_window(game_t *game)
 {
-    game->mode = MODE(1280, 720, 32);
+    game->mode = MODE(1920, 1080, 32);
     game->window = create_standard_window(game->mode, "My RPG");
     sfRenderWindow_setFramerateLimit(game->window, 60);
 }
@@ -25,7 +25,10 @@ static void configure_entities(game_t *game UNUSED)
 {
     REGISTER_ENTITIES(game,
         &ENTITY(PLAYER, &create_player, &draw_player,
-                        &destroy_player, &update_player, &handle_player_events)
+                        &destroy_player, &update_player, &handle_player_events),
+        &ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
+                &destroy_scroll_bar, &update_scroll_bar,
+                    &handle_scroll_bar_events)
     );
 }
 
@@ -34,6 +37,7 @@ void configure_game(game_t *game)
     configure_window(game);
     register_scene(game, PLAY_SCENE, &play_lifecycle);
     register_scene(game, MENU_SCENE, &menu_lifecycle);
+    register_scene(game, KEY_CONFIG, &key_lifecycle);
     configure_entities(game);
 }
 
@@ -45,7 +49,7 @@ int load_game(void)
     if (game == NULL)
         return (84);
     configure_game(game);
-    set_pending_scene(game, MENU_SCENE);
+    set_pending_scene(game, KEY_CONFIG);
     do {
         code = load_pending_scene(game);
         if (code != 0)
