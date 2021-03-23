@@ -8,6 +8,7 @@
 #include "distract/game.h"
 #include "distract/window.h"
 #include "distract/scene.h"
+#include "myrpg/asset.h"
 #include "distract/entity.h"
 #include "distract/debug.h"
 #include "myrpg/entities.h"
@@ -16,7 +17,9 @@
 
 static void configure_window(game_t *game)
 {
-    game->mode = MODE(1920, 1080, 32);
+    const sfVideoMode *window = sfVideoMode_getFullscreenModes(NULL);
+
+    game->mode = MODE(window->width , window->height, 32);
     game->window = create_standard_window(game->mode, "My RPG");
     sfRenderWindow_setFramerateLimit(game->window, 60);
 }
@@ -29,6 +32,8 @@ static void configure_entities(game_t *game UNUSED)
         &ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
                 &destroy_scroll_bar, &update_scroll_bar,
                     &handle_scroll_bar_events)
+        &ENTITY(MENU, &create_menu, &draw_menu,
+                &destroy_menu, NULL, &handle_menu_events)
     );
 }
 

@@ -35,11 +35,13 @@ TARGET = my_rpg
 TARGET_TEST = unit_tests
 
 SRC = 	src/game.c \
-	src/entities/player/player.c \
-	src/entities/scroll_bar/scroll_bar.c    \
-	src/scenes/play/lifecycle.c \
-	src/scenes/menu/lifecycle.c     \
-	src/scenes/key_config/lifecycle.c
+
+src/entities/player/player.c \
+src/entities/scroll_bar/scroll_bar.c    \
+src/scenes/play/lifecycle.c \
+src/scenes/menu/lifecycle.c     \
+src/scenes/key_config/lifecycle.c
+src/entities/menu/menu.c
 
 TESTS =	\
 
