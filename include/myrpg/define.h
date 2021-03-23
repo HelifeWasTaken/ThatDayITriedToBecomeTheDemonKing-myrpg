@@ -10,6 +10,6 @@
     #include "SFML/Graphics.h"
 
     #define DRAW_SPRITE sfRenderWindow_drawSprite
-    #define SET_POS sfSprite_setPosition
+    #define SET_SPRITE_POS sfSprite_setPosition
 
 #endif

@@ -29,7 +29,7 @@ static void create_background(game_t *game UNUSED,
         buton_texture = create_texture(game, ASSET_MENU_PATH[i],
             &MENU_BUTON_RECT);
         menu->buton_sprite[i] = create_sprite(buton_texture, NULL);
-        SET_POS(menu->buton_sprite[i], VEC2F(window->width/2,
+        SET_SPRITE_POS(menu->buton_sprite[i], VEC2F(window->width/2,
             window->height/pos_y));
         pos_y--;
     }
