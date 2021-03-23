@@ -19,8 +19,8 @@ jobs:
         - name: Check size
           shell: bash
           run: |
-              size=$(du -cs . | cut -f1)
-              size_readable=$(du -cs . | cut -f1)
+              size=$(du -cs . | tail -1 | cut -f1)
+              size_readable=$(du -hcs . | tail -1 | cut -f1)
               if [ "$size" -gt "30000" ]; then
                 echo "Size $size_readable is bigger than 30MB."
                 echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\n**WARNING: REPO IS BIGGER THAN 30MB ON THIS COMMIT ('$size_readable')' > notification_data
