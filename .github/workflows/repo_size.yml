@@ -1,0 +1,32 @@
+name: Build
+
+on:
+    push:
+        branches:
+        - dev
+        - main
+        - master
+    pull_request:
+jobs:
+    build:
+        runs-on: ubuntu-20.04
+        container: docker://epitechcontent/epitest-docker
+        steps:
+        - uses: actions/checkout@v2
+        - name: Build
+          shell: bash
+          run: "make"
+        - name: Check size
+          shell: bash
+          run: |
+              size=$(du -cs . | cut -f1)
+              size_readable=$(du -cs . | cut -f1)
+              if (( $size > 30000 )); then
+                echo "Size $size_readable is bigger than 30MB."
+                echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\n**WARNING: REPO IS BIGGER THAN 30MB ON THIS COMMIT ('$size_readable')' > notification_data
+                curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
+                exit 1
+
+                echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\nRepo is smaller than 30MB: it is '$size_readable'."}' > notification_data
+                curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
+              fi
