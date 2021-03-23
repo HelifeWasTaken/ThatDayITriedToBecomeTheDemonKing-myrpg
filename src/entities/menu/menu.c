@@ -11,10 +11,11 @@
 #include "distract/graphics.h"
 #include "distract/window.h"
 #include "SFML/Window.h"
-#include "myrpg/asset.h"
 #include "SFML/Graphics.h"
-#include "myrpg/entities.h"
 #include "stdlib.h"
+#include "myrpg/entities.h"
+#include "myrpg/scenes.h"
+#include "myrpg/asset.h"
 
 bool handle_menu_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
@@ -28,6 +29,8 @@ bool handle_menu_events(game_t *game UNUSED,
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x ,
             mouse_pos.y) == sfTrue) {
             sfSprite_setScale(menu->buton_sprite[i], VEC2F(1.5, 1.5));
+            if (i == 1 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
+                switch_to_scene(game, KEY_CONFIG);
             return (true);
         } else
             sfSprite_setScale(menu->buton_sprite[i], VEC2F(1, 1));
