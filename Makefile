@@ -1,22 +1,29 @@
+##
+## EPITECH PROJECT, 2021
+## my_rpg
+## File description:
+## Makefile
+##
+
 CC = gcc
 
 CFLAGS = -W -Wall -Werror -I./include -L./lib
 
 ifeq ($(EPIDEBUG), 1)
-        CFLAGS += -Wno-error=init-self -Winit-self
-        CFLAGS += -Wno-error=shadow -Wshadow
-        CFLAGS += -Wno-error=pointer-arith -Wpointer-arith
-        CFLAGS += -Wno-error=duplicated-cond -Wduplicated-cond
-        CFLAGS += -Wno-error=switch-enum -Wswitch-enum
-        CFLAGS += -Wno-error=declaration-after-statement -Wdeclaration-after-statement
-        CFLAGS += -Wno-error=float-equal -Wfloat-equal
-        CFLAGS += -Wno-error=tautological-compare -Wtautological-compare
-        CFLAGS += -Wno-error=array-bounds -Warray-bounds
-        CFLAGS += -Wno-error=alloc-zero -Walloc-zero
-        CFLAGS += -Wno-error=cast-qual -Wcast-qual
-        CFLAGS += -Wno-error=extra -Wextra
-        CFLAGS += -fno-builtin
-        CFLAGS += -ftrapv -ggdb -g3
+	CFLAGS += -Wno-error=init-self -Winit-self
+	CFLAGS += -Wno-error=shadow -Wshadow
+	CFLAGS += -Wno-error=pointer-arith -Wpointer-arith
+	CFLAGS += -Wno-error=duplicated-cond -Wduplicated-cond
+	CFLAGS += -Wno-error=switch-enum -Wswitch-enum
+	CFLAGS += -Wno-error=declaration-after-statement -Wdeclaration-after-statement
+	CFLAGS += -Wno-error=float-equal -Wfloat-equal
+	CFLAGS += -Wno-error=tautological-compare -Wtautological-compare
+	CFLAGS += -Wno-error=array-bounds -Warray-bounds
+	CFLAGS += -Wno-error=alloc-zero -Walloc-zero
+	CFLAGS += -Wno-error=cast-qual -Wcast-qual
+	CFLAGS += -Wno-error=extra -Wextra
+	CFLAGS += -fno-builtin
+	CFLAGS += -ftrapv -ggdb -g3
 endif
 
 LFLAGS = -ldistract -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm # -lmy
@@ -28,10 +35,13 @@ TARGET = my_rpg
 TARGET_TEST = unit_tests
 
 SRC = 	src/game.c \
-        src/entities/player/player.c \
-        src/scenes/play/lifecycle.c \
-        src/scenes/menu/lifecycle.c \
-        src/entities/menu/menu.c
+
+src/entities/player/player.c \
+src/entities/scroll_bar/scroll_bar.c    \
+src/scenes/play/lifecycle.c \
+src/scenes/menu/lifecycle.c     \
+src/scenes/key_config/lifecycle.c
+src/entities/menu/menu.c
 
 TESTS =	\
 
@@ -51,7 +61,7 @@ tests_run: clean_tests build_lib
 	${CC} ${CFLAGS} ${TEST_FLAGS} -o ${TARGET_TEST} ${SRC} ${TESTS} ${LFLAGS}
 	./${TARGET_TEST} --verbose
 
-coverage:                                                      
+coverage:
 	gcovr -b --exclude-directories tests
 	gcovr -r . --exclude-directories tests
 

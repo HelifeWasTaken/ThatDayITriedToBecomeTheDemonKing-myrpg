@@ -4,6 +4,7 @@
 ** File description:
 ** Source code
 */
+
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"

@@ -1,20 +1,20 @@
 /*
 ** EPITECH PROJECT, 2021
-** lifecycle
+** my_rpg
 ** File description:
-** Source code
+** lifecycle
 */
-#include "distract/entity.h"
-#include "myrpg/entities.h"
+
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"
+#include "myrpg/entities.h"
 
-int play_lifecycle(game_t *game)
+int key_lifecycle(game_t *game)
 {
     sfEvent event;
 
-    create_entity(game, PLAYER);
+    create_entity(game, SCROLL);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)
