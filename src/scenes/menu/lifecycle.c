@@ -7,10 +7,12 @@
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"
+#include "myrpg/entities.h"
 
 int menu_lifecycle(game_t *game)
 {
     sfEvent event;
+    create_entity(game, MENU);
 
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))

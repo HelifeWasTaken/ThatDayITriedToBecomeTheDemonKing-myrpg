@@ -30,7 +30,8 @@ TARGET_TEST = unit_tests
 SRC = 	src/game.c \
         src/entities/player/player.c \
         src/scenes/play/lifecycle.c \
-        src/scenes/menu/lifecycle.c
+        src/scenes/menu/lifecycle.c \
+        src/entities/menu/menu.c
 
 TESTS =	\
 
