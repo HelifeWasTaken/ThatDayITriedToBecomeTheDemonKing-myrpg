@@ -22,7 +22,7 @@ void create_menu(game_t *game UNUSED, entity_t *entity)
     menu_t *menu = malloc(sizeof(menu_t));
     sfIntRect play_rect = PLAY_BUTON_RECT;
     sfTexture *menu_texture =
-        create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT);
+        create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT(window));
     sfTexture *play_texture =
         create_texture(game, PLAY_BUTON_SPT, &play_rect);
 
