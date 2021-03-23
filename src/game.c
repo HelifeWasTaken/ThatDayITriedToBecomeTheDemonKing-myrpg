@@ -31,7 +31,7 @@ static void configure_entities(game_t *game UNUSED)
                         &destroy_player, &update_player, &handle_player_events),
         &ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
                 &destroy_scroll_bar, &update_scroll_bar,
-                    &handle_scroll_bar_events)
+                    &handle_scroll_bar_events),
         &ENTITY(MENU, &create_menu, &draw_menu,
                 &destroy_menu, NULL, &handle_menu_events)
     );
@@ -54,7 +54,7 @@ int load_game(void)
     if (game == NULL)
         return (84);
     configure_game(game);
-    set_pending_scene(game, KEY_CONFIG);
+    set_pending_scene(game, MENU_SCENE);
     do {
         code = load_pending_scene(game);
         if (code != 0)

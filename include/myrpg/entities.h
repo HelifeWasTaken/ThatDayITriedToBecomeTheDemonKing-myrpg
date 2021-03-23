@@ -10,6 +10,7 @@
 
 #include "distract/entity.h"
 #include "myrpg/game.h"
+#include "define.h"
 
 enum entity_type {
     PLAYER,
@@ -20,10 +21,9 @@ enum entity_type {
 //----------------------------------------
 
 typedef struct menu {
-    sfSprite *sprite;
-    sfTexture *texture;
-    sfSprite *play_sprite;
-    sfTexture *play_texture;
+    entity_t *entity;
+    sfSprite *bg_sprite;
+    sfSprite *buton_sprite[3];
 } menu_t;
 
 typedef struct player {
