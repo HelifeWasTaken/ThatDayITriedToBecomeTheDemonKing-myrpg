@@ -20,10 +20,9 @@ void create_menu(game_t *game UNUSED, entity_t *entity)
 {
     const sfVideoMode *window = sfVideoMode_getFullscreenModes(NULL);
     menu_t *menu = malloc(sizeof(menu_t));
-    sfIntRect play_rect = IRECT(0, 0, PLAY_BUTON_SPT_W, PLAY_BUTON_SPT_H);
+    sfIntRect play_rect = PLAY_BUTON_RECT;
     sfTexture *menu_texture =
-        create_texture(game, MAIN_MENU_BG,
-        &IRECT(0, 0, window->width, window->height));
+        create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT);
     sfTexture *play_texture =
         create_texture(game, PLAY_BUTON_SPT, &play_rect);
 
