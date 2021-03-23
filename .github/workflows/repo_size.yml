@@ -26,7 +26,7 @@ jobs:
                 echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\n**WARNING: REPO IS BIGGER THAN 30MB ON THIS COMMIT ('$size_readable')' > notification_data
                 curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
                 exit 1
-
-                echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\nRepo is smaller than 30MB: it is '$size_readable'."}' > notification_data
-                curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
               fi
+
+              echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\nRepo is smaller than 30MB: it is '$size_readable'."}' > notification_data
+              curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
