@@ -1,4 +1,4 @@
-name: Build
+name: Repo size
 
 on:
     push:
