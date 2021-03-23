@@ -25,15 +25,15 @@ bool handle_menu_events(game_t *game UNUSED,
     sfFloatRect buton_pos;
 
     for (int i = 0; i < 3; i++) {
-        buton_pos = sfSprite_getGlobalBounds(menu->buton_sprite[i]);
+        buton_pos = sfSprite_getGlobalBounds(menu->button_sprite[i]);
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x ,
             mouse_pos.y) == sfTrue) {
-            sfSprite_setScale(menu->buton_sprite[i], VEC2F(1.5, 1.5));
+            sfSprite_setScale(menu->button_sprite[i], VEC2F(1.5, 1.5));
             if (i == 1 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
                 switch_to_scene(game, KEY_CONFIG);
             return (true);
         } else
-            sfSprite_setScale(menu->buton_sprite[i], VEC2F(1, 1));
+            sfSprite_setScale(menu->button_sprite[i], VEC2F(1, 1));
     }
     return (false);
 }
@@ -44,7 +44,7 @@ void draw_menu(game_t *game UNUSED, entity_t *entity)
 
     DRAW_SPRITE(game->window, menu->bg_sprite, NULL);
     for (int i = 0; i < 3; i++)
-        DRAW_SPRITE(game->window, menu->buton_sprite[i], NULL);
+        DRAW_SPRITE(game->window, menu->button_sprite[i], NULL);
 }
 
 void destroy_menu(game_t *game UNUSED, entity_t *entity)
@@ -53,6 +53,6 @@ void destroy_menu(game_t *game UNUSED, entity_t *entity)
 
     sfSprite_destroy(menu->bg_sprite);
     for (int i = 0; i < 3; i++)
-        sfSprite_destroy(menu->buton_sprite[i]);
+        sfSprite_destroy(menu->button_sprite[i]);
     free(menu);
 }

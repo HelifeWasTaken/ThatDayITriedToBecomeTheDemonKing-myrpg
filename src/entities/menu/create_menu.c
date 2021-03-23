@@ -21,15 +21,15 @@ static void create_background(game_t *game UNUSED,
 {
     sfTexture *menu_texture =
         create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT(window));
-    sfTexture * buton_texture;
+    sfTexture * button_texture;
     int pos_y = 3;
 
     menu->bg_sprite = create_sprite(menu_texture, NULL);
     for (int i = 0; i < 3; i++) {
-        buton_texture = create_texture(game, ASSET_MENU_PATH[i],
+        button_texture = create_texture(game, ASSET_MENU_PATH[i],
             &MENU_BUTON_RECT);
-        menu->buton_sprite[i] = create_sprite(buton_texture, NULL);
-        SET_SPRITE_POS(menu->buton_sprite[i], VEC2F(window->width/2,
+        menu->button_sprite[i] = create_sprite(button_texture, NULL);
+        SET_SPRITE_POS(menu->button_sprite[i], VEC2F(window->width/2,
             window->height/pos_y));
         pos_y--;
     }

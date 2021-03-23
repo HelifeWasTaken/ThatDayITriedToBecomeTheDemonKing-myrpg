@@ -23,7 +23,7 @@ enum entity_type {
 typedef struct menu {
     entity_t *entity;
     sfSprite *bg_sprite;
-    sfSprite *buton_sprite[3];
+    sfSprite *button_sprite[3];
 } menu_t;
 
 typedef struct player {
