@@ -17,7 +17,7 @@
 #include "stdlib.h"
 
 static void create_background(game_t *game UNUSED,
-    menu_t *menu, const sfVideoMode *window)
+    menu_t *menu)
 {
     sfTexture *menu_texture =
         create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT(window));
@@ -29,7 +29,7 @@ static void create_background(game_t *game UNUSED,
         button_texture = create_texture(game, ASSET_MENU_PATH[i],
             &MENU_BUTTON_RECT);
         menu->button_sprite[i] = create_sprite(button_texture, NULL);
-        SET_SPRITE_POS(menu->button_sprite[i], VEC2F(window->width/2,
+        SET_SPRITE_POS(menu->button_sprite[i], VEC2F(WINDOW_W/2,
             BUTTON_MENU_POS[i]));
         pos_y--;
     }
@@ -37,9 +37,8 @@ static void create_background(game_t *game UNUSED,
 
 void create_menu(game_t *game UNUSED, entity_t *entity)
 {
-    const sfVideoMode *window = sfVideoMode_getFullscreenModes(NULL);
     menu_t *menu = malloc(sizeof(menu_t));
     
-    create_background(game, menu, window);
+    create_background(game, menu);
     entity->instance = menu;
 }
