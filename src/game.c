@@ -17,9 +17,7 @@
 
 static void configure_window(game_t *game)
 {
-    const sfVideoMode *window = sfVideoMode_getFullscreenModes(NULL);
-
-    game->mode = MODE(window->width , window->height, 32);
+    game->mode = MODE(WINDOW_W, WINDOW_H, 32);
     game->window = create_standard_window(game->mode, "My RPG");
     sfRenderWindow_setFramerateLimit(game->window, 60);
 }
