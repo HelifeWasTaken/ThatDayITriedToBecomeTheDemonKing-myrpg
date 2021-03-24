@@ -8,6 +8,7 @@
 #ifndef DISTRACT_ENTITY_H
 #define DISTRACT_ENTITY_H
 #include "SFML/Graphics.h"
+#include "SFML/System.h"
 #include "distract/game.h"
 #include "distract/def.h"
 #include "stdio.h"
@@ -60,6 +61,18 @@ typedef struct entity {
     ///
     bool (*do_collide_rect)(struct entity *entity, sfFloatRect *rect,
         sfFloatRect *overlap);
+
+    ///
+    /// If set to true, update loop will be run on another thread
+    ///
+    bool use_multithreading;
+
+    ///
+    /// In the case where multithreading is enabled, it is
+    /// the corresponding thread
+    ///
+    sfThread *thread;
+
 } entity_t;
 
 ///
@@ -119,6 +132,11 @@ void draw_entity(game_t *game, entity_t *entity);
 void update_entity(game_t *game, entity_t *entity);
 
 ///
+/// Call the update function of the entity using the thread.
+///
+void update_entity_async(game_t *game, entity_t *entity);
+
+///
 /// Deallocate an entity.
 /// Calls the destroy function of the entity.
 ///
@@ -158,5 +176,10 @@ entity_t *get_next_entity_of_type(entity_t *entity, int type);
 ///
 sfVector2f move_entity_towards(entity_t *entity, sfVector2f target,
     float distance);
+
+struct thread_hook_data {
+    game_t *game;
+    entity_t *entity;
+};
 
 #endif //DISTRACT_ENTITY_H
