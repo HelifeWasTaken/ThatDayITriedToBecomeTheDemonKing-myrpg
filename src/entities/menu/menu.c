@@ -28,9 +28,13 @@ bool handle_menu_events(game_t *game UNUSED,
         buton_pos = sfSprite_getGlobalBounds(menu->button_sprite[i]);
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x ,
             mouse_pos.y) == sfTrue) {
-            sfSprite_setScale(menu->button_sprite[i], VEC2F(1.5, 1.5));
+            sfSprite_setScale(menu->button_sprite[i], VEC2F(1.2, 1.2));
+            if (i == 0 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
+                switch_to_scene(game, KEY_CONFIG);
             if (i == 1 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
                 switch_to_scene(game, KEY_CONFIG);
+            if (i == 2 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
+                close_game(game);
             return (true);
         } else
             sfSprite_setScale(menu->button_sprite[i], VEC2F(1, 1));
