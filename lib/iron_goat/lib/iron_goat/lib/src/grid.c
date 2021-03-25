@@ -6,6 +6,7 @@
 */
 
 #include <iron_goat/deser.h>
+#include "priv/grid/grid.h"
 
 static const struct json_deser_data IG_GRID[] = {
     {
