@@ -21,7 +21,7 @@ static void wait_thread_ends(game_t *game)
     while (entity != NULL) {
         next = entity->next;
         if (entity->use_multithreading) {
-            sfThread_wait(entity->thread);
+            sfThread_wait(entity->threadinfo->thread);
         }
         entity = next;
     }

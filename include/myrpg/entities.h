@@ -11,11 +11,13 @@
 #include "distract/entity.h"
 #include "myrpg/game.h"
 #include "define.h"
+#include <SFML/System/Types.h>
 
 enum entity_type {
     PLAYER,
     SCROLL,
     MENU,
+    THREADWORKER
 };
 
 //----------------------------------------
@@ -55,4 +57,18 @@ void update_scroll_bar(game_t *game, entity_t *entity);
 void draw_scroll_bar(game_t *game, entity_t *entity);
 void destroy_scroll_bar(game_t *game, entity_t *entity);
 bool handle_scroll_bar_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct threadworker {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    sfThread *thread;
+} threadworker_t;
+
+void create_threadworker(game_t *game, entity_t *entity);
+void update_threadworker(game_t *game, entity_t *entity);
+void draw_threadworker(game_t *game, entity_t *entity);
+void destroy_threadworker(game_t *game, entity_t *entity);
+bool handle_threadworker_events(game_t *game, entity_t *entity, sfEvent *event);
+
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

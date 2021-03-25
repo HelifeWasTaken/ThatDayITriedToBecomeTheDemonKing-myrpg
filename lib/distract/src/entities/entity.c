@@ -33,10 +33,11 @@ void update_entity(game_t *game, entity_t *entity)
     }
 }
 
-void update_entity_async(game_t *game UNUSED, entity_t *entity)
+void update_entity_async(game_t *game, entity_t *entity)
 {
-    if (entity->info->update != NULL) {
-        sfThread_launch(entity->thread);
+    if (entity->threadinfo != NULL && entity->info->update != NULL) {
+        entity->threadinfo->game = game;
+        sfThread_launch(entity->threadinfo->thread);
     }
 }
 
@@ -50,9 +51,10 @@ void destroy_entity(game_t *game, entity_t *entity)
 {
     if (entity->info->destroy != NULL)
         entity->info->destroy(game, entity);
-    if (entity->thread != NULL) {
-        sfThread_terminate(entity->thread);
-        sfThread_destroy(entity->thread);
+    if (entity->threadinfo->thread != NULL) {
+        sfThread_terminate(entity->threadinfo->thread);
+        sfThread_destroy(entity->threadinfo->thread);
+        free(entity->threadinfo);
     }
     if (game->scene->entities == entity)
         game->scene->entities = entity->next;

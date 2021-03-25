@@ -69,9 +69,9 @@ typedef struct entity {
 
     ///
     /// In the case where multithreading is enabled, it is
-    /// the corresponding thread
+    /// the informations about the corresponding thread
     ///
-    sfThread *thread;
+    struct thread_info *threadinfo;
 
 } entity_t;
 
@@ -177,9 +177,13 @@ entity_t *get_next_entity_of_type(entity_t *entity, int type);
 sfVector2f move_entity_towards(entity_t *entity, sfVector2f target,
     float distance);
 
-struct thread_hook_data {
+///
+/// Informations passed to the underlying thread.
+///
+typedef struct thread_info {
+    sfThread *thread;
     game_t *game;
     entity_t *entity;
-};
+} thread_info_t;
 
 #endif //DISTRACT_ENTITY_H
