@@ -32,4 +32,23 @@
     #define ASSET_MENU_PATH (char *[]) {PLAY_BUTTON_SPT,\
         SETTING_BUTTON_SPT, QUIT_BUTTON_SPT}
 
+    ///
+    /// ATH DEFINE
+    ///
+    #define CHAR_ICON "asset/ath/character.png"
+    #define EQUIP_ICON "asset/ath/equipment.png"
+    #define INVENTORY_ICON "asset/ath/inventory.png"
+    #define QUEST_ICON "asset/ath/Quests-Icon.png"
+    #define SKILL_ICON "asset/ath/skills.png"
+    #define OPTION_ICON "asset/ath/option.png"
+
+    #define ICON_RECT 100
+    #define ATH_ICON (char *[]) {CHAR_ICON, EQUIP_ICON, INVENTORY_ICON,\
+        QUEST_ICON, SKILL_ICON, OPTION_ICON}
+
+    #define PLAYER_ATH "asset/ath/player_ath.png"
+    #define PLAYER_ATH_W 370
+    #define PLAYER_ATH_H 200
+    #define PLAYER_ATH_POS_Y 815
+
 #endif
