@@ -36,24 +36,18 @@ ifeq ($(DEBUG),1)
 	CFLAGS 	+=	$(DEBUG_FLAGS)
 endif
 
-OBJ 	=	$(SRC:.c=.o)
-
-NAME 	=	test
-
-all:		$(NAME)
-
-$(NAME): info ## Call build_lib
-	@make -j -C ./lib --silent
+all: info ## Call build_lib
+	@make -j -C ./lib
+	@mv ./lib/libtgoat.a ../
 
 clean:
-	@make fclean -j -C ./lib --silent
-	@rm -rf $(OBJ)
+	@make fclean -j -C ./lib
 
 fclean: clean
 
 re:
-	@make re		-j -C ./lib --silent
-	@make all 	-j -C . 	--silent
+	@make re		-j -C ./lib
+	@make all 	-j -C .
 
 info:
 	@printf "%50s\n" " " | tr ' ' '-'

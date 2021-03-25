@@ -26,7 +26,7 @@ ifeq ($(EPIDEBUG), 1)
 	CFLAGS += -ftrapv -ggdb -g3
 endif
 
-LFLAGS = -ldistract -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm # -lmy
+LFLAGS = -ldistract -ltgoat -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm # -lmy
 
 TEST_FLAGS = $(LFLAGS) -lcriterion --coverage
 
@@ -58,7 +58,9 @@ re_lib:
 	${MAKE} re -C ./lib/distract/
 	${MAKE} re -C ./lib/iron_goat/
 
-build_all: ${TARGET}
+build_all:
+	rm -rf ${TARGET}
+	${MAKE} ${TARGET} -C .
 
 tests_run: clean_tests build_lib
 	${CC} ${CFLAGS} ${TEST_FLAGS} -o ${TARGET_TEST} ${SRC} ${TESTS} ${LFLAGS}

@@ -17,6 +17,7 @@ void destroy_iron_goat_map(struct iron_goat_map *self)
     FREE(self->tiledversion);
     if (self->tilesets)
         self->tilesets->clear(&self->tilesets);
+    FREE(self->type);
 }
 
 static bool load_iron_goat_map_layers(struct json *conf,
