@@ -7,7 +7,6 @@
 
 #ifndef _TEXT_H_
 #define _TEXT_H_
-#include <iron_goat/deser.h>
 
 struct iron_goat_text_halign_parser {
     ig_text_halign_t type;

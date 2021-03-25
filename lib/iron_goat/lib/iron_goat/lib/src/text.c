@@ -6,37 +6,13 @@
 */
 
 #include <iron_goat/deser.h>
+#include "priv/text/text.h"
 
 void destroy_iron_goat_text(struct iron_goat_text *self)
 {
     FREE(self->fontfamily);
     FREE(self->text);
 }
-
-struct iron_goat_text_halign_parser {
-    ig_text_halign_t type;
-    char *match;
-};
-
-static const struct iron_goat_text_halign_parser IG_HALIGN_TOKENS_PARSER[] = {
-    {HALIGN_CENTER, "center"},
-    {HALIGN_RIGHT, "right"},
-    {HALIGN_JUSTIFY, "justify"},
-    {HALIGN_LEFT, "left"}
-};
-
-//h
-struct iron_goat_text_valign_parser {
-    ig_text_valign_t type;
-    char *match;
-};
-//h
-
-static const struct iron_goat_text_valign_parser IG_VALIGN_TOKENS_PARSER[] = {
-    {VALIGN_CENTER, "center"},
-    {VALIGN_BOTTOM, "bottom"},
-    {VALIGN_TOP, "top"},
-};
 
 static const struct json_deser_data IG_TEXT[] = {
     {

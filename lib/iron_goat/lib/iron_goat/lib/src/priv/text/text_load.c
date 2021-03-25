@@ -5,6 +5,8 @@
 ** text_load.c
 */
 
+#include "text.h"
+
 static const struct iron_goat_text_halign_parser IG_HALIGN_TOKENS_PARSER[] = {
     {HALIGN_CENTER, "center"},
     {HALIGN_RIGHT, "right"},
