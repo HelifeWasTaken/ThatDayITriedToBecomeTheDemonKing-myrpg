@@ -6,6 +6,7 @@
 */
 
 #include <iron_goat/deser.h>
+#include "priv/map/map.h"
 
 void destroy_iron_goat_map(struct iron_goat_map *self)
 {
@@ -18,7 +19,7 @@ void destroy_iron_goat_map(struct iron_goat_map *self)
         self->tilesets->clear(&self->tilesets);
 }
 
-bool load_iron_goat_map_layers(struct json *conf,
+static bool load_iron_goat_map_layers(struct json *conf,
     struct iron_goat_map *self)
 {
     struct json_array *data = conf->v.array;
@@ -36,7 +37,7 @@ bool load_iron_goat_map_layers(struct json *conf,
     return (true);
 }
 
-bool load_iron_goat_map_properties(struct json *conf,
+static bool load_iron_goat_map_properties(struct json *conf,
     struct iron_goat_map *self)
 {
     struct json_array *data = conf->v.array;
@@ -54,7 +55,7 @@ bool load_iron_goat_map_properties(struct json *conf,
     return (true);
 }
 
-bool load_iron_goat_map_tilesets(struct json *conf,
+static bool load_iron_goat_map_tilesets(struct json *conf,
     struct iron_goat_map *self)
 {
     struct json_array *data = conf->v.array;

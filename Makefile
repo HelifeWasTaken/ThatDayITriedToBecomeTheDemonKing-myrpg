@@ -39,10 +39,12 @@ all: build_lib build_all
 build_lib:
 	#${MAKE} -C ./lib/my/
 	${MAKE} -C ./lib/distract/
+	${MAKE} -C ./lib/iron_goat/
 
 re_lib:
 	#${MAKE} re -C ./lib/my/
 	${MAKE} re -C ./lib/distract/
+	${MAKE} re -C ./lib/iron_goat/
 
 build_all: ${TARGET}
 
@@ -62,9 +64,14 @@ $(TARGET): ${SRC}
 
 clean:
 	rm -f ${TARGET}
+	${MAKE} clean -C ./lib/distract/
+	${MAKE} clean -C ./lib/iron_goat/
+
 
 fclean: clean
 	rm -f ${LIB} *.gc* unit_tests
+	${MAKE} fclean -C ./lib/iron_goat/
+	${MAKE} fclean -C ./lib/distract/
 
 re: fclean all
 

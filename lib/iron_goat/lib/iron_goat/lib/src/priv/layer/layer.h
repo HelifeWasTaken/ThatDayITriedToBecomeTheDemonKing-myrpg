@@ -31,5 +31,11 @@
         struct iron_goat_layer *self);
     bool load_iron_goat_layer_type(struct json *conf,
             struct iron_goat_layer *self);
+    bool load_iron_goat_layer_draworder(struct json *conf,
+        struct iron_goat_layer *self);
+    bool load_iron_goat_layer_encoding(struct json *conf,
+        struct iron_goat_layer *self);
+    bool load_iron_goat_map_staggeraxis(struct json *conf,
+        struct iron_goat_map *self);
 
 #endif

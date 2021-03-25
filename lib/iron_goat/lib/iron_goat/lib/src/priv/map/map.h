@@ -34,5 +34,9 @@
         struct iron_goat_map *self);
     bool load_iron_goat_map_orientation(struct json *conf,
         struct iron_goat_map *self);
+    bool load_iron_goat_map_staggeraxis(struct json *conf,
+        struct iron_goat_map *self);
+    bool load_iron_goat_map_staggerindex(struct json *conf,
+        struct iron_goat_map *self);
 
 #endif

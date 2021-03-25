@@ -6,6 +6,7 @@
 */
 
 #include <iron_goat/deser.h>
+#include "priv/layer/layer.h"
 
 void destroy_iron_goat_layer(struct iron_goat_layer *self)
 {
