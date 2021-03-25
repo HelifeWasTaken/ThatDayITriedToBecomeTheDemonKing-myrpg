@@ -20,6 +20,7 @@
 
 #define HASHMAP_GETTER_NAME(name) \
     liberty_templated_hashmap_getter_##name
+
 #define HASHMAP_GETTER_DECLARATION(name) \
     OPT(name) HASHMAP_GETTER_NAME(name)
 
