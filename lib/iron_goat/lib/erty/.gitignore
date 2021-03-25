@@ -1,0 +1,7 @@
+*.o
+*.out
+lib_files
+./include
+./erty
+.vscode
+lib/liberty.a
