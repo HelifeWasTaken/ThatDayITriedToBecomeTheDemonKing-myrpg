@@ -31,7 +31,9 @@ static void configure_entities(game_t *game UNUSED)
                 &destroy_scroll_bar, &update_scroll_bar,
                     &handle_scroll_bar_events),
         &ENTITY(MENU, &create_menu, &draw_menu,
-                &destroy_menu, NULL, &handle_menu_events)
+                &destroy_menu, NULL, &handle_menu_events),
+        &ENTITY(ATH, &create_ath, &draw_ath,
+                &destroy_ath, NULL, &handle_ath_events)
     );
 }
 
