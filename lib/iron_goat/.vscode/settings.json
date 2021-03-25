@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "json.h": "c",
+        "iron_goat.h": "c",
+        "graphics.hpp": "c",
+        "window.hpp": "c",
+        "system.hpp": "c",
+        "noncopyable.hpp": "c",
+        "fileinputstream.hpp": "c",
+        "eprintf.h": "c",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "ranges": "cpp",
+        "deser.h": "c",
+        "tiled.h": "c"
+    },
+    "DockerRun.DisableAutoGenerateConfig": true
+}
