@@ -77,6 +77,8 @@
     bool init_iron_goat_object(struct json *conf,
                             struct iron_goat_object *self);
     bool init_iron_goat_map(struct json *conf, struct iron_goat_map *self);
+    bool init_iron_goat_tileset(struct json *conf,
+                                struct iron_goat_tileset *self);
 
     bool hextoint(char const *str, u32_t *nb);
 

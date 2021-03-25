@@ -5,13 +5,6 @@
 ## Makefile
 ##
 
-GREEN 			=	\x1b[32;01m
-RED 			=	\x1b[31;01m
-YELLOW 			=	\x1b[33;01m
-WHITE 			=	\x1b[00;00m
-CYAN 			=	\x1b[34;01m
-DEFAULT 		= 	\x1b[36;01m
-
 SHELL 			=	bash
 
 CC 				=	gcc
@@ -314,7 +307,8 @@ SRC_IG_PRIV 	=	$(PATH_PRIV_IG)/tile/load_tile.c \
 			$(PATH_PRIV_IG)/property/load_property.c \
 			$(PATH_PRIV_IG)/tile/load_tile.c \
 			$(PATH_PRIV_IG)/wangset/load_wangset.c \
-			$(PATH_PRIV_IG)/text/load_text.c
+			$(PATH_PRIV_IG)/text/load_text.c \
+			$(PATH_PRIV_IG)/tileset/load_tileset.c
 
 SRC_IG 		=	./iron_goat/lib/src/chunk.c \
 			./iron_goat/lib/src/frame.c \
@@ -342,46 +336,34 @@ SRC 	=	$(SRC_ERTY) \
 
 OBJ 	=	$(SRC:.c=.o)
 
-all:		$(NAME)
+all:
+	rm -rf $(NAME) ../$(NAME)
+	make -j -C . $(NAME)
 
-$(NAME): info ## Call build_lib
-	@make -j -C . build_lib --silent
-	@make -j -C . copy --silent
+$(NAME): ## Call build_lib
+	make -j -C . build_lib
+	make -j -C . copy
 
 copy:
-	@mkdir -p ./include
-	@mkdir -p ../../../include
-	@ln -rsf ./iron_goat/lib/include/iron_goat ./include
-	@ln -rsf ./erty/lib/include/erty ./include
-	@ln -rsf ./include/erty ../../../include
-	@ln -rsf ./include/iron_goat ../../../include
-
-%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "$(GREEN)[$(YELLOW)Linked$(GREEN)]$(WHITE) % 43s\n$(DEFAULT)" $@ | tr ' ' '.'
+	mkdir -p ./include
+	mkdir -p ../../../include
+	ln -rsf ./iron_goat/lib/include/iron_goat ./include
+	ln -rsf ./erty/lib/include/erty ./include
+	ln -rsf ./include/erty ../../../include
+	ln -rsf ./include/iron_goat ../../../include
 
 build_lib: $(OBJ) ## Build The other one
 	$(AR) $(NAME) $(OBJ)
-	@printf "$(GREEN)[$(YELLOW)Linked$(GREEN)]$(WHITE) % 43s$(DEFAULT)\n" $(NAME) | tr ' ' '.'
-	@printf "$(GREEN)[$(CYAN)Linked all TileGoat files$(GREEN)]\n$(WHITE)"
 
 clean:
-	@rm -rf $(OBJ)
-	@rm -rf $(NAME)
+	rm -rf $(OBJ)
+	rm -rf $(NAME)
 
 fclean: clean
 
 re:
-	@make  clean 		-j -C . --silent
-	@make  all			-j -C . --silent
-
-info:
-	@printf "%50s\n" " " | tr ' ' '-'
-	@printf "$(GREEN)[$(YELLOW)Info$(GREEN)] $(WHITE)Linking libraries with:"
-	@printf "\n\t$(CYAN)CC        $(WHITE)= $(GREEN)$(CC)"
-	@printf "\n\t$(CYAN)AR        $(WHITE)= $(GREEN)$(AR)$(DEFAULT)"
-	@printf "\n\t$(CYAN)CFLAGS    $(WHITE)= $(GREEN)$(CFLAGS)$(DEFAULT)"
-	@printf "\n\t$(CYAN)SHELL     $(WHITE)= $(GREEN)$(SHELL)$(DEFAULT)\n"
+	make  clean 		-j -C .
+	make  all			-j -C .
 
 expand:
 	$(CC) $(SRC) $(CFLAGS) -E -o $(NAME)

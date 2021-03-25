@@ -46,21 +46,21 @@ SRC = 	src/game.c \
 
 TESTS =	\
 
-all: build_lib build_all
+all:
+	${MAKE} -j build_all -C .
+	${MAKE} -j build_lib -C .
 
 build_lib:
-	#${MAKE} -C ./lib/my/
-	${MAKE} -C ./lib/distract/
-	${MAKE} -C ./lib/iron_goat/
+	${MAKE} -j -C ./lib/distract/
+	${MAKE} -j -C ./lib/iron_goat/
 
 re_lib:
-	#${MAKE} re -C ./lib/my/
-	${MAKE} re -C ./lib/distract/
-	${MAKE} re -C ./lib/iron_goat/
+	${MAKE} re -j -C ./lib/distract/
+	${MAKE} re -j -C ./lib/iron_goat/
 
 build_all:
 	rm -rf ${TARGET}
-	${MAKE} ${TARGET} -C .
+	${MAKE} ${TARGET} -j  -C .
 
 tests_run: clean_tests build_lib
 	${CC} ${CFLAGS} ${TEST_FLAGS} -o ${TARGET_TEST} ${SRC} ${TESTS} ${LFLAGS}
@@ -78,8 +78,8 @@ $(TARGET): ${SRC}
 
 clean:
 	rm -f ${TARGET}
-	${MAKE} clean -C ./lib/distract/
-	${MAKE} clean -C ./lib/iron_goat/
+	${MAKE} clean -j -C ./lib/distract/
+	${MAKE} clean -j -C ./lib/iron_goat/
 
 
 fclean: clean

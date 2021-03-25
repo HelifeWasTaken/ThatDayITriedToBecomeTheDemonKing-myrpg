@@ -333,7 +333,7 @@
         ig_map_staggerindex_t staggerindex;
         char *tiledversion;
         u64_t tileheight;
-        VECTOR(ig_tile) *tilesets;
+        VECTOR(ig_tileset) *tilesets;
         u64_t tilewidth;
         char *type;
         i64_t version;
