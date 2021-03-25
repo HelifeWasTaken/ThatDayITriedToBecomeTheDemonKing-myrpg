@@ -72,7 +72,7 @@ typedef struct entity_info {
     /// Type of the entity
     ///
     int type;
-    
+
     void (*create)(game_t *game, entity_t *entity);
     void (*draw)(game_t *game, entity_t *entity);
     void (*destroy)(game_t *game, entity_t *entity);

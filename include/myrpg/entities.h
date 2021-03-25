@@ -50,6 +50,18 @@ typedef struct scroll_bar {
     sfRectangleShape *scroll_bar;
 } scroll_bar_t;
 
+typedef struct settings {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite_button[3];
+} settings_t;
+
+void create_settings(game_t *game, entity_t *entity);
+void update_settings(game_t *game, entity_t *entity);
+void draw_settings(game_t *game, entity_t *entity);
+void destroy_settings(game_t *game, entity_t *entity);
+bool handle_settings_events(game_t *game, entity_t *entity, sfEvent *event);
+
 void create_scroll_bar(game_t *game, entity_t *entity);
 void update_scroll_bar(game_t *game, entity_t *entity);
 void draw_scroll_bar(game_t *game, entity_t *entity);

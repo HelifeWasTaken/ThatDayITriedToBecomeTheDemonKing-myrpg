@@ -64,7 +64,8 @@ bool handle_scroll_bar_events(game_t *game UNUSED,
 
     if (sfFloatRect_contains(&scroll_r, mouse.x, mouse.y)
         && sfMouse_isButtonPressed(sfMouseLeft)) {
-            entity->pos = VEC2F(entity->pos.x, mouse.y - 50);
+            entity->pos = VEC2F(entity->pos.x, mouse.y -
+                (scroll_r.height / 2) + 10);
     }
     return (false);
 }

@@ -41,6 +41,7 @@ void configure_game(game_t *game)
     register_scene(game, PLAY_SCENE, &play_lifecycle);
     register_scene(game, MENU_SCENE, &menu_lifecycle);
     register_scene(game, KEY_CONFIG, &key_lifecycle);
+    register_scene(game, SETTING_SCENE, &setting_lifecycle);
     configure_entities(game);
 }
 
