@@ -51,7 +51,7 @@ void destroy_entity(game_t *game, entity_t *entity)
 {
     if (entity->info->destroy != NULL)
         entity->info->destroy(game, entity);
-    if (entity->threadinfo->thread != NULL) {
+    if (entity->threadinfo != NULL && entity->threadinfo->thread != NULL) {
         sfThread_terminate(entity->threadinfo->thread);
         sfThread_destroy(entity->threadinfo->thread);
         free(entity->threadinfo);
