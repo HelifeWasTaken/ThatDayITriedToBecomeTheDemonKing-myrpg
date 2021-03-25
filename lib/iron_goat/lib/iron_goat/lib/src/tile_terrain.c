@@ -8,7 +8,7 @@
 #include <iron_goat/deser.h>
 
 static bool get_iron_goat_tile_terrain(struct json *conf,
-    struct iron_goat_tile_terrain *self)
+        struct iron_goat_tile_terrain *self)
 {
     struct json_array *data = conf->v.array;
 
@@ -36,7 +36,7 @@ static const struct json_deser_data IG_TILE_TERRAIN[] = {
 };
 
 bool init_iron_goat_tile_terrain(struct json *conf,
-                                struct iron_goat_tile_terrain *self)
+        struct iron_goat_tile_terrain *self)
 {
     DESER_LOOP(conf, self, IG_TILE_TERRAIN);
 }

@@ -33,7 +33,7 @@ static const struct json_deser_data IG_TILEOFFSET[] = {
 };
 
 bool init_iron_goat_tileoffset(struct json *conf,
-                                struct iron_goat_tileoffset *self)
+        struct iron_goat_tileoffset *self)
 {
     DESER_LOOP(conf, self, IG_TILEOFFSET);
 }

@@ -13,7 +13,7 @@ void destroy_iron_goat_wangcolor(struct iron_goat_wangcolor *self)
 }
 
 bool load_iron_goat_wangcolor_properties(struct json *conf,
-    struct iron_goat_wangcolor *self)
+        struct iron_goat_wangcolor *self)
 {
     struct json_array *data = conf->v.array;
     struct iron_goat_property prop = {0};
@@ -89,7 +89,7 @@ static const struct json_deser_data IG_WANGCOLOR[] = {
 };
 
 bool init_iron_goat_wangcolor(struct json *conf,
-                            struct iron_goat_wangcolor *self)
+        struct iron_goat_wangcolor *self)
 {
     DESER_LOOP(conf, self, IG_WANGCOLOR);
 }

@@ -308,11 +308,12 @@ SRC_ERTY		=	$(SRC_EWRITE) 							\
 PATH_PRIV_IG  	=	./iron_goat/lib/src/priv
 
 SRC_IG_PRIV 	=	$(PATH_PRIV_IG)/tile/load_tile.c \
-					$(PATH_PRIV_IG)/grid/grid_loader.c \
+					$(PATH_PRIV_IG)/grid/load_grid.c \
 					$(PATH_PRIV_IG)/layer/load_layer.c \
 					$(PATH_PRIV_IG)/map/load_map.c \
 					$(PATH_PRIV_IG)/property/load_property.c \
 					$(PATH_PRIV_IG)/tile/load_tile.c \
+					$(PATH_PRIV_IG)/wangset/load_wangset.c \
 
 SRC_IG 		=	./iron_goat/lib/src/chunk.c \
 			./iron_goat/lib/src/frame.c \
