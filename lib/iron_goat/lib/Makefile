@@ -338,8 +338,11 @@ $(NAME): info ## Call build_lib
 
 copy:
 	@mkdir -p ./include
+	@mkdir -p ../../../include
 	@ln -rsf ./iron_goat/lib/include/iron_goat ./include
 	@ln -rsf ./erty/lib/include/erty ./include
+	@ln -rsf ./include/erty ../../../include
+	@ln -rsf ./include/iron_goat ../../../include
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
