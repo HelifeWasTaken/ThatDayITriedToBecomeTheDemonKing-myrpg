@@ -244,6 +244,39 @@ You then need to register the entity to the entities' registry:
     // game loop
 ```
 
+### Parallelize the entities logic
+
+Sometimes, you may have **a lot** of entities or several entities with slow
+logic. All these entities will execute their update logic one by one,
+each one before the other, and their execution time will stack up.
+If you have a very slow update routines, it can take a lot of time,
+especially if you have many entities in your scene.
+
+You may want to parallelize the entities logic on entities that you suspect
+may need to be ran on another thread using the power of multithreading.
+
+To use multithreading and run the entity update logic on another thread,
+you need to go in your create function hook and set the
+`entity->use_multithreading` property to `true`.
+
+```c
+void create_customentity(game_t *game, entity_t *entity)
+{
+    //...
+
+    entity->use_multithreading = true;
+
+    //...
+}
+
+void update_customentity(game_t *game, entity_t *entity)
+{
+    customentity_t *customentity = entity->instance;
+
+    // ... the slow code goes here
+}
+```
+
 ### Place an entity in a scene
 
 #### Create a simple entity
