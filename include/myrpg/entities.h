@@ -11,7 +11,6 @@
 #include "distract/entity.h"
 #include "myrpg/game.h"
 #include "define.h"
-#include <SFML/System/Types.h>
 
 enum entity_type {
     PLAYER,
