@@ -8,6 +8,7 @@
 #include "distract/debug.h"
 #include "distract/game.h"
 #include "distract/resources.h"
+#include "distract/hashmap.h"
 #include "stdlib.h"
 
 int distract_util_strcmp(char const *s1, char const *s2);
@@ -18,26 +19,15 @@ resource_t *create_resource(game_t *game, char *file, enum resource_type type)
 
     if (resource == NULL)
         return (NULL);
-    resource->prev = NULL;
-    resource->next = game->scene->resources;
     resource->type = type;
     resource->path = file;
-    if (resource->next != NULL)
-        resource->next->prev = resource;
-    game->scene->resources = resource;
+    hashmap_set(&game->scene->resources, file, resource);
     return (resource);
 }
 
 resource_t *get_resource(game_t *game, char *file)
 {
-    resource_t *resource = game->scene->resources;
-
-    for (; resource != NULL; resource = resource->next) {
-        if (resource->path != NULL
-            && distract_util_strcmp(resource->path, file) == 0)
-                return (resource);
-    }
-    return (NULL);
+    return (hashmap_get(game->scene->resources, file));
 }
 
 void destroy_resource_asset(resource_t *resource)
@@ -67,13 +57,7 @@ void destroy_resource(game_t *game, resource_t *resource)
 {
     if (resource == NULL)
         return;
-    if (resource->prev != NULL)
-        resource->prev->next = resource->next;
-    if (resource->next != NULL)
-        resource->next->prev = resource->prev;
-    if (game->scene->resources == resource) {
-        game->scene->resources = resource->next;
-    }
+    hashmap_unset(&game->scene->resources, resource->path);
     destroy_resource_asset(resource);
     free(resource);
 }

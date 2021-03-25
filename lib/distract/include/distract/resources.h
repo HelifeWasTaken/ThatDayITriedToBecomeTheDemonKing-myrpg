@@ -11,6 +11,7 @@
 #include "SFML/Audio.h"
 #include "distract/def.h"
 #include "distract/game.h"
+#include "distract/hashmap.h"
 
 ///
 /// Type of resource in registry
@@ -27,8 +28,6 @@ enum resource_type {
 /// Resource in the resources registry
 ///
 typedef struct resource {
-    struct resource *next;
-    struct resource *prev;
     enum resource_type type;
     char *path;
     union {

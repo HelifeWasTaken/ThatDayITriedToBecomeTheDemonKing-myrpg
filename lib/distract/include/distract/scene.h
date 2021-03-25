@@ -8,6 +8,7 @@
 #ifndef DISTRACT_SCENE_H
 #define DISTRACT_SCENE_H
 #include "distract/game.h"
+#include "distract/hashmap.h"
 #include "distract/def.h"
 #include "stdbool.h"
 
@@ -22,7 +23,7 @@ typedef struct scene {
     int id;
     scene_info_t *info;
     struct entity *entities;
-    struct resource *resources;
+    hashmap_t *resources;
     struct gui_element *gui_elements;
     bool in_exit_state;
     int pending_scene_id;

@@ -7,7 +7,19 @@
 
 #include "distract/game.h"
 #include "distract/entity.h"
+#include "distract/hashmap.h"
 #include "stdlib.h"
+
+static size_t hash_resource_key(hashmap_t *map, void *key)
+{
+    char *str = (void *)key;
+    size_t hash = 5381;
+    int c;
+
+    while ((c = *str++))
+        hash = ((hash << 5) + hash) + c;
+    return (hash % map->capacity);
+}
 
 game_t *create_game(void)
 {
@@ -22,7 +34,7 @@ game_t *create_game(void)
     game->scenes = NULL;
     game->scene = scene;
     game->scene->entities = NULL;
-    game->scene->resources = NULL;
+    game->scene->resources = hashmap_create(50, &hash_resource_key);
     game->scene->gui_elements = NULL;
     game->scene->id = -1;
     game->scene->pending_scene_id = -1;
@@ -61,6 +73,7 @@ void destroy_game(game_t *game)
     if (game->window != NULL)
         sfRenderWindow_destroy(game->window);
     destroy_scene(game, true);
+    hashmap_destroy(game->scene->resources);
     destroy_entity_infos(game);
     destroy_scene_infos(game);
     free(game->scene);

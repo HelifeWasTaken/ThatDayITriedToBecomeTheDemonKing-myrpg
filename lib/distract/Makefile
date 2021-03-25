@@ -17,6 +17,10 @@ LFLAGS = -lcsfml-system -lcsfml-graphics -lcsfml-window -lmy
 
 LFLAGS_TEST = ${LFLAGS} -lcriterion
 
+ifeq ($(EPIDEBUG), 1)
+	CFLAGS += -g3 -ggdb
+endif
+
 TESTDIR = ../../tests/lib/my
 
 SRC =	src/debug/print_error.c \
@@ -60,6 +64,13 @@ SRC =	src/debug/print_error.c \
 		src/scene/load_pending_scene.c \
 		src/scene/transmit_event_to_scene.c \
 		src/window/create_standard_window.c \
+		src/hashmap/create.c \
+		src/hashmap/destroy.c \
+		src/hashmap/getindex.c \
+		src/hashmap/resize.c \
+		src/hashmap/set.c \
+		src/hashmap/unset.c \
+		src/hashmap/get.c \
 		src/strutil.c
 
 TEST_FILES = 	\
