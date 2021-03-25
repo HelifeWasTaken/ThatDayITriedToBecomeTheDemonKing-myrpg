@@ -9,6 +9,8 @@
 #include <iron_goat/deser.h>
 #include "myrpg/game.h"
 #include "distract/window.h"
+#include "distract/graphics.h"
+#include "distract/game.h"
 #include <stdio.h>
 #include <SFML/Graphics.h>
 
@@ -153,8 +155,8 @@ bool load_vertex_array_map_verticies(ig_map_t *map,
     return (true);
 }
 
-bool load_vertex_array_map_tilesets(ig_map_t *map, struct vector_texture *self,
-    char *pathfolder)
+bool load_vertex_array_map_tilesets(game_t *game,
+    ig_map_t *map, struct vector_texture *self, char *pathfolder)
 {
     char *file = NULL;
 
@@ -165,7 +167,7 @@ bool load_vertex_array_map_tilesets(ig_map_t *map, struct vector_texture *self,
             ASSERT("Vertex load", "Allocation error");
             return (false);
         }
-        self->tileset[i] = sfTexture_createFromFile(file, NULL);
+        self->tileset[i] = create_texture(game, file, NULL);
         if (self->tileset[i] == NULL) {
             ASSERT("Vertex load", "Allocation error");
             return (false);
@@ -175,10 +177,10 @@ bool load_vertex_array_map_tilesets(ig_map_t *map, struct vector_texture *self,
     return (true);
 }
 
-bool load_vertex_array_map(ig_map_t *map,
+bool load_vertex_array_map(game_t *game, ig_map_t *map,
     struct vertex_array_map *self, char *pathfolder)
 {
-    if (load_vertex_array_map_tilesets(map,
+    if (load_vertex_array_map_tilesets(game, map,
         &self->v_texture, pathfolder) == false)
         return (false);
     if (load_vertex_array_map_verticies(map, self) == false)
