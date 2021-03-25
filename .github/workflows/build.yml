@@ -6,6 +6,7 @@ on:
         - dev
         - main
         - master
+    pull_request:
 jobs:
     build:
         runs-on: ubuntu-20.04
@@ -17,7 +18,7 @@ jobs:
           run: "make 2>&1 | tee build_output"
         - name: Send notification
           shell: bash
-          if: always()
+          if: ${{ github.event_name == 'push' && always() }}
           run: |
                checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
                errors=$(bash -c 'cat build_output | grep "error: " -A 2 | python3 -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])"')
@@ -40,7 +41,7 @@ jobs:
           run: "EPIDEBUG=1 make 2>&1 | tee build_output_debug"
         - name: Send notification
           shell: bash
-          if: always()
+          if: ${{ github.event_name == 'push' && always() }}
           run: |
                checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
                warnings=$(bash -c 'cat build_output_debug | grep "warning: " -A 2 | python -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])"')

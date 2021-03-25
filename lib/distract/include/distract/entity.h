@@ -41,7 +41,10 @@ typedef struct entity {
     int z;
 
     ///
-    /// Storage for the entity instance
+    /// Storage for the entity instance.
+    ///
+    /// If created with `create_entity(game, type)` or in the scope of a hook
+    /// function (except for the `create` hook), it is garanteed to be non-NULL.
     ///
     void *instance;
 

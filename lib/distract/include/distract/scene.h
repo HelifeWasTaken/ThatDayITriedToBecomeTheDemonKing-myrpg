@@ -58,7 +58,7 @@ bool is_scene_updated(game_t *game);
 void switch_to_scene(game_t *game, int id);
 
 ///
-/// Set the scene to open when the current scene is closed. 
+/// Set the scene to open when the current scene is closed.
 ///
 void set_pending_scene(game_t *game, int id);
 

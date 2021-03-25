@@ -15,10 +15,10 @@ entity_t *create_entity(game_t *game, int type)
     entity_t *entity = malloc(sizeof(entity_t));
     entity_info_t *info = get_entity_info(game, type);
 
-    if (entity == NULL || info == NULL)
-        return (NULL);
     if (info == NULL)
         print_error("Entity is not registered!");
+    if (entity == NULL || info == NULL)
+        return (NULL);
     entity->type = type;
     entity->prev = NULL;
     entity->next = NULL;
@@ -27,8 +27,11 @@ entity_t *create_entity(game_t *game, int type)
     entity->info = info;
     entity->type = type;
     entity->do_collide_point = NULL;
-    if (info->create != NULL)
+    if (info->create != NULL) {
         info->create(game, entity);
+        if (entity->instance == NULL)
+            return (NULL);
+    }
     add_to_entities(game, entity);
     return (entity);
 }
