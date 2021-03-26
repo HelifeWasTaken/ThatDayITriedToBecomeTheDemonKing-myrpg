@@ -37,6 +37,8 @@ TARGET_TEST = unit_tests
 SRC = 	src/game.c \
 	src/entities/player/player.c \
 	src/entities/scroll_bar/scroll_bar.c    \
+	src/entities/settings/setting_button.c	\
+	src/entities/settings/function_button.c	\
 	src/scenes/play/lifecycle.c \
 	src/scenes/menu/lifecycle.c     \
 	src/scenes/key_config/lifecycle.c \

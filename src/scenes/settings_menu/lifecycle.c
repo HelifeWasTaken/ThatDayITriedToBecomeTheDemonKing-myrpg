@@ -15,6 +15,7 @@ int setting_lifecycle(game_t *game)
 {
     sfEvent event;
 
+    create_entity(game, SETTING);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)

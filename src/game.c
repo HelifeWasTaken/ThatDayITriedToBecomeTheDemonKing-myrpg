@@ -26,12 +26,15 @@ static void configure_entities(game_t *game UNUSED)
 {
     REGISTER_ENTITIES(game,
         &ENTITY(PLAYER, &create_player, &draw_player,
-                        &destroy_player, &update_player, &handle_player_events),
+                    &destroy_player, &update_player, &handle_player_events),
         &ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
-                &destroy_scroll_bar, &update_scroll_bar,
-                    &handle_scroll_bar_events),
+                    &destroy_scroll_bar, &update_scroll_bar,
+                        &handle_scroll_bar_events),
         &ENTITY(MENU, &create_menu, &draw_menu,
-                &destroy_menu, NULL, &handle_menu_events)
+                    &destroy_menu, NULL, &handle_menu_events),
+        &ENTITY(SETTING, &create_settings, &draw_settings,
+                    &destroy_settings, &update_settings,
+                        &handle_settings_events)
     );
 }
 

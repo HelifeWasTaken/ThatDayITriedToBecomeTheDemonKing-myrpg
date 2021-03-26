@@ -16,6 +16,7 @@ enum entity_type {
     PLAYER,
     SCROLL,
     MENU,
+    SETTING,
 };
 
 //----------------------------------------
@@ -50,9 +51,15 @@ typedef struct scroll_bar {
     sfRectangleShape *scroll_bar;
 } scroll_bar_t;
 
+struct func_button {
+    void (*fonc)(game_t *game);
+};
+
 typedef struct settings {
     entity_t *entity;
     pausable_clock_t *clock;
+    sfSprite *background;
+    sfSprite *bar_vfx;
     sfSprite *sprite_button[3];
 } settings_t;
 

@@ -21,7 +21,7 @@ static void create_background(game_t *game UNUSED,
 {
     sfTexture *menu_texture =
         create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT(window));
-    sfTexture * button_texture;
+    sfTexture *button_texture;
     int pos_y = 3;
 
     menu->bg_sprite = create_sprite(menu_texture, NULL);

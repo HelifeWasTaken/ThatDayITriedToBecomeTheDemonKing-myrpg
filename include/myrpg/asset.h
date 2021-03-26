@@ -36,10 +36,10 @@
     /// SETTINGS_MENU_DEFINE
     ///
 
-    #define BACK_BUTTON "asset/menu/quit.png"
-    #define MUTE_BUTTON "asset/menu/play.png"
+    #define BACK_BUTTON "asset/setting/back.png"
+    #define MUTE_BUTTON "asset/setting/unmuted.png"
 
-    #define ASSET_SETTINGPATH (char *[]) {BACK_BUTTON, \
+    #define ASSET_SETTING_PATH (char *[]) {BACK_BUTTON, \
         MUTE_BUTTON}
 
 #endif
