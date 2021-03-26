@@ -10,14 +10,20 @@
 #include "myrpg/game.h"
 #include "distract/window.h"
 #include "distract/graphics.h"
+#include "distract/resources.h"
 #include "distract/game.h"
 #include <stdio.h>
 #include <SFML/Graphics.h>
 
 #define V2F(x, y) (sfVector2f){x, y}
 
+struct vector_vertex_array_data {
+    usize_t tileset;
+    sfVertexArray *vertex;
+};
+
 struct vector_vertex_array {
-    sfVertexArray **vertex;
+    struct vector_vertex_array_data *vec;
     size_t size;
 };
 
@@ -61,7 +67,7 @@ struct tile_id_rot get_real_tile_id_and_rotation(u64_t id)
 
 // it ignores tile rotation for now
 void load_vertex(sfTexture *tileset, map_rect_t *size,
-    sfVertexArray **vertex, u64_t *data)
+        sfVertexArray **vertex, u64_t *data)
 {
     struct tile_id_rot id_rot = {0};
     sfVertexArray_setPrimitiveType(*vertex, sfQuads);
@@ -87,23 +93,25 @@ void load_vertex(sfTexture *tileset, map_rect_t *size,
 }
 
 bool load_vertex_array_map_get_tileset_process(ig_map_t *map,
-    usize_t v_check, usize_t *tileset)
+        usize_t v_check, usize_t *tileset)
 {
     for (usize_t i = 0; i < map->tilesets->size; i++) {
         if (map->tilesets->data[i].firstgid <= v_check &&
-            v_check <= map->tilesets->data[i].firstgid +
-            map->tilesets->data[i].tilecount) {
+                v_check <= map->tilesets->data[i].firstgid +
+                map->tilesets->data[i].tilecount) {
             *tileset = i;
-            return (true);
+            break;
         }
     }
-    ASSERT("Vertex array",
-        "Layer might certainly merge two differents tilesets!");
-    return (false);
+    if (*tileset == map->tilesets->size) {
+        ASSERT("Vertex array", "Tileset not found");
+        return (false);
+    }
+    return (true);
 }
 
 bool load_vertex_array_map_get_tileset(ig_map_t *map,
-    struct iron_goat_layer *layer, usize_t *tileset)
+        struct iron_goat_layer *layer, usize_t *tileset)
 {
     int64_t v = 0;
 
@@ -120,43 +128,64 @@ bool load_vertex_array_map_get_tileset(ig_map_t *map,
     return (load_vertex_array_map_get_tileset_process(map, v, tileset));
 }
 
-#define MAP_RECT(map, textures, tileset) \
+bool check_tileset_and_data(struct iron_goat_layer *layer,
+        struct iron_goat_tileset *tileset)
+{
+    for (usize_t i = 0; i < layer->data->size; i++) {
+        if (layer->data->data[i] == 0)
+            continue;
+        if (!(tileset->firstgid <= layer->data->data[i] &&
+                    layer->data->data[i] <= tileset->firstgid +
+                    tileset->tilecount)) {
+            ASSERT("Vertex array", "Two layer might certainly be merged");
+            return (false);
+        }
+    }
+    return (true);
+}
+
+#define MAP_RECT(map, textures, tilesetv) \
     (map_rect_t){map->height, map->width, \
-        sfTexture_getSize(textures->tileset[tileset]).x, \
-        sfTexture_getSize(textures->tileset[tileset]).y}
+        sfTexture_getSize(textures->tileset[tilesetv]).x, \
+        sfTexture_getSize(textures->tileset[tilesetv]).y}
 
 bool load_vertex_array_map_data(ig_map_t *map, struct iron_goat_layer *layer,
-    struct vector_texture *textures, sfVertexArray **vertex)
+        struct vector_texture *textures, struct vector_vertex_array_data *vertexmap)
 {
-    usize_t tileset = 0;
-
-    if (load_vertex_array_map_get_tileset(map, layer, &tileset) == false)
+    if (load_vertex_array_map_get_tileset(map, layer,
+                &vertexmap->tileset) == false)
         return (false);
-    load_vertex(textures->tileset[tileset], &MAP_RECT(map, textures, tileset),
-        vertex, layer->data->data);
+    if (check_tileset_and_data(
+                layer, &map->tilesets->data[vertexmap->tileset]) == false)
+        return (false);
+    load_vertex(textures->tileset[vertexmap->tileset],
+            &MAP_RECT(map, textures, vertexmap->tileset),
+            &vertexmap->vertex, layer->data->data);
     return (true);
 }
 
 bool load_vertex_array_map_verticies(ig_map_t *map,
-    struct vertex_array_map *self)
+        struct vertex_array_map *self)
 {
     self->v_vertex.size = map->layers->size;
 
+    self->v_vertex.vec = ecalloc(sizeof(struct vector_vertex_array_data),
+            map->layers->size);
     for (usize_t i = 0; i < self->v_vertex.size; i++) {
-        self->v_vertex.vertex[i] = sfVertexArray_create();
-        if (self->v_vertex.vertex[i] == NULL) {
+        self->v_vertex.vec[i].vertex = sfVertexArray_create();
+        if (self->v_vertex.vec[i].vertex == NULL) {
             ASSERT("Vertex load", "Allocation error");
             return (false);
         }
         if (load_vertex_array_map_data(map, &map->layers->data[i],
-            &self->v_texture, &self->v_vertex.vertex[i]) == false)
+                    &self->v_texture, &self->v_vertex.vec[i]) == false)
             return (false);
     }
     return (true);
 }
 
 bool load_vertex_array_map_tilesets(game_t *game,
-    ig_map_t *map, struct vector_texture *self, char *pathfolder)
+        ig_map_t *map, struct vector_texture *self, char *pathfolder)
 {
     char *file = NULL;
 
@@ -178,49 +207,56 @@ bool load_vertex_array_map_tilesets(game_t *game,
 }
 
 bool load_vertex_array_map(game_t *game, ig_map_t *map,
-    struct vertex_array_map *self, char *pathfolder)
+        struct vertex_array_map *self, char *pathfolder)
 {
     if (load_vertex_array_map_tilesets(game, map,
-        &self->v_texture, pathfolder) == false)
+                &self->v_texture, pathfolder) == false)
         return (false);
     if (load_vertex_array_map_verticies(map, self) == false)
         return (false);
     return (true);
 }
 
-void draw_vertex(sfRenderWindow *window, sfVertexArray *array, sfTexture *tx)
+#define DEFAULT_RENDERSTATE(texturedata) \
+    (sfRenderStates){ \
+        .blendMode = sfBlendAlpha, \
+        .shader = NULL, \
+        .transform = sfTransform_Identity, \
+        .texture = texturedata \
+    }
+
+void draw_vertex(sfRenderWindow *window, struct vertex_array_map *self)
 {
-    sfRenderStates states;
-    states.blendMode = sfBlendAlpha;
-    states.shader = NULL;
-    states.transform = sfTransform_Identity;
-    states.texture = tx;
-    sfRenderWindow_drawVertexArray(window, array, &states);
+    for (usize_t i = 0; i < self->v_vertex.size; i++) {
+        sfRenderWindow_drawVertexArray(window, self->v_vertex.vec[i].vertex,
+            &DEFAULT_RENDERSTATE(
+                self->v_texture.tileset[self->v_vertex.vec[i].tileset]));
+    }
 }
 
 /*
-void test(ig_map_t *map)
-{
-    sfRenderWindow *window;
-    sfVideoMode mode = (sfVideoMode){1920, 1080, 32};
-    window = create_standard_window(mode, "My RPG");
-    sfRenderWindow_setFramerateLimit(window, 60);
-    sfVertexArray *vertex = sfVertexArray_create();
+   void test(ig_map_t *map)
+   {
+   sfRenderWindow *window;
+   sfVideoMode mode = (sfVideoMode){1920, 1080, 32};
+   window = create_standard_window(mode, "My RPG");
+   sfRenderWindow_setFramerateLimit(window, 60);
+   sfVertexArray *vertex = sfVertexArray_create();
 //    load_vertex(map, texture, &vertex);
-    sfEvent event;
+sfEvent event;
 
-    while (sfRenderWindow_isOpen(window)) {
-        while (sfRenderWindow_pollEvent(window, &event)) {
-            if (event.type == sfEvtClosed)
-                sfRenderWindow_close(window);
-        }
-        sfRenderWindow_clear(window, sfBlack);
-        draw_vertex(window, vertex, texture);
-        //sfRenderWindow_drawSprite(window, sp, NULL);
-        sfRenderWindow_display(window);
-    }
-    sfVertexArray_destroy(vertex);
-    sfTexture_destroy(texture);
+while (sfRenderWindow_isOpen(window)) {
+while (sfRenderWindow_pollEvent(window, &event)) {
+if (event.type == sfEvtClosed)
+sfRenderWindow_close(window);
+}
+sfRenderWindow_clear(window, sfBlack);
+draw_vertex(window, vertex, texture);
+//sfRenderWindow_drawSprite(window, sp, NULL);
+sfRenderWindow_display(window);
+}
+sfVertexArray_destroy(vertex);
+sfTexture_destroy(texture);
 }
 */
 
@@ -237,12 +273,12 @@ int main(void)
     //parsed_args_t args = my_parse_args(argc, argv);
 
     //if (my_char_in(args.flags, 'h')) {
- //       print_help();
+    //       print_help();
     eprintf_free_buff();
     //    return (0);
     //}
-//    test(&map);
+    //    test(&map);
     destroy_iron_goat_map(&map);
-   // return (load_game());
-   return (0);
+    // return (load_game());
+    return (0);
 }

@@ -60,6 +60,7 @@ re_lib:
 
 build_all:
 	rm -rf ${TARGET}
+	${MAKE} build_lib -j  -C .
 	${MAKE} ${TARGET} -j  -C .
 
 tests_run: clean_tests build_lib
