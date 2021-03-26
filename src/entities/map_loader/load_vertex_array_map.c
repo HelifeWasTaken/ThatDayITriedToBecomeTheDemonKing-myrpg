@@ -20,7 +20,8 @@ static bool load_vertex_array_map_data(ig_map_t *map,
         return (false);
     load_vertex_data(textures->tileset[vertexmap->tileset],
         &MAP_RECT(map, textures, vertexmap->tileset),
-        &vertexmap->vertex, layer->data->data);
+        &(vertice_data_loader_t){&vertexmap->vertex, layer->data->data,
+        map->tilesets->data[vertexmap->tileset].firstgid});
     return (true);
 }
 
@@ -52,7 +53,7 @@ static bool load_vertex_array_map_tilesets(game_t *game,
     self->size = map->tilesets->size;
     self->tileset = ecalloc(sizeof(sfTexture *), self->size);
     for (usize_t i = 0; i < self->size; i++) {
-        file = eformat("%s%s", pathfolder, map->tilesets->data[i].image);
+        file = ECONCAT(pathfolder, map->tilesets->data[i].image);
         if (file == NULL) {
             ASSERT("Vertex load", "Allocation error");
             return (false);
@@ -62,7 +63,6 @@ static bool load_vertex_array_map_tilesets(game_t *game,
             ASSERT("Vertex load", "Allocation error");
             return (false);
         }
-        FREE(file);
     }
     return (true);
 }

@@ -53,8 +53,8 @@
     };
 
     struct vertex_loader_data {
-        usize_t x;
-        usize_t y;
+        usize_t i;
+        usize_t j;
         u64_t *data;
     };
 
@@ -69,6 +69,12 @@
     struct vertex_funcpointer_rotation_set {
         void (*fun)(vtx_load_roat_data_t *);
     };
+
+    typedef struct {
+        sfVertexArray **vertex;
+        u64_t *data;
+        u64_t firstgid;
+    } vertice_data_loader_t;
 
     struct tile_id_rot get_real_tile_id_and_rotation(u64_t id);
     void draw_vertex_map(sfRenderWindow *window,
@@ -97,8 +103,7 @@
         struct iron_goat_tileset *tileset);
 
     void load_vertex_data(sfTexture *tileset, map_rect_t *size,
-        sfVertexArray **vertex, u64_t *data);
-
+            vertice_data_loader_t *vertice);
     void set_texture_coords(struct vertex_loader_rotation_data *data);
 
 #endif

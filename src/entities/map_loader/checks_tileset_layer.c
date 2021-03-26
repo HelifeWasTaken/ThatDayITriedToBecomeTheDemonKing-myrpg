@@ -12,7 +12,7 @@ static bool load_vertex_array_map_get_tileset_process(ig_map_t *map,
 {
     for (usize_t i = 0; i < map->tilesets->size; i++) {
         if (map->tilesets->data[i].firstgid <= v_check &&
-                v_check <= map->tilesets->data[i].firstgid +
+                v_check < map->tilesets->data[i].firstgid +
                 map->tilesets->data[i].tilecount) {
             *tileset = i;
             break;
