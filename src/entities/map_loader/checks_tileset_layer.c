@@ -46,11 +46,14 @@ bool load_vertex_array_map_get_tileset(ig_map_t *map,
 bool check_tileset_and_data(struct iron_goat_layer *layer,
         struct iron_goat_tileset *tileset)
 {
+    u64_t value = 0;
+
     for (usize_t i = 0; i < layer->data->size; i++) {
-        if (layer->data->data[i] == 0)
+        value = get_real_tile_id_and_rotation(layer->data->data[i]).id;
+        if (value == 0)
             continue;
-        if (!(tileset->firstgid <= layer->data->data[i] &&
-                    layer->data->data[i] <= tileset->firstgid +
+        if (!(tileset->firstgid <= value &&
+                    value <= tileset->firstgid +
                     tileset->tilecount)) {
             ASSERT("Vertex array", "Two layer might certainly be merged");
             return (false);

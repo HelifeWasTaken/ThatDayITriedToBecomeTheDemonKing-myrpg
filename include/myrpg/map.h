@@ -49,7 +49,7 @@
 
     struct tile_id_rot {
         enum rotation_tile_map rot;
-        u64_t id;
+        i64_t id;
     };
 
     struct vertex_loader_data {
