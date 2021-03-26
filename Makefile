@@ -34,6 +34,12 @@ TARGET = my_rpg
 
 TARGET_TEST = unit_tests
 
+SRC_MAP =	src/entities/map_loader/checks_tileset_layer.c \
+			src/entities/map_loader/draw_vertex_array.c \
+			src/entities/map_loader/get_tile_id_and_rotation.c \
+			src/entities/map_loader/load_vertex_array_map.c \
+			src/entities/map_loader/load_vertex_array.c
+
 SRC = 	src/game.c \
 		src/entities/player/player.c \
 		src/entities/scroll_bar/scroll_bar.c    \
@@ -42,7 +48,8 @@ SRC = 	src/game.c \
 		src/scenes/key_config/lifecycle.c \
 		src/entities/menu/menu.c \
 		src/entities/menu/create_menu.c \
-		src/entities/ath/ath.c
+		src/entities/ath/ath.c \
+		$(SRC_MAP)
 
 TESTS =	\
 
