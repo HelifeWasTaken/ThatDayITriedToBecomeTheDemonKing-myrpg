@@ -18,6 +18,8 @@ sfFont *create_font(game_t *game, char *filepath)
 
     if (resource == NULL) {
         resource = create_resource(game, filepath, R_FONT);
+        if (resource == NULL)
+            return (NULL);
         resource->font = sfFont_createFromFile(filepath);
     }
     return (resource->font);

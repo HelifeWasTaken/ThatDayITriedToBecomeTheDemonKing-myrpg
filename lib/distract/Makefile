@@ -72,7 +72,8 @@ SRC =	src/debug/print_error.c \
 		src/hashmap/set.c \
 		src/hashmap/unset.c \
 		src/hashmap/get.c \
-		src/strutil.c
+		src/strutil.c \
+		src/allocutil.c
 
 TEST_FILES = 	\
 

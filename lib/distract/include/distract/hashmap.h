@@ -21,10 +21,10 @@ typedef struct hashmap {
 hashmap_t *hashmap_create(size_t capacity,
     size_t (*hasher)(hashmap_t *map, void *key));
 void hashmap_destroy(hashmap_t *hash_map);
-void hashmap_set(hashmap_t **hash_map_ptr, void *key, void *value);
+int hashmap_set(hashmap_t **hash_map_ptr, void *key, void *value);
 void hashmap_unset(hashmap_t **map_ptr, void *key);
 void *hashmap_get(hashmap_t *hash_map, void *key);
 size_t hashmap_getindex(hashmap_t *hash_map, void *key);
-void hashmap_resize(hashmap_t **hash_map_ptr);
+int hashmap_resize(hashmap_t **hash_map_ptr);
 
 #endif /* DFFE5538_183A_4C1C_A75D_3FCEC26E05A1 */

@@ -18,6 +18,8 @@ sfTexture *create_texture(game_t *game, char *filepath, sfIntRect *rect)
 
     if (resource == NULL) {
         resource = create_resource(game, filepath, R_TEXTURE);
+        if (resource == NULL)
+            return (NULL);
         resource->texture = sfTexture_createFromFile(filepath, rect);
     }
     return (resource->texture);

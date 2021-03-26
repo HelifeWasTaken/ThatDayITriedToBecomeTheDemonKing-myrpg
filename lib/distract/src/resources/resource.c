@@ -9,19 +9,23 @@
 #include "distract/game.h"
 #include "distract/resources.h"
 #include "distract/hashmap.h"
+#include "distract/util.h"
 #include "stdlib.h"
 
 int distract_util_strcmp(char const *s1, char const *s2);
 
 resource_t *create_resource(game_t *game, char *file, enum resource_type type)
 {
-    resource_t *resource = malloc(sizeof(resource_t));
+    resource_t *resource = dmalloc(sizeof(resource_t));
 
     if (resource == NULL)
         return (NULL);
     resource->type = type;
     resource->path = file;
-    hashmap_set(&game->scene->resources, file, resource);
+    if (hashmap_set(&game->scene->resources, file, resource) < 0) {
+        free(resource);
+        return (NULL);
+    }
     return (resource);
 }
 
