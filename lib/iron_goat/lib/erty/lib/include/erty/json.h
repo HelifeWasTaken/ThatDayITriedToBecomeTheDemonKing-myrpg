@@ -155,7 +155,8 @@
             case JSON_ARR:
                 CLEAR_JSON_ARRAY(self);
                 break;
-            default:
+            case JSON_NUM:
+            case JSON_BOOL:
                 break;
         }
     }

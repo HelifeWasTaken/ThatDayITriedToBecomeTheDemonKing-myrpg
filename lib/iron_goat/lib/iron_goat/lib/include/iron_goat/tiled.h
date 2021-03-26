@@ -275,9 +275,14 @@
 
     INIT_VECTOR(ig_obj, struct iron_goat_object, destroy_iron_goat_object);
 
+    struct layer_data_vector {
+        usize_t size;
+        u64_t *data;
+    };
+
     struct iron_goat_layer {
         VECTOR(ig_chunk) *chunks;
-        VECTOR(ig_u64) *data;
+        struct layer_data_vector data;
         ig_layer_draworder_t draworder;
         ig_layer_encoding_t encoding;
         u64_t height;

@@ -31,11 +31,11 @@ bool load_vertex_array_map_get_tileset(ig_map_t *map,
     int64_t v = 0;
 
     for (usize_t i = 0; 1; i++) {
-        if (layer->data->data[i] != 0) {
-            v = get_real_tile_id_and_rotation(layer->data->data[i]).id;
+        if (layer->data.data[i] != 0) {
+            v = get_real_tile_id_and_rotation(layer->data.data[i]).id;
             break;
         }
-        if (layer->data->size == i) {
+        if (layer->data.size == i) {
             ASSERT("Vertex array", "One layer is empty");
             return (false);
         }
@@ -48,8 +48,8 @@ bool check_tileset_and_data(struct iron_goat_layer *layer,
 {
     u64_t value = 0;
 
-    for (usize_t i = 0; i < layer->data->size; i++) {
-        value = get_real_tile_id_and_rotation(layer->data->data[i]).id;
+    for (usize_t i = 0; i < layer->data.size; i++) {
+        value = get_real_tile_id_and_rotation(layer->data.data[i]).id;
         if (value == 0)
             continue;
         if (!(tileset->firstgid <= value &&

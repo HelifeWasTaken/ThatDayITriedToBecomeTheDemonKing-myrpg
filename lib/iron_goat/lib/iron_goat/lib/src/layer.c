@@ -13,8 +13,8 @@ void destroy_iron_goat_layer(struct iron_goat_layer *self)
     FREE(self->name);
     if (self->chunks)
         self->chunks->clear(&self->chunks);
-    if (self->data)
-        self->data->clear(&self->data);
+    FREE(self->data.data);
+    self->data.size = 0;
     if (self->layers)
         self->layers->clear(&self->layers);
     if (self->properties)
@@ -89,7 +89,7 @@ static const struct json_deser_data IG_LAYER[] = {
     },
     {
         .data = ".data",
-        .size_data = sizeof(VECTOR(ig_u64) *),
+        .size_data = sizeof(u64_t *),
         .offset = offsetof(struct iron_goat_layer, data),
         .intern = {
             .callback = load_iron_goat_layer_data,

@@ -58,14 +58,12 @@ bool load_iron_goat_layer_data(struct json *conf,
     struct iron_goat_layer *self)
 {
     struct json_array *data = conf->v.array;
-    u64_t val = {0};
 
-    if ((self->data = VECTOR_CREATE(ig_u64)) == NULL)
+    if ((self->data.data = emalloc(sizeof(u64_t) * (data->size))) == NULL)
         return (false);
-    for (size_t i = 0; i < data->size; i++) {
-        val = data->data[i].v.number;
-        if (self->data->push_back(&self->data, val) == -1)
-            return (false);
+    self->data.size = data->size;
+    for (usize_t i = 0; i < self->data.size; i++) {
+        self->data.data[i] = data->data[i].v.number;
     }
     return (true);
 }
