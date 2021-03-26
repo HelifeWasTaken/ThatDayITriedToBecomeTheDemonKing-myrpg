@@ -11,15 +11,18 @@
 void destroy_iron_goat_tileset(struct iron_goat_tileset *self)
 {
     FREE(self->image);
+    FREE(self->name);
     if (self->properties)
         self->properties->clear(&self->properties);
     FREE(self->source);
+    if (self->terrains)
+        self->terrains->clear(&self->terrains);
     if (self->tiles)
         self->tiles->clear(&self->tiles);
+    FREE(self->type);
     if (self->wangsets)
         self->wangsets->clear(&self->wangsets);
 }
-
 
 static bool load_iron_goat_tileset_terrains(struct json *conf,
     struct iron_goat_tileset *self)
@@ -85,7 +88,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = true
         },
         .type = JSON_STR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".columns",
@@ -184,7 +187,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = false
         },
         .type = JSON_ARR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".source",
@@ -195,7 +198,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = true
         },
         .type = JSON_STR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".spacing",
@@ -217,7 +220,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = false
         },
         .type = JSON_ARR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".tilecount",
@@ -239,7 +242,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = true
         },
         .type = JSON_STR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".tileheight",
@@ -261,7 +264,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = false
         },
         .type = JSON_ANY,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".tiles",
@@ -272,7 +275,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = false
         },
         .type = JSON_ARR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".tilewidth",
@@ -305,7 +308,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = true
         },
         .type = JSON_STR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".wangsets",
@@ -316,7 +319,7 @@ static const struct json_deser_data IG_TILESET[] = {
             .woff = false
         },
         .type = JSON_ARR,
-        .opt = false
+        .opt = true
     }
 };
 

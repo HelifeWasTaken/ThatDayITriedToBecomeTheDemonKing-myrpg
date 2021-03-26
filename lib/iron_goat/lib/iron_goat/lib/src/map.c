@@ -60,13 +60,13 @@ static bool load_iron_goat_map_tilesets(struct json *conf,
     struct iron_goat_map *self)
 {
     struct json_array *data = conf->v.array;
-    struct iron_goat_tile tile = {0};
+    struct iron_goat_tileset tile = {0};
 
-    if ((self->tilesets = VECTOR_CREATE(ig_tile)) == NULL)
+    if ((self->tilesets = VECTOR_CREATE(ig_tileset)) == NULL)
         return (false);
     for (size_t i = 0; i < data->size; i++) {
-        tile = (struct iron_goat_tile){0};
-        if (init_iron_goat_tile(&data->data[i], &tile) == false)
+        tile = (struct iron_goat_tileset){0};
+        if (init_iron_goat_tileset(&data->data[i], &tile) == false)
             return (false);
         if (self->tilesets->push_back(&self->tilesets, tile) == -1)
             return (false);
