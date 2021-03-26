@@ -56,6 +56,7 @@ void test(ig_map_t *map)
     char *file = eformat("asset/map_asset/%s", map->tilesets->data[0].image);
     sfTexture *texture = sfTexture_createFromFile(file, NULL);
     sfVertexArray *vertex = sfVertexArray_create();
+    sfRenderStates state = ;
     load_vertex(map, texture, &vertex);
     sfEvent event;
     sfSprite *sp = sfSprite_create();
