@@ -40,9 +40,34 @@
         uint64_t tiley;
     } map_rect_t;
 
+    enum rotation_tile_map {
+        ROT_0,
+        ROT_90,
+        ROT_180,
+        ROT_270
+    };
+
     struct tile_id_rot {
-        u16_t rot;
+        enum rotation_tile_map rot;
         u64_t id;
+    };
+
+    struct vertex_loader_data {
+        usize_t x;
+        usize_t y;
+        u64_t *data;
+    };
+
+    typedef struct vertex_loader_rotation_data {
+        i64_t tu;
+        i64_t tv;
+        sfVertex *quad;
+        map_rect_t *size;
+        enum rotation_tile_map rotation;
+    } vtx_load_roat_data_t;
+
+    struct vertex_funcpointer_rotation_set {
+        void (*fun)(vtx_load_roat_data_t *);
     };
 
     struct tile_id_rot get_real_tile_id_and_rotation(u64_t id);
@@ -73,5 +98,7 @@
 
     void load_vertex_data(sfTexture *tileset, map_rect_t *size,
         sfVertexArray **vertex, u64_t *data);
+
+    void set_texture_coords(struct vertex_loader_rotation_data *data);
 
 #endif

@@ -38,7 +38,8 @@ SRC_MAP =	src/entities/map_loader/checks_tileset_layer.c \
 			src/entities/map_loader/draw_vertex_array.c \
 			src/entities/map_loader/get_tile_id_and_rotation.c \
 			src/entities/map_loader/load_vertex_array_map.c \
-			src/entities/map_loader/load_vertex_array.c
+			src/entities/map_loader/load_vertex_array.c \
+			src/entities/map_loader/load_texture_coords_rot.c
 
 SRC = 	src/game.c \
 		src/entities/player/player.c \
