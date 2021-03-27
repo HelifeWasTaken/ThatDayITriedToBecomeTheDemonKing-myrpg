@@ -37,64 +37,60 @@
     static inline void VECTOR_CLEAR_NAME(name)
 
 #define INIT_VECTOR(name, type, del_member_fun) \
-    INIT_OPT(name, type); \
-    VECTOR(name) { \
-        type *data; \
-        size_t size; \
-        size_t a_size; \
-        ssize_t (*push_back)(VECTOR(name) **, type); \
-        void (*_del)(type *); \
-        void (*clear)(VECTOR(name) **); \
-    }; \
-    \
-    VECTOR_PUSH_BACK_DECLARATION(name)(VECTOR(name) **this, type add) \
-    { \
-        type *tmp = NULL; \
-        \
-        if ((*this)->a_size == (*this)->size) { \
-            (*this)->a_size += (*this)->a_size ? (*this)->a_size / 2 : 5; \
-            EXCALLOC(tmp, sizeof(type), (*this)->a_size, -1); \
-            DEBUG_PRINTF("%ld\n", (*this)->a_size); \
-            for (size_t i = 0; i < (*this)->size; i++) \
-                ememcpy(&tmp[i], &(*this)->data[i], sizeof(type)); \
-            ememcpy(&tmp[(*this)->size], &add, sizeof(type)); \
-            FREE((*this)->data); \
-            (*this)->data = tmp; \
-            (*this)->size++; \
-        } else { \
-            ememcpy(&(*this)->data[(*this)->size], &add, sizeof(type)); \
-            (*this)->size++; \
-        }\
-        return ((*this)->size); \
+INIT_OPT(name, type); \
+VECTOR(name) { \
+    type *data; \
+    size_t size; \
+    size_t a_size; \
+    ssize_t (*push_back)(VECTOR(name) **, type); \
+    void (*_del)(type *); \
+    void (*clear)(VECTOR(name) **); \
+}; \
+\
+VECTOR_PUSH_BACK_DECLARATION(name)(VECTOR(name) **this, type add) \
+{ \
+    if ((*this)->a_size == (*this)->size) { \
+        (*this)->a_size += (*this)->a_size ? (*this)->a_size / 10 : 10; \
+        if ((*this)->size) \
+            (*this)->data = erealloc((*this)->data, \
+                sizeof(type) * (*this)->size, sizeof(type) * (*this)->a_size); \
+        else \
+            (*this)->data = emalloc(sizeof(type) * (*this)->a_size); \
+        if ((*this)->data == NULL) \
+            return (-1); \
     } \
-    \
-    VECTOR_CLEAR_DECLARATION(name)(VECTOR(name) **this) \
-    { \
-        if ((*this)->_del) { \
-            for (size_t i = 0; i < (*this)->size; i++) { \
-                (*this)->_del(&(*this)->data[i]); \
-            } \
+    ememcpy(&(*this)->data[(*this)->size], &add, sizeof(type)); \
+    (*this)->size++; \
+    return ((*this)->size); \
+} \
+\
+VECTOR_CLEAR_DECLARATION(name)(VECTOR(name) **this) \
+{ \
+    if ((*this)->_del) { \
+        for (size_t i = 0; i < (*this)->size; i++) { \
+            (*this)->_del(&(*this)->data[i]); \
         } \
-        FREE((*this)->data); \
-        (*this)->size = 0; \
-        FREE(*this); \
     } \
+    FREE((*this)->data); \
+    (*this)->size = 0; \
+    FREE(*this); \
+} \
+\
+VECTOR_CREATE_DECLARATION(name)(void) \
+{ \
+    VECTOR(name) *this = ecalloc(sizeof(VECTOR(name)), 1); \
     \
-    VECTOR_CREATE_DECLARATION(name)(void) \
-    { \
-        VECTOR(name) *this = ecalloc(sizeof(VECTOR(name)), 1); \
-        \
-        if (this == NULL) { \
-            ASSERT("Vector", "Allocation failure"); \
-            return (NULL); \
-        } \
-        this->push_back = VECTOR_PUSH_BACK_NAME(name); \
-        this->_del = del_member_fun; \
-        this->clear = VECTOR_CLEAR_NAME(name); \
-        this->size = 0; \
-        this->a_size = 0; \
-        this->data = NULL; \
-        return (this); \
-    }
+    if (this == NULL) { \
+        ASSERT("Vector", "Allocation failure"); \
+        return (NULL); \
+    } \
+    this->push_back = VECTOR_PUSH_BACK_NAME(name); \
+    this->_del = del_member_fun; \
+    this->clear = VECTOR_CLEAR_NAME(name); \
+    this->size = 0; \
+    this->a_size = 0; \
+    this->data = NULL; \
+    return (this); \
+}
 
 #endif

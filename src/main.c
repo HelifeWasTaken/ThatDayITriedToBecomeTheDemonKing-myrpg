@@ -44,7 +44,7 @@ int main(void)
     ig_map_t map = {0};
     json_t json_file = {0};
 
-    if(json_parser(&json_file, "asset/map_asset/fuck.json") == false)
+    if(json_parser(&json_file, "asset/map_asset/map.json") == false)
         return (84);
     if (init_iron_goat_map(&json_file, &map) == false)
         return (84);
@@ -55,8 +55,8 @@ int main(void)
     //       print_help();
     //    return (0);
     //}
-    game_t *game = create_game();
-    test(&map, game);
+    //game_t *game = create_game();
+    //test(&map, game);
     eprintf_free_buff();
     destroy_iron_goat_map(&map);
     //return(load_game());

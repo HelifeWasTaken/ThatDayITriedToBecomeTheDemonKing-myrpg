@@ -51,12 +51,10 @@
     struct json_array {
         struct json *data;
         usize_t size;
+        usize_t a_size;
         isize_t (*push_back)(struct json_array **, struct json);
         void (*_del)(struct json *);
-        isize_t (*erase)(struct json_array **, usize_t idx);
         void (*clear)(struct json_array **);
-        isize_t (*insert)(struct json_array **, struct json, usize_t idx);
-        OPT(json) (*at)(struct json_array **, usize_t idx);
     };
 
     typedef struct json_hashmap {
@@ -206,10 +204,7 @@
         return (self);
     }
 
-    isize_t json_vector_insert(struct json_array **self,
-                                struct json add, usize_t idx);
     isize_t json_vector_push_back(struct json_array **self, struct json add);
-    isize_t json_vector_erase(struct json_array **self, usize_t idx);
     void json_vector_clear(struct json_array **self);
     OPT(json) json_vector_at(struct json_array **self, usize_t idx);
 
@@ -219,13 +214,11 @@
 
         EXCALLOC(self, sizeof(struct json_array), 1, NULL);
         *self = (struct json_array){
-            .at = json_vector_at,
             .clear = json_vector_clear,
             .data = NULL,
-            .erase = json_vector_erase,
-            .insert = json_vector_insert,
             .push_back = json_vector_push_back,
             .size = 0,
+            .a_size = 0,
             ._del = destroy_json
         };
         return (self);

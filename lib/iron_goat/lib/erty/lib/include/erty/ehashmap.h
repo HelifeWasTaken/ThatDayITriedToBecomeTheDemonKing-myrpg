@@ -52,18 +52,18 @@
     HASHMAP_INIT_NAME(name)(size, map, hasher)
 
 #define INIT_HASHMAP(name, type, del_member_fun) \
-    INIT_LIST(name, TUPLE(name), del_member_fun); \
-    HASHMAP(name) { \
-        u64_t (*hash)(const void *); \
-        usize_t size; \
-        usize_t bucket_count; \
-        bool (*insert)(HASHMAP(name) *, TUPLE(name)); \
-        void (*clear)(HASHMAP(name) *); \
-        OPT(name) (*get)(HASHMAP(name) *, void *key); \
-        LIST_EXTERN(name) *bucket; \
-    }; \
-    \
-    HASHMAP_GETTER_DECLARATION(name)(HASHMAP(name) *self, void *key) \
+INIT_LIST(name, TUPLE(name), del_member_fun); \
+HASHMAP(name) { \
+    u64_t (*hash)(const void *); \
+    usize_t size; \
+    usize_t bucket_count; \
+    bool (*insert)(HASHMAP(name) *, TUPLE(name)); \
+    void (*clear)(HASHMAP(name) *); \
+    OPT(name) (*get)(HASHMAP(name) *, void *key); \
+    LIST_EXTERN(name) *bucket; \
+}; \
+\
+HASHMAP_GETTER_DECLARATION(name)(HASHMAP(name) *self, void *key) \
 { \
     uint64_t id = self->hash(key) % self->bucket_count; \
     LIST(name) *ptr = self->bucket[id].list; \
@@ -95,8 +95,8 @@ HASHMAP_RESIZER_INTERNAL_DECLARATION(name)(HASHMAP(name) *self, \
         nxt = tmp->next; \
         id = self->hash(tmp->data.key) % self->bucket_count; \
         if (!(*new_node)[id].push_front(&(*new_node)[id], \
-                    (TUPLE(name)){tmp->data.key, tmp->data.data})) \
-        return (false); \
+            (TUPLE(name)){tmp->data.key, tmp->data.data})) \
+            return (false); \
         FREE(tmp); \
         tmp = nxt; \
     } \
@@ -110,12 +110,12 @@ HASHMAP_RESIZER_DECLARATION(name)(HASHMAP(name) *self) \
     \
     self->bucket_count *= 2; \
     EXCALLOC(n_buck, sizeof(LIST_EXTERN(name)), \
-            self->bucket_count, false); \
+        self->bucket_count, false); \
     for (size_t i = 0; i < self->bucket_count; i++) \
-    n_buck[i] = CREATE_LIST(name); \
+        n_buck[i] = CREATE_LIST(name); \
     for (size_t i = 0; i < original; i++) \
-    if (!HASHMAP_RESIZER_INTERNAL_NAME(name)(self, &n_buck, i)) \
-    return (false); \
+        if (!HASHMAP_RESIZER_INTERNAL_NAME(name)(self, &n_buck, i)) \
+            return (false); \
     FREE(self->bucket); \
     self->bucket = n_buck; \
     return (true); \
@@ -129,18 +129,18 @@ HASHMAP_INSERT_DECLARATION(name)(HASHMAP(name) *self, \
     usize_t count = 0; \
     \
     if (data.key == NULL) \
-    return (false); \
+        return (false); \
     if (HASHMAP_GETTER_NAME(name)(self, data.key).is_ok == true) { \
         DEBUG_PRINTF("ERROR: Key duplicate detected: %s", data.key); \
         return (false); \
     } \
     if (self->bucket[v].push_front(&self->bucket[v], data)) { \
         for (; ptr; ptr = ptr->next) \
-        count++; \
-        self->size++; \
+            count++; \
+            self->size++; \
         if ((count > 2 && (self->size >= self->bucket_count / 2)) \
-                || count > 3) \
-        return (HASHMAP_RESIZER_NAME(name)(self)); \
+            || count > 3) \
+            return (HASHMAP_RESIZER_NAME(name)(self)); \
         return (true); \
     } \
     return (false); \
@@ -149,7 +149,7 @@ HASHMAP_INSERT_DECLARATION(name)(HASHMAP(name) *self, \
 HASHMAP_CLEAR_DECLARATION(name)(HASHMAP(name) *self) \
 { \
     for (usize_t i = 0; i < self->bucket_count; i++) \
-    self->bucket[i].clear(&self->bucket[i]); \
+        self->bucket[i].clear(&self->bucket[i]); \
     FREE(self->bucket); \
 } \
 \
@@ -166,9 +166,9 @@ HASHMAP_INIT_DECLARATION(name)(HASHMAP(name) *self, \
         .bucket = NULL \
     }; \
     EXCALLOC(self->bucket, \
-            sizeof(LIST_EXTERN(name)), bucket_count, false); \
+        sizeof(LIST_EXTERN(name)), bucket_count, false); \
     for (size_t i = 0; i < bucket_count; i++) \
-    self->bucket[i] = CREATE_LIST(name); \
+        self->bucket[i] = CREATE_LIST(name); \
     return (true); \
 }
 
