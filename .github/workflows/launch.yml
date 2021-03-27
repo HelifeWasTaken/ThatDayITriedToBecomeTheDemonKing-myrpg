@@ -31,5 +31,6 @@ jobs:
           if: ${{ github.event_name == 'push' && always() }}
           run: |
             checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
-            echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\nAttempting to launch game: `$(cat state)`"}' > notification_data
+            state=$(cat ci_state)
+            echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\nAttempting to launch game: `'$state'`"}' > notification_data
             curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
