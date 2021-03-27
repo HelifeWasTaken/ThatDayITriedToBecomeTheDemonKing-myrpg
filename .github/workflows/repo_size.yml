@@ -20,6 +20,7 @@ jobs:
           shell: bash
           run: |
               checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
+              rm -r .git
               size=$(du -cs . | tail -1 | cut -f1)
               size_readable=$(du -hcs . | tail -1 | cut -f1)
               if [ "$size" -gt "30000" ]; then

@@ -24,9 +24,5 @@ jobs:
             Xvfb :1 -screen 0 1024x768x24 &
             sh -c "sleep 20 && killall my_rpg" &
             export DISPLAY="1:0"
-            ./my_rpg
-            CODE=$?
+            bash -c "./my_rpg; $CODE=$?; if [[ $CODE == 143 ]]; then exit 0; else exit $CODE; fi"
             killall XVfb
-            if [[ $CODE != 0 ]]; then
-              exit 1
-            fi
