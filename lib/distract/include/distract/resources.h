@@ -40,7 +40,7 @@ typedef struct resource {
 } resource_t;
 
 #define SAFE_RESOURCE_DESTROY(fun, res) \
-    do {
+    do { \
         if (res) \
             fun(res); \
     } while (0)

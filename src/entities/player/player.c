@@ -26,9 +26,12 @@ bool create_player(game_t *game UNUSED, entity_t *entity)
         return (false);
     }
     player->entity = entity;
-    player->clock = create_pausable_clock(game);
-    player->sprite = create_sprite(texture, NULL);
+    if ((player->clock = create_pausable_clock(game)) == NULL)
+        return (false);
+    if ((player->sprite = create_sprite(texture, NULL)) == NULL)
+        return (false);
     entity->instance = player;
+    return (true);
 }
 
 void destroy_player(game_t *game UNUSED, entity_t *entity)
