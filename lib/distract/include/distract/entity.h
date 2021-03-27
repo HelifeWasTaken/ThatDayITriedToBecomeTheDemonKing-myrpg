@@ -85,7 +85,7 @@ typedef struct entity_info {
     /// Type of the entity
     ///
     int type;
-    
+
     void (*create)(game_t *game, entity_t *entity);
     void (*draw)(game_t *game, entity_t *entity);
     void (*destroy)(game_t *game, entity_t *entity);
@@ -109,7 +109,7 @@ entity_info_t *get_entity_info(game_t *game, int type);
 ///
 /// Register an entity to the registry.
 ///
-void register_entity(game_t *game, entity_info_t *entity);
+bool register_entity(game_t *game, entity_info_t *entity);
 
 ///
 /// Add a detached or externally allocated entity to the scene entities.
@@ -119,7 +119,7 @@ void add_to_entities(game_t *game, entity_t *entity);
 ///
 /// Register several entities to the registry.
 ///
-void register_entities(game_t *game, entity_info_t **entities);
+bool register_entities(game_t *game, entity_info_t **entities);
 
 ///
 /// Call the draw function of the entity.

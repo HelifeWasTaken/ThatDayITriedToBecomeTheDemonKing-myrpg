@@ -20,7 +20,9 @@ sfTexture *create_texture(game_t *game, char *filepath, sfIntRect *rect)
         resource = create_resource(game, filepath, R_TEXTURE);
         if (resource == NULL)
             return (NULL);
-        resource->texture = sfTexture_createFromFile(filepath, rect);
+        if ((resource->texture =
+            sfTexture_createFromFile(filepath, rect)) == NULL)
+            print_error("Failed to init texture");
     }
     return (resource->texture);
 }
@@ -33,7 +35,7 @@ void destroy_textures(int count, ...)
     va_start(ap, count);
     for (int i = 0; i < count; i++) {
         texture = va_arg(ap, sfTexture *);
-        sfTexture_destroy(texture);
+        SAFE_RESOURCE_DESTROY(sfTexture_destroy, texture);
     }
     va_end(ap);
 }

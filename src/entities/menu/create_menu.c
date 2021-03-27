@@ -38,7 +38,7 @@ static void create_background(game_t *game UNUSED,
 void create_menu(game_t *game UNUSED, entity_t *entity)
 {
     menu_t *menu = malloc(sizeof(menu_t));
-    
+
     create_background(game, menu);
     entity->instance = menu;
 }

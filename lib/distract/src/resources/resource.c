@@ -18,12 +18,15 @@ resource_t *create_resource(game_t *game, char *file, enum resource_type type)
 {
     resource_t *resource = dmalloc(sizeof(resource_t));
 
-    if (resource == NULL)
+    if (resource == NULL) {
+        print_error("Failed to init resource");
         return (NULL);
+    }
     resource->type = type;
     resource->path = file;
     if (hashmap_set(&game->scene->resources, file, resource) < 0) {
         free(resource);
+        print_error("Failed to set in hashmap resource");
         return (NULL);
     }
     return (resource);
@@ -38,19 +41,20 @@ void destroy_resource_asset(resource_t *resource)
 {
     switch(resource->type) {
         case R_TEXTURE:
-            sfTexture_destroy(resource->texture);
+            SAFE_RESOURCE_DESTROY(sfTexture_destroy, resource->texture);
             break;
         case R_SOUND:
-            sfSound_destroy(resource->sound);
+            SAFE_RESOURCE_DESTROY(sfSound_destroy, resource->sound);
             break;
         case R_SOUND_BUFFER:
-            sfSoundBuffer_destroy(resource->sound_buffer);
+            SAFE_RESOURCE_DESTROY(sfSoundBuffer_destroy,
+                resource->sound_buffer);
             break;
         case R_MUSIC:
-            sfMusic_destroy(resource->music);
+            SAFE_RESOURCE_DESTROY(sfMusic_destroy, resource->music);
             break;
         case R_FONT:
-            sfFont_destroy(resource->font);
+            SAFE_RESOURCE_DESTROY(sfFont_destroy, resource->font);
             break;
         default:
             print_error("Unknown asset");

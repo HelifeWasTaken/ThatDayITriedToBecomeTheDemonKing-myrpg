@@ -11,12 +11,17 @@
 
 size_t dstrlen(char const *s)
 {
-    return (*s != '\0' ? dstrlen(s + 1) + 1 : 0);
+    size_t i = 0;
+
+    if (s)
+        for (; s[i]; i++);
+    return (i);
 }
 
 int dstrcmp(char const *s1, char const *s2)
 {
     int i = 0;
+
     while (s1[i] != '\0' || s2[i] != '\0') {
         if (s1[i] == s2[i]) {
             i++;
@@ -33,7 +38,7 @@ char *dstrdup(char const *src)
 {
     size_t len = dstrlen(src);
     char *dest = dmalloc(len + 1);
-    
+
     if (dest == NULL)
         return (NULL);
     while (len) {

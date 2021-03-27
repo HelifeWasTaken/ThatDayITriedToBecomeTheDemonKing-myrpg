@@ -41,7 +41,8 @@ static void destroy_scene_resources(game_t *game)
 
 void destroy_scene(game_t *game, bool destroy_resources)
 {
-    destroy_scene_entities(game);
+    if (game->scene)
+        destroy_scene_entities(game);
     if (destroy_resources) {
         destroy_scene_resources(game);
     }

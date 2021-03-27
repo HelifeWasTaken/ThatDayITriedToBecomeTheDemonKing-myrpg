@@ -15,7 +15,7 @@ void *dcalloc(size_t count, size_t size)
 {
     void *ptr = malloc(count * size);
     unsigned char *bytes = (unsigned char *)ptr;
-    
+
     if (ptr == NULL)
         return (NULL);
     size *= count;

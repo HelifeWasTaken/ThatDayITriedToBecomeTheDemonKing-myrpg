@@ -18,7 +18,10 @@ sfSound *create_sound(game_t *game, char *filepath)
     sfSound *tmp;
 
     if (resource == NULL) {
-        tmp = sfSound_create();
+        if ((tmp = sfSound_create()) == NULL) {
+            print_error("Failed to init sound");
+            return (NULL);
+        }
         resource = create_resource(game, NULL, R_SOUND_BUFFER);
         if (resource == NULL)
             return (NULL);
@@ -40,7 +43,8 @@ sfMusic *create_music(game_t *game, char *filepath)
         resource = create_resource(game, NULL, R_MUSIC);
         if (resource == NULL)
             return (NULL);
-        resource->music = sfMusic_createFromFile(filepath);
+        if ((resource->music = sfMusic_createFromFile(filepath)) == NULL)
+            print_error("Failed to init music");
     }
     return (resource->music);
 }

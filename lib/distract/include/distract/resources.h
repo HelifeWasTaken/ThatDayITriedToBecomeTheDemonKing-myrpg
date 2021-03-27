@@ -39,6 +39,10 @@ typedef struct resource {
     };
 } resource_t;
 
+#define SAFE_RESOURCE_DESTROY(fun, res) \
+    if (res) \
+        fun(res)
+
 ///
 /// Create a resource of type from the file.
 ///
