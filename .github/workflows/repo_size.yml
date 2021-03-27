@@ -13,9 +13,6 @@ jobs:
         container: docker://epitechcontent/epitest-docker
         steps:
         - uses: actions/checkout@v2
-        - name: Build
-          shell: bash
-          run: "make"
         - name: Check size
           shell: bash
           run: |
