@@ -25,4 +25,3 @@ jobs:
             sh -c "sleep 20 && killall my_rpg" &
             export DISPLAY="1:0"
             bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then exit 0; else exit $CODE; fi'
-            killall XVfb
