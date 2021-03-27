@@ -20,7 +20,7 @@ static bool load_vertex_array_map_data(ig_map_t *map,
         return (false);
     load_vertex_data(textures->tileset[vertexmap->tileset],
         &MAP_RECT(map, textures, vertexmap->tileset),
-        &(vertice_data_loader_t){&vertexmap->vertex, layer->data.data,
+        &(vertice_data_loader_t){vertexmap->vertex, layer->data.data,
         map->tilesets->data[vertexmap->tileset].firstgid});
     return (true);
 }

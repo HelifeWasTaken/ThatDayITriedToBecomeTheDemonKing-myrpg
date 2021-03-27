@@ -55,8 +55,8 @@ int main(void)
     //       print_help();
     //    return (0);
     //}
-    //game_t *game = create_game();
-    //test(&map, game);
+    game_t *game = create_game();
+    test(&map, game);
     eprintf_free_buff();
     destroy_iron_goat_map(&map);
     //return(load_game());

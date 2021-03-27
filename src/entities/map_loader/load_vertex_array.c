@@ -15,7 +15,7 @@ static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
     id_rot.id -= vertice->firstgid;
     i64_t tu = id_rot.id % (i64_t)(sfTexture_getSize(tileset).x / size->tilex);
     i64_t tv = id_rot.id / (i64_t)(sfTexture_getSize(tileset).x / size->tilex);
-    sfVertex *quad = sfVertexArray_getVertex(*(vertice->vertex),
+    sfVertex *quad = sfVertexArray_getVertex(vertice->vertex,
         (pos->i + pos->j * size->mapx) * 4);
 
     quad[0].position = VEC2F(pos->i * size->tilex, pos->j * size->tiley);
@@ -31,8 +31,8 @@ static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
 void load_vertex_data(sfTexture *tileset, map_rect_t *size,
         vertice_data_loader_t *vertice)
 {
-    sfVertexArray_setPrimitiveType(*(vertice->vertex), sfQuads);
-    sfVertexArray_resize(*(vertice->vertex), size->mapx * size->mapy * 4);
+    sfVertexArray_setPrimitiveType(vertice->vertex, sfQuads);
+    sfVertexArray_resize(vertice->vertex, size->mapx * size->mapy * 4);
     struct vertex_loader_data pos = {0};
 
     pos.data = vertice->data;

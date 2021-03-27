@@ -71,7 +71,7 @@
     };
 
     typedef struct {
-        sfVertexArray **vertex;
+        sfVertexArray *vertex;
         u64_t *data;
         u64_t firstgid;
     } vertice_data_loader_t;
@@ -89,7 +89,7 @@
         }
 
     #define MAP_RECT(map, textures, tilesetv) \
-        (map_rect_t){map->height, map->width, \
+        (map_rect_t){map->width, map->height, \
             map->tilesets->data[tilesetv].tilewidth, \
             map->tilesets->data[tilesetv].tileheight}
 
