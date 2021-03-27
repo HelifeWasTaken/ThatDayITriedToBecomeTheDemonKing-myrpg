@@ -10,6 +10,7 @@
 #include "distract/hashmap.h"
 #include "stdlib.h"
 #include "distract/debug.h"
+#include "distract/util.h"
 
 static size_t hash_resource_key(hashmap_t *map, void *key)
 {
@@ -24,16 +25,17 @@ static size_t hash_resource_key(hashmap_t *map, void *key)
 
 game_t *create_game(void)
 {
-    game_t *game = malloc(sizeof(game_t));
-    scene_t *scene = malloc(sizeof(scene_t));
+    game_t *game = dcalloc(1, sizeof(game_t));
+    scene_t *scene = dcalloc(1, sizeof(scene_t));
 
     if (game == NULL || scene == NULL) {
         print_error("Game initialisation failed");
         return (NULL);
     }
-    *scene = (scene_t){ -1, NULL, NULL,
-        hashmap_create(50, &hash_resource_key), NULL, sfFalse, -1, NULL };
-    *game = (game_t) { NULL, NULL, NULL, scene, {0}, sfFalse, NULL };
+    game->scene = scene;
+    game->scene->resources = hashmap_create(50, &hash_resource_key);
+    game->scene->id = -1;
+    game->scene->pending_scene_id = -1;
     if (game->scene->resources == NULL)
         print_error("Entity hashmap ressource could not be initted");
     return (game);
