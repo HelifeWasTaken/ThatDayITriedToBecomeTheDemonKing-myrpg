@@ -21,7 +21,15 @@ jobs:
         - name: Run
           shell: bash
           run: |
+            echo "game not started">ci_state
             Xvfb :1 -screen 0 1024x768x24 &
             sh -c "sleep 20 && killall my_rpg" &
             export DISPLAY="1:0"
-            bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then exit 0; else exit $CODE; fi'
+            bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "success: ran for 20 seconds without crash">ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
+        - name: Send notification
+          shell: bash
+          if: ${{ github.event_name == 'push' && always() }}
+          run: |
+            checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
+            echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\nAttempting to launch game: `$(cat state)`"}' > notification_data
+            curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE
