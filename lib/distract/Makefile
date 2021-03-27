@@ -21,6 +21,7 @@ TESTDIR = ../../tests/lib/my
 
 SRC =	src/debug/print_error.c \
 		src/entities/add_to_entities.c \
+		src/entities/create_entity.c \
 		src/entities/entity.c \
 		src/entities/get_entity_info.c \
 		src/entities/register_entity.c \

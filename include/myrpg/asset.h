@@ -46,9 +46,9 @@
     #define ATH_ICON (char *[]) {CHAR_ICON, EQUIP_ICON, INVENTORY_ICON,\
         QUEST_ICON, SKILL_ICON, OPTION_ICON}
 
-    #define PLAYER_ATH "asset/ath/player_ath.png"
-    #define PLAYER_ATH_W 370
-    #define PLAYER_ATH_H 200
-    #define PLAYER_ATH_POS_Y 815
+    #define PLAYER_ATH "asset/ath/player_ath_test.png"
+    #define PLAYER_ATH_W 410
+    #define PLAYER_ATH_H 150
+    #define PLAYER_ATH_POS_Y 860
 
 #endif

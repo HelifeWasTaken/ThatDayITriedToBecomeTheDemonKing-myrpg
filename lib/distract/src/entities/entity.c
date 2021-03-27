@@ -9,32 +9,8 @@
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "stdlib.h"
-
-entity_t *create_entity(game_t *game, int type)
-{
-    entity_t *entity = malloc(sizeof(entity_t));
-    entity_info_t *info = get_entity_info(game, type);
-
-    if (info == NULL)
-        print_error("Entity is not registered!");
-    if (entity == NULL || info == NULL)
-        return (NULL);
-    entity->type = type;
-    entity->prev = NULL;
-    entity->next = NULL;
-    entity->z = 0;
-    entity->pos = (sfVector2f) { 0, 0 };
-    entity->info = info;
-    entity->type = type;
-    entity->do_collide_point = NULL;
-    if (info->create != NULL) {
-        info->create(game, entity);
-        if (entity->instance == NULL)
-            return (NULL);
-    }
-    add_to_entities(game, entity);
-    return (entity);
-}
+#include "SFML/System.h"
+#include <SFML/System/Thread.h>
 
 entity_t *get_next_entity_of_type(entity_t *entity, int type)
 {
@@ -52,8 +28,17 @@ entity_t *get_next_entity_of_type(entity_t *entity, int type)
 
 void update_entity(game_t *game, entity_t *entity)
 {
-    if (entity->info->update != NULL)
+    if (entity->info->update != NULL) {
         entity->info->update(game, entity);
+    }
+}
+
+void update_entity_async(game_t *game, entity_t *entity)
+{
+    if (entity->threadinfo != NULL && entity->info->update != NULL) {
+        entity->threadinfo->game = game;
+        sfThread_launch(entity->threadinfo->thread);
+    }
 }
 
 void draw_entity(game_t *game, entity_t *entity)
@@ -66,6 +51,11 @@ void destroy_entity(game_t *game, entity_t *entity)
 {
     if (entity->info->destroy != NULL)
         entity->info->destroy(game, entity);
+    if (entity->threadinfo != NULL && entity->threadinfo->thread != NULL) {
+        sfThread_terminate(entity->threadinfo->thread);
+        sfThread_destroy(entity->threadinfo->thread);
+        free(entity->threadinfo);
+    }
     if (game->scene->entities == entity)
         game->scene->entities = entity->next;
     if (entity->prev != NULL)
