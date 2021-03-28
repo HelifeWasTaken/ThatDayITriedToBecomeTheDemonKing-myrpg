@@ -20,7 +20,6 @@ isize_t json_vector_push_back(struct json_array **self, struct json add)
                 sizeof(struct json) * (*self)->a_size);
         if ((*self)->data == NULL)
             return (-1);
-        DEBUG_PRINTF("a_size == %ld", (*self)->a_size);
     }
     ememcpy(&(*self)->data[(*self)->size], &add, sizeof(struct json));
     (*self)->size++;
