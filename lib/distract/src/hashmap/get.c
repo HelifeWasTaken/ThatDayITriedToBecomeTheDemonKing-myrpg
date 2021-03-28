@@ -9,6 +9,5 @@
 
 void *hashmap_get(hashmap_t *map, void *key)
 {
-  size_t index = hashmap_getindex(map, key);
-  return (map->values[index]);
+    return (map->values[hashmap_getindex(map, key)]);
 }

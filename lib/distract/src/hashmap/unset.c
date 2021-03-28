@@ -13,7 +13,7 @@ void hashmap_unset(hashmap_t **map_ptr, void *key)
     hashmap_t *map = *map_ptr;
     size_t index = hashmap_getindex(map, key);
 
-    if(map->values[index] != NULL)
+    if (map->values[index] != NULL)
         map->size--;
     map->keys[index] = NULL;
     map->values[index] = NULL;

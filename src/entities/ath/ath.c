@@ -36,10 +36,10 @@ bool handle_ath_events(game_t *game UNUSED,
     return (false);
 }
 
-void create_ath(game_t *game UNUSED, entity_t *entity)
+bool create_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = malloc(sizeof(ath_t));
-    sfTexture *icon_texture;
+    sfTexture *icon_texture = NULL;
     int pos_y = 150;
     sfTexture *player_ath_texture = create_texture(game, PLAYER_ATH,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
@@ -47,14 +47,21 @@ void create_ath(game_t *game UNUSED, entity_t *entity)
     ath->player_ath_sprite = create_sprite(player_ath_texture,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
     SET_SPRITE_POS(ath->player_ath_sprite, VEC2F(0, PLAYER_ATH_POS_Y));
+    if (!ath || !player_ath_texture || !ath->player_ath_sprite)
+        return (false);
     for (int i = 0; i < 6; i++) {
         icon_texture  = create_texture(game, ATH_ICON[i],
             &IRECT(0, 0, ICON_RECT, ICON_RECT));
+        if (icon_texture == NULL)
+            return (false);
         ath->button_sprite[i] = create_sprite(icon_texture, &IRECT(0, 0, ICON_RECT, ICON_RECT));
+        if (ath->button_sprite[i] == NULL)
+            return (false);
         SET_SPRITE_POS(ath->button_sprite[i], VEC2F(1810, pos_y));
         pos_y += 110;
     }
     entity->instance = ath;
+    return (true);
 }
 
 void draw_ath(game_t *game UNUSED, entity_t *entity)

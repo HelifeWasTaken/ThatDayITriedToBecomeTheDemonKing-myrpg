@@ -9,6 +9,8 @@
 #include "distract/entity.h"
 #include "distract/hashmap.h"
 #include "stdlib.h"
+#include "distract/debug.h"
+#include "distract/util.h"
 
 static size_t hash_resource_key(hashmap_t *map, void *key)
 {
@@ -23,22 +25,19 @@ static size_t hash_resource_key(hashmap_t *map, void *key)
 
 game_t *create_game(void)
 {
-    game_t *game = malloc(sizeof(game_t));
-    scene_t *scene = malloc(sizeof(scene_t));
+    game_t *game = dcalloc(1, sizeof(game_t));
+    scene_t *scene = dcalloc(1, sizeof(scene_t));
 
-    if (game == NULL || scene == NULL)
+    if (game == NULL || scene == NULL) {
+        print_error("Game initialisation failed");
         return (NULL);
-    game->window = NULL;
-    game->state = NULL;
-    game->is_paused = false;
-    game->scenes = NULL;
+    }
     game->scene = scene;
-    game->scene->entities = NULL;
     game->scene->resources = hashmap_create(50, &hash_resource_key);
-    game->scene->gui_elements = NULL;
     game->scene->id = -1;
     game->scene->pending_scene_id = -1;
-    game->entities = NULL;
+    if (game->scene->resources == NULL)
+        print_error("Entity hashmap ressource could not be initted");
     return (game);
 }
 
@@ -70,12 +69,16 @@ static void destroy_scene_infos(game_t *game)
 
 void destroy_game(game_t *game)
 {
+    if (game == NULL)
+        return;
     if (game->window != NULL)
         sfRenderWindow_destroy(game->window);
     destroy_scene(game, true);
-    hashmap_destroy(game->scene->resources);
+    if (game->scene) {
+        hashmap_destroy(game->scene->resources);
+        free(game->scene);
+    }
     destroy_entity_infos(game);
     destroy_scene_infos(game);
-    free(game->scene);
     free(game);
 }

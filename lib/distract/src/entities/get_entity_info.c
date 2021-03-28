@@ -10,6 +10,7 @@
 entity_info_t *get_entity_info(game_t *game, int type)
 {
     entity_info_t *entity = game->entities;
+
     for (; entity != NULL; entity = entity->next) {
         if (entity->type == type)
             return (entity);

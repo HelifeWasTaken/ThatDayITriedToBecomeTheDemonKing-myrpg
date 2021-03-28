@@ -10,7 +10,11 @@
 
 void hashmap_destroy(hashmap_t *map)
 {
-    free(map->values);
-    free(map->keys);
-    free(map);
+    if (map) {
+        if (map->values)
+            free(map->values);
+        if (map->keys)
+            free(map->keys);
+        free(map);
+    }
 }

@@ -71,7 +71,7 @@ bool has_pending_scene(game_t *game);
 ///
 /// Registers a scene in the scene registry.
 ///
-void register_scene(game_t *game, int id, int (*lifecycle)(game_t *game));
+bool register_scene(game_t *game, int id, int (*lifecycle)(game_t *game));
 
 ///
 /// Get scene info.
