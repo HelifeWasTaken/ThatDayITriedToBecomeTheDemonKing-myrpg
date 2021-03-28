@@ -7,13 +7,16 @@
 #include "distract/game.h"
 #include "SFML/Graphics.h"
 #include "stdlib.h"
+#include "distract/debug.h"
 
 pausable_clock_t *create_pausable_clock(game_t *game)
 {
     pausable_clock_t *clock = malloc(sizeof(pausable_clock_t));
 
-    if (clock == NULL)
+    if (clock == NULL) {
+        print_error("Clock could not be initted");
         return (NULL);
+    }
     clock->game = game;
     clock->has_game_pause = true;
     clock->is_paused = false;

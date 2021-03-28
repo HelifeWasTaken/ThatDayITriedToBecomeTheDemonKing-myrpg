@@ -15,16 +15,21 @@
 #include "myrpg/scenes.h"
 #include "stdlib.h"
 
-static void configure_window(game_t *game)
+static bool configure_window(game_t *game)
 {
     game->mode = MODE(WINDOW_W, WINDOW_H, 32);
     game->window = create_standard_window(game->mode, "My RPG");
+    if (!game->window) {
+        print_error("Could not init window");
+        return (false);
+    }
     sfRenderWindow_setFramerateLimit(game->window, 60);
+    return (true);
 }
 
-static void configure_entities(game_t *game UNUSED)
+static bool configure_entities(game_t *game UNUSED)
 {
-    REGISTER_ENTITIES(game,
+    return (REGISTER_ENTITIES(game,
         &ENTITY(PLAYER, &create_player, &draw_player,
                         &destroy_player, &update_player, &handle_player_events),
         &ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
@@ -34,7 +39,7 @@ static void configure_entities(game_t *game UNUSED)
                 &destroy_menu, NULL, &handle_menu_events),
         &ENTITY(ATH, &create_ath, &draw_ath,
                 &destroy_ath, NULL, &handle_ath_events)
-    );
+    ));
 }
 
 void configure_game(game_t *game)
