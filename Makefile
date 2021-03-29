@@ -42,7 +42,9 @@ SRC = 	src/game.c \
 		src/scenes/key_config/lifecycle.c \
 		src/entities/menu/menu.c \
 		src/entities/menu/create_menu.c \
-		src/entities/ath/ath.c
+		src/entities/ath/ath.c \
+		src/entities/hero/hero.c \
+		src/entities/hero/hero_event.c
 
 TESTS =	\
 

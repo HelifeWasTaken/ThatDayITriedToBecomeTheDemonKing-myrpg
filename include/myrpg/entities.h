@@ -17,9 +17,23 @@ enum entity_type {
     SCROLL,
     MENU,
     ATH,
+    HERO
 };
 
 //----------------------------------------
+
+typedef struct hero {
+    entity_t *entity;
+    pausable_clock_t *animation_clock;
+    pausable_clock_t *movement_clock;
+    sfSprite *sprite;
+} hero_t;
+
+void create_hero(game_t *game, entity_t *entity);
+void update_hero(game_t *game, entity_t *entity);
+void draw_hero(game_t *game, entity_t *entity);
+void destroy_hero(game_t *game, entity_t *entity);
+bool handle_hero_events(game_t *game, entity_t *entity, sfEvent *event);
 
 typedef struct ath {
     entity_t *entity;

@@ -33,7 +33,9 @@ static void configure_entities(game_t *game UNUSED)
         &ENTITY(MENU, &create_menu, &draw_menu,
                 &destroy_menu, NULL, &handle_menu_events),
         &ENTITY(ATH, &create_ath, &draw_ath,
-                &destroy_ath, NULL, &handle_ath_events)
+                &destroy_ath, NULL, &handle_ath_events),
+        &ENTITY(HERO, &create_hero, &draw_hero,
+                &destroy_hero, &update_hero, &handle_hero_events)
     );
 }
 
