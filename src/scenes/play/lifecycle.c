@@ -14,6 +14,8 @@ int play_lifecycle(game_t *game)
 {
     sfEvent event;
 
+    if (create_entity(game, HERO) == NULL)
+        return (84);
     if (create_entity(game, LAYER) == NULL)
         return (84);
     if (create_entity(game, ATH) == NULL)
