@@ -20,8 +20,8 @@
 void create_hero(game_t *game UNUSED, entity_t *entity)
 {
     hero_t *hero = malloc(sizeof(hero_t));
-    sfIntRect rect = IRECT(0, 0, 300, 400);
-    sfTexture *texture = create_texture(game, "asset/hero/bard_movement.png", &rect);
+    sfIntRect rect = IRECT(0, 0, 1200, 400);
+    sfTexture *texture = create_texture(game, "asset/hero/bard.png", &rect);
     sfVector2u window = sfRenderWindow_getSize(game->window);
 
     hero->entity = entity;
