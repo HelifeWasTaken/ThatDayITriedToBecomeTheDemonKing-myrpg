@@ -11,7 +11,7 @@ static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
     struct vertex_loader_data *pos, vertice_data_loader_t *vertice)
 {
     struct tile_id_rot id_rot =
-        get_real_tile_id_and_rotation(pos->data[pos->i + pos->j * size->mapx]); 
+        get_real_tile_id_and_rotation(pos->data[pos->i + pos->j * size->mapx]);
     i64_t tu = 0;
     i64_t tv = 0;
     sfVertex *quad = sfVertexArray_getVertex(vertice->vertex,
@@ -33,10 +33,10 @@ static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
 void load_vertex_data(sfTexture *tileset, map_rect_t *size,
         vertice_data_loader_t *vertice)
 {
-    sfVertexArray_setPrimitiveType(vertice->vertex, sfQuads);
-    sfVertexArray_resize(vertice->vertex, size->mapx * size->mapy * 4);
     struct vertex_loader_data pos = {0};
 
+    sfVertexArray_setPrimitiveType(vertice->vertex, sfQuads);
+    sfVertexArray_resize(vertice->vertex, size->mapx * size->mapy * 4);
     pos.data = vertice->data;
     for (pos.i = 0; pos.i < size->mapx; ++pos.i) {
         for (pos.j = 0; pos.j < size->mapy; ++pos.j) {
