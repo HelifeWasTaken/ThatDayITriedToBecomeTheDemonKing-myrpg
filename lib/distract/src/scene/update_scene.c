@@ -16,7 +16,7 @@ static void wait_thread_ends(game_t *game)
 {
     entity_t *entity = game->scene->entities;
     entity_t *next;
-    
+
     entity = game->scene->entities;
     while (entity != NULL) {
         next = entity->next;
