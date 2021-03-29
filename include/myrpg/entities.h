@@ -10,6 +10,7 @@
 
 #include "distract/entity.h"
 #include "myrpg/game.h"
+#include "myrpg/map.h"
 #include "define.h"
 
 enum entity_type {
@@ -17,6 +18,7 @@ enum entity_type {
     SCROLL,
     MENU,
     ATH,
+    LAYER
 };
 
 //----------------------------------------
@@ -68,5 +70,14 @@ void update_scroll_bar(game_t *game, entity_t *entity);
 void draw_scroll_bar(game_t *game, entity_t *entity);
 void destroy_scroll_bar(game_t *game, entity_t *entity);
 bool handle_scroll_bar_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct layer {
+    vertex_map_t map;
+    entity_t *entity;
+} layer_t;
+
+bool create_layer(game_t *game, entity_t *entity);
+void draw_layer(game_t *game, entity_t *entity);
+void destroy_layer(game_t *game, entity_t *entity);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

@@ -23,7 +23,11 @@ resource_t *create_resource(game_t *game, char *file, enum resource_type type)
         return (NULL);
     }
     resource->type = type;
-    resource->path = file;
+    resource->path = dstrdup(file);
+    if (resource->path == NULL) {
+        free(resource);
+        return (NULL);
+    }
     if (hashmap_set(&game->scene->resources, file, resource) < 0) {
         free(resource);
         print_error("Failed to set in hashmap resource");
@@ -67,6 +71,8 @@ void destroy_resource(game_t *game, resource_t *resource)
         return;
     hashmap_unset(&game->scene->resources, resource->path);
     destroy_resource_asset(resource);
+    if (resource->path)
+        free(resource->path);
     free(resource);
 }
 

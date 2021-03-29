@@ -28,9 +28,16 @@
         size_t size;
     };
 
+    struct vector_collision {
+        bool *layer;
+        size_t size;
+    };
+
     typedef struct vertex_array_map {
         struct vector_vertex_array v_vertex;
         struct vector_texture v_texture;
+        sfVector2u map_size;
+        struct vector_collision v_collision;
     } vertex_map_t;
 
     typedef struct map_rect {
@@ -77,8 +84,6 @@
     } vertice_data_loader_t;
 
     struct tile_id_rot get_real_tile_id_and_rotation(u64_t id);
-    void draw_vertex_map(sfRenderWindow *window,
-        struct vertex_array_map *self);
 
     #define DEFAULT_RENDERSTATE(texturedata) \
         (sfRenderStates){ \
@@ -105,5 +110,14 @@
     void load_vertex_data(sfTexture *tileset, map_rect_t *size,
             vertice_data_loader_t *vertice);
     void set_texture_coords(struct vertex_loader_rotation_data *data);
+
+    void draw_map_layers_from_to(sfRenderWindow *window,
+        struct vertex_array_map *self, size_t start, size_t end);
+    void draw_all_vertex_map(sfRenderWindow *window,
+        struct vertex_array_map *self);
+    void draw_map_layer(sfRenderWindow *window,
+        struct vertex_array_map *self, size_t n);
+    void draw_map_layer(sfRenderWindow *window,
+        struct vertex_array_map *self, size_t n);
 
 #endif

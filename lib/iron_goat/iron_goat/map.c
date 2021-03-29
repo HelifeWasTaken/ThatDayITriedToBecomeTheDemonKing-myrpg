@@ -7,6 +7,7 @@
 
 #include <iron_goat/deser.h>
 #include "priv/map/map.h"
+#include <stdlib.h>
 
 void destroy_iron_goat_map(struct iron_goat_map *self)
 {

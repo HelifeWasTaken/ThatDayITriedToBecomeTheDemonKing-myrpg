@@ -36,14 +36,13 @@ int dstrcmp(char const *s1, char const *s2)
 
 char *dstrdup(char const *src)
 {
-    size_t len = dstrlen(src);
-    char *dest = dmalloc(len + 1);
+    char *dest = dmalloc(sizeof(char) * (dstrlen(src) + 1));
+    size_t i = 0;
 
     if (dest == NULL)
         return (NULL);
-    while (len) {
-        dest[len - 1] = src[len - 1];
-        len--;
-    }
+    do {
+        dest[i] = src[i];
+    } while (src[i++]);
     return (dest);
 }

@@ -63,6 +63,23 @@ static bool load_vertex_array_map_tilesets(game_t *game,
             ASSERT("Vertex load", "Allocation error");
             return (false);
         }
+        FREE(file);
+    }
+    return (true);
+}
+
+static bool load_collision_layer(ig_map_t *map,
+    struct vertex_array_map *self)
+{
+    self->v_collision.size = map->layers->data[map->layers->size - 1].data.size;
+    self->v_collision.layer = emalloc(sizeof(bool) * self->v_collision.size);
+    if (self->v_collision.layer == NULL) {
+        ASSERT("Vertex load", "Could not init collision layer");
+        return (false);
+    }
+    for (usize_t i = 0; i < self->v_collision.size; i++) {
+        self->v_collision.layer[i] = map->layers->data[
+            map->layers->size].data.size ? true : false;
     }
     return (true);
 }
@@ -70,6 +87,13 @@ static bool load_vertex_array_map_tilesets(game_t *game,
 bool load_vertex_array_map(game_t *game, ig_map_t *map,
     struct vertex_array_map *self, char *pathfolder)
 {
+    if (pathfolder == false) {
+        ASSERT("Vertex load", "File passed as argument was null");
+        return (false);
+    }
+    self->map_size = (sfVector2u){map->width, map->height};
+    if (load_collision_layer(map, self) == false)
+        return (false);
     if (load_vertex_array_map_tilesets(game, map,
                 &self->v_texture, pathfolder) == false)
         return (false);
