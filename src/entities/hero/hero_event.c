@@ -28,7 +28,7 @@ bool player_move(hero_t *hero, int anim)
             rest.left = 0;
         hero->animation_clock->time = 0;
     }
-    if (hero->movement_clock->time >= 0.005f) {
+    if (hero->movement_clock->time >= 0.020f) {
         anim == 0 ? hero->entity->pos.y += 8 : 0;
         anim == 100 ? hero->entity->pos.x -= 8 : 0;
         anim == 200 ? hero->entity->pos.x += 8 : 0;
