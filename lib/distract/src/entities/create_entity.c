@@ -28,19 +28,23 @@ static void set_defaults(int type, entity_t *entity,
 static void thread_update(void *data)
 {
     struct thread_info *threadinfo = (struct thread_info *)data;
+
     threadinfo->entity->info->update(threadinfo->game, threadinfo->entity);
 }
 
 static void setup_multithreading(game_t *game, entity_t *entity)
 {
     entity->threadinfo = malloc(sizeof(struct thread_info));
-    if (entity->threadinfo != NULL) {
-        entity->threadinfo->game = game;
-        entity->threadinfo->entity = entity;
+
+    if (entity->threadinfo == NULL) {
+        entity->use_multithreading = false;
+        return;
     }
+    entity->threadinfo->game = game;
+    entity->threadinfo->entity = entity;
     entity->threadinfo->thread = sfThread_create(&thread_update,
         entity->threadinfo);
-    if (entity->threadinfo == NULL || entity->threadinfo->thread == NULL)
+    if (entity->threadinfo->thread == NULL)
         entity->use_multithreading = false;
 }
 
@@ -51,13 +55,17 @@ entity_t *create_entity(game_t *game, int type)
 
     if (info == NULL)
         print_error("Entity is not registered!");
-    if (entity == NULL || info == NULL)
+    if (entity == NULL || info == NULL) {
+        print_error("Entity creation failed");
         return (NULL);
+    }
     set_defaults(type, entity, info);
     if (info->create != NULL) {
         info->create(game, entity);
-        if (entity->instance == NULL)
+        if (entity->instance == NULL) {
+            print_error("Entity instance creation failed");
             return (NULL);
+        }
         if (entity->use_multithreading)
             setup_multithreading(game, entity);
     }

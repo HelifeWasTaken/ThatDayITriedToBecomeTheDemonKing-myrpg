@@ -10,6 +10,7 @@
 
 #include "distract/entity.h"
 #include "myrpg/game.h"
+#include "myrpg/map.h"
 #include "define.h"
 
 enum entity_type {
@@ -17,6 +18,7 @@ enum entity_type {
     SCROLL,
     MENU,
     ATH,
+    LAYER
 };
 
 //----------------------------------------
@@ -27,7 +29,7 @@ typedef struct ath {
     sfSprite *button_sprite[6];
 } ath_t;
 
-void create_ath(game_t *game, entity_t *entity);
+bool create_ath(game_t *game, entity_t *entity);
 void destroy_ath(game_t *game, entity_t *entity);
 void draw_ath(game_t *game UNUSED, entity_t *entity);
 bool handle_ath_events(game_t *game UNUSED,
@@ -39,7 +41,7 @@ typedef struct menu {
     sfSprite *button_sprite[3];
 } menu_t;
 
-void create_menu(game_t *game, entity_t *entity);
+bool create_menu(game_t *game, entity_t *entity);
 void destroy_menu(game_t *game, entity_t *entity);
 void draw_menu(game_t *game UNUSED, entity_t *entity);
 bool handle_menu_events(game_t *game UNUSED,
@@ -51,7 +53,7 @@ typedef struct player {
     sfSprite *sprite;
 } player_t;
 
-void create_player(game_t *game, entity_t *entity);
+bool create_player(game_t *game, entity_t *entity);
 void update_player(game_t *game, entity_t *entity);
 void draw_player(game_t *game, entity_t *entity);
 void destroy_player(game_t *game, entity_t *entity);
@@ -63,10 +65,19 @@ typedef struct scroll_bar {
     sfRectangleShape *scroll_bar;
 } scroll_bar_t;
 
-void create_scroll_bar(game_t *game, entity_t *entity);
+bool create_scroll_bar(game_t *game, entity_t *entity);
 void update_scroll_bar(game_t *game, entity_t *entity);
 void draw_scroll_bar(game_t *game, entity_t *entity);
 void destroy_scroll_bar(game_t *game, entity_t *entity);
 bool handle_scroll_bar_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct layer {
+    vertex_map_t map;
+    entity_t *entity;
+} layer_t;
+
+bool create_layer(game_t *game, entity_t *entity);
+void draw_layer(game_t *game, entity_t *entity);
+void destroy_layer(game_t *game, entity_t *entity);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

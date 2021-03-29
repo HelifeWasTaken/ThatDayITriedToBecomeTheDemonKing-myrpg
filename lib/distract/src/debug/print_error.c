@@ -8,7 +8,11 @@
 
 static int len(char *str)
 {
-    return (*str == '\0' ? 0 : len(str + 1) + 1);
+    size_t i = 0;
+
+    if (str)
+        for (; str[i]; i++);
+    return (i);
 }
 
 void print_error(char *error)
