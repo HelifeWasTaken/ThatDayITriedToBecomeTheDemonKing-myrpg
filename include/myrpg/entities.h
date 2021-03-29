@@ -31,7 +31,7 @@ typedef struct hero {
     sfSprite *sprite;
 } hero_t;
 
-void create_hero(game_t *game, entity_t *entity);
+bool create_hero(game_t *game, entity_t *entity);
 void update_hero(game_t *game, entity_t *entity);
 void draw_hero(game_t *game, entity_t *entity);
 void destroy_hero(game_t *game, entity_t *entity);
