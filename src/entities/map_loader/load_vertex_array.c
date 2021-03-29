@@ -11,13 +11,15 @@ static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
     struct vertex_loader_data *pos, vertice_data_loader_t *vertice)
 {
     struct tile_id_rot id_rot =
-        get_real_tile_id_and_rotation(pos->data[pos->i + pos->j * size->mapx]);
-    id_rot.id -= vertice->firstgid;
-    i64_t tu = id_rot.id % (i64_t)(sfTexture_getSize(tileset).x / size->tilex);
-    i64_t tv = id_rot.id / (i64_t)(sfTexture_getSize(tileset).x / size->tilex);
+        get_real_tile_id_and_rotation(pos->data[pos->i + pos->j * size->mapx]); 
+    i64_t tu = 0;
+    i64_t tv = 0;
     sfVertex *quad = sfVertexArray_getVertex(vertice->vertex,
         (pos->i + pos->j * size->mapx) * 4);
 
+    id_rot.id -= vertice->firstgid;
+    tu = id_rot.id % (i64_t)(sfTexture_getSize(tileset).x / size->tilex);
+    tv = id_rot.id / (i64_t)(sfTexture_getSize(tileset).x / size->tilex);
     quad[0].position = VEC2F(pos->i * size->tilex, pos->j * size->tiley);
     quad[1].position = VEC2F((pos->i + 1) * size->tilex, pos->j * size->tiley);
     quad[2].position = VEC2F((pos->i + 1) *
