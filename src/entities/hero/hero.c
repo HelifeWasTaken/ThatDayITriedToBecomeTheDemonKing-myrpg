@@ -17,19 +17,22 @@
 #include "myrpg/define.h"
 #include "stdlib.h"
 
-void create_hero(game_t *game UNUSED, entity_t *entity)
+bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
     hero_t *hero = malloc(sizeof(hero_t));
     sfIntRect rect = IRECT(0, 0, 1200, 400);
     sfTexture *texture = create_texture(game, "asset/hero/bard.png", &rect);
     sfVector2u window = sfRenderWindow_getSize(game->window);
 
+    if (hero == NULL || texture == NULL)
+        return (false);
     hero->entity = entity;
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
     hero->sprite = create_sprite(texture, &IRECT(0, 0 , 100, 100));
     hero->entity->pos = VEC2F((window.x/2 - 50), (window.y/2 - 50));
     entity->instance = hero;
+    return (true);
 }
 
 void destroy_hero(game_t *game UNUSED, entity_t *entity)
