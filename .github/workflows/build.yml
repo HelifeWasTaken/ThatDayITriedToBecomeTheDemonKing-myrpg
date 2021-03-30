@@ -10,7 +10,7 @@ on:
 jobs:
     build:
         runs-on: ubuntu-20.04
-        container: docker://epitechcontent/epitest-docker
+        container: docker://helife/epilight
         steps:
         - uses: actions/checkout@v2
         - name: Build
