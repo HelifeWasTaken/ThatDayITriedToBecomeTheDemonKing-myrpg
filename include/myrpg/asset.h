@@ -36,10 +36,13 @@
     /// SETTINGS_MENU_DEFINE
     ///
 
+    #define ASSET_BAR "asset/setting/bar.png"
+    #define ASSET_SC "asset/setting/scroll.png"
+
     #define BACK_BUTTON "asset/setting/back.png"
     #define MUTE_BUTTON "asset/setting/unmuted.png"
 
     #define ASSET_SETTING_PATH (char *[]) {BACK_BUTTON, \
-        MUTE_BUTTON}
+        MUTE_BUTTON, MUTE_BUTTON, MUTE_BUTTON}
 
 #endif

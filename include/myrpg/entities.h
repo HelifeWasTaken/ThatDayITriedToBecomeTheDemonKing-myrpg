@@ -17,6 +17,7 @@ enum entity_type {
     SCROLL,
     MENU,
     SETTING,
+    VFX_SC,
 };
 
 //----------------------------------------
@@ -59,8 +60,7 @@ typedef struct settings {
     entity_t *entity;
     pausable_clock_t *clock;
     sfSprite *background;
-    sfSprite *bar_vfx;
-    sfSprite *sprite_button[3];
+    sfSprite *sprite_button[4];
 } settings_t;
 
 void create_settings(game_t *game, entity_t *entity);
@@ -74,4 +74,18 @@ void update_scroll_bar(game_t *game, entity_t *entity);
 void draw_scroll_bar(game_t *game, entity_t *entity);
 void destroy_scroll_bar(game_t *game, entity_t *entity);
 bool handle_scroll_bar_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct vfx_scroll {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite_bar;
+    sfSprite *scrolin;
+} vfx_scroll_t;
+
+bool fonc_scroll_vfx(game_t *game, entity_t *entity);
+void create_vfx_scroll(game_t *game, entity_t *entity);
+void update_vfx_scroll(game_t *game, entity_t *entity);
+void draw_vfx_scroll(game_t *game, entity_t *entity);
+void destroy_vfx_scroll(game_t *game, entity_t *entity);
+bool handle_vfx_scroll_events(game_t *game, entity_t *entity, sfEvent *event);
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

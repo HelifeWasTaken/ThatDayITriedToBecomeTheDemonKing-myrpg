@@ -25,18 +25,9 @@ void create_settings(game_t *game UNUSED, entity_t *entity)
         create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT(window));
 
     setting_button->background = create_sprite(texture, NULL);
-    texture = create_texture(game, "asset/setting/bar.png", NULL);
-    setting_button->bar_vfx = create_sprite(texture, NULL);
-    sfSprite_setScale(setting_button->bar_vfx, VEC2F(2, 2));
     setting_button->entity = entity;
-    sfSprite_setPosition(setting_button->bar_vfx, VEC2F(500, 500));
     setting_button->clock = create_pausable_clock(game);
     load_button(game, texture, setting_button);
-    texture = create_texture(game, "asset/setting/scroll.png", NULL);
-    setting_button->sprite_button[2] = create_sprite(texture, NULL);
-    sfSprite_setPosition(setting_button->sprite_button[2],
-        sfSprite_getPosition(setting_button->bar_vfx));
-    sfSprite_setScale(setting_button->sprite_button[2], VEC2F(2, 2));
     entity->instance = setting_button;
 }
 
@@ -52,13 +43,10 @@ void destroy_settings(game_t *game UNUSED, entity_t *entity)
 void update_settings(game_t *game UNUSED, entity_t *entity)
 {
     settings_t *setting_button = entity->instance;
-    sfFloatRect pos_vfx = sfSprite_getGlobalBounds(setting_button->bar_vfx);
-    sfVector2f pos_sc_vfx = sfSprite_getPosition(
-                                setting_button->sprite_button[2]);
-    (void)pos_vfx;
-    (void)pos_sc_vfx;
+    parameters_t *param = game->state;
+
+    (void)param;
     sfSprite_setPosition(setting_button->sprite_button[1], VEC2F(300, 300));
-    sfSprite_setPosition(setting_button->bar_vfx, VEC2F(500, 500));
     tick_pausable_clock(setting_button->clock);
 }
 
@@ -67,8 +55,7 @@ void draw_settings(game_t *game UNUSED, entity_t *entity)
     settings_t *setting_button = entity->instance;
 
     sfRenderWindow_drawSprite(game->window, setting_button->background, NULL);
-    DRAW_SPRITE(game->window, setting_button->bar_vfx, NULL);
-    for (int i = 0; i <= 2; i++) {
+    for (int i = 0; i <= 1; i++) {
         sfRenderWindow_drawSprite(game->window,
             setting_button->sprite_button[i], NULL);
     }
