@@ -18,8 +18,8 @@ enum entity_type {
     SCROLL,
     MENU,
     ATH,
-    HERO,
-    LAYER
+    LAYER,
+    HERO
 };
 
 //----------------------------------------

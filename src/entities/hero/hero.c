@@ -23,6 +23,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     sfIntRect rect = IRECT(0, 0, 1200, 400);
     sfTexture *texture = create_texture(game, "asset/hero/bard.png", &rect);
     sfVector2u window = sfRenderWindow_getSize(game->window);
+    get_next_entity_of_typ
 
     if (hero == NULL || texture == NULL)
         return (false);

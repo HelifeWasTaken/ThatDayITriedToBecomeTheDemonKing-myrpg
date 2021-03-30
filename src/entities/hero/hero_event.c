@@ -61,6 +61,7 @@ static bool player_move(hero_t *hero, int anim, sfIntRect rect)
 bool handle_hero_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
+    layer_t *layer = entity->instance;
     hero_t *hero = entity->instance;
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
 
