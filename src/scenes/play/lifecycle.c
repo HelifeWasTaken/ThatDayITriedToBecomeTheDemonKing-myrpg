@@ -20,6 +20,8 @@ int play_lifecycle(game_t *game)
         return (84);
     if (create_entity(game, LAYER) == NULL)
         return (84);
+    if (create_entity(game, VIEW) == NULL)
+        return (84);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)

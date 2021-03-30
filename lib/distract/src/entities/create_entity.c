@@ -53,19 +53,18 @@ entity_t *create_entity(game_t *game, int type)
     entity_t *entity = malloc(sizeof(entity_t));
     entity_info_t *info = get_entity_info(game, type);
 
-    if (info == NULL)
-        print_error("Entity is not registered!");
+    D_ASSERT(info, NULL, "Entity is not registered", false);
+    D_ASSERT(entity, NULL, "Entity creation failed", false);
     if (entity == NULL || info == NULL) {
         print_error("Entity creation failed");
         return (NULL);
     }
     set_defaults(type, entity, info);
     if (info->create != NULL) {
-        info->create(game, entity);
-        if (entity->instance == NULL) {
-            print_error("Entity instance creation failed");
-            return (NULL);
-        }
+        D_ASSERT(info->create(game, entity), false,
+            "Create failed", false);
+        D_ASSERT(entity->instance, NULL,
+            "Entity instance creation failed", false);
         if (entity->use_multithreading)
             setup_multithreading(game, entity);
     }

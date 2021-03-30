@@ -16,17 +16,18 @@
 #include "myrpg/entities.h"
 #include "myrpg/define.h"
 #include "stdlib.h"
+#include "distract/debug.h"
+#include "distract/util.h"
 
 bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
-    hero_t *hero = malloc(sizeof(hero_t));
+    hero_t *hero = dcalloc(sizeof(hero_t), 1);
     sfIntRect rect = IRECT(0, 0, 1200, 400);
     sfTexture *texture = create_texture(game, "asset/hero/bard.png", &rect);
     sfVector2u window = sfRenderWindow_getSize(game->window);
-    get_next_entity_of_typ
 
-    if (hero == NULL || texture == NULL)
-        return (false);
+    D_ASSERT(hero, NULL, "Hero could not be created", false);
+    D_ASSERT(texture, NULL, "Tetxure could not be created", false);
     hero->entity = entity;
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);

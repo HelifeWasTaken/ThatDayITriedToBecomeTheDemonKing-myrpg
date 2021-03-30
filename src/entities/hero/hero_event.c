@@ -17,7 +17,7 @@
 #include "stdio.h"
 #include "myrpg/define.h"
 
-static bool player_anim(hero_t *hero)
+/* static bool player_anim(hero_t *hero)
 {
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
 
@@ -33,7 +33,7 @@ static bool player_anim(hero_t *hero)
     }
     sfSprite_setTextureRect(hero->sprite, rect);
     return (true);
-}
+} */
 
 static bool player_move(hero_t *hero, int anim, sfIntRect rect)
 {
@@ -58,22 +58,40 @@ static bool player_move(hero_t *hero, int anim, sfIntRect rect)
     return (true);
 }
 
+void check_key_not_pressed(hero_t *hero, sfEvent *event)
+{
+    if (event->type == sfEvtKeyReleased) {
+        if (event->key.code == sfKeyUp)
+            hero->key[KEY_UP] = false;
+        if (event->key.code == sfKeyRight)
+            hero->key[KEY_RIGHT] = false;
+        if (event->key.code == sfKeyLeft)
+            hero->key[KEY_LEFT] = false;
+        if (event->key.code == sfKeyDown)
+            hero->key[KEY_DOWN] = false;
+    }
+}
+
 bool handle_hero_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
-    layer_t *layer = entity->instance;
     hero_t *hero = entity->instance;
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
 
-    if (sfKeyboard_isKeyPressed(sfKeySpace) == sfTrue)
-        return (player_anim(hero));
-    if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
-        return (player_move(hero, 0, rect));
-    if (sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
-        return (player_move(hero, 100, rect));
-    if (sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
-        return (player_move(hero, 200, rect));
-    if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
-        return (player_move(hero, 300, rect));
+    if (event->type == sfEvtKeyPressed) {
+        if (event->key.code == sfKeyUp)
+            hero->key[KEY_UP] = true;
+        if (event->key.code == sfKeyRight)
+            hero->key[KEY_RIGHT] = true;
+        if (event->key.code == sfKeyLeft)
+            hero->key[KEY_LEFT] = true;
+        if (event->key.code == sfKeyDown)
+            hero->key[KEY_DOWN] = true;
+    }
+    for (int i = 0; i < 4; i++) {
+        if (hero->key[i] == true)
+            player_move(hero, HERO_KEY[i],rect);
+    }
+    check_key_not_pressed(hero, event);
     return (false);
 }
