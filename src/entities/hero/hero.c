@@ -16,6 +16,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/define.h"
 #include "stdlib.h"
+#include "distract/debug.h"
 
 bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
@@ -23,9 +24,15 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     sfIntRect rect = IRECT(0, 0, 1200, 400);
     sfTexture *texture = create_texture(game, "asset/hero/bard.png", &rect);
     sfVector2u window = sfRenderWindow_getSize(game->window);
+    //entity_t *map_entity = GET_ENTITY(game, LAYER);
+    //layer_t *layers = NULL;
 
-    if (hero == NULL || texture == NULL)
-        return (false);
+    D_ASSERT(hero, NULL, "Hero could not be created", false);
+    D_ASSERT(texture, NULL, "Tetxure could not be created", false);
+    //D_ASSERT(map_entity, NULL, "Layer could not be found", false);
+    //layers = map_entity->instance;
+    //hero->collison = layers->map.v_collision.layer;
+    hero->collison = NULL;
     hero->entity = entity;
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
