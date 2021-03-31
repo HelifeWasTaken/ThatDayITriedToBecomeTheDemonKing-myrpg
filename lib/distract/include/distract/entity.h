@@ -8,6 +8,7 @@
 #ifndef DISTRACT_ENTITY_H
 #define DISTRACT_ENTITY_H
 #include "SFML/Graphics.h"
+#include "SFML/System.h"
 #include "distract/game.h"
 #include "distract/def.h"
 #include "stdio.h"
@@ -60,6 +61,18 @@ typedef struct entity {
     ///
     bool (*do_collide_rect)(struct entity *entity, sfFloatRect *rect,
         sfFloatRect *overlap);
+
+    ///
+    /// If set to true, update loop will be run on another thread
+    ///
+    bool use_multithreading;
+
+    ///
+    /// In the case where multithreading is enabled, it is
+    /// the informations about the corresponding thread
+    ///
+    struct thread_info *threadinfo;
+
 } entity_t;
 
 ///
@@ -73,7 +86,7 @@ typedef struct entity_info {
     ///
     int type;
 
-    void (*create)(game_t *game, entity_t *entity);
+    bool (*create)(game_t *game, entity_t *entity);
     void (*draw)(game_t *game, entity_t *entity);
     void (*destroy)(game_t *game, entity_t *entity);
     void (*update)(game_t *game, entity_t *entity);
@@ -96,7 +109,7 @@ entity_info_t *get_entity_info(game_t *game, int type);
 ///
 /// Register an entity to the registry.
 ///
-void register_entity(game_t *game, entity_info_t *entity);
+bool register_entity(game_t *game, entity_info_t *entity);
 
 ///
 /// Add a detached or externally allocated entity to the scene entities.
@@ -106,7 +119,7 @@ void add_to_entities(game_t *game, entity_t *entity);
 ///
 /// Register several entities to the registry.
 ///
-void register_entities(game_t *game, entity_info_t **entities);
+bool register_entities(game_t *game, entity_info_t **entities);
 
 ///
 /// Call the draw function of the entity.
@@ -117,6 +130,11 @@ void draw_entity(game_t *game, entity_t *entity);
 /// Call the update function of the entity.
 ///
 void update_entity(game_t *game, entity_t *entity);
+
+///
+/// Call the update function of the entity using the thread.
+///
+void update_entity_async(game_t *game, entity_t *entity);
 
 ///
 /// Deallocate an entity.
@@ -135,8 +153,22 @@ void destroy_entity(game_t *game, entity_t *entity);
 ///
 entity_t *get_next_entity_of_type(entity_t *entity, int type);
 
+static inline entity_t *get_entity(game_t *game, int type)
+{
+    entity_t *first_entity = game->scene->entities;
+
+    if (first_entity == NULL)
+        return (NULL);
+    if (first_entity->type == type)
+        return (first_entity);
+    return (get_next_entity_of_type(first_entity, type));
+}
+
+///
+/// You may want to use `get_entity(game, entity_type)` method instead.
+///
 #define GET_ENTITY(game, entity_type) \
-    get_next_entity_of_type(game->scene->entities, entity_type)
+    get_entity(game, entity_type)
 
 ///
 /// Call the following instruction block each time.
@@ -158,5 +190,14 @@ entity_t *get_next_entity_of_type(entity_t *entity, int type);
 ///
 sfVector2f move_entity_towards(entity_t *entity, sfVector2f target,
     float distance);
+
+///
+/// Informations passed to the underlying thread.
+///
+typedef struct thread_info {
+    sfThread *thread;
+    game_t *game;
+    entity_t *entity;
+} thread_info_t;
 
 #endif //DISTRACT_ENTITY_H

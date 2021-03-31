@@ -1,7 +1,9 @@
 {
     "files.associations": {
-        "parameters.h": "c",
+        "asset.h": "c",
+        "map.h": "c",
+        "define.h": "c",
         "entities.h": "c",
-        "asset.h": "c"
+        "*.in": "c"
     }
 }

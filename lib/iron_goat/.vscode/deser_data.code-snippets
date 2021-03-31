@@ -1,0 +1,125 @@
+{
+	// Place your iron_goat workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"deserdata": {
+		"scope": "c,cpp",
+		"prefix": "deserdata",
+		"body": [
+			"{",
+				"\t.data = \".$1\",",
+				"\t.size_data = sizeof($2),",
+				"\t.offset = offsetof(struct iron_goat_$3, $1),",
+				"\t.intern = {",
+				"\t\t.callback = $4,",
+				"\t\t.woff = $5",
+				"\t},",
+				"\t.type = $6,",
+				"\t.opt = $7",
+			"},"
+		]
+	},
+	"deserdatastr": {
+		"scope": "c,cpp",
+		"prefix": "deserdatastr",
+		"body": [
+			"{",
+				"\t.data = \".$1\",",
+				"\t.size_data = sizeof(char *),",
+				"\t.offset = offsetof(struct iron_goat_$2, $1),",
+				"\t.intern = {",
+				"\t\t.callback = iron_goat_get_string,",
+				"\t\t.woff = true",
+				"\t},",
+				"\t.type = JSON_STR,",
+				"\t.opt = false",
+			"},"
+		]
+	},
+	"deserdatau64": {
+		"scope": "c,cpp",
+		"prefix": "deserdatau64",
+		"body": [
+			"{",
+				"\t.data = \".$1\",",
+				"\t.size_data = sizeof(u64_t),",
+				"\t.offset = offsetof(struct iron_goat_$2, $1),",
+				"\t.intern = {",
+				"\t\t.callback = NULL,",
+				"\t\t.woff = false",
+				"\t},",
+				"\t.type = JSON_NUM,",
+				"\t.opt = false",
+			"},"
+		]
+	},
+	"deserdatai64": {
+		"scope": "c,cpp",
+		"prefix": "deserdatai64",
+		"body": [
+			"{",
+				"\t.data = \".$1\",",
+				"\t.size_data = sizeof(i64_t),",
+				"\t.offset = offsetof(struct iron_goat_$2, $1),",
+				"\t.intern = {",
+				"\t\t.callback = NULL,",
+				"\t\t.woff = false",
+				"\t},",
+				"\t.type = JSON_NUM,",
+				"\t.opt = false",
+			"},"
+		]
+	},
+	"deserdatavec": {
+		"scope": "c,cpp",
+		"prefix": "deserdatavec",
+		"body": [
+			"{",
+				"\t.data = \".$1\",",
+				"\t.size_data = sizeof(VECTOR($2) *),",
+				"\t.offset = offsetof(struct iron_goat_$3, $1),",
+				"\t.intern = {",
+				"\t\t.callback = $4,",
+				"\t\t.woff = false",
+				"\t},",
+				"\t.type = JSON_ARR,",
+				"\t.opt = false",
+			"},"
+		]
+	},
+	"deservector": {
+		"scope": "c,cpp",
+		"prefix": "deservector",
+		"body": [
+			"bool load_iron_goat_$1(struct json *conf,",
+			"\tstruct $2 *self)",
+			"{",
+				"\tstruct json_array *data = conf->v.array;",
+				"\tstruct iron_goat_$3 $4 = {0};\n",
+				"\tif ((self->$5 = VECTOR_CREATE($7)) == NULL)",
+					"\t\treturn (false);",
+				"\tfor (size_t i = 0; i < data->size; i++) {",
+					"\t\t$4 = (struct iron_goat_$3){0};",
+					"\t\tif ($8(&data->data[i], &$4) == false)",
+						"\t\t\treturn (false);",
+					"\t\tif (self->$5->push_back(&self->$5, $4) == -1)",
+						"\t\t\treturn (false);",
+				"\t}",
+				"\treturn (true);",
+			"}"
+		]
+	}
+}

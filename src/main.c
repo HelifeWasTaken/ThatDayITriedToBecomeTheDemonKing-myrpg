@@ -6,15 +6,15 @@
 */
 
 //#include "my/io.h"
+#include <iron_goat/deser.h>
 #include "myrpg/game.h"
-
-static void print_help(void)
-{
-    //my_printf("RPG created with CSFML.\n\n");
-    //my_printf("USAGE\n ./my_rpg\n\n\n");
-    //my_printf("USER INTERACTIONS\n");
-    //my_printf(" SPACE_KEY\tdoes something??\n");
-}
+#include "distract/window.h"
+#include "distract/graphics.h"
+#include "distract/resources.h"
+#include "distract/game.h"
+#include "myrpg/map.h"
+#include <stdio.h>
+#include <SFML/Graphics.h>
 
 int main(void)
 {

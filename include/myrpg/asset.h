@@ -22,6 +22,7 @@
     #define MENU_BUTTON_SPT_W 192
     #define MENU_BUTTON_SPT_H 64
     #define MENU_BUTTON_RECT IRECT(0, 0, MENU_BUTTON_SPT_W, MENU_BUTTON_SPT_H)
+
     #define BUTTON_MENU_POS (int[]) {WINDOW_H / 4,\
         WINDOW_H / 3,  WINDOW_H / 2}
 
@@ -47,5 +48,23 @@
 
     #define ASSET_SETTING_PATH (char *[]) {BACK_BUTTON, \
         MUTE_BUTTON, MUTE_BUTTON, MUTE_BUTTON}
+
+    /// ATH DEFINE
+    ///
+    #define CHAR_ICON "asset/ath/character.png"
+    #define EQUIP_ICON "asset/ath/equipment.png"
+    #define INVENTORY_ICON "asset/ath/inventory.png"
+    #define QUEST_ICON "asset/ath/Quests-Icon.png"
+    #define SKILL_ICON "asset/ath/skills.png"
+    #define OPTION_ICON "asset/ath/option.png"
+
+    #define ICON_RECT 100
+    #define ATH_ICON (char *[]) {CHAR_ICON, EQUIP_ICON, INVENTORY_ICON,\
+        QUEST_ICON, SKILL_ICON, OPTION_ICON}
+
+    #define PLAYER_ATH "asset/ath/player_ath_test.png"
+    #define PLAYER_ATH_W 400
+    #define PLAYER_ATH_H 250
+    #define PLAYER_ATH_POS_Y 775
 
 #endif

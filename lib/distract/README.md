@@ -87,7 +87,7 @@ And we add it to our project header file:
         PLAY_SCENE,
     };
 
-    int play_lifecycle(game_t *game);    
+    int play_lifecycle(game_t *game);
 ```
 
 You need to register the corresponding scene to the registry.
@@ -244,6 +244,39 @@ You then need to register the entity to the entities' registry:
     // game loop
 ```
 
+### Parallelize the entities logic
+
+Sometimes, you may have **a lot** of entities or several entities with slow
+logic. All these entities will execute their update logic one by one,
+each one before the other, and their execution time will stack up.
+If you have a very slow update routines, it can take a lot of time,
+especially if you have many entities in your scene.
+
+You may want to parallelize the entities logic on entities that you suspect
+may need to be ran on another thread using the power of multithreading.
+
+To use multithreading and run the entity update logic on another thread,
+you need to go in your create function hook and set the
+`entity->use_multithreading` property to `true`.
+
+```c
+void create_customentity(game_t *game, entity_t *entity)
+{
+    //...
+
+    entity->use_multithreading = true;
+
+    //...
+}
+
+void update_customentity(game_t *game, entity_t *entity)
+{
+    customentity_t *customentity = entity->instance;
+
+    // ... the slow code goes here
+}
+```
+
 ### Place an entity in a scene
 
 #### Create a simple entity
@@ -295,7 +328,7 @@ int play_lifecycle(game_t *game)
     // If entity failed to be created, exit with error
     if (entity != NULL)
         return (84);
-    
+
     // The instance is garanteed to be non-NULL at this point
     customentity_t *customentity = entity->instance;
 
@@ -336,4 +369,281 @@ FOREACH_ENTITY_OF_TYPE(CUSTOMENTITY, game->scene->entities, entity) {
 
     // ...
 }   
+```
+
+### Create job
+
+You may want to perform code outside the game loop while not blocking the
+game loop.
+
+
+```c
+#include "stdio.h"
+#include "distract/game.h"
+#include "distract/entity.h"
+#include "distract/resources.h"
+#include "distract/job.h"
+
+// Note: this function will be executed asynchronously from another thread
+void my_job(job_t *job)
+{
+    // sleep some time
+    sfSleep((sfTime) { 1000000 });
+
+    printf("I'm in the thread!");
+}
+
+// The lifecycle of the play scene
+int play_lifecycle(game_t *game)
+{
+    // create the job
+    job_t *job = create_job(&my_job, NULL)
+
+    if (job == NULL)
+        return (84);
+
+    // start the job
+    start_job(job);
+
+    // Until the scene is closed
+    while (is_scene_updated(game)) {
+        // ...
+    }
+
+    // destroy our job
+    destroy_job(job);
+
+    // ...
+}
+```
+
+### Send messages inside and outside a job
+
+You may want to communicate with your job to get status, update, or trigger events.
+
+```c
+#include "stdio.h"
+#include "distract/game.h"
+#include "distract/entity.h"
+#include "distract/resources.h"
+#include "distract/job.h"
+
+enum message_type {
+    MYJOB_MESSAGE
+};
+
+// Note: this function will be executed asynchronously in another thread
+void my_job(job_t *job)
+{
+    // send a message to the main game loop
+    // note that `send_job_message` take a `void *` as third argument
+    send_job_message(job, MYJOB_MESSAGE, "One!");
+
+    // we can wait, it does not impact our game loop
+    sfSleep((sfTime) { 10000 });
+
+    send_job_message(job, MYJOB_MESSAGE, "Two!");
+
+    sfSleep((sfTime) { 10000 });
+
+    send_job_message(job, MYJOB_MESSAGE, "Three!");
+
+}
+
+// The lifecycle of the play scene
+int play_lifecycle(game_t *game)
+{
+    // create the job
+    job_t *job = create_job(&my_job, NULL)
+
+    if (job == NULL)
+        return (84);
+
+    start_job(job);
+
+    // Until the scene is closed
+    while (is_scene_updated(game)) {
+        
+        // receive messages from the job
+        // note: `poll_job_message` returns a `void *`
+        char *msg;
+        while ((msg = poll_job_message(job, MYJOB_MESSAGE)) != NULL) {
+            printf("Game loop is receiving: %s\n", msg);
+        }
+
+        // ...
+    }
+
+    destroy_job(job);
+    destroy_scene(game, true); // the entity will be destroyed with the scene
+    // ...
+}
+```
+
+```
+Game loop is receiving: One!
+Game loop is receiving: Two!
+Game loop is receiving: Three!
+```
+
+A more complex variant:
+
+```c
+#include "stdio.h"
+#include "distract/game.h"
+#include "distract/entity.h"
+#include "distract/resources.h"
+#include "distract/job.h"
+
+enum message_type {
+    MYJOB_MESSAGE,
+    GAME_MESSAGE
+};
+
+// Note: this function will be executed asynchronously in another thread
+void my_job(job_t *job)
+{
+    // send a message to the main game loop
+    send_job_message(job, MYJOB_MESSAGE, "Hello!");
+
+    // we can wait, it does not impact our game loop
+    sfSleep((sfTime) { 100000 });
+
+    // this job will never end, but since its in another thread,
+    // it will not block our game loop
+    while (true) {
+
+        // check if we've got messages
+        char *msg;
+        while ((msg = poll_job_message(job, GAME_MESSAGE)) != NULL) {
+            printf("Job is receiving: %s\n", msg);
+        }
+
+        // sleep some time
+        sfSleep((sfTime) { 10000 });
+    
+    }
+}
+
+// The lifecycle of the play scene
+int play_lifecycle(game_t *game)
+{
+    // create the job
+    job_t *job = create_job(&my_job, NULL)
+
+    if (job == NULL)
+        return (84);
+
+    start_job(job);
+
+    // Until the scene is closed
+    while (is_scene_updated(game)) {
+        
+        // receive messages from the job
+        char *msg;
+        while ((msg = poll_job_message(job, MYJOB_MESSAGE)) != NULL) {
+            printf("Game loop is receiving: %s\n", msg);
+        }
+
+        // ...
+    }
+
+    destroy_job(job);
+    destroy_scene(game, true); // the entity will be destroyed with the scene
+    // ...
+}
+```
+
+### Wait that a job end
+
+```c
+enum message_type {
+    SOME_MESSAGE
+};
+
+void my_job(job_t *job)
+{
+    // our game loop will wait that the sleep is completed
+    sfSleep((sfTime) { 500000 });
+
+    send_job_message(job, SOME_MESSAGE, "hello");
+}
+
+// some entrypoint function that we will call somewhere
+void some_function()
+{
+    job_t *job = create_job(&my_job, NULL);
+
+    start_job(job);
+
+    // it will stop the execution until the job is completed
+    wait_job(job);
+    
+    // we can still get the unread messages from the job
+    // even if at this point the job is stopped
+    char *msg;
+    while ((msg = poll_job_message(job, SOME_MESSAGE)) != NULL) {
+        printf("The message was %s\n", msg);
+    }
+
+    destroy_job(job);
+}
+```
+
+A more complex variant of what we can do:
+
+```c
+enum message_type {
+    SOME_MESSAGE,
+    WAIT_FOR_JOB
+};
+
+void my_job(job_t *job)
+{
+    sfSleep((sfTime) { 200000 });
+
+    // this message will call the wait_job
+    // in the other thread, as defined below
+    send_job_message(job, WAIT_FOR_JOB, "");
+
+    // our game loop will be stuck by this wait, since at this point,
+    // wait_job was called on the other thread
+    sfSleep((sfTime) { 500000 });
+
+    send_job_message(job, SOME_MESSAGE, "hello");
+}
+
+int play_lifecycle(game_t *game)
+{
+    job_t *job = create_job(&my_job, NULL);
+
+    start_job(job);
+
+    while (is_scene_updated(game)) {
+
+        // ... you can do stuff while it does not wait the job
+
+        // an example usage would be to wait for a message triggering the
+        // synchronization
+        if (poll_job_message(job, WAIT_FOR_JOB) != NULL) {
+
+            // wait that the job is completed
+            wait_job(job);
+
+            // we can still get the unread messages from the job
+            // even if at this point the job is stopped
+            char *msg;
+            while ((msg = poll_job_message(job, SOME_MESSAGE)) != NULL) {
+                printf("The message was %s\n", msg);
+            }
+
+            break; // exit the game loop
+        }
+
+    }
+
+    destroy_job(job);
+    destroy_scene(game, true); // the entity will be destroyed with the scene
+    // ...
+}
 ```

@@ -26,7 +26,7 @@ ifeq ($(EPIDEBUG), 1)
 	CFLAGS += -ftrapv -ggdb -g3
 endif
 
-LFLAGS = -ldistract -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm # -lmy
+LFLAGS = -ldistract -ltgoat -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm # -lmy
 
 TEST_FLAGS = $(LFLAGS) -lcriterion --coverage
 
@@ -34,33 +34,52 @@ TARGET = my_rpg
 
 TARGET_TEST = unit_tests
 
+SRC_MAP =	src/entities/map_loader/checks_tileset_layer.c \
+			src/entities/map_loader/draw_vertex_array.c \
+			src/entities/map_loader/get_tile_id_and_rotation.c \
+			src/entities/map_loader/load_vertex_array_map.c \
+			src/entities/map_loader/load_vertex_array.c \
+			src/entities/map_loader/load_texture_coords_rot.c \
+			src/entities/map_loader/create_map.c
+
 SRC = 	src/game.c \
-	src/entities/player/player.c \
-	src/entities/scroll_bar/scroll_bar.c    \
-	src/entities/settings/setting_button.c	\
-	src/entities/settings/function_button.c	\
-	src/entities/settings/vfx_scroll.c	\
-	src/entities/settings/fonc_scroll_vfx.c	\
-	src/entities/settings/set_size.c 	\
-	src/scenes/play/lifecycle.c \
-	src/scenes/menu/lifecycle.c     \
-	src/scenes/key_config/lifecycle.c \
-	src/entities/menu/menu.c \
-	src/entities/menu/create_menu.c 	\
-	src/scenes/settings_menu/lifecycle.c
+		    src/entities/player/player.c \
+		    src/entities/scroll_bar/scroll_bar.c    \
+        src/entities/settings/setting_button.c	\
+	      src/entities/settings/function_button.c	\
+	      src/entities/settings/vfx_scroll.c	\
+	      src/entities/settings/fonc_scroll_vfx.c	\
+        src/entities/settings/set_size.c 	\
+        src/scenes/play/lifecycle.c \
+        src/scenes/menu/lifecycle.c     \
+        src/scenes/key_config/lifecycle.c \
+        src/scenes/settings_menu/lifecycle.c  \
+        src/entities/menu/menu.c \
+        src/entities/menu/create_menu.c \
+        src/entities/ath/ath.c \
+        src/entities/hero/hero.c \
+        src/entities/hero/hero_event.c \
+        src/entities/view/view.c \
+        $(SRC_MAP)
+
 TESTS =	\
 
-all: build_lib build_all
+all:
+	${MAKE} -j build_all -C .
+	${MAKE} -j build_lib -C .
 
 build_lib:
-	#${MAKE} -C ./lib/my/
-	${MAKE} -C ./lib/distract/
+	${MAKE} -j -C ./lib/distract/
+	${MAKE} -j -C ./lib/iron_goat/
 
 re_lib:
-	#${MAKE} re -C ./lib/my/
-	${MAKE} re -C ./lib/distract/
+	${MAKE} re -j -C ./lib/distract/
+	${MAKE} re -j -C ./lib/iron_goat/
 
-build_all: ${TARGET}
+build_all:
+	rm -rf ${TARGET}
+	${MAKE} build_lib -j  -C .
+	${MAKE} ${TARGET} -j  -C .
 
 tests_run: clean_tests build_lib
 	${CC} ${CFLAGS} ${TEST_FLAGS} -o ${TARGET_TEST} ${SRC} ${TESTS} ${LFLAGS}
@@ -78,9 +97,14 @@ $(TARGET): ${SRC}
 
 clean:
 	rm -f ${TARGET}
+	${MAKE} clean -j -C ./lib/distract/
+	${MAKE} clean -j -C ./lib/iron_goat/
+
 
 fclean: clean
 	rm -f ${LIB} *.gc* unit_tests
+	${MAKE} fclean -C ./lib/iron_goat/
+	${MAKE} fclean -C ./lib/distract/
 
 re: fclean all
 

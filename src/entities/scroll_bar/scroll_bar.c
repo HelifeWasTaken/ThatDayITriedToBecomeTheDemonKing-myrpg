@@ -15,19 +15,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void create_scroll_bar(game_t *game UNUSED, entity_t *entity)
+bool create_scroll_bar(game_t *game UNUSED, entity_t *entity)
 {
     scroll_bar_t *scroll_bar = malloc(sizeof(scroll_bar_t) * 1);
 
+    if (scroll_bar == NULL)
+        return (false);
     scroll_bar->entity = entity;
-    scroll_bar->clock = create_pausable_clock(game);
-    scroll_bar->scroll_bar = sfRectangleShape_create();
+    if ((scroll_bar->clock = create_pausable_clock(game)) == NULL)
+        return (false);
+    if ((scroll_bar->scroll_bar = sfRectangleShape_create()) == NULL)
+        return (false);
     sfRectangleShape_setSize(scroll_bar->scroll_bar,
         (sfVector2f){game->mode.width * 0.015, game->mode.height * 0.10});
     sfRectangleShape_setFillColor(scroll_bar->scroll_bar, sfRed);
     scroll_bar->entity->pos.x = game->mode.width + 50;
     scroll_bar->entity->pos.y = 0;
     entity->instance = scroll_bar;
+    return (true);
 }
 
 void destroy_scroll_bar(game_t *game UNUSED, entity_t *entity)

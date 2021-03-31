@@ -30,7 +30,7 @@ bool handle_menu_events(game_t *game UNUSED,
                     mouse_pos.y) == sfTrue) {
             sfSprite_setScale(menu->button_sprite[i], VEC2F(1.2, 1.2));
             if (i == 0 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
-                switch_to_scene(game, SETTING_SCENE);
+                switch_to_scene(game, PLAY_SCENE);
             if (i == 1 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
                 switch_to_scene(game, SETTING_SCENE);
             if (i == 2 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)

@@ -17,10 +17,15 @@ LFLAGS = -lcsfml-system -lcsfml-graphics -lcsfml-window -lmy
 
 LFLAGS_TEST = ${LFLAGS} -lcriterion
 
+ifeq ($(EPIDEBUG), 1)
+	CFLAGS += -g3 -ggdb
+endif
+
 TESTDIR = ../../tests/lib/my
 
 SRC =	src/debug/print_error.c \
 		src/entities/add_to_entities.c \
+		src/entities/create_entity.c \
 		src/entities/entity.c \
 		src/entities/get_entity_info.c \
 		src/entities/register_entity.c \
@@ -36,6 +41,7 @@ SRC =	src/debug/print_error.c \
 		src/graphics/center_text_x.c \
 		src/graphics/center_text_y.c \
 		src/graphics/create_sprite.c \
+		src/job/job.c \
 		src/math/add.c \
 		src/math/lerp.c \
 		src/math/magnitude.c \
@@ -60,7 +66,15 @@ SRC =	src/debug/print_error.c \
 		src/scene/load_pending_scene.c \
 		src/scene/transmit_event_to_scene.c \
 		src/window/create_standard_window.c \
-		src/strutil.c
+		src/hashmap/create.c \
+		src/hashmap/destroy.c \
+		src/hashmap/getindex.c \
+		src/hashmap/resize.c \
+		src/hashmap/set.c \
+		src/hashmap/unset.c \
+		src/hashmap/get.c \
+		src/strutil.c \
+		src/allocutil.c
 
 TEST_FILES = 	\
 
