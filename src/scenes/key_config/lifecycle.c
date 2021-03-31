@@ -9,12 +9,12 @@
 #include "distract/entity.h"
 #include "distract/resources.h"
 #include "myrpg/entities.h"
+#include "myrpg/parameters.h"
 
 int key_lifecycle(game_t *game)
 {
     sfEvent event;
 
-    create_entity(game, SCROLL);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)

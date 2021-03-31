@@ -5,6 +5,5 @@
         "define.h": "c",
         "entities.h": "c",
         "*.in": "c"
-    },
-    "window.zoomLevel": 1
+    }
 }

@@ -43,18 +43,24 @@ SRC_MAP =	src/entities/map_loader/checks_tileset_layer.c \
 			src/entities/map_loader/create_map.c
 
 SRC = 	src/game.c \
-		src/entities/player/player.c \
-		src/entities/scroll_bar/scroll_bar.c    \
-		src/scenes/play/lifecycle.c \
-		src/scenes/menu/lifecycle.c     \
-		src/scenes/key_config/lifecycle.c \
-		src/entities/menu/menu.c \
-		src/entities/menu/create_menu.c \
-		src/entities/ath/ath.c \
-		src/entities/hero/hero.c \
-		src/entities/hero/hero_event.c \
-		src/entities/view/view.c \
-		$(SRC_MAP)
+		    src/entities/player/player.c \
+		    src/entities/scroll_bar/scroll_bar.c    \
+        src/entities/settings/setting_button.c	\
+	      src/entities/settings/function_button.c	\
+	      src/entities/settings/vfx_scroll.c	\
+	      src/entities/settings/fonc_scroll_vfx.c	\
+        src/entities/settings/set_size.c 	\
+        src/scenes/play/lifecycle.c \
+        src/scenes/menu/lifecycle.c     \
+        src/scenes/key_config/lifecycle.c \
+        src/scenes/settings_menu/lifecycle.c  \
+        src/entities/menu/menu.c \
+        src/entities/menu/create_menu.c \
+        src/entities/ath/ath.c \
+        src/entities/hero/hero.c \
+        src/entities/hero/hero_event.c \
+        src/entities/view/view.c \
+        $(SRC_MAP)
 
 TESTS =	\
 

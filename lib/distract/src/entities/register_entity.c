@@ -13,7 +13,7 @@
 #include "unistd.h"
 #include "stdarg.h"
 
-bool register_entity(game_t *game, entity_info_t *entity)
+bool register_entity(game_t *game, const entity_info_t *entity)
 {
     entity_info_t *entity_info = malloc(sizeof(entity_info_t));
 
