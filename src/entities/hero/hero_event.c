@@ -16,6 +16,7 @@
 #include "myrpg/asset.h"
 #include "stdio.h"
 #include "myrpg/define.h"
+#include "distract/debug.h"
 
 static bool player_anim(hero_t *hero)
 {
@@ -35,6 +36,82 @@ static bool player_anim(hero_t *hero)
     return (true);
 }
 
+static void try_player_movement_left(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    i64_t posx = (hero->entity->pos.x + offset->x) / 16;
+    i64_t posy = ((hero->entity->pos.y + offset->y) + (rect.height / 2)) / 16;
+    i64_t pos = posx + posy * hero->collision->map.map_size.x;
+
+    if (posx >= hero->collision->map.map_size.x || posx < 0 ||
+        posy >= hero->collision->map.map_size.y || posy < 0) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
+    }
+    printf("pos: %ld, collision: %s\n", pos,
+        hero->collision->map.v_collision.layer[pos] ? "true" : "false");
+    if (hero->collision->map.v_collision.layer[pos] == true)
+        return;
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+        hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_right(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    i64_t posx = (hero->entity->pos.x + offset->x + rect.width) / 16;
+    i64_t posy = ((hero->entity->pos.y + offset->y) + (rect.height / 2)) / 16;
+    i64_t pos = posx + posy * hero->collision->map.map_size.x;
+
+    if (posx >= hero->collision->map.map_size.x || posx < 0 ||
+        posy >= hero->collision->map.map_size.y || posy < 0) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
+    }
+    printf("pos: %ld, collision: %s\n", pos,
+        hero->collision->map.v_collision.layer[pos] ? "true" : "false");
+    if (hero->collision->map.v_collision.layer[pos] == true)
+        return;
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+        hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_up(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    i64_t posx = (hero->entity->pos.x + offset->x + (rect.width / 2)) / 16;
+    i64_t posy = (hero->entity->pos.y + offset->y) / 16;
+    i64_t pos = posx + posy * hero->collision->map.map_size.x;
+
+    if (posx >= hero->collision->map.map_size.x || posx < 0 ||
+        posy >= hero->collision->map.map_size.y || posy < 0) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
+    }
+    printf("pos: %ld, collision: %s\n", pos,
+        hero->collision->map.v_collision.layer[pos] ? "true" : "false");
+    if (hero->collision->map.v_collision.layer[pos] == true)
+        return;
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+        hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_down(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    i64_t posx = (hero->entity->pos.x + offset->x + (rect.width / 2)) / 16;
+    i64_t posy = (hero->entity->pos.y + offset->y + rect.height) / 16;
+    i64_t pos = posx + posy * hero->collision->map.map_size.x;
+
+    if (posx >= hero->collision->map.map_size.x || posx < 0 ||
+        posy >= hero->collision->map.map_size.y || posy < 0) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
+    }
+    printf("pos: %ld, collision: %s\n", pos,
+        hero->collision->map.v_collision.layer[pos] ? "true" : "false");
+    if (hero->collision->map.v_collision.layer[pos] == true)
+        return;
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+        hero->entity->pos.y + offset->y);
+}
+
 static bool player_move(hero_t *hero, int anim, sfIntRect rect)
 {
     rect.top = anim;
@@ -48,10 +125,10 @@ static bool player_move(hero_t *hero, int anim, sfIntRect rect)
         hero->animation_clock->time = 0;
     }
     if (hero->movement_clock->time >= 0.020f) {
-        anim == 0 ? hero->entity->pos.y += 8 : 0;
-        anim == 100 ? hero->entity->pos.x -= 8 : 0;
-        anim == 200 ? hero->entity->pos.x += 8 : 0;
-        anim == 300 ? hero->entity->pos.y -= 8 : 0;
+        anim == 0 ? try_player_movement_down(hero, &VEC2F(0, 8), rect) : 0;
+        anim == 100 ? try_player_movement_left(hero, &VEC2F(-8, 0), rect) : 0;
+        anim == 200 ? try_player_movement_right(hero, &VEC2F(8, 0), rect) : 0;
+        anim == 300 ? try_player_movement_up(hero, &VEC2F(0, -8), rect): 0;
         hero->movement_clock->time = 0;
     }
     sfSprite_setTextureRect(hero->sprite, rect);

@@ -29,7 +29,7 @@ typedef struct hero {
     pausable_clock_t *animation_clock;
     pausable_clock_t *movement_clock;
     sfSprite *sprite;
-    const bool *collison;
+    const struct layer *collision;
 } hero_t;
 
 bool create_hero(game_t *game, entity_t *entity);

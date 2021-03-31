@@ -153,7 +153,8 @@ void destroy_entity(game_t *game, entity_t *entity);
 ///
 entity_t *get_next_entity_of_type(entity_t *entity, int type);
 
-static inline entity_t *get_entity(game_t *game, int type) {
+static inline entity_t *get_entity(game_t *game, int type)
+{
     entity_t *first_entity = game->scene->entities;
 
     if (first_entity == NULL)

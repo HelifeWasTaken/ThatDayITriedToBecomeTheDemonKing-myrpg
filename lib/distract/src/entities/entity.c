@@ -14,8 +14,9 @@
 
 entity_t *get_next_entity_of_type(entity_t *entity, int type)
 {
-    if (entity == NULL)
+    if (entity == NULL) {
         return (NULL);
+    }
     entity = entity->next;
     if (entity == NULL)
         return (NULL);
