@@ -18,7 +18,7 @@
 #include "stdlib.h"
 #include <stdio.h>
 
-void create_settings(game_t *game UNUSED, entity_t *entity)
+bool create_settings(game_t *game UNUSED, entity_t *entity)
 {
     settings_t *setting_button = malloc(sizeof(settings_t));
     sfTexture *texture =
@@ -34,6 +34,7 @@ void create_settings(game_t *game UNUSED, entity_t *entity)
     setting_button->clock = create_pausable_clock(game);
     load_button(game, texture, setting_button);
     entity->instance = setting_button;
+    return (true);
 }
 
 void destroy_settings(game_t *game UNUSED, entity_t *entity)
@@ -64,12 +65,12 @@ void draw_settings(game_t *game UNUSED, entity_t *entity)
     sfRenderWindow_drawSprite(game->window, setting_button->ground, NULL);
     for (int i = 0; i <= 1; i++) {
         sfRenderWindow_drawSprite(game->window,
-            setting_button->sprite_button[i], NULL);
+                setting_button->sprite_button[i], NULL);
     }
 }
 
 bool handle_settings_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED)
+        entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     settings_t *button = entity->instance;
     sfFloatRect pos;

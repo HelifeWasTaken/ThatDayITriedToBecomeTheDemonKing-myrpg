@@ -21,7 +21,7 @@ int main(void)
     //parsed_args_t args = my_parse_args(argc, argv);
 
     //if (my_char_in(args.flags, 'h')) {
-    print_help();
+    //print_help();
     //    return (0);
     //}
     return (load_game());

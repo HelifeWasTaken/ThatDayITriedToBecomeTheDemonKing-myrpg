@@ -18,7 +18,7 @@
 #include "myrpg/parameters.h"
 
 
-void create_vfx_scroll(game_t *game UNUSED, entity_t *entity)
+bool create_vfx_scroll(game_t *game UNUSED, entity_t *entity)
 {
     vfx_scroll_t *vfx_scroll = malloc(sizeof(vfx_scroll_t) * 1);
     sfTexture *texture = create_texture(game, ASSET_BAR, NULL);
@@ -38,6 +38,7 @@ void create_vfx_scroll(game_t *game UNUSED, entity_t *entity)
     sfSprite_setScale(vfx_scroll->sprite_bar, VEC2F(10, 5));
     sfSprite_setScale(vfx_scroll->scrolin, VEC2F(5, 5));
     entity->instance = vfx_scroll;
+    return (true);
 }
 
 void destroy_vfx_scroll(game_t *game UNUSED, entity_t *entity)
@@ -70,7 +71,7 @@ void draw_vfx_scroll(game_t *game UNUSED, entity_t *entity)
 }
 
 bool handle_vfx_scroll_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED)
+        entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     vfx_scroll_t *vfx_scroll = entity->instance;
     sfFloatRect scrollin = sfSprite_getGlobalBounds(vfx_scroll->sprite_bar);

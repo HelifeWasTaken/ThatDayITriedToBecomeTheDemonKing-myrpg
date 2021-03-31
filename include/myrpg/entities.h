@@ -60,7 +60,7 @@ void update_hero(game_t *game, entity_t *entity);
 void draw_hero(game_t *game, entity_t *entity);
 void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED);
+        entity_t *entity UNUSED, sfEvent *event UNUSED);
 
 typedef struct ath {
     entity_t *entity;
@@ -75,7 +75,7 @@ bool create_ath(game_t *game, entity_t *entity);
 void destroy_ath(game_t *game, entity_t *entity);
 void draw_ath(game_t *game UNUSED, entity_t *entity);
 bool handle_ath_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED);
+        entity_t *entity UNUSED, sfEvent *event UNUSED);
 
 typedef struct menu {
     entity_t *entity;
@@ -87,7 +87,7 @@ bool create_menu(game_t *game, entity_t *entity);
 void destroy_menu(game_t *game, entity_t *entity);
 void draw_menu(game_t *game UNUSED, entity_t *entity);
 bool handle_menu_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED);
+        entity_t *entity UNUSED, sfEvent *event UNUSED);
 
 typedef struct player {
     entity_t *entity;
@@ -148,7 +148,7 @@ typedef struct vfx_scroll {
 } vfx_scroll_t;
 
 bool fonc_scroll_vfx(game_t *game, entity_t *entity);
-void create_vfx_scroll(game_t *game, entity_t *entity);
+bool create_vfx_scroll(game_t *game, entity_t *entity);
 void update_vfx_scroll(game_t *game, entity_t *entity);
 void draw_vfx_scroll(game_t *game, entity_t *entity);
 void destroy_vfx_scroll(game_t *game, entity_t *entity);
