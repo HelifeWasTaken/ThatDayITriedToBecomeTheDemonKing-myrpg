@@ -388,7 +388,7 @@ game loop.
 void my_job(job_t *job)
 {
     // sleep some time
-    sfSleep((sfTime) { 1000 });
+    sfSleep((sfTime) { 1000000 });
 
     printf("I'm in the thread!");
 }
