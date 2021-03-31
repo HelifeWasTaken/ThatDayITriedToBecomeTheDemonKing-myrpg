@@ -41,9 +41,9 @@ static void try_player_movement_up(hero_t *hero, sfVector2f *offset, sfIntRect r
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0, 0),
-        GET_REAL_POSITION_XY(entitypos, rect.width / 2, 0),
-        GET_REAL_POSITION_XY(entitypos, rect.width, 0) };
+    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0,rect.height / 2),
+        GET_REAL_POSITION_XY(entitypos, rect.width / 2, rect.height / 2),
+        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2) };
 
     for (int i = 0; i < 3; i++) {
         if (pos_v[i].x >= hero->collision->map.map_size.x ||
@@ -138,10 +138,10 @@ static bool player_move(hero_t *hero, int anim, sfIntRect rect)
         hero->animation_clock->time = 0;
     }
     if (hero->movement_clock->time >= 0.020f) {
-        anim == 0 ? try_player_movement_down(hero, &VEC2F(0, 8), rect) : 0;
-        anim == 83 ? try_player_movement_left(hero, &VEC2F(-8, 0), rect) : 0;
-        anim == 166 ? try_player_movement_right(hero, &VEC2F(8, 0), rect) : 0;
-        anim == 249 ? try_player_movement_up(hero, &VEC2F(0, -8), rect): 0;
+        anim == 0 ? try_player_movement_down(hero, &VEC2F(0, 5), rect) : 0;
+        anim == 83 ? try_player_movement_left(hero, &VEC2F(-5, 0), rect) : 0;
+        anim == 166 ? try_player_movement_right(hero, &VEC2F(5, 0), rect) : 0;
+        anim == 249 ? try_player_movement_up(hero, &VEC2F(0, -5), rect): 0;
         hero->movement_clock->time = 0;
     }
     sfSprite_setTextureRect(hero->sprite, rect);

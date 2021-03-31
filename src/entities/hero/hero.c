@@ -39,9 +39,10 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
     hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
-    hero->entity->pos = VEC2F((window.x / 2 - 50), (window.y / 2 - 80));
+    hero->entity->pos = VEC2F((window.x / 1.5), (window.y / 1.5));
     entity->instance = hero;
     hero->entity->z = 1000;
+    sfSprite_setScale(hero->sprite, VEC2F(0.5, 0.5));
     return (true);
 }
 
