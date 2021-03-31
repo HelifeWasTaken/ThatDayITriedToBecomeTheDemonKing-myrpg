@@ -109,7 +109,7 @@ entity_info_t *get_entity_info(game_t *game, int type);
 ///
 /// Register an entity to the registry.
 ///
-bool register_entity(game_t *game, entity_info_t *entity);
+bool register_entity(game_t *game, const entity_info_t *entity);
 
 ///
 /// Add a detached or externally allocated entity to the scene entities.
