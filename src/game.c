@@ -44,8 +44,26 @@ static bool configure_entities(game_t *game UNUSED)
         &ENTITY(HERO, &create_hero, &draw_hero,
                 &destroy_hero, &update_hero, &handle_hero_events),
         &ENTITY(VIEW, &create_view, NULL,
-                &destroy_view, &update_view, NULL)
+                &destroy_view, &update_view, NULL),
+        &ENTITY(SETTING, &create_settings, &draw_settings,
+                &destroy_settings, &update_settings,
+                &handle_settings_events),
+        &ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
+                    &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events)
     ));
+}
+
+void configure_sound(game_t *game)
+{
+    parameters_t *param = malloc(sizeof(parameters_t) * 1);
+
+    param->music_vol = 1;
+    param->vfx_vol = 1;
+    param->voice_vol = 1;
+    param->music_muted = false;
+    param->vfx_muted = false;
+    param->voice_muted = false;
+    game->state = param;
 }
 
 void configure_game(game_t *game)
@@ -54,6 +72,8 @@ void configure_game(game_t *game)
     register_scene(game, PLAY_SCENE, &play_lifecycle);
     register_scene(game, MENU_SCENE, &menu_lifecycle);
     register_scene(game, KEY_CONFIG, &key_lifecycle);
+    register_scene(game, SETTING_SCENE, &setting_lifecycle);
+    configure_sound(game);
     configure_entities(game);
 }
 

@@ -24,10 +24,13 @@ enum entity_type {
     PLAYER,
     SCROLL,
     MENU,
+    SETTING,
+    VFX_SC,
     ATH,
     LAYER,
     HERO,
     VIEW
+
 };
 
 //----------------------------------------
@@ -57,7 +60,7 @@ void update_hero(game_t *game, entity_t *entity);
 void draw_hero(game_t *game, entity_t *entity);
 void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED);
+        entity_t *entity UNUSED, sfEvent *event UNUSED);
 
 typedef struct ath {
     entity_t *entity;
@@ -72,7 +75,7 @@ bool create_ath(game_t *game, entity_t *entity);
 void destroy_ath(game_t *game, entity_t *entity);
 void draw_ath(game_t *game UNUSED, entity_t *entity);
 bool handle_ath_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED);
+        entity_t *entity UNUSED, sfEvent *event UNUSED);
 
 typedef struct menu {
     entity_t *entity;
@@ -84,7 +87,7 @@ bool create_menu(game_t *game, entity_t *entity);
 void destroy_menu(game_t *game, entity_t *entity);
 void draw_menu(game_t *game UNUSED, entity_t *entity);
 bool handle_menu_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED);
+        entity_t *entity UNUSED, sfEvent *event UNUSED);
 
 typedef struct player {
     entity_t *entity;
@@ -110,11 +113,49 @@ typedef struct scroll_bar {
     sfRectangleShape *scroll_bar;
 } scroll_bar_t;
 
+struct func_button {
+    void (*fonc)(game_t *game);
+};
+
+typedef struct settings {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *background;
+    sfSprite *ground;
+    sfSprite *sprite_button[4];
+} settings_t;
+
+bool create_settings(game_t *game, entity_t *entity);
+void update_settings(game_t *game, entity_t *entity);
+void draw_settings(game_t *game, entity_t *entity);
+void destroy_settings(game_t *game, entity_t *entity);
+bool handle_settings_events(game_t *game, entity_t *entity, sfEvent *event);
+
 bool create_scroll_bar(game_t *game, entity_t *entity);
 void update_scroll_bar(game_t *game, entity_t *entity);
 void draw_scroll_bar(game_t *game, entity_t *entity);
 void destroy_scroll_bar(game_t *game, entity_t *entity);
 bool handle_scroll_bar_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct vfx_scroll {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite_bar;
+    sfSprite *scrolin;
+    float percentage;
+    void (*on_scroll)(game_t *game, struct vfx_scroll *scroll);
+    sfText *text;
+} vfx_scroll_t;
+
+bool fonc_scroll_vfx(game_t *game, entity_t *entity);
+bool create_vfx_scroll(game_t *game, entity_t *entity);
+void update_vfx_scroll(game_t *game, entity_t *entity);
+void draw_vfx_scroll(game_t *game, entity_t *entity);
+void destroy_vfx_scroll(game_t *game, entity_t *entity);
+bool handle_vfx_scroll_events(game_t *game, entity_t *entity, sfEvent *event);
+void set_size_vox(game_t *game, vfx_scroll_t *scroll);
+void set_size_mus(game_t *game, vfx_scroll_t *scroll);
+void set_size_vfx(game_t *game, vfx_scroll_t *scroll);
 
 typedef struct layer {
     vertex_map_t map;
