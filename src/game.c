@@ -42,7 +42,9 @@ static bool configure_entities(game_t *game UNUSED)
         &ENTITY(LAYER, &create_layer, &draw_layer,
                 &destroy_layer, NULL, NULL),
         &ENTITY(HERO, &create_hero, &draw_hero,
-                &destroy_hero, &update_hero, &handle_hero_events)
+                &destroy_hero, &update_hero, &handle_hero_events),
+        &ENTITY(VIEW, &create_view, NULL,
+                &destroy_view, &update_view, NULL)
     ));
 }
 

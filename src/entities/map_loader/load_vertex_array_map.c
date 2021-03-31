@@ -7,6 +7,7 @@
 
 #include "myrpg/map.h"
 #include "distract/resources.h"
+#include "SFML/Graphics.h"
 
 static bool load_vertex_array_map_data(ig_map_t *map,
     struct iron_goat_layer *layer, struct vector_texture *textures,
@@ -79,7 +80,7 @@ static bool load_collision_layer(ig_map_t *map,
     }
     for (usize_t i = 0; i < self->v_collision.size; i++) {
         self->v_collision.layer[i] = map->layers->data[
-            map->layers->size].data.size ? true : false;
+            map->layers->size - 1].data.data[i];
     }
     return (true);
 }

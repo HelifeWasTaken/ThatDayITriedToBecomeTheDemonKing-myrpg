@@ -25,8 +25,6 @@ static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
     quad[2].position = VEC2F((pos->i + 1) *
             size->tilex, (pos->j + 1) * size->tiley);
     quad[3].position = VEC2F(pos->i * size->tilex, (pos->j + 1) * size->tiley);
-    if (id_rot.id == -1)
-        return;
     set_texture_coords(&(vtx_load_roat_data_t){tu, tv, quad, size, id_rot.rot});
 }
 

@@ -30,6 +30,7 @@
 
     struct vector_collision {
         bool *layer;
+        u8_t tilesize;
         size_t size;
     };
 
@@ -37,6 +38,7 @@
         struct vector_vertex_array v_vertex;
         struct vector_texture v_texture;
         sfVector2u map_size;
+        sfVector2u tile_size;
         struct vector_collision v_collision;
     } vertex_map_t;
 
@@ -119,5 +121,11 @@
         struct vertex_array_map *self, size_t n);
     void draw_map_layer(sfRenderWindow *window,
         struct vertex_array_map *self, size_t n);
+
+    #define GET_REAL_POSITION_XY(v, xoff, yoff) \
+        (sfVector2u){((v.x) + xoff) / 16, ((v.y) + yoff) / 16}
+
+    #define GET_POS_MAP(v, mw, map) \
+        map[(i64_t)(v.x + v.y * mw)]
 
 #endif

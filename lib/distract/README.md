@@ -87,7 +87,7 @@ And we add it to our project header file:
         PLAY_SCENE,
     };
 
-    int play_lifecycle(game_t *game);    
+    int play_lifecycle(game_t *game);
 ```
 
 You need to register the corresponding scene to the registry.
@@ -328,7 +328,7 @@ int play_lifecycle(game_t *game)
     // If entity failed to be created, exit with error
     if (entity != NULL)
         return (84);
-    
+
     // The instance is garanteed to be non-NULL at this point
     customentity_t *customentity = entity->instance;
 
