@@ -57,7 +57,6 @@ void destroy_job(job_t *job)
     sfMutex_destroy(job->mutex);
     free(job);
 }
-#include <stdio.h>
 
 bool send_job_message(job_t *job, int type, void *content)
 {
