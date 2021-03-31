@@ -34,7 +34,7 @@ jobs:
             name: build_output
             path: build_output
         - name: Preparing a clean env
-          run: find . -type f \( -name "*.gc*" -o -name "*.o" -o -name "*.a" \) -delete
+          run: make fclean
         - name: Build with debug mode
           if: always()
           shell: bash
