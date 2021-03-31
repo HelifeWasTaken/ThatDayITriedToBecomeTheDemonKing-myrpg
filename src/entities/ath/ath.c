@@ -46,7 +46,8 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
 
     ath->player_ath_sprite = create_sprite(player_ath_texture,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
-    SET_SPRITE_POS(ath->player_ath_sprite, VEC2F(0, PLAYER_ATH_POS_Y));
+    ath->ath_pos = VEC2F(0, PLAYER_ATH_POS_Y);
+    SET_SPRITE_POS(ath->player_ath_sprite, ath->ath_pos);
     if (!ath || !player_ath_texture || !ath->player_ath_sprite)
         return (false);
     for (int i = 0; i < 6; i++) {

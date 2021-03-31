@@ -47,8 +47,8 @@
         QUEST_ICON, SKILL_ICON, OPTION_ICON}
 
     #define PLAYER_ATH "asset/ath/player_ath_test.png"
-    #define PLAYER_ATH_W 410
-    #define PLAYER_ATH_H 150
-    #define PLAYER_ATH_POS_Y 860
+    #define PLAYER_ATH_W 400
+    #define PLAYER_ATH_H 250
+    #define PLAYER_ATH_POS_Y 775
 
 #endif

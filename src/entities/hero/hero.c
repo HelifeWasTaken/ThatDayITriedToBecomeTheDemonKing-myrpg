@@ -17,13 +17,14 @@
 #include "myrpg/define.h"
 #include "stdlib.h"
 #include "distract/debug.h"
+#include "distract/util.h"
 #include "myrpg/util.h"
 
 bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
-    hero_t *hero = malloc(sizeof(hero_t));
-    sfIntRect rect = IRECT(0, 0, 1200, 400);
-    sfTexture *texture = create_texture(game, "asset/hero/bard.png", &rect);
+    hero_t *hero = dcalloc(sizeof(hero_t), 1);
+    sfIntRect rect = IRECT(0, 0, 135, 332);
+    sfTexture *texture = create_texture(game, "asset/hero/bard_movement.png", &rect);
     sfVector2u window = sfRenderWindow_getSize(game->window);
     entity_t *map_entity = GET_ENTITY(game, LAYER);
     layer_t *layers = NULL;

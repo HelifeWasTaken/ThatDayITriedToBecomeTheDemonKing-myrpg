@@ -53,6 +53,7 @@ SRC = 	src/game.c \
 		src/entities/ath/ath.c \
 		src/entities/hero/hero.c \
 		src/entities/hero/hero_event.c \
+		src/entities/view/view.c \
 		$(SRC_MAP)
 
 TESTS =	\

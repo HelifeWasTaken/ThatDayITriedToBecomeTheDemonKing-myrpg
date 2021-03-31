@@ -7,6 +7,7 @@
 
 #include "myrpg/map.h"
 #include "distract/resources.h"
+#include "SFML/Graphics.h"
 
 static bool load_vertex_array_map_data(ig_map_t *map,
     struct iron_goat_layer *layer, struct vector_texture *textures,

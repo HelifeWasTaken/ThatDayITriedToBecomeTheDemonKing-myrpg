@@ -119,16 +119,16 @@ static bool player_move(hero_t *hero, int anim, sfIntRect rect)
         rect.left = 0;
     }
     if (hero->animation_clock->time >= 0.10f) {
-        rect.left += 100;
-        if (rect.left == 300)
+        rect.left += 45;
+        if (rect.left == 135)
             rect.left = 0;
         hero->animation_clock->time = 0;
     }
     if (hero->movement_clock->time >= 0.020f) {
         anim == 0 ? try_player_movement_down(hero, &VEC2F(0, 8), rect) : 0;
-        anim == 100 ? try_player_movement_left(hero, &VEC2F(-8, 0), rect) : 0;
-        anim == 200 ? try_player_movement_right(hero, &VEC2F(8, 0), rect) : 0;
-        anim == 300 ? try_player_movement_up(hero, &VEC2F(0, -8), rect): 0;
+        anim == 83 ? try_player_movement_left(hero, &VEC2F(-8, 0), rect) : 0;
+        anim == 166 ? try_player_movement_right(hero, &VEC2F(8, 0), rect) : 0;
+        anim == 289 ? try_player_movement_up(hero, &VEC2F(0, -8), rect): 0;
         hero->movement_clock->time = 0;
     }
     sfSprite_setTextureRect(hero->sprite, rect);
@@ -146,10 +146,10 @@ bool handle_hero_events(game_t *game UNUSED,
     if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
         return (player_move(hero, 0, rect));
     if (sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
-        return (player_move(hero, 100, rect));
+        return (player_move(hero, 83, rect));
     if (sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
-        return (player_move(hero, 200, rect));
+        return (player_move(hero, 166, rect));
     if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
-        return (player_move(hero, 300, rect));
+        return (player_move(hero, 249, rect));
     return (false);
 }
