@@ -64,6 +64,8 @@ typedef struct ath {
     sfSprite *player_ath_sprite;
     sfVector2f ath_pos;
     sfSprite *button_sprite[6];
+    view_t *game_view;
+    sfView *canvas_view;
 } ath_t;
 
 bool create_ath(game_t *game, entity_t *entity);

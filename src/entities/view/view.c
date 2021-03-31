@@ -28,7 +28,7 @@ bool create_view(game_t *game UNUSED, entity_t *entity)
     player_entity = GET_ENTITY(game, HERO);
     D_ASSERT(player_entity, NULL, "could not get hero info in view", false);
     view->hero = player_entity->instance;
-    view->view = sfView_createFromRect((sfFloatRect){0, 0, 1000, 900});
+    view->view = sfView_createFromRect((sfFloatRect){0, 0, game->mode.width / 1.75f, game->mode.height / 1.75f});
     sfView_setCenter(view->view, view->hero->entity->pos);
     entity->instance = view;
     return (true);

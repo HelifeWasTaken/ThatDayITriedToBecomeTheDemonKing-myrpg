@@ -9,7 +9,7 @@
 #define  ASSET_H
     #include "distract/def.h"
 
-    #define WINDOW_W 1200
+    #define WINDOW_W 1920
     #define WINDOW_H 1080
     ///
     /// MAIN_MENU_DEFINE
