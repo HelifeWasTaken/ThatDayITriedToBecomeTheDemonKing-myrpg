@@ -26,32 +26,17 @@ entity_t *entity UNUSED)
     vfx_scroll_t *vfx_scroll = entity->instance;
     sfFloatRect bar = sfSprite_getGlobalBounds(vfx_scroll->sprite_bar);
     sfFloatRect pos = sfSprite_getGlobalBounds(vfx_scroll->scrolin);
-    parameters_t *param = game->state;
 
-    (void)bar;
+    bar.left = bar.left + 100;
+    bar.width = bar.width - 200;
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
-        param->vfx_vol = ((((bar.left - pos.left) / 4) / 100) * -1);
+        vfx_scroll->percentage = (((pos.left - bar.left) * 100 / bar.width) / 100);
+        vfx_scroll->percentage = (vfx_scroll->percentage <= 0) ? 0.0f : vfx_scroll->percentage;
+        vfx_scroll->percentage = (vfx_scroll->percentage >= 1) ?  1.0f : vfx_scroll->percentage;
         sfSprite_setPosition(vfx_scroll->scrolin, VEC2F(mouse.x - (pos.width / 2), bar.top - (pos.height / 2) + bar.height / 2));
+        if (vfx_scroll->on_scroll != NULL)
+            vfx_scroll->on_scroll(game, vfx_scroll);
         return (true);
     }
-
-
-
-
-
-    /*
-    if (sfMouse_isButtonPressed(sfMouseLeft)
-        && param->vfx_vol >= 0.0 && param->vfx_vol <= 1.95) {
-        sfSprite_setPosition(sc->scrolin,
-            VEC2F(mouse.x - 10, pos.y));
-        return (true);
-    }
-    if (sfMouse_isButtonPressed(sfMouseLeft) && pos.x >= 1.95) {
-        sfSprite_setPosition(sc->scrolin, VEC2F(pos.x - 10, pos.y));
-    }
-    if (sfMouse_isButtonPressed(sfMouseLeft) && param->vfx_vol <= 0) {
-        sfSprite_setPosition(sc->scrolin, VEC2F(bar.left + 2, pos.y));
-    }
-    */
     return false;
 }

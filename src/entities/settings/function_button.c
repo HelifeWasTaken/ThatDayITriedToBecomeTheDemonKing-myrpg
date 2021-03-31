@@ -41,7 +41,7 @@ void load_button(game_t *game, sfTexture *texture, settings_t *setting_button)
     for (int i = 0; i <= 3; i++) {
         texture = create_texture(game, ASSET_SETTING_PATH[i], NULL);
         setting_button->sprite_button[i] = create_sprite(texture, NULL);
-        sfSprite_setScale(setting_button->sprite_button[i], VEC2F(0.3, 0.3));
+        sfSprite_setScale(setting_button->sprite_button[i], VEC2F(2, 2));
     }
 }
 

@@ -60,6 +60,7 @@ typedef struct settings {
     entity_t *entity;
     pausable_clock_t *clock;
     sfSprite *background;
+    sfSprite *ground;
     sfSprite *sprite_button[4];
 } settings_t;
 
@@ -80,6 +81,9 @@ typedef struct vfx_scroll {
     pausable_clock_t *clock;
     sfSprite *sprite_bar;
     sfSprite *scrolin;
+    float percentage;
+    void (*on_scroll)(game_t *game, struct vfx_scroll *scroll);
+    sfText *text;
 } vfx_scroll_t;
 
 bool fonc_scroll_vfx(game_t *game, entity_t *entity);
@@ -88,4 +92,7 @@ void update_vfx_scroll(game_t *game, entity_t *entity);
 void draw_vfx_scroll(game_t *game, entity_t *entity);
 void destroy_vfx_scroll(game_t *game, entity_t *entity);
 bool handle_vfx_scroll_events(game_t *game, entity_t *entity, sfEvent *event);
+void set_size_vox(game_t *game, vfx_scroll_t *scroll);
+void set_size_mus(game_t *game, vfx_scroll_t *scroll);
+void set_size_vfx(game_t *game, vfx_scroll_t *scroll);
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

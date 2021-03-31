@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "parameters.h": "c"
+        "parameters.h": "c",
+        "entities.h": "c",
+        "asset.h": "c"
     }
 }
