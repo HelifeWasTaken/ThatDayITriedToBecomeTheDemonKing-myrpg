@@ -41,6 +41,7 @@ SRC =	src/debug/print_error.c \
 		src/graphics/center_text_x.c \
 		src/graphics/center_text_y.c \
 		src/graphics/create_sprite.c \
+		src/job/job.c \
 		src/math/add.c \
 		src/math/lerp.c \
 		src/math/magnitude.c \
