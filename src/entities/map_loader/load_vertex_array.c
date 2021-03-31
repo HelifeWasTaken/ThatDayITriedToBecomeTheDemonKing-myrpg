@@ -7,6 +7,14 @@
 
 #include "myrpg/map.h"
 
+static void load_empty_alpha(sfVertex *quad)
+{
+    quad[0].color = sfColor_fromRGBA(0, 0, 0, 0);
+    quad[1].color = sfColor_fromRGBA(0, 0, 0, 0);
+    quad[2].color = sfColor_fromRGBA(0, 0, 0, 0);
+    quad[3].color = sfColor_fromRGBA(0, 0, 0, 0);
+}
+
 static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
     struct vertex_loader_data *pos, vertice_data_loader_t *vertice)
 {
@@ -18,6 +26,10 @@ static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
         (pos->i + pos->j * size->mapx) * 4);
 
     id_rot.id -= vertice->firstgid;
+    if (id_rot.id == -1) {
+        load_empty_alpha(quad);
+        return;
+    }
     tu = id_rot.id % (i64_t)(sfTexture_getSize(tileset).x / size->tilex);
     tv = id_rot.id / (i64_t)(sfTexture_getSize(tileset).x / size->tilex);
     quad[0].position = VEC2F(pos->i * size->tilex, pos->j * size->tiley);
