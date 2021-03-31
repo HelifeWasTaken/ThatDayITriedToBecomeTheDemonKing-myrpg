@@ -122,4 +122,10 @@
     void draw_map_layer(sfRenderWindow *window,
         struct vertex_array_map *self, size_t n);
 
+    #define GET_REAL_POSITION_XY(v, xoff, yoff) \
+        (sfVector2u){((v.x) + xoff) / 16, ((v.y) + yoff) / 16}
+
+    #define GET_POS_MAP(v, mw, map) \
+        map[(i64_t)(v.x + v.y * mw)]
+
 #endif
