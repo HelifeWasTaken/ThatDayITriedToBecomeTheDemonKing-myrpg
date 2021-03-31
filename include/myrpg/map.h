@@ -40,6 +40,7 @@
         sfVector2u map_size;
         sfVector2u tile_size;
         struct vector_collision v_collision;
+        sfRenderStates states;
     } vertex_map_t;
 
     typedef struct map_rect {

@@ -26,9 +26,9 @@ void draw_all_vertex_map(sfRenderWindow *window,
     struct vertex_array_map *self)
 {
     for (usize_t i = 0; i < self->v_vertex.size; i++) {
+        self->states.texture = self->v_texture.tileset[self->v_vertex.vec[i].tileset];
         sfRenderWindow_drawVertexArray(window, self->v_vertex.vec[i].vertex,
-            &DEFAULT_RENDERSTATE(
-                self->v_texture.tileset[self->v_vertex.vec[i].tileset]));
+            &self->states);
     }
 }
 
