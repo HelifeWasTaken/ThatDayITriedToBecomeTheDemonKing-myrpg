@@ -16,6 +16,7 @@
 #include "myrpg/asset.h"
 #include "stdio.h"
 #include "myrpg/define.h"
+#include "distract/debug.h"
 
 static bool player_anim(hero_t *hero)
 {
@@ -35,15 +36,80 @@ static bool player_anim(hero_t *hero)
     return (true);
 }
 
-void vector_aug(hero_t *hero, int anim)
+static void try_player_movement_left(hero_t *hero, sfVector2f *offset, sfIntRect rect)
 {
-    if (hero->movement_clock->time >= 0.020f) {
-        anim == 0 ? hero->entity->pos.y += 8 : 0;
-        anim == 83 ? hero->entity->pos.x -= 8 : 0;
-        anim == 166 ? hero->entity->pos.x += 8 : 0;
-        anim == 249 ? hero->entity->pos.y -= 8 : 0;
-        hero->movement_clock->time = 0;
+    i64_t posx = (hero->entity->pos.x + offset->x) / 16;
+    i64_t posy = ((hero->entity->pos.y + offset->y) + (rect.height / 2)) / 16;
+    i64_t pos = posx + posy * hero->collision->map.map_size.x;
+
+    if (posx >= hero->collision->map.map_size.x || posx < 0 ||
+        posy >= hero->collision->map.map_size.y || posy < 0) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
     }
+    printf("pos: %ld, collision: %s\n", pos,
+        hero->collision->map.v_collision.layer[pos] ? "true" : "false");
+    if (hero->collision->map.v_collision.layer[pos] == true)
+        return;
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+        hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_right(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    i64_t posx = (hero->entity->pos.x + offset->x + rect.width) / 16;
+    i64_t posy = ((hero->entity->pos.y + offset->y) + (rect.height / 2)) / 16;
+    i64_t pos = posx + posy * hero->collision->map.map_size.x;
+
+    if (posx >= hero->collision->map.map_size.x || posx < 0 ||
+        posy >= hero->collision->map.map_size.y || posy < 0) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
+    }
+    printf("pos: %ld, collision: %s\n", pos,
+        hero->collision->map.v_collision.layer[pos] ? "true" : "false");
+    if (hero->collision->map.v_collision.layer[pos] == true)
+        return;
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+        hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_up(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    i64_t posx = (hero->entity->pos.x + offset->x + (rect.width / 2)) / 16;
+    i64_t posy = (hero->entity->pos.y + offset->y) / 16;
+    i64_t pos = posx + posy * hero->collision->map.map_size.x;
+
+    if (posx >= hero->collision->map.map_size.x || posx < 0 ||
+        posy >= hero->collision->map.map_size.y || posy < 0) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
+    }
+    printf("pos: %ld, collision: %s\n", pos,
+        hero->collision->map.v_collision.layer[pos] ? "true" : "false");
+    if (hero->collision->map.v_collision.layer[pos] == true)
+        return;
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+        hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_down(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    i64_t posx = (hero->entity->pos.x + offset->x + (rect.width / 2)) / 16;
+    i64_t posy = (hero->entity->pos.y + offset->y + rect.height) / 16;
+    i64_t pos = posx + posy * hero->collision->map.map_size.x;
+
+    if (posx >= hero->collision->map.map_size.x || posx < 0 ||
+        posy >= hero->collision->map.map_size.y || posy < 0) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
+    }
+    printf("pos: %ld, collision: %s\n", pos,
+        hero->collision->map.v_collision.layer[pos] ? "true" : "false");
+    if (hero->collision->map.v_collision.layer[pos] == true)
+        return;
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+        hero->entity->pos.y + offset->y);
 }
 
 static bool player_move(hero_t *hero, int anim, sfIntRect rect)
@@ -58,23 +124,15 @@ static bool player_move(hero_t *hero, int anim, sfIntRect rect)
             rect.left = 0;
         hero->animation_clock->time = 0;
     }
-    vector_aug(hero, anim);
+    if (hero->movement_clock->time >= 0.020f) {
+        anim == 0 ? try_player_movement_down(hero, &VEC2F(0, 8), rect) : 0;
+        anim == 83 ? try_player_movement_left(hero, &VEC2F(-8, 0), rect) : 0;
+        anim == 166 ? try_player_movement_right(hero, &VEC2F(8, 0), rect) : 0;
+        anim == 289 ? try_player_movement_up(hero, &VEC2F(0, -8), rect): 0;
+        hero->movement_clock->time = 0;
+    }
     sfSprite_setTextureRect(hero->sprite, rect);
     return (true);
-}
-
-void check_key_not_pressed(hero_t *hero, sfEvent *event)
-{
-    if (event->type == sfEvtKeyReleased) {
-        if (event->key.code == sfKeyUp)
-            hero->key[KEY_UP] = false;
-        if (event->key.code == sfKeyRight)
-            hero->key[KEY_RIGHT] = false;
-        if (event->key.code == sfKeyLeft)
-            hero->key[KEY_LEFT] = false;
-        if (event->key.code == sfKeyDown)
-            hero->key[KEY_DOWN] = false;
-    }
 }
 
 bool handle_hero_events(game_t *game UNUSED,

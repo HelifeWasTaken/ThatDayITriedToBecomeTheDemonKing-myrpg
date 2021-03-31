@@ -30,6 +30,7 @@
 
     struct vector_collision {
         bool *layer;
+        u8_t tilesize;
         size_t size;
     };
 
@@ -37,6 +38,7 @@
         struct vector_vertex_array v_vertex;
         struct vector_texture v_texture;
         sfVector2u map_size;
+        sfVector2u tile_size;
         struct vector_collision v_collision;
     } vertex_map_t;
 

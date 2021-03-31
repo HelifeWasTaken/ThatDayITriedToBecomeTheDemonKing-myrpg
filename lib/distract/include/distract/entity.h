@@ -153,8 +153,22 @@ void destroy_entity(game_t *game, entity_t *entity);
 ///
 entity_t *get_next_entity_of_type(entity_t *entity, int type);
 
+static inline entity_t *get_entity(game_t *game, int type)
+{
+    entity_t *first_entity = game->scene->entities;
+
+    if (first_entity == NULL)
+        return (NULL);
+    if (first_entity->type == type)
+        return (first_entity);
+    return (get_next_entity_of_type(first_entity, type));
+}
+
+///
+/// You may want to use `get_entity(game, entity_type)` method instead.
+///
 #define GET_ENTITY(game, entity_type) \
-    get_next_entity_of_type(game->scene->entities, entity_type)
+    get_entity(game, entity_type)
 
 ///
 /// Call the following instruction block each time.

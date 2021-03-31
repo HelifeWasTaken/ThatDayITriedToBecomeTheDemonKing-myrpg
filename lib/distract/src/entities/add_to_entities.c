@@ -37,8 +37,9 @@ void add_to_entities(game_t *game, entity_t *entity)
         return;
     }
     for (; c != NULL; c = c->next) {
-        if (c->z >= entity->z)
+        if (c->z >= entity->z) {
             break;
+        }
         prev = c;
     }
     add_between(prev, c, entity);
