@@ -22,8 +22,8 @@
 bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
     hero_t *hero = dcalloc(sizeof(hero_t), 1);
-    sfIntRect rect = IRECT(0, 0, 1200, 400);
-    sfTexture *texture = create_texture(game, "asset/hero/bard.png", &rect);
+    sfIntRect rect = IRECT(0, 0, 135, 332);
+    sfTexture *texture = create_texture(game, "asset/hero/bard_movement.png", &rect);
     sfVector2u window = sfRenderWindow_getSize(game->window);
 
     D_ASSERT(hero, NULL, "Hero could not be created", false);
@@ -31,7 +31,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->entity = entity;
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
-    hero->sprite = create_sprite(texture, &IRECT(0, 0 , 100, 100));
+    hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
     hero->entity->pos = VEC2F((window.x/2 - 50), (window.y/2 - 50));
     entity->instance = hero;
     return (true);

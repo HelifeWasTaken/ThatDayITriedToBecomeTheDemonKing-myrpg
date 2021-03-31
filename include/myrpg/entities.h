@@ -63,6 +63,7 @@ bool handle_hero_events(game_t *game UNUSED,
 typedef struct ath {
     entity_t *entity;
     sfSprite *player_ath_sprite;
+    sfVector2f ath_pos;
     sfSprite *button_sprite[6];
 } ath_t;
 
