@@ -80,7 +80,7 @@ static bool load_collision_layer(ig_map_t *map,
     }
     for (usize_t i = 0; i < self->v_collision.size; i++) {
         self->v_collision.layer[i] = map->layers->data[
-            map->layers->size].data.size ? true : false;
+            map->layers->size - 1].data.data[i];
     }
     return (true);
 }

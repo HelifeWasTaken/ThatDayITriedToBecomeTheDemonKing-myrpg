@@ -47,8 +47,7 @@ typedef struct hero {
     pausable_clock_t *animation_clock;
     pausable_clock_t *movement_clock;
     sfSprite *sprite;
-    const bool *collison;
-    bool key[4];
+    const struct layer *collision;
 } hero_t;
 
 #define HERO_KEY (int[]) {0, 100, 200, 300}
@@ -88,6 +87,12 @@ bool handle_menu_events(game_t *game UNUSED,
 typedef struct player {
     entity_t *entity;
     pausable_clock_t *clock;
+    //parsed_args_t args = my_parse_args(argc, argv);
+
+    //if (my_char_in(args.flags, 'h')) {
+    //       print_help();
+    //    return (0);
+    //}
     sfSprite *sprite;
 } player_t;
 
