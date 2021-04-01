@@ -39,7 +39,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
     hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
-    hero->entity->pos = VEC2F(1930, 1539);
+    hero->entity->pos = VEC2F(500, 300);
     //hero->entity->pos = VEC2F((window.x / 6.f), (window.y / 6.f));
     entity->instance = hero;
     hero->entity->z = 1000;
