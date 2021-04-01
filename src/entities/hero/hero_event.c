@@ -41,7 +41,7 @@ static void try_player_movement_up(hero_t *hero, sfVector2f *offset, sfIntRect r
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0,rect.height / 2),
+    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0, rect.height / 2),
         GET_REAL_POSITION_XY(entitypos, rect.width / 2, rect.height / 2),
         GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2) };
 
@@ -85,7 +85,7 @@ static void try_player_movement_left(hero_t *hero, sfVector2f *offset, sfIntRect
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0, 0),
+    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, rect.height / 2, 0),
         GET_REAL_POSITION_XY(entitypos, 0, rect.height / 2),
         GET_REAL_POSITION_XY(entitypos, 0, rect.height) };
 
@@ -107,7 +107,7 @@ static void try_player_movement_right(hero_t *hero, sfVector2f *offset, sfIntRec
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, rect.width, 0),
+    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2),
         GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2),
         GET_REAL_POSITION_XY(entitypos, rect.width, rect.height) };
 

@@ -29,7 +29,7 @@ int play_lifecycle(game_t *game)
             else
                 transmit_event_to_scene(game, &event);
         update_scene(game);
-        sfRenderWindow_clear(game->window, sfWhite);
+        sfRenderWindow_clear(game->window, sfBlack);
         draw_scene(game);
         sfRenderWindow_display(game->window);
     }

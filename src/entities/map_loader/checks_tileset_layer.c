@@ -55,7 +55,9 @@ bool check_tileset_and_data(struct iron_goat_layer *layer,
         if (!(tileset->firstgid <= value &&
                     value <= tileset->firstgid +
                     tileset->tilecount)) {
-            DEBUG_PRINTF("%ld: %ld < %ld && %ld", value, tileset->firstgid, tileset->firstgid + tileset->tilecount, layer->data.data[i]);
+            DEBUG_PRINTF("%ld: %ld < %ld && %ld", value, tileset->firstgid,
+                    tileset->firstgid + tileset->tilecount,
+                    layer->data.data[i]);
             ASSERT("Vertex array", "Two layer might certainly be merged");
             return (false);
         }
