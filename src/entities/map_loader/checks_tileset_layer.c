@@ -53,8 +53,8 @@ bool check_tileset_and_data(struct iron_goat_layer *layer,
         if (value == 0)
             continue;
         if (!(tileset->firstgid <= value &&
-                    value <= tileset->firstgid +
-                    tileset->tilecount)) {
+                    value <= (tileset->firstgid +
+                    tileset->tilecount) + 1)) {
             DEBUG_PRINTF("%ld: %ld < %ld && %ld", value, tileset->firstgid,
                     tileset->firstgid + tileset->tilecount,
                     layer->data.data[i]);
