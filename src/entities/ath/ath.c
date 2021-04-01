@@ -5,6 +5,7 @@
 ** ath.c
 */
 
+#include "distract/def.h"
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"
@@ -44,17 +45,24 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
     sfTexture *player_ath_texture = create_texture(game, PLAYER_ATH,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
 
+    if (!ath || !player_ath_texture)
+        return (false);
+    ath->game_view = NULL;
+    ath->canvas_view = sfView_createFromRect(FRECT(0, 0,
+        game->mode.width, game->mode.height));
     ath->player_ath_sprite = create_sprite(player_ath_texture,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
-    SET_SPRITE_POS(ath->player_ath_sprite, VEC2F(0, PLAYER_ATH_POS_Y));
-    if (!ath || !player_ath_texture || !ath->player_ath_sprite)
+    if (!ath->player_ath_sprite)
         return (false);
+    ath->ath_pos = VEC2F(0, PLAYER_ATH_POS_Y);
+    SET_SPRITE_POS(ath->player_ath_sprite, ath->ath_pos);
     for (int i = 0; i < 6; i++) {
         icon_texture  = create_texture(game, ATH_ICON[i],
             &IRECT(0, 0, ICON_RECT, ICON_RECT));
         if (icon_texture == NULL)
             return (false);
-        ath->button_sprite[i] = create_sprite(icon_texture, &IRECT(0, 0, ICON_RECT, ICON_RECT));
+        ath->button_sprite[i] = create_sprite(icon_texture, &IRECT(0, 0,
+            ICON_RECT, ICON_RECT));
         if (ath->button_sprite[i] == NULL)
             return (false);
         SET_SPRITE_POS(ath->button_sprite[i], VEC2F(1810, pos_y));
@@ -67,10 +75,21 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
 void draw_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
+    view_t *view = ath->game_view;
+    sfView *canvas_view = ath->canvas_view;
+    entity_t *view_entity;
 
+    if (ath->game_view == NULL) {
+        view_entity = get_entity(game, VIEW);
+        if (view_entity != NULL)
+            ath->game_view = view_entity->instance;
+        return;
+    }
+    sfRenderWindow_setView(game->window, canvas_view);
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
     for (int i = 0; i < 6; i++)
         DRAW_SPRITE(game->window, ath->button_sprite[i], NULL);
+    update_entity(game, view->entity);
 }
 
 void destroy_ath(game_t *game UNUSED, entity_t *entity)

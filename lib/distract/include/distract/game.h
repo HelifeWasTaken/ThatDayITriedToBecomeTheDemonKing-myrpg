@@ -48,6 +48,11 @@ typedef struct game {
     /// Mutable
     ///
     void *state;
+
+    ///
+    /// global game parameters 
+    /// 
+    ///
 } game_t;
 
 #include "distract/scene.h"

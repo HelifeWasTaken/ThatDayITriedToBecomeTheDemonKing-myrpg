@@ -16,6 +16,8 @@
 #include "myrpg/asset.h"
 #include "stdio.h"
 #include "myrpg/define.h"
+#include "distract/debug.h"
+#include "myrpg/util.h"
 
 static bool player_anim(hero_t *hero)
 {
@@ -35,6 +37,94 @@ static bool player_anim(hero_t *hero)
     return (true);
 }
 
+static void try_player_movement_up(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    sfVector2u mapsize = hero->collision->map.map_size;
+    sfVector2f entitypos = hero->entity->pos;
+    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0, rect.height / 2),
+        GET_REAL_POSITION_XY(entitypos, rect.width / 2, rect.height / 2),
+        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2) };
+
+    for (int i = 0; i < 3; i++) {
+        if (pos_v[i].x >= hero->collision->map.map_size.x ||
+            pos_v[i].y >= hero->collision->map.map_size.y) {
+            print_error("Warning: Unexpected collision encoutered");
+            return;
+        }
+        if (GET_POS_MAP(pos_v[i], mapsize.x,
+            hero->collision->map.v_collision.layer) == true)
+            return;
+    }
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+            hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_down(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    sfVector2u mapsize = hero->collision->map.map_size;
+    sfVector2f entitypos = hero->entity->pos;
+    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0, rect.height),
+        GET_REAL_POSITION_XY(entitypos, rect.width / 2, rect.height),
+        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height) };
+
+    for (int i = 0; i < 3; i++) {
+        if (pos_v[i].x >= hero->collision->map.map_size.x ||
+            pos_v[i].y >= hero->collision->map.map_size.y) {
+            print_error("Warning: Unexpected collision encoutered");
+            return;
+        }
+        if (GET_POS_MAP(pos_v[i], mapsize.x,
+            hero->collision->map.v_collision.layer) == true)
+            return;
+    }
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+            hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_left(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    sfVector2u mapsize = hero->collision->map.map_size;
+    sfVector2f entitypos = hero->entity->pos;
+    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, rect.height / 2, 0),
+        GET_REAL_POSITION_XY(entitypos, 0, rect.height / 2),
+        GET_REAL_POSITION_XY(entitypos, 0, rect.height) };
+
+    for (int i = 0; i < 3; i++) {
+        if (pos_v[i].x >= hero->collision->map.map_size.x ||
+            pos_v[i].y >= hero->collision->map.map_size.y) {
+            print_error("Warning: Unexpected collision encoutered");
+            return;
+        }
+        if (GET_POS_MAP(pos_v[i], mapsize.x,
+            hero->collision->map.v_collision.layer) == true)
+            return;
+    }
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+            hero->entity->pos.y + offset->y);
+}
+
+static void try_player_movement_right(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+{
+    sfVector2u mapsize = hero->collision->map.map_size;
+    sfVector2f entitypos = hero->entity->pos;
+    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2),
+        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2),
+        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height) };
+
+    for (int i = 0; i < 3; i++) {
+        if (pos_v[i].x >= hero->collision->map.map_size.x ||
+            pos_v[i].y >= hero->collision->map.map_size.y) {
+            print_error("Warning: Unexpected collision encoutered");
+            return;
+        }
+        if (GET_POS_MAP(pos_v[i], mapsize.x,
+            hero->collision->map.v_collision.layer) == true)
+            return;
+    }
+    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
+            hero->entity->pos.y + offset->y);
+}
+
 static bool player_move(hero_t *hero, int anim, sfIntRect rect)
 {
     rect.top = anim;
@@ -42,16 +132,16 @@ static bool player_move(hero_t *hero, int anim, sfIntRect rect)
         rect.left = 0;
     }
     if (hero->animation_clock->time >= 0.10f) {
-        rect.left += 100;
-        if (rect.left == 300)
+        rect.left += 45;
+        if (rect.left == 135)
             rect.left = 0;
         hero->animation_clock->time = 0;
     }
     if (hero->movement_clock->time >= 0.020f) {
-        anim == 0 ? hero->entity->pos.y += 8 : 0;
-        anim == 100 ? hero->entity->pos.x -= 8 : 0;
-        anim == 200 ? hero->entity->pos.x += 8 : 0;
-        anim == 300 ? hero->entity->pos.y -= 8 : 0;
+        anim == 0 ? try_player_movement_down(hero, &VEC2F(0, 5), rect) : 0;
+        anim == 83 ? try_player_movement_left(hero, &VEC2F(-5, 0), rect) : 0;
+        anim == 166 ? try_player_movement_right(hero, &VEC2F(5, 0), rect) : 0;
+        anim == 249 ? try_player_movement_up(hero, &VEC2F(0, -5), rect): 0;
         hero->movement_clock->time = 0;
     }
     sfSprite_setTextureRect(hero->sprite, rect);
@@ -69,10 +159,10 @@ bool handle_hero_events(game_t *game UNUSED,
     if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
         return (player_move(hero, 0, rect));
     if (sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
-        return (player_move(hero, 100, rect));
+        return (player_move(hero, 83, rect));
     if (sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
-        return (player_move(hero, 200, rect));
+        return (player_move(hero, 166, rect));
     if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
-        return (player_move(hero, 300, rect));
+        return (player_move(hero, 249, rect));
     return (false);
 }
