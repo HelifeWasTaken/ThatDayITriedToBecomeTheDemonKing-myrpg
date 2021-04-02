@@ -15,7 +15,7 @@ jobs:
         - uses: actions/checkout@v2
         - name: Checking nulls
           shell: bash
-          run: "curl https://files.norech.com/scripts/python/ci/loosy_null_malloc_check.py | python3 - 20 | tee output"
+          run: "curl https://files.norech.com/scripts/python/ci/loosy_null_malloc_check.py | python3 - 99 | tee output"
         - name: Send notification
           shell: bash
           if: ${{ github.event_name == 'push' && always() }}
