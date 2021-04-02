@@ -7,6 +7,7 @@
 
 #include "myrpg/map.h"
 #include "distract/debug.h"
+#include "myrpg/matrix.h"
 
 void draw_map_layers_from_to(sfRenderWindow *window,
     struct vertex_array_map *self, size_t start, size_t end)
