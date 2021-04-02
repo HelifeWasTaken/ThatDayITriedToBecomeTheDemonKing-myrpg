@@ -29,14 +29,20 @@ enum entity_type {
     ATH,
     LAYER,
     HERO,
-    VIEW
-
+    VIEW,
+    DEBUGMENU
 };
 
 //----------------------------------------
 
+typedef enum view_type {
+    HUD_VIEW,
+    WORLD_VIEW
+} view_type_t;
+
 typedef struct view {
     sfView *view;
+    sfView *hud_view;
     entity_t *entity;
     const struct hero *hero;
 } view_t;
@@ -44,6 +50,7 @@ typedef struct view {
 bool create_view(game_t *game, entity_t *entity);
 void update_view(game_t *game, entity_t *entity);
 void destroy_view(game_t *game, entity_t *entity);
+void set_view_type(game_t *game, view_t *view, view_type_t type);
 
 enum player_move {
     PLAYER_MOVE_DOWN,
@@ -77,8 +84,7 @@ typedef struct ath {
     sfSprite *player_ath_sprite;
     sfVector2f ath_pos;
     sfSprite *button_sprite[6];
-    view_t *game_view;
-    sfView *canvas_view;
+    view_t *view;
 } ath_t;
 
 bool create_ath(game_t *game, entity_t *entity);
@@ -176,4 +182,17 @@ bool create_layer(game_t *game, entity_t *entity);
 void draw_layer(game_t *game, entity_t *entity);
 void destroy_layer(game_t *game, entity_t *entity);
 
+typedef struct debugmenu {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfText *debugtext;
+    view_t *view;
+    bool enabled;
+} debugmenu_t;
+
+bool create_debugmenu(game_t *game, entity_t *entity);
+void update_debugmenu(game_t *game, entity_t *entity);
+void draw_debugmenu(game_t *game, entity_t *entity);
+void destroy_debugmenu(game_t *game, entity_t *entity);
+bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */
