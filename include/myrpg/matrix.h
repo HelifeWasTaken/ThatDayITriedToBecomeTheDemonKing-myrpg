@@ -73,10 +73,4 @@ static inline void matrix_compute(float *matrix, float *matrix2)
         matrix[i] = matrix[i] + matrix2[i];
 }
 
-#define MATRIX_PRINT(matrix) \
-    printf("\n[%f,%f,%f]\n[%f,%f,%f]\n[%f,%f,%f]\n", \
-        matrix[0], matrix[1], matrix[2], \
-        matrix[3], matrix[4], matrix[5], \
-        matrix[6], matrix[7], matrix[8]);
-
 #endif

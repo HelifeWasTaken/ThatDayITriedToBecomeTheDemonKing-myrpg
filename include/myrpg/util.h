@@ -12,6 +12,7 @@
 #include "distract/graphics.h"
 #include "distract/def.h"
 #include "myrpg/matrix.h"
+#include "erty/eprintf.h"
 
 typedef struct {
     sfVector2f topleft;
@@ -69,20 +70,17 @@ static inline void draw_rectangle_shape_global_bound(sfRenderWindow *window,
 }
 
 #define PRINT_V2F(v) \
-    printf("<x: %f, y: %f>\n", v.x, v.y)
+    eprintf("<x: %f, y: %f>\n", v.x, v.y)
 
 #define PRINT_V2I(v) \
-    printf("<x: %d, y: %d>\n", (int)v.x, (int)v.y)
+    eprintf("<x: %d, y: %d>\n", (int)v.x, (int)v.y)
 
 #define PRINT_RF(r)                                        \
-    printf("<top: %f, left: %f, width: %f, height: %f>\n", \
-           r.top, r.left, r.width, r.height)
-
-#define PRINT_RI(r)                                        \
-    printf("<top: %d, left: %d, width: %d, height: %d>\n", \
+    eprintf("<top: %d, left: %d, width: %d, height: %d>\n", \
            (int)r.top, (int)r.left, (int)r.width, (int)r.height)
 
-#define PERCENT(value, percent) \
-    ((value / 100) * percent)
+#define PRINT_RI(r)                                        \
+    eprintf("<top: %d, left: %d, width: %d, height: %d>\n", \
+           (int)r.top, (int)r.left, (int)r.width, (int)r.height)
 
 #endif

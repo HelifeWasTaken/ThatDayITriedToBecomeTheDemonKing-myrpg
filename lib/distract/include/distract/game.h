@@ -50,8 +50,8 @@ typedef struct game {
     void *state;
 
     ///
-    /// global game parameters 
-    /// 
+    /// global game parameters
+    ///
     ///
 } game_t;
 
