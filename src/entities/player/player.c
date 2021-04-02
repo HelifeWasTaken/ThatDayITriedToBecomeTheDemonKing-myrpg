@@ -12,6 +12,7 @@
 #include "SFML/Window.h"
 #include "SFML/Graphics.h"
 #include "myrpg/entities.h"
+#include "myrpg/asset.h"
 #include "stdlib.h"
 #include "distract/debug.h"
 

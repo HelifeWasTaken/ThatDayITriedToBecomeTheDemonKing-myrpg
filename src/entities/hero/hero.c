@@ -23,8 +23,8 @@
 bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
     hero_t *hero = dcalloc(sizeof(hero_t), 1);
-    sfIntRect rect = IRECT(0, 0, 135, 332);
-    sfTexture *texture = create_texture(game, "asset/hero/bard_movement.png",
+    sfIntRect rect = FULL_HERO_RECT;
+    sfTexture *texture = create_texture(game, HERO_PATH,
             &rect);
     entity_t *map_entity = GET_ENTITY(game, LAYER);
     layer_t *layers = NULL;
@@ -37,11 +37,11 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->entity = entity;
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
-    hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
-    hero->entity->pos = VEC2F(2080, 109);
+    hero->sprite = create_sprite(texture, &ONE_HERO_RECT);
+    hero->entity->pos = VEC2F(500, 300);
     entity->instance = hero;
     hero->entity->z = 1000;
-    sfSprite_setScale(hero->sprite, VEC2F(0.5, 0.5));
+    sfSprite_setScale(hero->sprite, HERO_SCALE);
     return (true);
 }
 

@@ -49,6 +49,7 @@
     #define ASSET_SETTING_PATH (char *[]) {BACK_BUTTON, \
         MUTE_BUTTON, MUTE_BUTTON, MUTE_BUTTON}
 
+    ///
     /// ATH DEFINE
     ///
     #define CHAR_ICON "asset/ath/character.png"
@@ -66,5 +67,13 @@
     #define PLAYER_ATH_W 400
     #define PLAYER_ATH_H 250
     #define PLAYER_ATH_POS_Y 775
+
+    ///
+    /// HERO DEFINE
+    ///
+    #define HERO_PATH "asset/hero/bard_movement.png"
+    #define FULL_HERO_RECT IRECT(0, 0, 135, 332)
+    #define ONE_HERO_RECT IRECT(0, 0 , 45, 83)
+    #define HERO_SCALE VEC2F(0.5, 0.5)
 
 #endif
