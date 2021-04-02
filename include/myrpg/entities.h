@@ -61,6 +61,14 @@ void draw_hero(game_t *game, entity_t *entity);
 void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
+void try_player_movement_up(hero_t *hero, sfVector2f *offset,
+    sfIntRect rect);
+void try_player_movement_down(hero_t *hero, sfVector2f *offset,
+    sfIntRect rect);
+void try_player_movement_left(hero_t *hero, sfVector2f *offset,
+    sfIntRect rect);
+void try_player_movement_right(hero_t *hero, sfVector2f *offset,
+    sfIntRect rect);
 
 typedef struct ath {
     entity_t *entity;
