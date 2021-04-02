@@ -13,4 +13,6 @@
 
 void handle_debug_keybind(game_t *game UNUSED, sfKeyEvent *key UNUSED)
 {
+    if (key->control && key->code == sfKeyP)
+        game->is_paused = !game->is_paused;
 }
