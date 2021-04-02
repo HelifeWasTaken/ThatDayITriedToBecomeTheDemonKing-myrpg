@@ -8,7 +8,7 @@ on:
         - master
     pull_request:
 jobs:
-    build:
+    null-check:
         runs-on: ubuntu-20.04
         container: docker://helife/epilight
         steps:
