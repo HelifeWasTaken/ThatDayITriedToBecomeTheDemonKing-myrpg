@@ -19,13 +19,15 @@
 #include "distract/debug.h"
 #include "myrpg/util.h"
 
-void try_player_movement_up(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+static const int HERO_MOVE_SPEED = 5;
+
+void player_move_up(hero_t *hero, sfIntRect *rect)
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
     sfVector2u pos_v[] = {
-        GET_REAL_POSITION_XY(entitypos, rect.width / 2,
-            rect.height / 3)
+        GET_REAL_POSITION_XY(entitypos, rect->width / 2,
+            rect->height / 3)
     };
 
     for (usize_t i = 0; i < ARRAY_SIZE(pos_v); i++) {
@@ -38,16 +40,15 @@ void try_player_movement_up(hero_t *hero, sfVector2f *offset, sfIntRect rect)
             hero->collision->map.v_collision.layer) == true)
             return;
     }
-    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
-            hero->entity->pos.y + offset->y);
+    hero->entity->pos.y += -HERO_MOVE_SPEED;
 }
 
-void try_player_movement_down(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+void player_move_down(hero_t *hero, sfIntRect *rect)
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
     sfVector2u pos_v[] = {
-        GET_REAL_POSITION_XY(entitypos, rect.width / 2, rect.height / 2)
+        GET_REAL_POSITION_XY(entitypos, rect->width / 2, rect->height / 2)
     };
 
     for (usize_t i = 0; i < ARRAY_SIZE(pos_v); i++) {
@@ -60,15 +61,15 @@ void try_player_movement_down(hero_t *hero, sfVector2f *offset, sfIntRect rect)
             hero->collision->map.v_collision.layer) == true)
             return;
     }
-    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
-            hero->entity->pos.y + offset->y);
+    hero->entity->pos.y += HERO_MOVE_SPEED;
 }
 
-void try_player_movement_left(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+void player_move_left(hero_t *hero, sfIntRect *rect)
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[] = {GET_REAL_POSITION_XY(entitypos, 0, (rect.height / 2) - 2)};
+    sfVector2u pos_v[] = { GET_REAL_POSITION_XY(
+        entitypos, 0, (rect->height / 2) - 2) };
 
     for (usize_t i = 0; i < ARRAY_SIZE(pos_v); i++) {
         if (pos_v[i].x >= hero->collision->map.map_size.x ||
@@ -80,16 +81,16 @@ void try_player_movement_left(hero_t *hero, sfVector2f *offset, sfIntRect rect)
             hero->collision->map.v_collision.layer) == true)
             return;
     }
-    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
-            hero->entity->pos.y + offset->y);
+    hero->entity->pos.x -= HERO_MOVE_SPEED;
 }
 
-void try_player_movement_right(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+void player_move_right(hero_t *hero, sfIntRect *rect)
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
     sfVector2u pos_v[] = {
-        GET_REAL_POSITION_XY(entitypos, (rect.width / 2) + 4, (rect.height / 2) - 2)
+        GET_REAL_POSITION_XY(
+            entitypos, (rect->width / 2) + 4, (rect->height / 2) - 2)
     };
 
     for (usize_t i = 0; i < ARRAY_SIZE(pos_v); i++) {
@@ -102,6 +103,5 @@ void try_player_movement_right(hero_t *hero, sfVector2f *offset, sfIntRect rect)
             hero->collision->map.v_collision.layer) == true)
             return;
     }
-    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
-            hero->entity->pos.y + offset->y);
+    hero->entity->pos.x += HERO_MOVE_SPEED;
 }

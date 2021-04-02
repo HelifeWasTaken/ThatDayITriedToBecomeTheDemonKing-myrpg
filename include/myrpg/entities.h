@@ -45,6 +45,13 @@ bool create_view(game_t *game, entity_t *entity);
 void update_view(game_t *game, entity_t *entity);
 void destroy_view(game_t *game, entity_t *entity);
 
+enum player_move {
+    PLAYER_MOVE_DOWN,
+    PLAYER_MOVE_LEFT,
+    PLAYER_MOVE_RIGHT,
+    PLAYER_MOVE_UP
+};
+
 typedef struct hero {
     entity_t *entity;
     pausable_clock_t *animation_clock;
@@ -53,22 +60,17 @@ typedef struct hero {
     const struct layer *collision;
 } hero_t;
 
-#define HERO_KEY (int[]) {0, 100, 200, 300}
-
 bool create_hero(game_t *game, entity_t *entity);
 void update_hero(game_t *game, entity_t *entity);
 void draw_hero(game_t *game, entity_t *entity);
 void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
-void try_player_movement_up(hero_t *hero, sfVector2f *offset,
-    sfIntRect rect);
-void try_player_movement_down(hero_t *hero, sfVector2f *offset,
-    sfIntRect rect);
-void try_player_movement_left(hero_t *hero, sfVector2f *offset,
-    sfIntRect rect);
-void try_player_movement_right(hero_t *hero, sfVector2f *offset,
-    sfIntRect rect);
+
+void player_move_up(hero_t *hero, sfIntRect *rect);
+void player_move_down(hero_t *hero, sfIntRect *rect);
+void player_move_left(hero_t *hero, sfIntRect *rect);
+void player_move_right(hero_t *hero, sfIntRect *rect);
 
 typedef struct ath {
     entity_t *entity;

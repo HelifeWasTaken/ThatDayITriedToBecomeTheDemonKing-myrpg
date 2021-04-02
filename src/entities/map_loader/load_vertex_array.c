@@ -36,7 +36,8 @@ static void load_vertex_quad(map_rect_t *size, sfTexture *tileset,
     if (id_rot.id == -1)
         load_empty_alpha(quad);
     else
-        set_texture_coords(&(vtx_load_roat_data_t){tu, tv, quad, size, id_rot.rot});
+        set_texture_coords(&(vtx_load_roat_data_t){tu, tv,
+            quad, size, id_rot.rot});
 }
 
 void load_vertex_data(sfTexture *tileset, map_rect_t *size,
