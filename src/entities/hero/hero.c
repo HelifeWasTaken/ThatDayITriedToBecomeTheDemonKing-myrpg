@@ -24,8 +24,8 @@
 bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
     hero_t *hero = dcalloc(sizeof(hero_t), 1);
-    sfIntRect rect = IRECT(0, 0, 135, 332);
-    sfTexture *texture = create_texture(game, "asset/hero/bard_movement.png",
+    sfIntRect rect = FULL_HERO_RECT;
+    sfTexture *texture = create_texture(game, HERO_PATH,
             &rect);
     entity_t *map_entity = GET_ENTITY(game, LAYER_MANAGER);
     layer_manager_t *layers = NULL;
@@ -42,7 +42,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->entity->pos = MAP_FILES[game->scene->world_id].p_info.pos;
     entity->instance = hero;
     hero->entity->z = MAP_FILES[game->scene->world_id].p_info.z_player;
-    sfSprite_setScale(hero->sprite, VEC2F(0.5, 0.5));
+    sfSprite_setScale(hero->sprite, VEC2F(0.5, 0.5
     return (true);
 }
 
@@ -80,6 +80,7 @@ void draw_hero(game_t *game UNUSED, entity_t *entity)
     hero_t *hero = entity->instance;
 
     sfRenderWindow_drawSprite(game->window, hero->sprite, NULL);
-    draw_rectangle_shape_global_bound(game->window, hero->sprite, false);
-    PRINT_V2F(hero->entity->pos);
+    IN_DEBUG_MENU(
+        draw_rectangle_shape_global_bound(game->window, hero->sprite, false)
+    );
 }
