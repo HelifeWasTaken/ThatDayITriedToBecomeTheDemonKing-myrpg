@@ -11,6 +11,7 @@
 #include <SFML/Graphics.h>
 #include "distract/graphics.h"
 #include "distract/def.h"
+#include "myrpg/matrix.h"
 
 typedef struct {
     sfVector2f topleft;
@@ -80,5 +81,8 @@ static inline void draw_rectangle_shape_global_bound(sfRenderWindow *window,
 #define PRINT_RI(r)                                        \
     printf("<top: %d, left: %d, width: %d, height: %d>\n", \
            (int)r.top, (int)r.left, (int)r.width, (int)r.height)
+
+#define PERCENT(value, percent) \
+    ((value / 100) * percent)
 
 #endif
