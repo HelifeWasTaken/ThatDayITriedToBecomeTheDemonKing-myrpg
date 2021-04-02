@@ -63,7 +63,7 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
             ICON_RECT, ICON_RECT));
         if (ath->button_sprite[i] == NULL)
             return (false);
-        SET_SPRITE_POS(ath->button_sprite[i], VEC2F(1810, pos_y));
+        SET_SPRITE_POS(ath->button_sprite[i], VEC2F(WINDOW_W /1.06 , pos_y));
         pos_y += 110;
     }
     entity->instance = ath;
