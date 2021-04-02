@@ -69,6 +69,8 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
         pos_y += 110;
     }
     entity->instance = ath;
+    ath->entity = entity;
+    ath->entity->z = 10000;
     return (true);
 }
 

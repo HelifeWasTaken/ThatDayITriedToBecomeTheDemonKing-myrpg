@@ -17,24 +17,23 @@
 #include "myrpg/define.h"
 #include "iron_goat/deser.h"
 #include "myrpg/map.h"
+#include "distract/debug.h"
+#include "myrpg/mapdata.h"
 
-static char *FILE_MAP[] = {
-    #include "maps_files.h.in"
-};
-
-bool create_layer(game_t *game UNUSED, entity_t *entity)
+bool create_layer_manager(game_t *game UNUSED, entity_t *entity)
 {
-    layer_t *layer = ecalloc(sizeof(layer_t), 1);
+    layer_manager_t *layer = ecalloc(sizeof(layer_manager_t), 1);
     json_t conf = {0};
     ig_map_t map = {0};
     vertex_map_t vmap = {0};
+    entity_t *warpsentity = create_entity(game, WARP);
 
-    if (layer == NULL)
-        return (false);
-    if (json_parser(&conf, FILE_MAP[game->scene->id]) == false)
-        return (false);
-    if (init_iron_goat_map(&conf, &map) == false)
-        return (false);
+    D_ASSERT(layer, NULL, "Layer could not be created", false);
+    D_ASSERT(warpsentity, NULL, "Warps could not be created", false);
+    layer->warp_list = warpsentity->instance;
+    D_ASSERT(json_parser(&conf,
+        MAP_FILES[game->scene->world_id].m_files.mapfile), false, "", false);
+    D_ASSERT(init_iron_goat_map(&conf, &map), false, "", false);
     destroy_json(&conf);
     if (load_vertex_array_map(game, &map, &vmap,
         "asset/map_asset/") == false)
@@ -46,9 +45,9 @@ bool create_layer(game_t *game UNUSED, entity_t *entity)
     return (true);
 }
 
-void destroy_layer(game_t *game UNUSED, entity_t *entity)
+void destroy_layer_manager(game_t *game UNUSED, entity_t *entity)
 {
-    layer_t *layer = entity->instance;
+    layer_manager_t *layer = entity->instance;
 
     if (layer->map.v_texture.tileset)
         free(layer->map.v_texture.tileset);
@@ -62,11 +61,4 @@ void destroy_layer(game_t *game UNUSED, entity_t *entity)
     if (layer->map.v_collision.layer != NULL)
         free(layer->map.v_collision.layer);
     free(layer);
-}
-
-void draw_layer(game_t *game UNUSED, entity_t *entity)
-{
-    layer_t *layer = entity->instance;
-
-    draw_all_vertex_map(game->window, &layer->map);
 }

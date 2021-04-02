@@ -25,6 +25,8 @@ static const entity_info_t ENTITIES[] = {
         &destroy_menu, NULL, &handle_menu_events),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, NULL, &handle_ath_events),
+    ENTITY(LAYER_MANAGER, &create_layer_manager, NULL,
+        &destroy_layer_manager, NULL, NULL),
     ENTITY(LAYER, &create_layer, &draw_layer,
         &destroy_layer, NULL, NULL),
     ENTITY(HERO, &create_hero, &draw_hero,
@@ -34,7 +36,8 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(SETTING, &create_settings, &draw_settings,
         &destroy_settings, &update_settings, &handle_settings_events),
     ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
-        &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events)
+        &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
+    ENTITY(WARP, &create_warp, NULL, &destroy_warp, NULL, NULL)
 };
 
 static bool configure_window(game_t *game)
@@ -51,7 +54,7 @@ static bool configure_window(game_t *game)
 
 static bool configure_entities(game_t *game UNUSED)
 {
-    unsigned long size = sizeof(ENTITIES) / sizeof(ENTITIES[0]);
+    unsigned long size = ARRAY_SIZE(ENTITIES);
 
     for (unsigned long i = 0; i < size; i++) {
         if (!register_entity(game, &ENTITIES[i]))

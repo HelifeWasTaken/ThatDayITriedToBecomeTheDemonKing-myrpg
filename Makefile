@@ -40,7 +40,10 @@ SRC_MAP =	src/entities/map_loader/checks_tileset_layer.c \
 			src/entities/map_loader/load_vertex_array_map.c \
 			src/entities/map_loader/load_vertex_array.c \
 			src/entities/map_loader/load_texture_coords_rot.c \
-			src/entities/map_loader/create_map.c
+			src/entities/map_loader/create_layer.c \
+			src/entities/map_loader/create_layer_manager.c \
+			src/entities/map_loader/generate_map.c \
+			src/entities/map_loader/create_warp.c
 
 SRC = 	src/game.c \
 		src/entities/player/player.c \
@@ -61,6 +64,7 @@ SRC = 	src/game.c \
         src/entities/hero/hero_event.c \
 		src/entities/hero/hero_collision.c \
         src/entities/view/view.c \
+		src/util/sfml_deser.c \
         $(SRC_MAP)
 
 TESTS =	\

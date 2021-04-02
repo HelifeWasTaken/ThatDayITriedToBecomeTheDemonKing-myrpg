@@ -12,6 +12,7 @@
 #include "myrpg/game.h"
 #include "myrpg/map.h"
 #include "define.h"
+#include "erty/tuple.h"
 
 enum arrow_keys {
     KEY_DOWN,
@@ -27,7 +28,9 @@ enum entity_type {
     SETTING,
     VFX_SC,
     ATH,
+    LAYER_MANAGER,
     LAYER,
+    WARP,
     HERO,
     VIEW
 
@@ -57,7 +60,7 @@ typedef struct hero {
     pausable_clock_t *animation_clock;
     pausable_clock_t *movement_clock;
     sfSprite *sprite;
-    const struct layer *collision;
+    const struct layer_manager *collision;
 } hero_t;
 
 bool create_hero(game_t *game, entity_t *entity);
@@ -168,12 +171,39 @@ void set_size_mus(game_t *game, vfx_scroll_t *scroll);
 void set_size_vfx(game_t *game, vfx_scroll_t *scroll);
 
 typedef struct layer {
-    vertex_map_t map;
     entity_t *entity;
+    unsigned int id;
+    struct layer_manager *manager;
 } layer_t;
 
 bool create_layer(game_t *game, entity_t *entity);
 void draw_layer(game_t *game, entity_t *entity);
 void destroy_layer(game_t *game, entity_t *entity);
+
+typedef struct layer_manager {
+    vertex_map_t map;
+    entity_t *entity;
+    unsigned int layers_count;
+    const struct warp *warp_list;
+} layer_manager_t;
+
+bool create_layer_manager(game_t *game, entity_t *entity);
+void destroy_layer_manager(game_t *game, entity_t *entity);
+bool generate_map(game_t *game);
+
+struct warp_data {
+    sfIntRect warpzone;
+    char *warploader;
+};
+
+INIT_VECTOR(wrp, struct warp_data, NULL);
+
+typedef struct warp {
+    entity_t *entity;
+    VECTOR(wrp) *warp;
+} warp_t;
+
+bool create_warp(game_t *game, entity_t *entity);
+void destroy_warp(game_t *game, entity_t *entity);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */
