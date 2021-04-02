@@ -49,7 +49,9 @@ static bool configure_entities(game_t *game UNUSED)
                 &destroy_settings, &update_settings,
                 &handle_settings_events),
         &ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
-                    &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events)
+                    &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
+        &ENTITY(SELECT, &create_mute_button, &draw_mute_button,
+                &destroy_mute_button, &update_mute_button, &handle_mute_button_events)
     ));
 }
 

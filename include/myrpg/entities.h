@@ -29,8 +29,8 @@ enum entity_type {
     ATH,
     LAYER,
     HERO,
-    VIEW
-
+    VIEW,
+    SELECT,
 };
 
 //----------------------------------------
@@ -122,7 +122,8 @@ typedef struct settings {
     pausable_clock_t *clock;
     sfSprite *background;
     sfSprite *ground;
-    sfSprite *sprite_button[4];
+    sfSprite *sprite_button;
+    void (*fonc)(game_t *game, int i);
 } settings_t;
 
 bool create_settings(game_t *game, entity_t *entity);
@@ -165,5 +166,22 @@ typedef struct layer {
 bool create_layer(game_t *game, entity_t *entity);
 void draw_layer(game_t *game, entity_t *entity);
 void destroy_layer(game_t *game, entity_t *entity);
+
+typedef struct mute_button {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    void (*fonc)(game_t *game, bool vol);
+    bool mute;
+    sfText *str;
+    char *text;
+} mute_button_t;
+
+void init_select_btn(game_t *game);
+bool create_mute_button(game_t *game, entity_t *entity);
+void update_mute_button(game_t *game, entity_t *entity);
+void draw_mute_button(game_t *game, entity_t *entity);
+void destroy_mute_button(game_t *game, entity_t *entity);
+bool handle_mute_button_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

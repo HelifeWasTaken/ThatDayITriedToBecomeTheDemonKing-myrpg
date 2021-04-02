@@ -36,19 +36,19 @@ void vfx_scrolin(game_t *game UNUSED,
 }
 
 
-void load_button(game_t *game, sfTexture *texture, settings_t *setting_button)
+void load_button(game_t *game, settings_t *setting_button)
 {
-    for (int i = 0; i <= 3; i++) {
-        texture = create_texture(game, ASSET_SETTING_PATH[i], NULL);
-        setting_button->sprite_button[i] = create_sprite(texture, NULL);
-        sfSprite_setScale(setting_button->sprite_button[i], VEC2F(2, 2));
-    }
+    sfTexture *texture = create_texture(game, BACK_BUTTON, NULL);
+
+    setting_button->sprite_button = create_sprite(texture, NULL);
 }
 
 bool function_button_settings(game_t *game, int i,
     parameters_t *param UNUSED, entity_t *entity UNUSED)
 {
-    if (i == 0 && sfMouse_isButtonPressed(sfMouseLeft)) {
+    (void)i;
+
+    if (sfMouse_isButtonPressed(sfMouseLeft)) {
         switch_to_scene(game, MENU_SCENE);
         return (true);
     }

@@ -60,6 +60,8 @@ SRC = 	src/game.c \
         src/entities/hero/hero.c \
         src/entities/hero/hero_event.c \
         src/entities/view/view.c \
+		src/entities/settings/mute_button.c	\
+		src/entities/settings/init_select_button.c	\
         $(SRC_MAP)
 
 TESTS =	\

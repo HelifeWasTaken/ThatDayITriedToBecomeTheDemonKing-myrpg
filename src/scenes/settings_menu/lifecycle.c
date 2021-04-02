@@ -60,6 +60,7 @@ int setting_lifecycle(game_t *game)
     sfEvent event;
 
     init_scroll_bar(game);
+    init_select_btn(game);
     create_entity(game, SETTING);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
