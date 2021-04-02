@@ -70,5 +70,7 @@ void draw_hero(game_t *game UNUSED, entity_t *entity)
     hero_t *hero = entity->instance;
 
     sfRenderWindow_drawSprite(game->window, hero->sprite, NULL);
-    draw_rectangle_shape_global_bound(game->window, hero->sprite, false);
+    IN_DEBUG_MENU(
+        draw_rectangle_shape_global_bound(game->window, hero->sprite, false)
+    );
 }

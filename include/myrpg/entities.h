@@ -29,8 +29,8 @@ enum entity_type {
     ATH,
     LAYER,
     HERO,
-    VIEW
-
+    VIEW,
+    DEBUGMENU
 };
 
 //----------------------------------------
@@ -172,4 +172,17 @@ bool create_layer(game_t *game, entity_t *entity);
 void draw_layer(game_t *game, entity_t *entity);
 void destroy_layer(game_t *game, entity_t *entity);
 
+typedef struct debugmenu {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfText *debugtext;
+    view_t *view;
+    bool enabled;
+} debugmenu_t;
+
+bool create_debugmenu(game_t *game, entity_t *entity);
+void update_debugmenu(game_t *game, entity_t *entity);
+void draw_debugmenu(game_t *game, entity_t *entity);
+void destroy_debugmenu(game_t *game, entity_t *entity);
+bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */
