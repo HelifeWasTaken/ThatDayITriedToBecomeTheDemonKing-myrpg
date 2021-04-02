@@ -85,7 +85,6 @@ static bool load_collision_layer(ig_map_t *map,
     return (true);
 }
 
-#include <math.h>
 bool load_vertex_array_map(game_t *game, ig_map_t *map,
     struct vertex_array_map *self, char *pathfolder)
 {
