@@ -25,6 +25,8 @@ static const entity_info_t ENTITIES[] = {
         &destroy_menu, NULL, &handle_menu_events),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, NULL, &handle_ath_events),
+    ENTITY(LAYER_MANAGER, &create_layer_manager, NULL,
+        &destroy_layer_manager, NULL, NULL),
     ENTITY(LAYER, &create_layer, &draw_layer,
         &destroy_layer, NULL, NULL),
     ENTITY(HERO, &create_hero, &draw_hero,
@@ -36,9 +38,12 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
         &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
     ENTITY(DIALOGBOX, &create_dialogbox, &draw_dialogbox,
-            &destroy_dialogbox, &update_dialogbox, &handle_dialogbox_events),
+        &destroy_dialogbox, &update_dialogbox, &handle_dialogbox_events),
     ENTITY(NPC, &create_npc, &draw_npc,
-            &destroy_npc, &update_npc, &handle_npc_events)
+        &destroy_npc, &update_npc, &handle_npc_events),
+    ENTITY(WARP, &create_warp, NULL, &destroy_warp, NULL, NULL),
+    ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
+        &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events)
 };
 
 static bool configure_window(game_t *game)
@@ -55,7 +60,7 @@ static bool configure_window(game_t *game)
 
 static bool configure_entities(game_t *game UNUSED)
 {
-    unsigned long size = sizeof(ENTITIES) / sizeof(ENTITIES[0]);
+    unsigned long size = ARRAY_SIZE(ENTITIES);
 
     for (unsigned long i = 0; i < size; i++) {
         if (!register_entity(game, &ENTITIES[i]))

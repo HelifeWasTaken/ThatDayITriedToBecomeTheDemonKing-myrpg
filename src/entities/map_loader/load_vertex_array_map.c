@@ -47,7 +47,7 @@ static bool load_vertex_array_map_verticies(ig_map_t *map,
 }
 
 static bool load_vertex_array_map_tilesets(game_t *game,
-    ig_map_t *map, struct vector_texture *self, char *pathfolder)
+    ig_map_t *map, struct vector_texture *self, char const *pathfolder)
 {
     char *file = NULL;
 
@@ -86,7 +86,7 @@ static bool load_collision_layer(ig_map_t *map,
 }
 
 bool load_vertex_array_map(game_t *game, ig_map_t *map,
-    struct vertex_array_map *self, char *pathfolder)
+    struct vertex_array_map *self, char const *pathfolder)
 {
     if (pathfolder == false) {
         ASSERT("Vertex load", "File passed as argument was null");
@@ -101,8 +101,5 @@ bool load_vertex_array_map(game_t *game, ig_map_t *map,
     if (load_vertex_array_map_verticies(map, self) == false)
         return (false);
     self->states = DEFAULT_RENDERSTATE(NULL);
-    self->states.shader = sfShader_createFromFile(NULL, NULL, "asset/map_asset/shader.frag");
-    if (self->states.shader == NULL)
-        return (false);
     return (true);
 }

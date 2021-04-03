@@ -11,6 +11,8 @@
 #include <SFML/Graphics.h>
 #include "distract/graphics.h"
 #include "distract/def.h"
+#include "myrpg/matrix.h"
+#include "erty/eprintf.h"
 
 typedef struct {
     sfVector2f topleft;
@@ -67,18 +69,23 @@ static inline void draw_rectangle_shape_global_bound(sfRenderWindow *window,
     sfRectangleShape_destroy(rc);
 }
 
+bool deser_vector2i(struct json *conf, size_t offset, void *data);
+bool deser_irect(struct json *conf, size_t offset, void *data);
+bool deser_vector2f(struct json *conf, size_t offset, void *data);
+bool deser_frect(struct json *conf, size_t offset, void *data);
+
 #define PRINT_V2F(v) \
-    printf("<x: %f, y: %f>\n", v.x, v.y)
+    eprintf("<x: %d, y: %d>\n", (int)v.x, (int)v.y)
 
 #define PRINT_V2I(v) \
-    printf("<x: %d, y: %d>\n", (int)v.x, (int)v.y)
+    eprintf("<x: %d, y: %d>\n", (int)v.x, (int)v.y)
 
 #define PRINT_RF(r)                                        \
-    printf("<top: %f, left: %f, width: %f, height: %f>\n", \
-           r.top, r.left, r.width, r.height)
+    eprintf("<top: %d, left: %d, width: %d, height: %d>\n", \
+           (int)r.top, (int)r.left, (int)r.width, (int)r.height)
 
 #define PRINT_RI(r)                                        \
-    printf("<top: %d, left: %d, width: %d, height: %d>\n", \
+    eprintf("<top: %d, left: %d, width: %d, height: %d>\n", \
            (int)r.top, (int)r.left, (int)r.width, (int)r.height)
 
 #endif

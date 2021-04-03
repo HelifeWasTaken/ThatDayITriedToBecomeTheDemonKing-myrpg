@@ -19,6 +19,7 @@
 #include "distract/debug.h"
 #include "myrpg/util.h"
 
+/*
 static bool player_anim(hero_t *hero)
 {
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
@@ -31,120 +32,32 @@ static bool player_anim(hero_t *hero)
         rect.left += 100;
         if (rect.left == 1200)
             rect.left = 900;
-        hero->animation_clock->time = 0;
     }
     sfSprite_setTextureRect(hero->sprite, rect);
     return (true);
 }
+*/
 
-static void try_player_movement_up(hero_t *hero, sfVector2f *offset, sfIntRect rect)
+static bool player_move(hero_t *hero, sfIntRect *rect, enum player_move move)
 {
-    sfVector2u mapsize = hero->collision->map.map_size;
-    sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0,rect.height / 2),
-        GET_REAL_POSITION_XY(entitypos, rect.width / 2, rect.height / 2),
-        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2) };
+    int anim[4] = { 0, 83, 166, 249 };
+    void (*moves[4])(hero_t *, sfIntRect *) = { player_move_down,
+        player_move_left, player_move_right, player_move_up };
 
-    for (int i = 0; i < 3; i++) {
-        if (pos_v[i].x >= hero->collision->map.map_size.x ||
-            pos_v[i].y >= hero->collision->map.map_size.y) {
-            print_error("Warning: Unexpected collision encoutered");
-            return;
-        }
-        if (GET_POS_MAP(pos_v[i], mapsize.x,
-            hero->collision->map.v_collision.layer) == true)
-            return;
-    }
-    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
-            hero->entity->pos.y + offset->y);
-}
-
-static void try_player_movement_down(hero_t *hero, sfVector2f *offset, sfIntRect rect)
-{
-    sfVector2u mapsize = hero->collision->map.map_size;
-    sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0, rect.height),
-        GET_REAL_POSITION_XY(entitypos, rect.width / 2, rect.height),
-        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height) };
-
-    for (int i = 0; i < 3; i++) {
-        if (pos_v[i].x >= hero->collision->map.map_size.x ||
-            pos_v[i].y >= hero->collision->map.map_size.y) {
-            print_error("Warning: Unexpected collision encoutered");
-            return;
-        }
-        if (GET_POS_MAP(pos_v[i], mapsize.x,
-            hero->collision->map.v_collision.layer) == true)
-            return;
-    }
-    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
-            hero->entity->pos.y + offset->y);
-}
-
-static void try_player_movement_left(hero_t *hero, sfVector2f *offset, sfIntRect rect)
-{
-    sfVector2u mapsize = hero->collision->map.map_size;
-    sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, 0, 0),
-        GET_REAL_POSITION_XY(entitypos, 0, rect.height / 2),
-        GET_REAL_POSITION_XY(entitypos, 0, rect.height) };
-
-    for (int i = 0; i < 3; i++) {
-        if (pos_v[i].x >= hero->collision->map.map_size.x ||
-            pos_v[i].y >= hero->collision->map.map_size.y) {
-            print_error("Warning: Unexpected collision encoutered");
-            return;
-        }
-        if (GET_POS_MAP(pos_v[i], mapsize.x,
-            hero->collision->map.v_collision.layer) == true)
-            return;
-    }
-    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
-            hero->entity->pos.y + offset->y);
-}
-
-static void try_player_movement_right(hero_t *hero, sfVector2f *offset, sfIntRect rect)
-{
-    sfVector2u mapsize = hero->collision->map.map_size;
-    sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[3] = { GET_REAL_POSITION_XY(entitypos, rect.width, 0),
-        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height / 2),
-        GET_REAL_POSITION_XY(entitypos, rect.width, rect.height) };
-
-    for (int i = 0; i < 3; i++) {
-        if (pos_v[i].x >= hero->collision->map.map_size.x ||
-            pos_v[i].y >= hero->collision->map.map_size.y) {
-            print_error("Warning: Unexpected collision encoutered");
-            return;
-        }
-        if (GET_POS_MAP(pos_v[i], mapsize.x,
-            hero->collision->map.v_collision.layer) == true)
-            return;
-    }
-    hero->entity->pos = VEC2F(hero->entity->pos.x + offset->x,
-            hero->entity->pos.y + offset->y);
-}
-
-static bool player_move(hero_t *hero, int anim, sfIntRect rect)
-{
-    rect.top = anim;
-    if (rect.left > 300) {
-        rect.left = 0;
-    }
+    rect->top= anim[move];
+    if (rect->left > 300)
+        rect->left = 0;
     if (hero->animation_clock->time >= 0.10f) {
-        rect.left += 45;
-        if (rect.left == 135)
-            rect.left = 0;
+        rect->left += 45;
+        if (rect->left == 135)
+            rect->left = 0;
         hero->animation_clock->time = 0;
     }
     if (hero->movement_clock->time >= 0.020f) {
-        anim == 0 ? try_player_movement_down(hero, &VEC2F(0, 5), rect) : 0;
-        anim == 83 ? try_player_movement_left(hero, &VEC2F(-5, 0), rect) : 0;
-        anim == 166 ? try_player_movement_right(hero, &VEC2F(5, 0), rect) : 0;
-        anim == 249 ? try_player_movement_up(hero, &VEC2F(0, -5), rect): 0;
+        moves[move](hero, rect);
         hero->movement_clock->time = 0;
     }
-    sfSprite_setTextureRect(hero->sprite, rect);
+    sfSprite_setTextureRect(hero->sprite, *rect);
     return (true);
 }
 
@@ -153,16 +66,14 @@ bool handle_hero_events(game_t *game UNUSED,
 {
     hero_t *hero = entity->instance;
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
+    sfKeyCode codes[4] = { sfKeyDown , sfKeyLeft, sfKeyRight, sfKeyUp };
+    enum player_move move[4] = { PLAYER_MOVE_DOWN, PLAYER_MOVE_LEFT,
+        PLAYER_MOVE_RIGHT, PLAYER_MOVE_UP };
 
-    if (sfKeyboard_isKeyPressed(sfKeySpace) == sfTrue)
-        return (player_anim(hero), false);
-    if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
-        return (player_move(hero, 0, rect));
-    if (sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
-        return (player_move(hero, 83, rect));
-    if (sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
-        return (player_move(hero, 166, rect));
-    if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
-        return (player_move(hero, 249, rect));
+    for (u8_t i = 0; i < ARRAY_SIZE(codes); i++) {
+        if (sfKeyboard_isKeyPressed(codes[i]) == sfTrue) {
+            return (player_move(hero, &rect, move[i]));
+        }
+    }
     return (false);
 }

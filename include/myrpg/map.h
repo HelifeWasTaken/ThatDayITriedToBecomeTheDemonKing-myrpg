@@ -102,7 +102,7 @@
             map->tilesets->data[tilesetv].tileheight}
 
     bool load_vertex_array_map(game_t *game, ig_map_t *map,
-        struct vertex_array_map *self, char *pathfolder);
+        struct vertex_array_map *self, char const *pathfolder);
 
     // Integrity checks
     bool load_vertex_array_map_get_tileset(ig_map_t *map,

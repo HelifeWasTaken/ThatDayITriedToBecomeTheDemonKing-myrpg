@@ -12,7 +12,7 @@
 #include "myrpg/game.h"
 #include "myrpg/map.h"
 #include "define.h"
-#include <SFML/Graphics/Types.h>
+#include "erty/tuple.h"
 
 enum arrow_keys {
     KEY_DOWN,
@@ -28,11 +28,14 @@ enum entity_type {
     SETTING,
     VFX_SC,
     ATH,
+    LAYER_MANAGER,
     LAYER,
+    WARP,
     HERO,
     VIEW,
     NPC,
-    DIALOGBOX
+    DIALOGBOX,
+    DEBUGMENU
 };
 
 //----------------------------------------
@@ -54,15 +57,20 @@ void update_view(game_t *game, entity_t *entity);
 void destroy_view(game_t *game, entity_t *entity);
 void set_view_type(game_t *game, view_t *view, view_type_t type);
 
+enum player_move {
+    PLAYER_MOVE_DOWN,
+    PLAYER_MOVE_LEFT,
+    PLAYER_MOVE_RIGHT,
+    PLAYER_MOVE_UP
+};
+
 typedef struct hero {
     entity_t *entity;
     pausable_clock_t *animation_clock;
     pausable_clock_t *movement_clock;
     sfSprite *sprite;
-    const struct layer *collision;
+    const struct layer_manager *collision;
 } hero_t;
-
-#define HERO_KEY (int[]) {0, 100, 200, 300}
 
 bool create_hero(game_t *game, entity_t *entity);
 void update_hero(game_t *game, entity_t *entity);
@@ -70,6 +78,11 @@ void draw_hero(game_t *game, entity_t *entity);
 void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
+
+void player_move_up(hero_t *hero, sfIntRect *rect);
+void player_move_down(hero_t *hero, sfIntRect *rect);
+void player_move_left(hero_t *hero, sfIntRect *rect);
+void player_move_right(hero_t *hero, sfIntRect *rect);
 
 typedef struct ath {
     entity_t *entity;
@@ -166,8 +179,9 @@ void set_size_mus(game_t *game, vfx_scroll_t *scroll);
 void set_size_vfx(game_t *game, vfx_scroll_t *scroll);
 
 typedef struct layer {
-    vertex_map_t map;
     entity_t *entity;
+    unsigned int id;
+    struct layer_manager *manager;
 } layer_t;
 
 bool create_layer(game_t *game, entity_t *entity);
@@ -210,5 +224,45 @@ void update_npc(game_t *game, entity_t *entity);
 void draw_npc(game_t *game, entity_t *entity);
 void destroy_npc(game_t *game, entity_t *entity);
 bool handle_npc_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct layer_manager {
+    vertex_map_t map;
+    entity_t *entity;
+    unsigned int layers_count;
+    const struct warp *warp_list;
+} layer_manager_t;
+
+bool create_layer_manager(game_t *game, entity_t *entity);
+void destroy_layer_manager(game_t *game, entity_t *entity);
+bool generate_map(game_t *game);
+
+struct warp_data {
+    sfIntRect warpzone;
+    char *warploader;
+};
+
+INIT_VECTOR(wrp, struct warp_data, NULL);
+
+typedef struct warp {
+    entity_t *entity;
+    VECTOR(wrp) *warp;
+} warp_t;
+
+bool create_warp(game_t *game, entity_t *entity);
+void destroy_warp(game_t *game, entity_t *entity);
+
+typedef struct debugmenu {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfText *debugtext;
+    view_t *view;
+    bool enabled;
+} debugmenu_t;
+
+bool create_debugmenu(game_t *game, entity_t *entity);
+void update_debugmenu(game_t *game, entity_t *entity);
+void draw_debugmenu(game_t *game, entity_t *entity);
+void destroy_debugmenu(game_t *game, entity_t *entity);
+bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */
