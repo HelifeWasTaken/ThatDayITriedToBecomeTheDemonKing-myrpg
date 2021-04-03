@@ -26,7 +26,7 @@ int init_play_lifecycle(game_t *game)
     return (0);
 }
 
-bool create_npc(game_t *game)
+bool spawn_npc(game_t *game)
 {
     npc_t *npc;
     entity_t *entity = create_entity(game, NPC);
@@ -48,7 +48,7 @@ int play_lifecycle(game_t *game)
 
     if (init_play_lifecycle(game) == 84)
         return (84);
-    if (!create_npc(game))
+    if (!spawn_npc(game))
         return (84);
     #if ENABLE_DEBUG_MENU
         create_entity(game, DEBUGMENU);
