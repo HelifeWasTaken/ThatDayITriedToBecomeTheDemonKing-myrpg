@@ -81,5 +81,5 @@ void draw_hero(game_t *game UNUSED, entity_t *entity)
 
     sfRenderWindow_drawSprite(game->window, hero->sprite, NULL);
     draw_rectangle_shape_global_bound(game->window, hero->sprite, false);
-    PRINT_V2F(hero->entity->pos);
+    printf("%f %f\n", hero->entity->pos.x, hero->entity->pos.y);
 }

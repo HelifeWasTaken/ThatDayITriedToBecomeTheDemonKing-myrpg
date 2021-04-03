@@ -31,7 +31,7 @@
         {
             .p_info = {
                 .z_player = 5,
-                .pos = { 2110, 839 }
+                .pos = { 300, 309 }
             },
             .m_files = {
                 .mapfile = MAP_FILE_DIR"/map_village.json",

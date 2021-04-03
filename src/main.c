@@ -145,5 +145,4 @@ bool init_pnjs(struct json *conf, struct pnj *self)
 int main(void)
 {
     return (load_game());
-    return (0);
 }
