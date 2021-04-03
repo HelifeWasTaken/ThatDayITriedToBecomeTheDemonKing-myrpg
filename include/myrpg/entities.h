@@ -12,6 +12,7 @@
 #include "myrpg/game.h"
 #include "myrpg/map.h"
 #include "define.h"
+#include <SFML/Graphics/Types.h>
 
 enum arrow_keys {
     KEY_DOWN,
@@ -29,8 +30,9 @@ enum entity_type {
     ATH,
     LAYER,
     HERO,
-    VIEW
-
+    VIEW,
+    NPC,
+    DIALOGBOX
 };
 
 //----------------------------------------
@@ -171,5 +173,42 @@ typedef struct layer {
 bool create_layer(game_t *game, entity_t *entity);
 void draw_layer(game_t *game, entity_t *entity);
 void destroy_layer(game_t *game, entity_t *entity);
+
+typedef struct dialogbox {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfRectangleShape *background;
+    sfText *name_text;
+    sfText *content_text;
+    view_t *view;
+    struct npc *npc;
+    char pending_buffer[4096];
+    unsigned char chunk_id;
+    bool is_visible;
+} dialogbox_t;
+
+bool create_dialogbox(game_t *game, entity_t *entity);
+void update_dialogbox(game_t *game, entity_t *entity);
+void draw_dialogbox(game_t *game, entity_t *entity);
+void destroy_dialogbox(game_t *game, entity_t *entity);
+bool handle_dialogbox_events(game_t *game, entity_t *entity, sfEvent *event);
+void show_dialog(struct npc *npc);
+void wrap_dialog_text(dialogbox_t *dialog);
+
+typedef struct npc {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    hero_t *hero;
+    dialogbox_t *dialog;
+    char *name;
+    char **messages;
+} npc_t;
+
+bool create_npc(game_t *game, entity_t *entity);
+void update_npc(game_t *game, entity_t *entity);
+void draw_npc(game_t *game, entity_t *entity);
+void destroy_npc(game_t *game, entity_t *entity);
+bool handle_npc_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

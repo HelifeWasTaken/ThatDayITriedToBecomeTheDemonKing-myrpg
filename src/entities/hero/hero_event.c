@@ -155,7 +155,7 @@ bool handle_hero_events(game_t *game UNUSED,
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
 
     if (sfKeyboard_isKeyPressed(sfKeySpace) == sfTrue)
-        return (player_anim(hero));
+        return (player_anim(hero), false);
     if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
         return (player_move(hero, 0, rect));
     if (sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)

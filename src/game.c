@@ -34,7 +34,11 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(SETTING, &create_settings, &draw_settings,
         &destroy_settings, &update_settings, &handle_settings_events),
     ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
-        &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events)
+        &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
+    ENTITY(DIALOGBOX, &create_dialogbox, &draw_dialogbox,
+            &destroy_dialogbox, &update_dialogbox, &handle_dialogbox_events),
+    ENTITY(NPC, &create_npc, &draw_npc,
+            &destroy_npc, &update_npc, &handle_npc_events)
 };
 
 static bool configure_window(game_t *game)
