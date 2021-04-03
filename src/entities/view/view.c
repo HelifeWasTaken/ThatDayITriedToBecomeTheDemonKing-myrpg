@@ -56,5 +56,6 @@ void update_view(game_t *game UNUSED, entity_t *entity)
         view->hero = player_entity->instance;
         return;
     }
+    sfView_setCenter(view->view, view->hero->entity->pos);
     set_view_type(game, view, WORLD_VIEW);
 }

@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <SFML/Graphics.h>
 #include <iron_goat/deser.h>
+#include "myrpg/util.h"
 
 /*
 struct pnj_data {
@@ -140,6 +141,7 @@ bool init_pnjs(struct json *conf, struct pnj *self)
 }
 */
 
+#include "myrpg/mapdata.h"
 int main(void)
 {
     return (load_game());

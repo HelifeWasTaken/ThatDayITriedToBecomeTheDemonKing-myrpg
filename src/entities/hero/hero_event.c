@@ -19,7 +19,7 @@
 #include "distract/debug.h"
 #include "myrpg/util.h"
 
-#error Need to move player anim
+/*
 static bool player_anim(hero_t *hero)
 {
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
@@ -36,6 +36,7 @@ static bool player_anim(hero_t *hero)
     sfSprite_setTextureRect(hero->sprite, rect);
     return (true);
 }
+*/
 
 static bool player_move(hero_t *hero, sfIntRect *rect, enum player_move move)
 {

@@ -26,6 +26,7 @@ bool json_parser(struct json *conf, char const *file)
 
     if (fd == -1) {
         ASSERT("LibSeraph", "file specified could not be opened");
+        DEBUG_PRINTF("File: %s", file);
         return (false);
     } else if ((buffer = json_get_buffer(fd)).is_ok == false) {
         ASSERT("LibSeraph", "Buffer could not be read or allocation failed");
