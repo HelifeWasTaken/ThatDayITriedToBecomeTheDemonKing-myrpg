@@ -78,7 +78,7 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
     view_t *view = ath->game_view;
-    sfView *canvas_view = ath->canvas_view;
+    //sfView *canvas_view = ath->canvas_view;
     entity_t *view_entity;
 
     if (ath->game_view == NULL) {
@@ -87,7 +87,7 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
             ath->game_view = view_entity->instance;
         return;
     }
-    sfRenderWindow_setView(game->window, canvas_view);
+    //sfRenderWindow_setView(game->window, canvas_view);
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
     for (int i = 0; i < 6; i++)
         DRAW_SPRITE(game->window, ath->button_sprite[i], NULL);

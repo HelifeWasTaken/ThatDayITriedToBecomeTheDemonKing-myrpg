@@ -47,5 +47,5 @@ void update_view(game_t *game UNUSED, entity_t *entity)
     view_t *view = entity->instance;
 
     sfView_setCenter(view->view, view->hero->entity->pos);
-    sfRenderWindow_setView(game->window, view->view);
+    //sfRenderWindow_setView(game->window, view->view);
 }
