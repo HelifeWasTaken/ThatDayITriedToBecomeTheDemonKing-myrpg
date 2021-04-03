@@ -3,8 +3,8 @@ on: push
 jobs:
   codingstyle:
     runs-on: ubuntu-latest
-    container: docker://helife/epilight
     steps:
+      - run: sudo apt install libcsfml-dev
       - uses: actions/checkout@v2
       - name: installing pycparser
         run: python3 -m pip3 install pycparser
