@@ -33,6 +33,7 @@ bool spawn_npc(game_t *game)
     
     if (entity == NULL)
         return (false);
+    npc = entity->instance;
     npc->name = "Grass";
     npc->messages = (char *[]){ "You can see the wind going through the leaves "
         "peacefully. There is a ladybug between the leaves, it flies quietly. "
