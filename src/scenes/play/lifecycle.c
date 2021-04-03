@@ -12,7 +12,7 @@
 #include "distract/debug.h"
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
-    ATH, HERO, VIEW
+    VIEW, ATH, HERO
 };
 
 int init_play_lifecycle(game_t *game)
@@ -32,6 +32,9 @@ int play_lifecycle(game_t *game)
 
     if (init_play_lifecycle(game) == 84)
         return (84);
+    #if ENABLE_DEBUG_MENU
+        create_entity(game, DEBUGMENU);
+    #endif
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)

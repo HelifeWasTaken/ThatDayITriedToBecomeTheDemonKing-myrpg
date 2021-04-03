@@ -21,17 +21,21 @@
 bool create_view(game_t *game UNUSED, entity_t *entity)
 {
     view_t *view = dcalloc(sizeof(view_t), 1);
-    entity_t *player_entity = NULL;
 
     D_ASSERT(view, NULL, "view could not be init", false);
     view->entity = entity;
-    player_entity = GET_ENTITY(game, HERO);
-    D_ASSERT(player_entity, NULL, "could not get hero info in view", false);
-    view->hero = player_entity->instance;
-    view->view = sfView_createFromRect((sfFloatRect){0, 0, game->mode.width / 3.f, game->mode.height / 3.f});
-    sfView_setCenter(view->view, view->hero->entity->pos);
+    view->view = sfView_createFromRect((sfFloatRect){0, 0,
+        game->mode.width / 3.f, game->mode.height / 3.f});
+    view->hud_view = sfView_createFromRect(FRECT(0, 0,
+        game->mode.width, game->mode.height));
     entity->instance = view;
     return (true);
+}
+
+void set_view_type(game_t *game, view_t *view, view_type_t type)
+{
+    sfRenderWindow_setView(game->window, type == HUD_VIEW ? view->hud_view
+        : view->view);
 }
 
 void destroy_view(game_t *game UNUSED, entity_t *entity)
@@ -44,8 +48,14 @@ void destroy_view(game_t *game UNUSED, entity_t *entity)
 
 void update_view(game_t *game UNUSED, entity_t *entity)
 {
+    entity_t *player_entity = NULL;
     view_t *view = entity->instance;
 
+    if (view->hero == NULL) {
+        player_entity = GET_ENTITY(game, HERO);
+        view->hero = player_entity->instance;
+        return;
+    }
     sfView_setCenter(view->view, view->hero->entity->pos);
-    sfRenderWindow_setView(game->window, view->view);
+    set_view_type(game, view, WORLD_VIEW);
 }

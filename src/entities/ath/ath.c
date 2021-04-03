@@ -47,9 +47,7 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
 
     if (!ath || !player_ath_texture)
         return (false);
-    ath->game_view = NULL;
-    ath->canvas_view = sfView_createFromRect(FRECT(0, 0,
-        game->mode.width, game->mode.height));
+    ath->view = get_entity(game, VIEW)->instance;
     ath->player_ath_sprite = create_sprite(player_ath_texture,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
     if (!ath->player_ath_sprite)
@@ -65,7 +63,7 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
             ICON_RECT, ICON_RECT));
         if (ath->button_sprite[i] == NULL)
             return (false);
-        SET_SPRITE_POS(ath->button_sprite[i], VEC2F(1810, pos_y));
+        SET_SPRITE_POS(ath->button_sprite[i], VEC2F(WINDOW_W /1.06 , pos_y));
         pos_y += 110;
     }
     entity->instance = ath;
@@ -77,21 +75,13 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
 void draw_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
-    view_t *view = ath->game_view;
-    sfView *canvas_view = ath->canvas_view;
-    entity_t *view_entity;
+    view_t *view = ath->view;
 
-    if (ath->game_view == NULL) {
-        view_entity = get_entity(game, VIEW);
-        if (view_entity != NULL)
-            ath->game_view = view_entity->instance;
-        return;
-    }
-    sfRenderWindow_setView(game->window, canvas_view);
+    set_view_type(game, view, HUD_VIEW);
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
     for (int i = 0; i < 6; i++)
         DRAW_SPRITE(game->window, ath->button_sprite[i], NULL);
-    update_entity(game, view->entity);
+    set_view_type(game, view, WORLD_VIEW);
 }
 
 void destroy_ath(game_t *game UNUSED, entity_t *entity)

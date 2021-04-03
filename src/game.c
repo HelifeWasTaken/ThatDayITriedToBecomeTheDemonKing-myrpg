@@ -37,7 +37,9 @@ static const entity_info_t ENTITIES[] = {
         &destroy_settings, &update_settings, &handle_settings_events),
     ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
         &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
-    ENTITY(WARP, &create_warp, NULL, &destroy_warp, NULL, NULL)
+    ENTITY(WARP, &create_warp, NULL, &destroy_warp, NULL, NULL),
+    ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
+            &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events)
 };
 
 static bool configure_window(game_t *game)

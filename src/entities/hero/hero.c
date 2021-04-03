@@ -64,7 +64,6 @@ void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
     sfSprite_setPosition(hero->sprite, entity->pos);
     tick_pausable_clock(hero->animation_clock);
     tick_pausable_clock(hero->movement_clock);
-
     for (usize_t i = 0; i < hero->collision->warp_list->warp->size; i++) {
         warp = hero->collision->warp_list->warp->data[i].warpzone;
         if (sfIntRect_contains(&warp, hero->entity->pos.x, hero->entity->pos.y)) {
@@ -81,5 +80,5 @@ void draw_hero(game_t *game UNUSED, entity_t *entity)
 
     sfRenderWindow_drawSprite(game->window, hero->sprite, NULL);
     draw_rectangle_shape_global_bound(game->window, hero->sprite, false);
-    printf("%f %f\n", hero->entity->pos.x, hero->entity->pos.y);
+    PRINT_V2F(hero->entity->pos);
 }
