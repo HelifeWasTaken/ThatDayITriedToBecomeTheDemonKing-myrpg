@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: installing pycparser
-        run: python3 -m pip install pycparser
+        run: python3 -m pip3 install pycparser
       - name: installing coding style
         run: sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/aureliancnx/Bubulle-Norminette/master/install_bubulle.sh)"
       - name: check coding style
