@@ -77,7 +77,6 @@ void draw_debugmenu(game_t *game UNUSED, entity_t *entity)
     set_view_type(game, debugmenu->view, HUD_VIEW);
     sfRenderWindow_drawText(game->window, debugmenu->debugtext, NULL);
     set_view_type(game, debugmenu->view, WORLD_VIEW);
-
 }
 
 bool handle_debugmenu_events(game_t *game UNUSED,
