@@ -19,89 +19,80 @@
 #include "distract/debug.h"
 #include "myrpg/util.h"
 
-static const int HERO_MOVE_SPEED = 5;
+static const int HERO_MOVE_SPEED = 2;
 
-void player_move_up(hero_t *hero, sfIntRect *rect)
+void player_move_up(hero_t *hero, sfIntRect *rect,
+        game_t *game UNUSED)
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[] = {
-        GET_REAL_POSITION_XY(entitypos, rect->width / 2,
-            rect->height / 3)
-    };
+    sfVector2u pos_v =  GET_REAL_POSITION_XY(entitypos, rect->width / 2,
+            rect->height / 3);
 
-    for (usize_t i = 0; i < ARRAY_SIZE(pos_v); i++) {
-        if (pos_v[i].x >= hero->collision->map.map_size.x ||
-            pos_v[i].y >= hero->collision->map.map_size.y) {
-            print_error("Warning: Unexpected collision encoutered");
-            return;
-        }
-        if (GET_POS_MAP(pos_v[i], mapsize.x,
-            hero->collision->map.v_collision.layer) == true)
-            return;
+    if (pos_v.x >= hero->collision->map.map_size.x ||
+            pos_v.y >= hero->collision->map.map_size.y) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
     }
+    if (GET_POS_MAP(pos_v, mapsize.x,
+                hero->collision->map.v_collision.layer) == true)
+        return;
     hero->entity->pos.y += -HERO_MOVE_SPEED;
 }
 
-void player_move_down(hero_t *hero, sfIntRect *rect)
+void player_move_down(hero_t *hero, sfIntRect *rect,
+        game_t *game UNUSED)
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[] = {
-        GET_REAL_POSITION_XY(entitypos, rect->width / 2, rect->height / 2)
-    };
+    sfVector2u pos_v = GET_REAL_POSITION_XY(entitypos,
+            rect->width / 2, rect->height / 2);
 
-    for (usize_t i = 0; i < ARRAY_SIZE(pos_v); i++) {
-        if (pos_v[i].x >= hero->collision->map.map_size.x ||
-            pos_v[i].y >= hero->collision->map.map_size.y) {
-            print_error("Warning: Unexpected collision encoutered");
-            return;
-        }
-        if (GET_POS_MAP(pos_v[i], mapsize.x,
-            hero->collision->map.v_collision.layer) == true)
-            return;
+    if (pos_v.x >= hero->collision->map.map_size.x ||
+            pos_v.y >= hero->collision->map.map_size.y) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
     }
+    if (GET_POS_MAP(pos_v, mapsize.x,
+                hero->collision->map.v_collision.layer) == true)
+        return;
     hero->entity->pos.y += HERO_MOVE_SPEED;
 }
 
-void player_move_left(hero_t *hero, sfIntRect *rect)
+void player_move_left(hero_t *hero, sfIntRect *rect,
+        game_t *game UNUSED)
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[] = { GET_REAL_POSITION_XY(
-        entitypos, 0, (rect->height / 2) - 2) };
+    sfVector2u pos_v = GET_REAL_POSITION_XY(
+            entitypos, 0, (rect->height / 2) - 2);
 
-    for (usize_t i = 0; i < ARRAY_SIZE(pos_v); i++) {
-        if (pos_v[i].x >= hero->collision->map.map_size.x ||
-            pos_v[i].y >= hero->collision->map.map_size.y) {
-            print_error("Warning: Unexpected collision encoutered");
-            return;
-        }
-        if (GET_POS_MAP(pos_v[i], mapsize.x,
-            hero->collision->map.v_collision.layer) == true)
-            return;
+    if (pos_v.x >= hero->collision->map.map_size.x ||
+            pos_v.y >= hero->collision->map.map_size.y) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
     }
+    if (GET_POS_MAP(pos_v, mapsize.x,
+                hero->collision->map.v_collision.layer) == true)
+        return;
     hero->entity->pos.x -= HERO_MOVE_SPEED;
 }
 
-void player_move_right(hero_t *hero, sfIntRect *rect)
+void player_move_right(hero_t *hero, sfIntRect *rect,
+        game_t *game UNUSED)
 {
     sfVector2u mapsize = hero->collision->map.map_size;
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v[] = {
-        GET_REAL_POSITION_XY(
-            entitypos, (rect->width / 2) + 4, (rect->height / 2) - 2)
-    };
+    sfVector2u pos_v = GET_REAL_POSITION_XY(
+            entitypos, (rect->width / 2) + 4, (rect->height / 2) - 2);
 
-    for (usize_t i = 0; i < ARRAY_SIZE(pos_v); i++) {
-        if (pos_v[i].x >= hero->collision->map.map_size.x ||
-            pos_v[i].y >= hero->collision->map.map_size.y) {
-            print_error("Warning: Unexpected collision encoutered");
-            return;
-        }
-        if (GET_POS_MAP(pos_v[i], mapsize.x,
-            hero->collision->map.v_collision.layer) == true)
-            return;
+    if (pos_v.x >= hero->collision->map.map_size.x ||
+            pos_v.y >= hero->collision->map.map_size.y) {
+        print_error("Warning: Unexpected collision encoutered");
+        return;
     }
+    if (GET_POS_MAP(pos_v, mapsize.x,
+                hero->collision->map.v_collision.layer) == true)
+        return;
     hero->entity->pos.x += HERO_MOVE_SPEED;
 }
