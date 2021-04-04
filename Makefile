@@ -74,6 +74,7 @@ SRC = 	src/game.c \
     		src/entities/debugmenu/keybind.c \
 	    	src/entities/debugmenu/display.c \
 		    src/entities/dialogbox/dialogbox.c \
+		    src/entities/dialogbox/create.c \
 		    src/entities/dialogbox/show_text.c \
 		    src/entities/npc/npc.c \
         $(SRC_MENU) \

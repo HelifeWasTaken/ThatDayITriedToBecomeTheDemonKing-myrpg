@@ -37,10 +37,26 @@ void wrap_dialog_text(dialogbox_t *dialog)
     }
 }
 
+void hide_dialog(dialogbox_t *dialog)
+{
+    dialog->npc = NULL;
+    dialog->chunk_id = 0;
+    dialog->is_visible = false;
+}
+
+void show_next_dialog(dialogbox_t *dialog)
+{
+    dialog->chunk_id++;
+    ememset(dialog->pending_buffer, 0, sizeof(dialog->pending_buffer));
+    if (dialog->npc->messages[dialog->chunk_id] == NULL)
+        hide_dialog(dialog);
+}
+
 void show_dialog(npc_t *npc)
 {
     dialogbox_t *dialog = npc->dialog;
 
+    ememset(dialog->pending_buffer, 0, sizeof(dialog->pending_buffer));
     dialog->npc = npc;
     dialog->chunk_id = 0;
     dialog->is_visible = true;

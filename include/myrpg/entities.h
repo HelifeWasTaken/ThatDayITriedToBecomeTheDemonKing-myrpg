@@ -207,6 +207,8 @@ void draw_dialogbox(game_t *game, entity_t *entity);
 void destroy_dialogbox(game_t *game, entity_t *entity);
 bool handle_dialogbox_events(game_t *game, entity_t *entity, sfEvent *event);
 void show_dialog(struct npc *npc);
+void hide_dialog(dialogbox_t *dialog);
+void show_next_dialog(dialogbox_t *dialog);
 void wrap_dialog_text(dialogbox_t *dialog);
 
 typedef struct npc {

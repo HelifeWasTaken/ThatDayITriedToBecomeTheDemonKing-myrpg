@@ -79,14 +79,16 @@ bool handle_npc_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     npc_t *npc = entity->instance;
-    sfVector2f pos = sfSprite_getPosition(npc->hero->sprite);
+    sfVector2f pos = npc->hero->entity->pos;
 
     if (v2fdistance(&pos, &entity->pos) >= 50)
         return (false);
     if (event->type == sfEvtKeyPressed && event->key.code == sfKeySpace
-        && !npc->dialog->is_visible) {
-            show_dialog(npc);
-            return (true);
-        }
+        && !npc->dialog->is_visible
+        && npc->clock->time > 0.02f) {
+        show_dialog(npc);
+        npc->clock->time = 0;
+        return (true);
+    }
     return (false);
 }

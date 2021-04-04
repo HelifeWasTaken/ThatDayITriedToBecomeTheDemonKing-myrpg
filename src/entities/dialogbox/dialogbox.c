@@ -23,39 +23,8 @@
 #include <SFML/Graphics/Text.h>
 #include <SFML/Window/Event.h>
 #include <SFML/Window/Keyboard.h>
+#include <stdio.h>
 
-
-bool create_dialogbox(game_t *game UNUSED, entity_t *entity)
-{
-    dialogbox_t *dialogbox = dcalloc(sizeof(dialogbox_t), 1);
-    sfIntRect rect = IRECT(0, 0, 216, 216);
-    sfTexture *texture = create_texture(game, "asset/collision.png", &rect);
-    sfFont *font = create_font(game, "asset/title.ttf");
-    entity_t *viewentity = get_entity(game, VIEW);
-
-    D_ASSERT(font, NULL, "Can't get font", false)
-    D_ASSERT(viewentity, NULL, "Can't get view", false)
-    D_ASSERT(dialogbox, NULL, "Can't create dialog box", false)
-    dialogbox->entity = entity;
-    dialogbox->clock = create_pausable_clock(game);
-    dialogbox->name_text = sfText_create();
-    dialogbox->content_text = sfText_create();
-    dialogbox->background = sfRectangleShape_create();
-    dialogbox->is_visible = false;
-    dialogbox->view = viewentity->instance;
-    sfText_setColor(dialogbox->name_text, sfBlack);
-    sfText_setFont(dialogbox->name_text, font);
-    sfText_setColor(dialogbox->content_text, sfBlack);
-    sfText_setFont(dialogbox->content_text, font);
-    sfRectangleShape_setTexture(dialogbox->background, texture, false);
-    sfRectangleShape_setSize(dialogbox->background, VEC2F(1280, 200));
-    sfText_setPosition(dialogbox->name_text, VEC2F(120, 110));
-    sfText_setPosition(dialogbox->content_text, VEC2F(120, 170));
-    sfRectangleShape_setPosition(dialogbox->background, VEC2F(100, 100));
-    entity->instance = dialogbox;
-    entity->z = 1000000000;
-    return (true);
-}
 
 void destroy_dialogbox(game_t *game UNUSED, entity_t *entity)
 {
@@ -71,18 +40,16 @@ void destroy_dialogbox(game_t *game UNUSED, entity_t *entity)
 void update_dialogbox(game_t *game UNUSED, entity_t *entity)
 {
     dialogbox_t *dialogbox = entity->instance;
-    char *tmp;
-    size_t len;
+    char *tmp = NULL;
+    size_t len = 0;
 
     if (!dialogbox->is_visible)
         return;
-    if (!dialogbox->npc) {
-        print_error("npc linked to dialogbox not found!");
-        return;
-    }
+    D_ASSERT(dialogbox->npc, NULL, "npc linked to dialog not found", (void)0)
     tick_pausable_clock(dialogbox->clock);
     tmp = dialogbox->npc->messages[dialogbox->chunk_id];
     if (dialogbox->clock->time > 0.5) {
+        D_ASSERT(tmp, NULL, "Invalid state, unexpected null", (void)0);
         len = estrlen(dialogbox->pending_buffer);
         if (len < estrlen(tmp)) {
             dialogbox->pending_buffer[len] = tmp[len];
@@ -126,11 +93,7 @@ bool handle_dialogbox_events(game_t *game UNUSED,
                 estrlen(current_msg) + 1);
             wrap_dialog_text(dialogbox);
         } else {
-            dialogbox->chunk_id++;
-            ememset(dialogbox->pending_buffer, 0,
-                sizeof(dialogbox->pending_buffer));
-            if (dialogbox->npc->messages[dialogbox->chunk_id] == NULL)
-                dialogbox->is_visible = false;
+            show_next_dialog(dialogbox);
         }
         return (true);
     }

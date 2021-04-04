@@ -10,6 +10,7 @@
 #include "distract/entity.h"
 #include "distract/resources.h"
 #include "distract/debug.h"
+#include "distract/util.h"
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
     VIEW, DIALOGBOX, ATH, HERO
@@ -30,16 +31,18 @@ bool spawn_npc(game_t *game)
 {
     npc_t *npc;
     entity_t *entity = create_entity(game, NPC);
-    
+    char **arr = dcalloc(sizeof(char *), 3);
+
+    arr[0] = estrdup("You can see the wind going through the leaves "
+        "peacefully. There is a ladybug between the leaves, it flies quietly. "
+        "Looking at the grass fills you with DETERMINATION.");
+    arr[1] = estrdup("This is the second text.");
     if (entity == NULL)
         return (false);
     npc = entity->instance;
     npc->name = "Grass";
-    npc->messages = (char *[]){ "You can see the wind going through the leaves "
-        "peacefully. There is a ladybug between the leaves, it flies quietly. "
-        "Looking at the grass fills you with DETERMINATION.",
-        "foo bar blablabla", NULL };
-    npc->entity->pos = VEC2F(1280, 700);
+    npc->messages = arr;
+    npc->entity->pos = VEC2F(235, 674);
     return (true);
 }
 
