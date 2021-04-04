@@ -11,10 +11,12 @@
 #include "myrpg/map.h"
 #include <SFML/Window/Event.h>
 #include <SFML/Window/Keyboard.h>
+#include "myrpg/util.h"
 
 static int count_entities(game_t *game)
 {
     int count = 0;
+
     entity_t *entity = game->scene->entities;
     for (; entity != NULL; entity = entity->next)
         count++;
@@ -28,11 +30,9 @@ char *get_debug_message(game_t *game UNUSED, debugmenu_t *debugmenu)
     const vertex_map_t *map = &hero->collision->map;
 
     return (eformat(
-        "Is game paused: %s\n"
-        "Time: %.2f\n"
-        "Player position: %.2f %.2f\n"
-        "Vertex: %u, collisions: %u, textures: %u\n"
-        "Map size: %u %u\n"
+        "Is game paused: %s\n" "Time: %.2f\n"
+        "Player position: %.2f %.2f\n" "Vertex count: %u\n"
+        "collision layer size: %u\n" "textures: %u\n" "Map size: %u %u\n"
         "Player clock: { Anim time: %.2f, Move time: %.2f }\n"
         "Entities loaded: %d",
         game->is_paused ? "yes" : "no",

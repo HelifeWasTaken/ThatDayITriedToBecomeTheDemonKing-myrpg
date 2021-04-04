@@ -66,7 +66,8 @@ void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
     tick_pausable_clock(hero->movement_clock);
     for (usize_t i = 0; i < hero->collision->warp_list->warp->size; i++) {
         warp = hero->collision->warp_list->warp->data[i].warpzone;
-        if (sfIntRect_contains(&warp, hero->entity->pos.x, hero->entity->pos.y)) {
+        if (sfIntRect_contains(&warp,
+                    hero->entity->pos.x, hero->entity->pos.y)) {
             switch_to_world(game, get_matching_world(
                 hero->collision->warp_list->warp->data[i].warploader));
             return;
@@ -74,11 +75,32 @@ void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
     }
 }
 
+static void draw_hero_collision_points(game_t *game, hero_t *hero)
+{
+    sfFloatRect rect = sfSprite_getGlobalBounds(hero->sprite);
+    sfVector2f entitypos = hero->entity->pos;
+    sfVector2u pos_v = GET_REAL_POSITION_XY(
+        entitypos, (rect.width / 2) + 4, (rect.height / 2) - 2);
+    sfVector2u pos_v2 = GET_REAL_POSITION_XY(
+            entitypos, (rect.width / 2) + 4, (rect.height / 2) - 2);
+    sfVector2u pos_d = GET_REAL_POSITION_XY(entitypos,
+            rect.width / 2, rect.height / 2);
+    sfVector2u pos_u =  GET_REAL_POSITION_XY(entitypos, rect.width / 2,
+            rect.height / 3);
+
+    draw_rectangle_at_point(game->window, &VEC2F(pos_v.x * 16, pos_v.y * 16));
+    draw_rectangle_at_point(game->window, &VEC2F(pos_v2.x * 16, pos_v2.y * 16));
+    draw_rectangle_at_point(game->window, &VEC2F(pos_d.x * 16, pos_d.y * 16));
+    draw_rectangle_at_point(game->window, &VEC2F(pos_u.x * 16, pos_u.y * 16));
+    //draw_rectangle_shape_global_bound(game->window, hero->sprite, false);
+}
+
 void draw_hero(game_t *game UNUSED, entity_t *entity)
 {
     hero_t *hero = entity->instance;
 
     sfRenderWindow_drawSprite(game->window, hero->sprite, NULL);
-    draw_rectangle_shape_global_bound(game->window, hero->sprite, false);
-    PRINT_V2F(hero->entity->pos);
+    IN_DEBUG_MENU(
+        draw_hero_collision_points(game, hero)
+    );
 }

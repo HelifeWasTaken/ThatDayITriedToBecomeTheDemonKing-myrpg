@@ -77,10 +77,14 @@ void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
 
-void player_move_up(hero_t *hero, sfIntRect *rect);
-void player_move_down(hero_t *hero, sfIntRect *rect);
-void player_move_left(hero_t *hero, sfIntRect *rect);
-void player_move_right(hero_t *hero, sfIntRect *rect);
+void player_move_up(hero_t *hero, sfIntRect *rect,
+        game_t *game UNUSED);
+void player_move_down(hero_t *hero, sfIntRect *rect,
+        game_t *game UNUSED);
+void player_move_left(hero_t *hero, sfIntRect *rect,
+        game_t *game UNUSED);
+void player_move_right(hero_t *hero, sfIntRect *rect,
+        game_t *game UNUSED);
 
 typedef struct ath {
     entity_t *entity;

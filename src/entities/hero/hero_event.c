@@ -38,11 +38,13 @@ static bool player_anim(hero_t *hero)
 }
 */
 
-static bool player_move(hero_t *hero, sfIntRect *rect, enum player_move move)
+static bool player_move(hero_t *hero, sfIntRect *rect,
+    enum player_move move, game_t *game)
 {
     int anim[4] = { 0, 83, 166, 249 };
-    void (*moves[4])(hero_t *, sfIntRect *) = { player_move_down,
-        player_move_left, player_move_right, player_move_up };
+    void (*moves[4])(hero_t *, sfIntRect *, game_t *) = {
+        player_move_down, player_move_left, player_move_right, player_move_up
+    };
 
     rect->top= anim[move];
     if (rect->left > 300)
@@ -54,7 +56,7 @@ static bool player_move(hero_t *hero, sfIntRect *rect, enum player_move move)
         hero->animation_clock->time = 0;
     }
     if (hero->movement_clock->time >= 0.020f) {
-        moves[move](hero, rect);
+        moves[move](hero, rect, game);
         hero->movement_clock->time = 0;
     }
     sfSprite_setTextureRect(hero->sprite, *rect);
@@ -72,7 +74,7 @@ bool handle_hero_events(game_t *game UNUSED,
 
     for (u8_t i = 0; i < ARRAY_SIZE(codes); i++) {
         if (sfKeyboard_isKeyPressed(codes[i]) == sfTrue) {
-            return (player_move(hero, &rect, move[i]));
+            return (player_move(hero, &rect, move[i], game));
         }
     }
     return (false);

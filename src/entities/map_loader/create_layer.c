@@ -46,9 +46,14 @@ void draw_layer(game_t *game UNUSED, entity_t *entity)
     vertex_map_t *map = &layer->manager->map;
     usize_t tilesetid = map->v_vertex.vec[layer->id].tileset;
 
-    if (layer->id == map->v_vertex.size - 1)
-        return;
     map->states.texture = map->v_texture.tileset[tilesetid];
+    if (layer->id == map->v_vertex.size - 1) {
+        IN_DEBUG_MENU(
+            sfRenderWindow_drawVertexArray(game->window,
+                map->v_vertex.vec[layer->id].vertex, &map->states)
+        );
+        return;
+    }
     sfRenderWindow_drawVertexArray(game->window,
         map->v_vertex.vec[layer->id].vertex, &map->states);
 }
