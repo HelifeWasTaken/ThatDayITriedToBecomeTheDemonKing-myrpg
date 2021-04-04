@@ -30,7 +30,7 @@ void wrap_dialog_text(dialogbox_t *dialog)
     int wrapping_pos = 0;
 
     for (; dialog->pending_buffer[i] != '\0'; i++) {
-        if (wrapping_pos != 0 && wrapping_pos % 100 == 0) {
+        if (wrapping_pos != 0 && wrapping_pos % 108 == 0) {
             wrapping_pos = wrap_current_word(dialog->pending_buffer, i);
         }
         wrapping_pos++;

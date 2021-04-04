@@ -33,14 +33,15 @@ bool spawn_npc(game_t *game)
     entity_t *entity = create_entity(game, NPC);
     char **arr = dcalloc(sizeof(char *), 3);
 
-    arr[0] = estrdup("You can see the wind going through the leaves "
-        "peacefully. There is a ladybug between the leaves, it flies quietly. "
-        "Looking at the grass fills you with DETERMINATION.");
-    arr[1] = estrdup("This is the second text.");
+    arr[0] = estrdup("Stange instructions are written on this sign. "
+        "You can read things about segmentation fault, undefined behaviour "
+        "and manual word wrapping. It also mention something or "
+        "someone called 'C'. You wonder what all these things mean.");
+    arr[1] = estrdup("Looking at the sign fills you with DETERMINATION.");
     if (entity == NULL)
         return (false);
     npc = entity->instance;
-    npc->name = "Grass";
+    npc->name = "Sign";
     npc->messages = arr;
     npc->entity->pos = VEC2F(235, 674);
     return (true);
