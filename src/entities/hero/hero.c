@@ -56,11 +56,13 @@ void destroy_hero(game_t *game UNUSED, entity_t *entity)
     free(hero);
 }
 
+// warps handling is prone to change
 void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     hero_t *hero = entity->instance;
     sfIntRect warp = {0};
 
+    update_hero_move(game, hero);
     sfSprite_setPosition(hero->sprite, entity->pos);
     tick_pausable_clock(hero->animation_clock);
     tick_pausable_clock(hero->movement_clock);
@@ -79,20 +81,19 @@ static void draw_hero_collision_points(game_t *game, hero_t *hero)
 {
     sfFloatRect rect = sfSprite_getGlobalBounds(hero->sprite);
     sfVector2f entitypos = hero->entity->pos;
-    sfVector2u pos_v = GET_REAL_POSITION_XY(
+    sfVector2u pos_l = GET_REAL_POSITION_XY(
+        entitypos, 0, (rect.height / 2) - 2);
+    sfVector2u pos_r = GET_REAL_POSITION_XY(
         entitypos, (rect.width / 2) + 4, (rect.height / 2) - 2);
-    sfVector2u pos_v2 = GET_REAL_POSITION_XY(
-            entitypos, (rect.width / 2) + 4, (rect.height / 2) - 2);
     sfVector2u pos_d = GET_REAL_POSITION_XY(entitypos,
-            rect.width / 2, rect.height / 2);
-    sfVector2u pos_u =  GET_REAL_POSITION_XY(entitypos, rect.width / 2,
-            rect.height / 3);
+        rect.width / 2, rect.height / 2);
+    sfVector2u pos_u =  GET_REAL_POSITION_XY(
+        entitypos, rect.width / 2, rect.height / 3);
 
-    draw_rectangle_at_point(game->window, &VEC2F(pos_v.x * 16, pos_v.y * 16));
-    draw_rectangle_at_point(game->window, &VEC2F(pos_v2.x * 16, pos_v2.y * 16));
+    draw_rectangle_at_point(game->window, &VEC2F(pos_r.x * 16, pos_r.y * 16));
+    draw_rectangle_at_point(game->window, &VEC2F(pos_l.x * 16, pos_l.y * 16));
     draw_rectangle_at_point(game->window, &VEC2F(pos_d.x * 16, pos_d.y * 16));
     draw_rectangle_at_point(game->window, &VEC2F(pos_u.x * 16, pos_u.y * 16));
-    //draw_rectangle_shape_global_bound(game->window, hero->sprite, false);
 }
 
 void draw_hero(game_t *game UNUSED, entity_t *entity)

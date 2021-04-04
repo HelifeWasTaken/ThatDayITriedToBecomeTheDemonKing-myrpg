@@ -19,7 +19,7 @@
 #include "distract/debug.h"
 #include "myrpg/util.h"
 
-static const int HERO_MOVE_SPEED = 5;
+static const int HERO_MOVE_SPEED = 2;
 
 void player_move_up(hero_t *hero, sfIntRect *rect,
         game_t *game UNUSED)

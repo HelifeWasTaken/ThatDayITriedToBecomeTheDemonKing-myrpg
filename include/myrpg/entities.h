@@ -59,7 +59,8 @@ enum player_move {
     PLAYER_MOVE_DOWN,
     PLAYER_MOVE_LEFT,
     PLAYER_MOVE_RIGHT,
-    PLAYER_MOVE_UP
+    PLAYER_MOVE_UP,
+    PLAYER_MOVE_END
 };
 
 typedef struct hero {
@@ -68,6 +69,7 @@ typedef struct hero {
     pausable_clock_t *movement_clock;
     sfSprite *sprite;
     const struct layer_manager *collision;
+    bool move[4];
 } hero_t;
 
 bool create_hero(game_t *game, entity_t *entity);
@@ -77,6 +79,7 @@ void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
 
+void update_hero_move(game_t *game UNUSED, hero_t *hero);
 void player_move_up(hero_t *hero, sfIntRect *rect,
         game_t *game UNUSED);
 void player_move_down(hero_t *hero, sfIntRect *rect,

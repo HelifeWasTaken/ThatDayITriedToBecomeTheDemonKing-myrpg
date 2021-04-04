@@ -38,44 +38,29 @@ static bool player_anim(hero_t *hero)
 }
 */
 
-static bool player_move(hero_t *hero, sfIntRect *rect,
-    enum player_move move, game_t *game)
+static sfBool update_key_event(hero_t *hero, sfEvent *event, sfEventType type)
 {
-    int anim[4] = { 0, 83, 166, 249 };
-    void (*moves[4])(hero_t *, sfIntRect *, game_t *) = {
-        player_move_down, player_move_left, player_move_right, player_move_up
-    };
+    sfKeyCode codes[4] = { sfKeyDown , sfKeyLeft, sfKeyRight, sfKeyUp };
+    enum player_move move[4] = { PLAYER_MOVE_DOWN, PLAYER_MOVE_LEFT,
+        PLAYER_MOVE_RIGHT, PLAYER_MOVE_UP };
 
-    rect->top= anim[move];
-    if (rect->left > 300)
-        rect->left = 0;
-    if (hero->animation_clock->time >= 0.10f) {
-        rect->left += 45;
-        if (rect->left == 135)
-            rect->left = 0;
-        hero->animation_clock->time = 0;
+    if (event->type != type)
+        return (sfFalse);
+    for (u8_t i = 0; i < ARRAY_SIZE(codes); i++) {
+        if (event->key.code == codes[i]) {
+            hero->move[move[i]] = (type == sfEvtKeyPressed);
+            return (sfTrue);
+        }
     }
-    if (hero->movement_clock->time >= 0.020f) {
-        moves[move](hero, rect, game);
-        hero->movement_clock->time = 0;
-    }
-    sfSprite_setTextureRect(hero->sprite, *rect);
-    return (true);
+    return (sfFalse);
 }
 
 bool handle_hero_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     hero_t *hero = entity->instance;
-    sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
-    sfKeyCode codes[4] = { sfKeyDown , sfKeyLeft, sfKeyRight, sfKeyUp };
-    enum player_move move[4] = { PLAYER_MOVE_DOWN, PLAYER_MOVE_LEFT,
-        PLAYER_MOVE_RIGHT, PLAYER_MOVE_UP };
 
-    for (u8_t i = 0; i < ARRAY_SIZE(codes); i++) {
-        if (sfKeyboard_isKeyPressed(codes[i]) == sfTrue) {
-            return (player_move(hero, &rect, move[i], game));
-        }
-    }
+    if (update_key_event(hero, event, sfEvtKeyPressed) == sfFalse)
+        update_key_event(hero, event, sfEvtKeyReleased);
     return (false);
 }
