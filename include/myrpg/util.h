@@ -76,7 +76,6 @@ static inline void draw_rectangle_at_point(sfRenderWindow *window,
 {
     sfRectangleShape *rc = sfRectangleShape_create();
 
-    printf("%f %f\n", pos->x, pos->y);
     sfRectangleShape_setSize(rc, VEC2F(SIZE_COLLIDE_R, SIZE_COLLIDE_R));
     sfRectangleShape_setPosition(rc, *pos);
     sfRectangleShape_setFillColor(rc, sfRed);

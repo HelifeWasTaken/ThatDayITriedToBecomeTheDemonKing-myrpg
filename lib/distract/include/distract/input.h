@@ -53,4 +53,7 @@ void update_keyboard_input(input_t *input);
 
 keyboard_input_t get_input_key(input_t *input, sfKeyCode keycode);
 
+#define START_ARROW_KEY sfKeyLeft
+#define END_ARROW_KEY sfKeyDown
+
 #endif /* DEBA9E30_E2DE_4A8C_9547_32CE913F5176 */
