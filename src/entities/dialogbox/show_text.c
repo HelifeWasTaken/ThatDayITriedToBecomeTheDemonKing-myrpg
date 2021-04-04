@@ -52,12 +52,17 @@ void show_next_dialog(dialogbox_t *dialog)
         hide_dialog(dialog);
 }
 
-void show_dialog(npc_t *npc)
+bool show_dialog(npc_t *npc)
 {
     dialogbox_t *dialog = npc->dialog;
+    size_t buffer_len = (sizeof(dialog->pending_buffer) / sizeof(char)) - 1;
 
+    for (int i = 0; npc->messages[i] != NULL; i++)
+        if (estrlen(npc->messages[i]) > buffer_len)
+            return (false);
     ememset(dialog->pending_buffer, 0, sizeof(dialog->pending_buffer));
     dialog->npc = npc;
     dialog->chunk_id = 0;
     dialog->is_visible = true;
+    return (true);
 }
