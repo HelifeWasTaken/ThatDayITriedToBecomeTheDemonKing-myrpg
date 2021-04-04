@@ -73,6 +73,8 @@ SRC =	src/debug/print_error.c \
 		src/hashmap/set.c \
 		src/hashmap/unset.c \
 		src/hashmap/get.c \
+		src/input/input.c \
+		src/input/keyboard.c \
 		src/strutil.c \
 		src/allocutil.c
 
