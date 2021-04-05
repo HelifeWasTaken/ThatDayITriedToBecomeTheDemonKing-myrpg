@@ -13,7 +13,10 @@
 #include "distract/util.h"
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
-    VIEW, DIALOGBOX, ATH, HERO
+    VIEW, DIALOGBOX, ATH, HERO,
+#if ENABLE_DEBUG_MENU
+    DEBUGMENU
+#endif
 };
 
 int init_play_lifecycle(game_t *game)
@@ -55,9 +58,6 @@ int play_lifecycle(game_t *game)
         return (84);
     if (!spawn_npc(game))
         return (84);
-    #if ENABLE_DEBUG_MENU
-        create_entity(game, DEBUGMENU);
-    #endif
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)

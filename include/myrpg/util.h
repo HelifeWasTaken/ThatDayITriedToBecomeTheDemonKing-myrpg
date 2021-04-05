@@ -14,6 +14,8 @@
 #include "myrpg/matrix.h"
 #include "erty/eprintf.h"
 
+#define SIZE_COLLIDE_R 4
+
 typedef struct {
     sfVector2f topleft;
     sfVector2f topright;
@@ -55,7 +57,7 @@ static inline void draw_rectangle_shape_global_bound(sfRenderWindow *window,
         sfRectangleShape_setSize(rc,
             VEC2F(c.topright.x - c.topleft.x, c.bottomleft.y  - c.topleft.y));
     else {
-        sfRectangleShape_setSize(rc, VEC2F(16, 16));
+        sfRectangleShape_setSize(rc, VEC2F(SIZE_COLLIDE_R, SIZE_COLLIDE_R));
         sfRectangleShape_setPosition(rc, c.topright);
         sfRenderWindow_drawRectangleShape(window, rc, NULL);
         sfRectangleShape_setPosition(rc, c.bottomright);
@@ -65,6 +67,18 @@ static inline void draw_rectangle_shape_global_bound(sfRenderWindow *window,
         sfRenderWindow_drawRectangleShape(window, rc, NULL);
     }
     sfRectangleShape_setPosition(rc, c.topleft);
+    sfRenderWindow_drawRectangleShape(window, rc, NULL);
+    sfRectangleShape_destroy(rc);
+}
+
+static inline void draw_rectangle_at_point(sfRenderWindow *window,
+        sfVector2f *pos)
+{
+    sfRectangleShape *rc = sfRectangleShape_create();
+
+    sfRectangleShape_setSize(rc, VEC2F(SIZE_COLLIDE_R, SIZE_COLLIDE_R));
+    sfRectangleShape_setPosition(rc, *pos);
+    sfRectangleShape_setFillColor(rc, sfRed);
     sfRenderWindow_drawRectangleShape(window, rc, NULL);
     sfRectangleShape_destroy(rc);
 }
@@ -87,5 +101,11 @@ bool deser_frect(struct json *conf, size_t offset, void *data);
 #define PRINT_RI(r)                                        \
     eprintf("<top: %d, left: %d, width: %d, height: %d>\n", \
            (int)r.top, (int)r.left, (int)r.width, (int)r.height)
+
+#define CAST_V2(cast, v) \
+    (cast){v.x, v.y}
+
+#define CAST_R(cast, r) \
+    (cast){ .top = r.top, .left = r.left, .width = r.width, .height = r.height }
 
 #endif

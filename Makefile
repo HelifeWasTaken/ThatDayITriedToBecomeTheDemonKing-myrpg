@@ -46,8 +46,8 @@ SRC_MAP =	src/entities/map_loader/checks_tileset_layer.c \
 			src/entities/map_loader/create_warp.c
 
 SRC_HERO = src/entities/hero/hero.c \
-        src/entities/hero/hero_event.c \
     		src/entities/hero/hero_collision.c \
+			src/entities/hero/player_move.c
 
 
 SRC_LIFECYCLE = src/scenes/play/lifecycle.c \

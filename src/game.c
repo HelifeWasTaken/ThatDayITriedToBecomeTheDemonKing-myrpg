@@ -30,7 +30,7 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(LAYER, &create_layer, &draw_layer,
         &destroy_layer, NULL, NULL),
     ENTITY(HERO, &create_hero, &draw_hero,
-        &destroy_hero, &update_hero, &handle_hero_events),
+        &destroy_hero, &update_hero, NULL),
     ENTITY(VIEW, &create_view, NULL,
         &destroy_view, &update_view, NULL),
     ENTITY(SETTING, &create_settings, &draw_settings,

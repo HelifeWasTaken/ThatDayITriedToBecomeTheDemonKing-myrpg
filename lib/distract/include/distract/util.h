@@ -18,4 +18,6 @@ size_t dstrlen(char const *s);
 char *dstrdup(char const *src);
 int dstrcmp(char const *s1, char const *s2);
 
+#define STATIC_CAST(type, var) ((type)var)
+
 #endif /* E774BFD6_D06E_4AE0_ABA7_C9DAEB5BE2DF */

@@ -42,6 +42,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->entity->pos = MAP_FILES[game->scene->world_id].p_info.pos;
     entity->instance = hero;
     hero->entity->z = MAP_FILES[game->scene->world_id].p_info.z_player;
+    hero->speed = 2;
     sfSprite_setScale(hero->sprite, VEC2F(0.5, 0.5));
     return (true);
 }
@@ -56,22 +57,44 @@ void destroy_hero(game_t *game UNUSED, entity_t *entity)
     free(hero);
 }
 
+// warps handling is prone to change
 void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     hero_t *hero = entity->instance;
     sfIntRect warp = {0};
 
+    update_hero_move(game, hero);
     sfSprite_setPosition(hero->sprite, entity->pos);
     tick_pausable_clock(hero->animation_clock);
     tick_pausable_clock(hero->movement_clock);
     for (usize_t i = 0; i < hero->collision->warp_list->warp->size; i++) {
         warp = hero->collision->warp_list->warp->data[i].warpzone;
-        if (sfIntRect_contains(&warp, hero->entity->pos.x, hero->entity->pos.y)) {
+        if (sfIntRect_contains(&warp,
+                    hero->entity->pos.x, hero->entity->pos.y)) {
             switch_to_world(game, get_matching_world(
                 hero->collision->warp_list->warp->data[i].warploader));
             return;
         }
     }
+}
+
+static void draw_hero_collision_points(game_t *game, hero_t *hero)
+{
+    sfFloatRect rect = sfSprite_getGlobalBounds(hero->sprite);
+    sfVector2f entitypos = hero->entity->pos;
+    sfVector2u pos_l = GET_REAL_POSITION_XY(
+        entitypos, 0, (rect.height / 2) - 2);
+    sfVector2u pos_r = GET_REAL_POSITION_XY(
+        entitypos, (rect.width / 2) + 4, (rect.height / 2) - 2);
+    sfVector2u pos_d = GET_REAL_POSITION_XY(entitypos,
+        rect.width / 2, rect.height / 2);
+    sfVector2u pos_u =  GET_REAL_POSITION_XY(
+        entitypos, rect.width / 2, rect.height / 3);
+
+    draw_rectangle_at_point(game->window, &VEC2F(pos_r.x * 16, pos_r.y * 16));
+    draw_rectangle_at_point(game->window, &VEC2F(pos_l.x * 16, pos_l.y * 16));
+    draw_rectangle_at_point(game->window, &VEC2F(pos_d.x * 16, pos_d.y * 16));
+    draw_rectangle_at_point(game->window, &VEC2F(pos_u.x * 16, pos_u.y * 16));
 }
 
 void draw_hero(game_t *game UNUSED, entity_t *entity)
@@ -80,6 +103,6 @@ void draw_hero(game_t *game UNUSED, entity_t *entity)
 
     sfRenderWindow_drawSprite(game->window, hero->sprite, NULL);
     IN_DEBUG_MENU(
-        draw_rectangle_shape_global_bound(game->window, hero->sprite, false)
+        draw_hero_collision_points(game, hero)
     );
 }
