@@ -23,6 +23,7 @@ jobs:
           run: |
             echo "game not started">ci_state
             Xvfb :1 -screen 0 1024x768x24 &
+            export DISPLAY="1:0"
             sh -c "
               sleep 4
               && WID=$(xdotool search --classname "my_rpg")
@@ -33,7 +34,6 @@ jobs:
               && xdotool click --window $WID 1
             " &
             sh -c "sleep 20 && killall my_rpg" &
-            export DISPLAY="1:0"
             bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "success: ran for 20 seconds without crash">ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
         - name: Send notification
           shell: bash
