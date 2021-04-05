@@ -1,0 +1,11 @@
+[
+    {
+        "warpzone": {
+            "top": -31,
+            "left": 235,
+            "width": 50,
+            "height": 50
+        },
+        "warploader": "asset/map_asset/map_files/map_monde.json"
+    }
+]

@@ -8,6 +8,7 @@
 #ifndef DISTRACT_SCENE_H
 #define DISTRACT_SCENE_H
 #include "distract/game.h"
+#include "distract/hashmap.h"
 #include "distract/def.h"
 #include "stdbool.h"
 
@@ -20,9 +21,10 @@ typedef struct scene_info {
 
 typedef struct scene {
     int id;
+    int world_id;
     scene_info_t *info;
     struct entity *entities;
-    struct resource *resources;
+    hashmap_t *resources;
     struct gui_element *gui_elements;
     bool in_exit_state;
     int pending_scene_id;
@@ -58,7 +60,13 @@ bool is_scene_updated(game_t *game);
 void switch_to_scene(game_t *game, int id);
 
 ///
-/// Set the scene to open when the current scene is closed. 
+/// Do no exit the current scene but recreate it to load a new world
+/// specified by an id
+///
+void switch_to_world(game_t *game, int id);
+
+///
+/// Set the scene to open when the current scene is closed.
 ///
 void set_pending_scene(game_t *game, int id);
 
@@ -70,7 +78,7 @@ bool has_pending_scene(game_t *game);
 ///
 /// Registers a scene in the scene registry.
 ///
-void register_scene(game_t *game, int id, int (*lifecycle)(game_t *game));
+bool register_scene(game_t *game, int id, int (*lifecycle)(game_t *game));
 
 ///
 /// Get scene info.

@@ -9,6 +9,7 @@
 #define DISTRACT_GAME_H
 #include "SFML/Window.h"
 #include "SFML/Graphics.h"
+#include "distract/input.h"
 
 typedef struct game {
 
@@ -48,6 +49,16 @@ typedef struct game {
     /// Mutable
     ///
     void *state;
+
+    ///
+    /// Input manager
+    ///
+    input_t input;
+
+    ///
+    /// global game parameters
+    ///
+    ///
 } game_t;
 
 #include "distract/scene.h"

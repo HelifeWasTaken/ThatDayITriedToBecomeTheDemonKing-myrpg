@@ -50,4 +50,7 @@
 #define VEC2F_Y(y) \
     ((sfVector2f) { 0, y })
 
+#define CASTVEC2(type, vec1) \
+    ((type){vec1.x, vec2.x})
+
 #endif //DISTRACT_DEF_H

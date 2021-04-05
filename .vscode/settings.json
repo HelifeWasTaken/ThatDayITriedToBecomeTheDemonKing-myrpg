@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "asset.h": "c",
+        "map.h": "c",
+        "define.h": "c",
+        "entities.h": "c",
+        "*.in": "c",
+        "resources.h": "c",
+        "debug.h": "c",
+        "deser.h": "c",
+        "event.h": "c",
+        "game.h": "c",
+        "entity.h": "c",
+        "window.h": "c",
+        "util.h": "c",
+        "graphics.h": "c",
+        "stdlib.h": "c"
+    }
+}

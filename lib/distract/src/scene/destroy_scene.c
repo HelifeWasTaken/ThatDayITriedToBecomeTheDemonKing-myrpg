@@ -7,7 +7,9 @@
 
 #include "distract/game.h"
 #include "distract/entity.h"
+#include "distract/hashmap.h"
 #include "distract/resources.h"
+#include "distract/debug.h"
 #include "stdlib.h"
 
 static void destroy_scene_entities(game_t *game)
@@ -25,20 +27,26 @@ static void destroy_scene_entities(game_t *game)
 
 static void destroy_scene_resources(game_t *game)
 {
-    resource_t *resource = game->scene->resources;
-    resource_t *next = NULL;
+    hashmap_t *map = game->scene->resources;
 
-    while (resource != NULL) {
-        next = resource->next;
-        destroy_resource(game, resource);
-        resource = next;
+    if (map == NULL)
+        return;
+    for (size_t i = 0; i < map->capacity; i++) {
+        if (map->values[i] != NULL) {
+            destroy_resource(game, map->values[i]);
+        }
     }
-    game->scene->resources = NULL;
+    game->scene->resources = hashmap_create(map->capacity / 2, map->hasher);
+    if (game->scene->resources == NULL) {
+        print_error("Hashmap create failed in destroy scene ressources");
+    }
+    hashmap_destroy(map);
 }
 
 void destroy_scene(game_t *game, bool destroy_resources)
 {
-    destroy_scene_entities(game);
+    if (game->scene)
+        destroy_scene_entities(game);
     if (destroy_resources) {
         destroy_scene_resources(game);
     }

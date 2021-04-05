@@ -1,0 +1,47 @@
+name: Launch
+
+on:
+    push:
+        branches:
+        - dev
+        - main
+        - master
+    pull_request:
+jobs:
+    build:
+        runs-on: ubuntu-20.04
+        container: docker://helife/epilight
+        steps:
+        - uses: actions/checkout@v2
+        - name: Install Xvfb
+          run: dnf install xorg-x11-server-Xvfb psmisc xdotool -y
+        - name: Build
+          shell: bash
+          run: "make 2>&1 | tee build_output"
+        - name: Run
+          shell: bash
+          run: |
+            echo "game not started">ci_state
+            Xvfb :1 -screen 0 1024x768x24 &
+            export DISPLAY="1:0"
+            export EPIDEBUG=1
+            export DEBUG=1
+            sh -c "
+              sleep 4
+              && WID=$(xdotool search --classname "my_rpg")
+              && xdotool windowmove --window $WID 0 0
+              && sleep 1
+              && echo 'Clicking on the play button'
+              && xdotool mousemove --window $WID 960 270 # click play button
+              && xdotool click --window $WID 1
+            " &
+            sh -c "sleep 20 && killall my_rpg" &
+            bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "success: ran for 20 seconds without crash">ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
+        - name: Send notification
+          shell: bash
+          if: ${{ github.event_name == 'push' && always() }}
+          run: |
+            checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
+            state=$(cat ci_state)
+            echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\nAttempting to launch game: `'$state'`"}' > notification_data
+            curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE

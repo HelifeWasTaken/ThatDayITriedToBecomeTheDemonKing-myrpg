@@ -4,6 +4,7 @@
 ** File description:
 ** Entity
 */
+
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"
@@ -11,18 +12,27 @@
 #include "SFML/Window.h"
 #include "SFML/Graphics.h"
 #include "myrpg/entities.h"
+#include "myrpg/asset.h"
 #include "stdlib.h"
+#include "distract/debug.h"
 
-void create_player(game_t *game UNUSED, entity_t *entity)
+bool create_player(game_t *game UNUSED, entity_t *entity)
 {
     player_t *player = malloc(sizeof(player_t));
     sfIntRect rect = IRECT(0, 0, 9133, 379);
     sfTexture *texture = create_texture(game, "assets/sprite.png", &rect);
 
+    if (player == NULL || texture == NULL) {
+        print_error("Player could not be initted");
+        return (false);
+    }
     player->entity = entity;
-    player->clock = create_pausable_clock(game);
-    player->sprite = create_sprite(texture, NULL);
+    if ((player->clock = create_pausable_clock(game)) == NULL)
+        return (false);
+    if ((player->sprite = create_sprite(texture, NULL)) == NULL)
+        return (false);
     entity->instance = player;
+    return (true);
 }
 
 void destroy_player(game_t *game UNUSED, entity_t *entity)
