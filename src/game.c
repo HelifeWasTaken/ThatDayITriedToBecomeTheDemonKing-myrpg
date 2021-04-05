@@ -97,7 +97,8 @@ int load_game(void)
     if (game == NULL)
         return (84);
     configure_game(game);
-    set_pending_scene(game, MENU_SCENE);
+    set_pending_scene(game, PLAY_SCENE);
+    eprintf("in load game");
     do {
         code = load_pending_scene(game);
         if (code != 0)

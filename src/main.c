@@ -7,6 +7,7 @@
 
 //#include "my/io.h"
 #include <iron_goat/deser.h>
+#include "erty/eprintf.h"
 #include "myrpg/game.h"
 #include "distract/window.h"
 #include "distract/graphics.h"
@@ -144,5 +145,6 @@ bool init_pnjs(struct json *conf, struct pnj *self)
 #include "myrpg/mapdata.h"
 int main(void)
 {
+    eprintf("in main");
     return (load_game());
 }
