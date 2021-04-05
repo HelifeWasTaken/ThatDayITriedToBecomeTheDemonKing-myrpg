@@ -18,28 +18,38 @@ jobs:
         - name: Starting X server
           shell: bash
           run: "Xvfb :1 -screen 0 1024x768x24 &"
+        - name : Building game
+          shell: bash
+          run: |
+            make re 2>&1 | tee -a build_output
+            export DISPLAY="1:0"
+            sh -c "sleep 5 && killall my_rpg" &
         - name: Run default scene
           shell: bash
           run: |
-            make re 2>&1 | tee build_output
-            export DISPLAY="1:0"
-            sh -c "sleep 5 && killall my_rpg" &
             bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "default scene: success: ran for 20 seconds without crash">>ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
-        - name: Run menu scene
+        - name : Building game
           shell: bash
           run: |
             sed -i 's/set_pending_scene.game.*/set_pending_scene(game, MENU_SCENE);/g' src/game.c
             make re 2>&1 | tee -a build_output
             export DISPLAY="1:0"
             sh -c "sleep 5 && killall my_rpg" &
+        - name: Run menu scene
+          shell: bash
+          run: |
             bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "menu scene: success: ran for 20 seconds without crash">>ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
+        - name : Building game
+          shell: bash
+          run: |
+            sed -i 's/set_pending_scene.game.*/set_pending_scene(game, GAME_SCENE);/g' src/game.c
+            make re 2>&1 | tee -a build_output
+            export DISPLAY="1:0"
+            sh -c "sleep 40 && killall my_rpg" &
         - name: Run play scene
           shell: bash
           run: |
-            sed -i 's/set_pending_scene.game.*/set_pending_scene(game, PLAY_SCENE);/g' src/game.c
-            make re 2>&1 | tee -a build_output
-            export DISPLAY="1:0"
-            bash -c 'sh -c "sh -c \"sleep 40 && killall my_rpg\" &"; ./my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "play scene: success: ran for 20 seconds without crash">>ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
+            bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "play scene: success: ran for 20 seconds without crash">>ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
         - name: Send notification
           shell: bash
           if: ${{ github.event_name == 'push' && always() }}
