@@ -9,6 +9,7 @@
 #include "distract/entity.h"
 #include "distract/hashmap.h"
 #include "distract/resources.h"
+#include "distract/debug.h"
 #include "stdlib.h"
 
 static void destroy_scene_entities(game_t *game)
@@ -36,7 +37,7 @@ static void destroy_scene_resources(game_t *game)
         }
     }
     game->scene->resources = hashmap_create(map->capacity / 2, map->hasher);
-    if (game->scene->ressources == NULL) {
+    if (game->scene->resources == NULL) {
         print_error("Hashmap create failed in destroy scene ressources");
     }
     hashmap_destroy(map);
