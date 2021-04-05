@@ -21,7 +21,7 @@ jobs:
         - name: Run default scene
           shell: bash
           run: |
-            make 2>&1 | tee build_output
+            make re 2>&1 | tee build_output
             export DISPLAY="1:0"
             sh -c "sleep 5 && killall my_rpg" &
             bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "default scene: success: ran for 20 seconds without crash">>ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
@@ -29,7 +29,7 @@ jobs:
           shell: bash
           run: |
             sed -i 's/set_pending_scene.game.*/set_pending_scene(game, MENU_SCENE);/g' src/game.c
-            make 2>&1 | tee -a build_output
+            make re 2>&1 | tee -a build_output
             export DISPLAY="1:0"
             sh -c "sleep 5 && killall my_rpg" &
             bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "menu scene: success: ran for 20 seconds without crash">>ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
@@ -37,7 +37,7 @@ jobs:
           shell: bash
           run: |
             sed -i 's/set_pending_scene.game.*/set_pending_scene(game, PLAY_SCENE);/g' src/game.c
-            make 2>&1 | tee -a build_output
+            make re 2>&1 | tee -a build_output
             export DISPLAY="1:0"
             sh -c "sleep 10 && killall my_rpg" &
             bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "play scene: success: ran for 20 seconds without crash">>ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
