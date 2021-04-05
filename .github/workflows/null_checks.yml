@@ -1,0 +1,28 @@
+name: Null checks
+
+on:
+    push:
+        branches:
+        - dev
+        - main
+        - master
+    pull_request:
+jobs:
+    null-check:
+        runs-on: ubuntu-20.04
+        container: docker://helife/epilight
+        steps:
+        - uses: actions/checkout@v2
+        - name: Checking nulls
+          shell: bash
+          run: "curl https://files.norech.com/scripts/python/ci/loosy_null_malloc_check.py | python3 - 99 | tee output"
+        - name: Send notification
+          shell: bash
+          if: ${{ github.event_name == 'push' && always() }}
+          run: |
+               action_url="https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+               checkout=$(git log -1 --pretty=format:"*Checkout:%d: %h %s*")
+               warn=$(cat output | grep "null checks may be missing")
+               echo '{"content": "**'$GITHUB_REPOSITORY'**\n'$checkout'\n'$warn'\nDetails here: '$action_url'"}' > notification_data
+               cat notification_data
+               curl --data "$(cat notification_data)" --header "Content-Type: application/json" https://discord.com/api/webhooks/823450813899866143/BBDxIXReQq8zMX6DTtCWL9bTrXZC_zamaAoLZ4zH7pETRi5T9loJSWozYeK1NfaCZFtE

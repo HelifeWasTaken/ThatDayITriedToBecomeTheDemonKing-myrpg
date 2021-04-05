@@ -44,7 +44,7 @@ static void get_eprintf_precision(const_cstr_t*format,
         return;
     }
     if (eis_num(get_char_format_at_index(format, mod->offset))) {
-        precision = euatol(*format);
+        precision = euatol((*format) + mod->offset);
         if (precision.is_ok) {
             mod->modflag.precision = precision.value;
             for (; eis_num(get_char_format_at_index(format, mod->offset));
