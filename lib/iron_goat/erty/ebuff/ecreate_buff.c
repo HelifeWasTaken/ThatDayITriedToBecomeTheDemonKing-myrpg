@@ -23,6 +23,8 @@ ebuff_t *ecreate_buff(cstr_t buffer, bool flush, fd_t fd)
         buff_info->buff = buffer;
         buff_info->buff_size = estrlen(buffer);
     }
+    if (buff_info->buff == NULL)
+        efprintf(stderr, "Memory Allocation failed for buffer!\n");
     buff_info->flush = flush;
     buff_info->fd = fd;
     return (buff_info);

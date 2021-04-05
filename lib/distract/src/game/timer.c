@@ -22,6 +22,10 @@ pausable_clock_t *create_pausable_clock(game_t *game)
     clock->is_paused = false;
     clock->time = 0;
     clock->frame_clock = sfClock_create();
+    if (clock->frame_clock == NULL) {
+        print_error("Frame clock could not be initted");
+        return (NULL);
+    }
     return (clock);
 }
 

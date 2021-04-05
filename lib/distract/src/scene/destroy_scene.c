@@ -36,6 +36,9 @@ static void destroy_scene_resources(game_t *game)
         }
     }
     game->scene->resources = hashmap_create(map->capacity / 2, map->hasher);
+    if (game->scene->ressources == NULL) {
+        print_error("Hashmap create failed in destroy scene ressources");
+    }
     hashmap_destroy(map);
 }
 
