@@ -42,6 +42,7 @@ void destroy_view(game_t *game UNUSED, entity_t *entity)
 {
     view_t *view = entity->instance;
 
+    sfView_destroy(view->hud_view);
     sfView_destroy(view->view);
     free(view);
 }
