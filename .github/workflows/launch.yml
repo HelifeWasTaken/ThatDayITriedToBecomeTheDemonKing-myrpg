@@ -8,7 +8,7 @@ on:
         - master
     pull_request:
 jobs:
-    build:
+    launch:
         runs-on: ubuntu-20.04
         container: docker://helife/epilight
         steps:
@@ -28,7 +28,7 @@ jobs:
           shell: bash
           run: |
             sed -i 's/set_pending_scene.game.*/set_pending_scene(game, MENU_SCENE);/g' src/game.c
-            make 2>&1 | tee -a build_output"
+            make 2>&1 | tee -a build_output
             echo "menu scene: game not started">>ci_state
             Xvfb :1 -screen 0 1024x768x24 &
             export DISPLAY="1:0"
@@ -38,7 +38,7 @@ jobs:
           shell: bash
           run: |
             sed -i 's/set_pending_scene.game.*/set_pending_scene(game, PLAY_SCENE);/g' src/game.c
-            make 2>&1 | tee -a build_output"
+            make 2>&1 | tee -a build_output
             echo "play scene: game not started">>ci_state
             Xvfb :1 -screen 0 1024x768x24 &
             export DISPLAY="1:0"
