@@ -164,6 +164,13 @@ static inline entity_t *get_entity(game_t *game, int type)
     return (get_next_entity_of_type(first_entity, type));
 }
 
+static inline void *get_instance(game_t *game, int type)
+{
+    entity_t *entity = get_entity(game, type);
+
+    return (entity ? entity->instance : NULL);
+}
+
 ///
 /// You may want to use `get_entity(game, entity_type)` method instead.
 ///

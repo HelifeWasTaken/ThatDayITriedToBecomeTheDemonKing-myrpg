@@ -23,19 +23,21 @@
 #include <SFML/Window/Keyboard.h>
 
 char *get_debug_message(game_t *game, debugmenu_t *debugmenu);
-void handle_debug_keybind(game_t *game, sfKeyEvent *e);
+void handle_debug_keybind(game_t *game, sfKeyEvent *e, debugmenu_t *dbmenu);
 
 bool create_debugmenu(game_t *game UNUSED, entity_t *entity)
 {
     debugmenu_t *debugmenu = dcalloc(sizeof(debugmenu_t), 1);
     sfFont *font = create_font(game, "asset/homespun.ttf");
-    view_t *view = get_entity(game, VIEW)->instance;
 
-    D_ASSERT(debugmenu, NULL, "can't init debug menu", false)
+    debugmenu->view = get_instance(game, VIEW);
+    debugmenu->hero = get_instance(game, HERO);
+    D_ASSERT(debugmenu, NULL, "can't init debug menu", false);
+    D_ASSERT(debugmenu->view && debugmenu->hero,
+        false, "can't get view or hero for debugmenu menu", false);
     debugmenu->entity = entity;
     debugmenu->clock = create_pausable_clock(game);
     debugmenu->debugtext = sfText_create();
-    debugmenu->view = view;
     sfText_setFont(debugmenu->debugtext, font);
     sfText_setColor(debugmenu->debugtext, sfWhite);
     sfText_setOutlineColor(debugmenu->debugtext, sfBlack);
@@ -90,7 +92,7 @@ bool handle_debugmenu_events(game_t *game UNUSED,
             eprintf("Debug menu: %hhu\n", debugmenu->enabled);
         }
         if (debugmenu->enabled)
-            handle_debug_keybind(game, &event->key);
+            handle_debug_keybind(game, &event->key, debugmenu);
     }
     return (false);
 }

@@ -7,6 +7,13 @@
         "*.in": "c",
         "resources.h": "c",
         "debug.h": "c",
-        "deser.h": "c"
+        "deser.h": "c",
+        "event.h": "c",
+        "game.h": "c",
+        "entity.h": "c",
+        "window.h": "c",
+        "util.h": "c",
+        "graphics.h": "c",
+        "stdlib.h": "c"
     }
 }

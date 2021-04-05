@@ -34,13 +34,14 @@ char *get_debug_message(game_t *game UNUSED, debugmenu_t *debugmenu)
         "Player position: %.2f %.2f\n" "Vertex count: %u\n"
         "collision layer size: %u\n" "textures: %u\n" "Map size: %u %u\n"
         "Player clock: { Anim time: %.2f, Move time: %.2f }\n"
-        "Entities loaded: %d",
+        "Entities loaded: %d\n" "Player speed: %.2f\n" "Collision active: %s",
         game->is_paused ? "yes" : "no",
         debugmenu->clock->time,
         pos.x, pos.y,
         map->v_vertex.size, map->v_collision.size, map->v_texture.size,
         map->map_size.x, map->map_size.y,
         hero->animation_clock->time, hero->movement_clock->time,
-        count_entities(game)
+        count_entities(game), hero->speed,
+        hero->disable_collision ? "no" : "yes"
     ));
 }

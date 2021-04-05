@@ -42,6 +42,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->entity->pos = MAP_FILES[game->scene->world_id].p_info.pos;
     entity->instance = hero;
     hero->entity->z = MAP_FILES[game->scene->world_id].p_info.z_player;
+    hero->speed = 2;
     sfSprite_setScale(hero->sprite, VEC2F(0.5, 0.5));
     return (true);
 }

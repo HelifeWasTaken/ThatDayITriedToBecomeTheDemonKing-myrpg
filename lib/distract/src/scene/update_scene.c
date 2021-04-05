@@ -8,6 +8,7 @@
 #include "distract/debug.h"
 #include "distract/game.h"
 #include "distract/entity.h"
+#include "distract/input.h"
 #include "distract/scene.h"
 #include "stdio.h"
 #include <SFML/System/Thread.h>
@@ -45,4 +46,5 @@ void update_scene(game_t *game)
     }
     if (use_threads)
         wait_thread_ends(game);
+    update_input(&game->input);
 }

@@ -19,13 +19,13 @@
 #include "distract/debug.h"
 #include "distract/util.h"
 #include "myrpg/util.h"
+#include "distract/input.h"
 
-static bool player_move(hero_t *hero, sfIntRect *rect,
-    enum player_move move, game_t *game)
+static bool player_move(hero_t *hero, sfIntRect *rect, sfKeyCode move)
 {
-    int anim[4] = { 0, 83, 166, 249 };
-    void (*moves[4])(hero_t *, sfIntRect *, game_t *) = {
-        player_move_down, player_move_left, player_move_right, player_move_up
+    int anim[4] = { 83, 166, 249, 0};
+    void (*moves[4])(hero_t *, sfIntRect *) = {
+        player_move_left, player_move_right, player_move_up, player_move_down
     };
 
     rect->top= anim[move];
@@ -38,7 +38,7 @@ static bool player_move(hero_t *hero, sfIntRect *rect,
         hero->animation_clock->time = 0;
     }
     if (hero->movement_clock->time >= 0.010f) {
-        moves[move](hero, rect, game);
+        moves[move](hero, rect);
         hero->movement_clock->time = 0;
     }
     sfSprite_setTextureRect(hero->sprite, *rect);
@@ -49,9 +49,9 @@ void update_hero_move(game_t *game UNUSED, hero_t *hero)
 {
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
 
-    for (int i = 0; i < PLAYER_MOVE_END; i++) {
-        if (hero->move[i] == sfTrue) {
-            player_move(hero, &rect, i, game);
+    for (sfKeyCode code = START_ARROW_KEY; code <= END_ARROW_KEY; code++) {
+        if (IS_KEY_DOWN(code)) {
+            player_move(hero, &rect, code - START_ARROW_KEY);
             return;
         }
     }
