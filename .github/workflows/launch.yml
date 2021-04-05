@@ -39,7 +39,7 @@ jobs:
             sed -i 's/set_pending_scene.game.*/set_pending_scene(game, PLAY_SCENE);/g' src/game.c
             make re 2>&1 | tee -a build_output
             export DISPLAY="1:0"
-            sh -c "sleep 10 && killall my_rpg" &
+            sh -c "sleep 40 && killall my_rpg" &
             bash -c './my_rpg; CODE=$?; if [[ $CODE == 143 ]]; then echo "play scene: success: ran for 20 seconds without crash">>ci_state; exit 0; else echo "failure: exited with code $CODE">ci_state; exit $CODE; fi'
         - name: Send notification
           shell: bash
