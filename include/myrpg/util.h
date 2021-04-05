@@ -96,11 +96,11 @@ bool deser_frect(struct json *conf, size_t offset, void *data);
 
 #define PRINT_RF(r)                                        \
     eprintf("<top: %d, left: %d, width: %d, height: %d>\n", \
-           (int)r.top, (int)r.left, (int)r.width, (int)r.height)
+        (int)r.top, (int)r.left, (int)r.width, (int)r.height)
 
 #define PRINT_RI(r)                                        \
     eprintf("<top: %d, left: %d, width: %d, height: %d>\n", \
-           (int)r.top, (int)r.left, (int)r.width, (int)r.height)
+        (int)r.top, (int)r.left, (int)r.width, (int)r.height)
 
 #define CAST_V2(cast, v) \
     (cast){v.x, v.y}
