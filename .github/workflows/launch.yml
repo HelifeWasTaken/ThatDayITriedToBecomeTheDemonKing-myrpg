@@ -24,6 +24,8 @@ jobs:
             echo "game not started">ci_state
             Xvfb :1 -screen 0 1024x768x24 &
             export DISPLAY="1:0"
+            export EPIDEBUG=1
+            export DEBUG=1
             sh -c "
               sleep 4
               && WID=$(xdotool search --classname "my_rpg")
