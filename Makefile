@@ -60,6 +60,10 @@ SRC_UTIL = src/util/sfml_deser.c
 SRC_MENU = src/entities/menu/menu.c \
         src/entities/menu/create_menu.c \
 
+SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
+    		src/entities/debugmenu/keybind.c \
+	    	src/entities/debugmenu/display.c \
+
 SRC = 	src/game.c \
 		    src/entities/player/player.c \
 	    	src/entities/scroll_bar/scroll_bar.c    \
@@ -70,9 +74,7 @@ SRC = 	src/game.c \
         src/entities/settings/set_size.c 	\
         src/entities/ath/ath.c \
         src/entities/view/view.c \
-    		src/entities/debugmenu/debugmenu.c \
-    		src/entities/debugmenu/keybind.c \
-	    	src/entities/debugmenu/display.c \
+        $(SRC_DEBUGMENU) \
         $(SRC_MENU) \
         $(SRC_UTIL) \
         $(SRC_MAP) \
