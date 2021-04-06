@@ -19,6 +19,17 @@
 #include "stdlib.h"
 #include <stdio.h>
 
+static void change_vfx(vfx_scroll_t *vfx_scroll,
+    sfFloatRect bar, sfFloatRect pos)
+{
+    vfx_scroll->percentage = (((pos.left - bar.left) *
+        100 / bar.width) / 100);
+    vfx_scroll->percentage = (vfx_scroll->percentage <= 0) ?
+        0.0f : vfx_scroll->percentage;
+    vfx_scroll->percentage = (vfx_scroll->percentage >= 1) ?
+        1.0f : vfx_scroll->percentage;
+}
+
 bool fonc_scroll_vfx(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
@@ -29,11 +40,10 @@ bool fonc_scroll_vfx(game_t *game UNUSED, entity_t *entity UNUSED)
     bar.left = bar.left + 100;
     bar.width = bar.width - 200;
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
-        vfx_scroll->percentage = (((pos.left - bar.left) * 100 / bar.width) / 100);
-        vfx_scroll->percentage = (vfx_scroll->percentage <= 0) ? 0.0f : vfx_scroll->percentage;
-        vfx_scroll->percentage = (vfx_scroll->percentage >= 1) ?  1.0f : vfx_scroll->percentage;
+        change_vfx(vfx_scroll, bar, pos);
         sfSprite_setPosition(vfx_scroll->scrolin,
-            VEC2F(mouse.x - (pos.width / 2), bar.top - (pos.height / 2) + bar.height / 2));
+            VEC2F(mouse.x - (pos.width / 2), bar.top - (pos.height / 2) +
+                bar.height / 2));
         if (vfx_scroll->on_scroll != NULL)
             vfx_scroll->on_scroll(game, vfx_scroll);
         return (true);

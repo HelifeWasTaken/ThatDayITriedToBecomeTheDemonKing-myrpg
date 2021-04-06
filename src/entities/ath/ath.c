@@ -37,23 +37,11 @@ bool handle_ath_events(game_t *game UNUSED,
     return (false);
 }
 
-bool create_ath(game_t *game UNUSED, entity_t *entity)
+static bool create_ath_second_part(ath_t *ath, game_t *game,
+    sfTexture *icon_texture)
 {
-    ath_t *ath = malloc(sizeof(ath_t));
-    sfTexture *icon_texture = NULL;
     int pos_y = 150;
-    sfTexture *player_ath_texture = create_texture(game, PLAYER_ATH,
-        &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
 
-    if (!ath || !player_ath_texture)
-        return (false);
-    ath->view = get_entity(game, VIEW)->instance;
-    ath->player_ath_sprite = create_sprite(player_ath_texture,
-        &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
-    if (!ath->player_ath_sprite)
-        return (false);
-    ath->ath_pos = VEC2F(0, PLAYER_ATH_POS_Y);
-    SET_SPRITE_POS(ath->player_ath_sprite, ath->ath_pos);
     for (int i = 0; i < 6; i++) {
         icon_texture  = create_texture(game, ATH_ICON[i],
             &IRECT(0, 0, ICON_RECT, ICON_RECT));
@@ -66,6 +54,27 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
         SET_SPRITE_POS(ath->button_sprite[i], VEC2F(WINDOW_W /1.06 , pos_y));
         pos_y += 110;
     }
+    return (true);
+}
+
+bool create_ath(game_t *game UNUSED, entity_t *entity)
+{
+    ath_t *ath = malloc(sizeof(ath_t));
+    sfTexture *icon_texture = NULL;
+    sfTexture *player_ath_texture = create_texture(game, PLAYER_ATH,
+        &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
+
+    if (!ath || !player_ath_texture)
+        return (false);
+    ath->view = get_entity(game, VIEW)->instance;
+    ath->player_ath_sprite = create_sprite(player_ath_texture,
+        &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
+    if (!ath->player_ath_sprite)
+        return (false);
+    ath->ath_pos = VEC2F(0, PLAYER_ATH_POS_Y);
+    SET_SPRITE_POS(ath->player_ath_sprite, ath->ath_pos);
+    if (create_ath_second_part(ath, game, icon_texture) == false)
+        return (false);
     entity->instance = ath;
     ath->entity = entity;
     ath->entity->z = 10000;

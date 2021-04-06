@@ -7,6 +7,7 @@
 
 #include <erty/ebuffer.h>
 #include <erty/ealloc.h>
+#include <erty/eassert.h>
 
 ebuff_t *ecreate_buff(cstr_t buffer, bool flush, fd_t fd)
 {
@@ -23,6 +24,8 @@ ebuff_t *ecreate_buff(cstr_t buffer, bool flush, fd_t fd)
         buff_info->buff = buffer;
         buff_info->buff_size = estrlen(buffer);
     }
+    if (buff_info->buff == NULL)
+        ASSERT("Erty", "Memory Allocation failed for buffer!");
     buff_info->flush = flush;
     buff_info->fd = fd;
     return (buff_info);

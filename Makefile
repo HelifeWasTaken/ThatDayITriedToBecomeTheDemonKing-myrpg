@@ -60,23 +60,25 @@ SRC_UTIL = src/util/sfml_deser.c
 SRC_MENU = src/entities/menu/menu.c \
         src/entities/menu/create_menu.c \
 
+SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
+    		src/entities/debugmenu/keybind.c \
+	    	src/entities/debugmenu/display.c \
+
 SRC = 	src/game.c \
-		    src/entities/player/player.c \
-	    	src/entities/scroll_bar/scroll_bar.c    \
+		src/entities/player/player.c \
+	    src/entities/scroll_bar/scroll_bar.c    \
         src/entities/settings/setting_button.c	\
-	      src/entities/settings/function_button.c	\
-	      src/entities/settings/vfx_scroll.c	\
-	      src/entities/settings/fonc_scroll_vfx.c	\
+	    src/entities/settings/function_button.c	\
+	    src/entities/settings/vfx_scroll.c	\
+	    src/entities/settings/fonc_scroll_vfx.c	\
         src/entities/settings/set_size.c 	\
         src/entities/ath/ath.c \
         src/entities/view/view.c \
-    		src/entities/debugmenu/debugmenu.c \
-    		src/entities/debugmenu/keybind.c \
-	    	src/entities/debugmenu/display.c \
-		    src/entities/dialogbox/dialogbox.c \
-		    src/entities/dialogbox/create.c \
-		    src/entities/dialogbox/show_text.c \
-		    src/entities/npc/npc.c \
+		src/entities/dialogbox/dialogbox.c \
+		src/entities/dialogbox/create.c \
+		src/entities/dialogbox/show_text.c \
+		src/entities/npc/npc.c \
+        $(SRC_DEBUGMENU) \
         $(SRC_MENU) \
         $(SRC_UTIL) \
         $(SRC_MAP) \

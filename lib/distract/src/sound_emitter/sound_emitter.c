@@ -35,7 +35,7 @@ bool play_sound(game_t *game, sound_emitter_t *emitter, int sound_type,
     float volume = sound_type == -1 ? 100 : emitter->volumes[sound_type];
     sfSound *sound = create_sound(game, file);
 
-    if (sound == NULL) 
+    if (sound == NULL)
         return (false);
     sfSound_setVolume(sound, volume);
     sfSound_play(sound);
@@ -48,7 +48,7 @@ bool play_music(game_t *game, sound_emitter_t *emitter, int sound_type,
     float volume = sound_type == -1 ? 100 : emitter->volumes[sound_type];
     sfMusic *music = create_music(game, file);
 
-    if (music == NULL) 
+    if (music == NULL)
         return (false);
     sfMusic_setVolume(music, volume);
     sfMusic_play(music);

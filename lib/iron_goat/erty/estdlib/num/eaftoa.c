@@ -17,9 +17,13 @@ cstr_t eaftoa(f64_t nb, u8_t precision, const_cstr_t base)
         (enb_baselen(rounded, basesize) + enb_baselen(decimals, basesize) + 2));
     size_t tmpsize = 0;
 
-    eitoa(rounded, new, base);
-    tmpsize = estrlen(new);
-    new[tmpsize] = '.';
-    eitoa(decimals, new + tmpsize + 1, base);
+    if (new != NULL) {
+        eitoa(rounded, new, base);
+        tmpsize = estrlen(new);
+        new[tmpsize] = '.';
+        eitoa(decimals, new + tmpsize + 1, base);
+    } else {
+        ASSERT("Erty", "Eaftoa memory allocation failed");
+    }
     return (new);
 }
