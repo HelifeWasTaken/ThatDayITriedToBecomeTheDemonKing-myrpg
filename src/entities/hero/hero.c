@@ -25,8 +25,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
     hero_t *hero = dcalloc(sizeof(hero_t), 1);
     sfIntRect rect = IRECT(0, 0, 135, 332);
-    sfTexture *texture = create_texture(game, "asset/hero/bard_movement.png",
-            &rect);
+    sfTexture *texture = create_texture(game, HERO_PATH, &rect);
     entity_t *map_entity = GET_ENTITY(game, LAYER_MANAGER);
     layer_manager_t *layers = NULL;
 

@@ -29,7 +29,8 @@ bool create_settings(game_t *game UNUSED, entity_t *entity)
     texture = create_texture(game, SET_BACK, NULL);
     setting_button->ground = create_sprite(texture, NULL);
     size = sfSprite_getGlobalBounds(setting_button->ground);
-    sfSprite_setScale(setting_button->ground, VEC2F(WINDOW_W / size.width, WINDOW_H / size.height));
+    sfSprite_setScale(setting_button->ground, VEC2F(WINDOW_W / size.width,
+        WINDOW_H / size.height));
     setting_button->entity = entity;
     setting_button->clock = create_pausable_clock(game);
     load_button(game, texture, setting_button);

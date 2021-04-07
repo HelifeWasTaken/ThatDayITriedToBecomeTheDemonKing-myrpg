@@ -72,8 +72,12 @@
     /// HERO DEFINE
     ///
     #define HERO_PATH "asset/hero/bard_movement.png"
-    #define FULL_HERO_RECT IRECT(0, 0, 135, 332)
+    #define FULL_HERO_RECT IRECT(0, 0, 270, 332)
     #define ONE_HERO_RECT IRECT(0, 0 , 45, 83)
     #define HERO_SCALE VEC2F(0.5, 0.5)
+
+    #define HERO_FIGHT_PATH "asset/hero/bard_combat.png"
+    #define FULL_HERO_FIGHT_RECT IRECT(0 ,0, 450, 166)
+    #define ONE_HERO_FIGHT_RECT IRECT(0, 0, 90, 83)
 
 #endif
