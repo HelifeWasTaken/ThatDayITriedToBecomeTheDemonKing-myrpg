@@ -54,7 +54,7 @@ void init_select_btn(game_t *game)
     mute_mus->text = "mute music:";
     mute_mus->mute = param->music_muted;
     mute_vox->mute = param->voice_muted;
-    mute_vfx->entity->pos = VEC2F(WINDOW_W / 4 * 2, 300 + 10);
+    mute_vfx->entity->pos = VEC2F(WINDOW_W / 4 * 2, 700 + 10);
     mute_vox->entity->pos = VEC2F(WINDOW_W / 4 * 2, 500 + 10);
-    mute_mus->entity->pos = VEC2F(WINDOW_W / 4 * 2, 700 + 10);
+    mute_mus->entity->pos = VEC2F(WINDOW_W / 4 * 2, 300 + 10);
 }

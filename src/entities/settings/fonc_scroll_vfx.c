@@ -23,19 +23,22 @@ bool fonc_scroll_vfx(game_t *game UNUSED,
 entity_t *entity UNUSED)
 {
     sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
-    vfx_scroll_t *vfx_scroll = entity->instance;
-    sfFloatRect bar = sfSprite_getGlobalBounds(vfx_scroll->sprite_bar);
-    sfFloatRect pos = sfSprite_getGlobalBounds(vfx_scroll->scrolin);
+    vfx_scroll_t *scrl = entity->instance;
+    sfFloatRect bar = sfSprite_getGlobalBounds(scrl->sprite_bar);
+    sfFloatRect pos = sfSprite_getGlobalBounds(scrl->scrolin);
 
     bar.left = bar.left + 100;
     bar.width = bar.width - 200;
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
-        vfx_scroll->percentage = (((pos.left - bar.left) * 100 / bar.width) / 100);
-        vfx_scroll->percentage = (vfx_scroll->percentage <= 0) ? 0.0f : vfx_scroll->percentage;
-        vfx_scroll->percentage = (vfx_scroll->percentage >= 1) ?  1.0f : vfx_scroll->percentage;
-        sfSprite_setPosition(vfx_scroll->scrolin, VEC2F(mouse.x - (pos.width / 2), bar.top - (pos.height / 2) + bar.height / 2));
-        if (vfx_scroll->on_scroll != NULL)
-            vfx_scroll->on_scroll(game, vfx_scroll);
+        scrl->percentage = (((pos.left - bar.left)
+            * 100 / bar.width) / 100);
+        scrl->percentage = (scrl->percentage <= 0) ? 0.0f : scrl->percentage;
+        scrl->percentage = (scrl->percentage >= 1) ?  1.0f : scrl->percentage;
+        sfSprite_setPosition(scrl->scrolin,
+            VEC2F(mouse.x - (pos.width / 2),
+                bar.top - (pos.height / 2) + bar.height / 2));
+        if (scrl->on_scroll != NULL)
+            scrl->on_scroll(game, scrl);
         return (true);
     }
     return false;

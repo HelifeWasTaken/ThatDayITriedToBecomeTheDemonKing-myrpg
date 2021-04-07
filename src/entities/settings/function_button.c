@@ -9,6 +9,7 @@
 #include "distract/entity.h"
 #include "distract/resources.h"
 #include "distract/graphics.h"
+#include "distract/debug.h"
 #include "SFML/Window.h"
 #include "SFML/Graphics.h"
 #include "myrpg/entities.h"
@@ -18,7 +19,6 @@
 #include "myrpg/parameters.h"
 #include "stdlib.h"
 #include <stdio.h>
-
 
 void vfx_scrolin(game_t *game UNUSED,
     parameters_t *parm UNUSED, entity_t *entity UNUSED)
@@ -34,7 +34,6 @@ void vfx_scrolin(game_t *game UNUSED,
             VEC2F(mouse.x - 20, pos.y));
     return;
 }
-
 
 void load_button(game_t *game, settings_t *setting_button)
 {

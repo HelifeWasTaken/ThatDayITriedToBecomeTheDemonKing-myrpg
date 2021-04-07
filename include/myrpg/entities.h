@@ -123,6 +123,7 @@ typedef struct settings {
     sfSprite *background;
     sfSprite *ground;
     sfSprite *sprite_button;
+    sfText *txt;
     void (*fonc)(game_t *game, int i);
 } settings_t;
 
@@ -131,6 +132,7 @@ void update_settings(game_t *game, entity_t *entity);
 void draw_settings(game_t *game, entity_t *entity);
 void destroy_settings(game_t *game, entity_t *entity);
 bool handle_settings_events(game_t *game, entity_t *entity, sfEvent *event);
+bool check_loading_btn(game_t *game, entity_t *entity);
 
 bool create_scroll_bar(game_t *game, entity_t *entity);
 void update_scroll_bar(game_t *game, entity_t *entity);
@@ -148,6 +150,9 @@ typedef struct vfx_scroll {
     sfText *text;
 } vfx_scroll_t;
 
+sfText *init_text(game_t *game);
+sfSprite *init_scrolin(game_t *game);
+sfSprite *init_scroll(game_t *game);
 bool fonc_scroll_vfx(game_t *game, entity_t *entity);
 bool create_vfx_scroll(game_t *game, entity_t *entity);
 void update_vfx_scroll(game_t *game, entity_t *entity);
