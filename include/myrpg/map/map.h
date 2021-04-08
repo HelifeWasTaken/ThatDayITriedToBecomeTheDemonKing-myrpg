@@ -42,7 +42,7 @@
     bool create_layer_object(game_t *game, entity_t *entity);
     void destroy_layer_object(game_t *game, entity_t *entity);
 
-    typedef struct layer_tileset {
+    typedef struct layer_tileset_manager {
         entity_t *entity;
         vector_layer_tileset_t *tileset;
         usize_t actual_layer;

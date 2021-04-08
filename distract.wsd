@@ -1,0 +1,493 @@
+@startuml c
+
+package MyRpg {
+    package Entities {
+
+        enum arrow_keys <<Deprecated>> {
+            KEY_DOWN,
+            KEY_LEFT,
+            KEY_RIGHT,
+            KEY_UP
+        }
+
+        enum entity_type_t {
+            PLAYER,
+            SCROLL,
+            MENU,
+            SETTING,
+            VFX_SC,
+            ATH,
+            LAYER_MANAGER,
+            TILESET_LAYER_MANAGER,
+            TILESET_LAYER,
+            COLLISION_LAYER,
+            OBJECT_LAYER_MANAGER,
+            OBJECT_LAYER,
+            WARP,
+            HERO,
+            VIEW,
+            DEBUGMENU
+        }
+
+        enum view_type_t {
+            HUD_VIEW,
+            WORLD_VIEW
+        }
+
+        class view_t {
+            sfView *view;
+            sfView *hud_view;
+            entity_t *entity;
+            const hero_t *hero;
+        }
+
+        enum player_move <<Deprecated>> {
+            PLAYER_MOVE_DOWN,
+            PLAYER_MOVE_LEFT,
+            PLAYER_MOVE_RIGHT,
+            PLAYER_MOVE_UP,
+            PLAYER_MOVE_END
+        }
+
+        class hero_t {
+            entity_t *entity;
+            pausable_clock_t *animation_clock;
+            pausable_clock_t *movement_clock;
+            sfSprite *sprite;
+            double speed;
+            const struct layer_manager *collision;
+            bool disable_collision;
+        }
+
+        class ath_t  {
+            entity_t *entity;
+            sfSprite *player_ath_sprite;
+            sfVector2f ath_pos;
+            sfSprite *button_sprite[6];
+            view_t *view;
+        }
+
+        class menu_t  {
+            entity_t *entity;
+            sfSprite *bg_sprite;
+            sfSprite *button_sprite[3];
+        }
+
+        class player_t <<Deprecated>> {
+            entity_t *entity;
+            pausable_clock_t *clock;
+            sfSprite *sprite;
+        }
+
+        class scroll_bar_t <<Depreacted>> {
+            entity_t *entity;
+            pausable_clock_t *clock;
+            sfRectangleShape *scroll_bar;
+        }
+
+        Package MapRpg {
+
+            class map_loader_t {
+                entity_t *entity;
+                layer_manager_t manager;
+            }
+
+            class layer_manager_t {
+                layer_object_manager_t *objects;
+                layer_tileset_manager_t *tilesets;
+                laer_collision_t *collision;
+                sfVector2u mapsize;
+            }
+
+            Package MapRpgLayerObject {
+
+                class layer_object_manager_t {
+                    entity_t *entity;
+                    vector_layer_object_info_t *layer;
+                    size_t actual_layer;
+                }
+
+                class layer_object {
+                    entity_t *entity;
+                    layer_object_info_t *obj;
+                }
+
+                enum layer_object_type_t {
+                    LO_WARP,
+                    LO_NPC,
+                    LO_UNDEFINED,
+                    LO_COUNT,
+                    LO_PNJ = LO_NPC
+                }
+
+                interface warpzone_t {
+                    char *world;
+                    sfVector2i spawn;
+                }
+
+                interface layer_object_value_t <<Union>> {
+                    char *message;
+                    warpzone_t warp;
+                }
+
+                class layer_object_data {
+                    layer_object_type_t type;
+                    sfIntRect rect;
+                    layer_object_value_t object;
+                }
+
+                class layer_object_info_t {
+                    layer_object_data obj;
+                    usize_t z;
+                }
+
+            }
+
+            package MapRpgCollision {
+
+                class layer_collision_t {
+                    entity_t *entity;
+                    layer_collision_data_t data;
+                }
+
+                class layer_collision_data_t {
+                    bool *map;
+                    size_t size;
+                    sfVertexArray *vao;
+                    sfVector2u mapsize;
+                    size_t z;
+                }
+
+            }
+
+            package MapRpgTileset {
+
+                class layer_tileset_manager {
+                    entity_t *entity;
+                    vectorèlayer_tileset_t *tileset;
+                    size_t actual_layer;
+                }
+
+                class tileset_layer_t {
+                    layer_tileset_info_t layer;
+                    entity_t *entity;
+                }
+
+                enum rotation_tile_map {
+                    ROT_0,
+                    ROT_90,
+                    ROT_180,
+                    ROT_270
+                }
+
+                interface vertex_loader <<Parser>> {
+                    size_t i;
+                    size_t j;
+                    i64_t tu;
+                    i64_t tv;
+                    size_t mapx;
+                    size_t mapy;
+                    sfVector2u txsize;
+                    size_t tilesize;
+                    size_t tilesetindex;
+                    size_t layerindex;
+                }
+
+                interface tileset_parser_args <<Parser>> {
+                    ig_layer_t *layer;
+                    layer_tileset_info_t *manager;
+                    vector_ig_tileset_t *tileset
+                }
+
+                class layer_tileset_info_t {
+                    sfTexture *texture;
+                    sfVertexArray *vtx;
+                    size_t z;
+                }
+
+            }
+
+        }
+
+        Package DebugRpg {
+
+            class debugmenu_t {
+                entity_t *entity;
+                pausable_clock_t *clock;
+                sfText *text;
+                view_t *view;
+                bool enabled;
+                hero_t *hero;
+            }
+
+        }
+    }
+
+    package RpgLifecycle {
+
+        enum scene_id {
+            PLAY_SCENE,
+            MENU_SCENE,
+            KEY_CONFIG,
+            SETTING_SCENE
+        }
+
+        interface running_scene {
+            int (*lifecycle)(game_t *);
+        }
+
+    }
+
+    package UtilRpg {
+        class corner_t {
+            sfVector2f topleft;
+            sfVector2f topright;
+            sfVector2f bottomleft;
+            sfVector2f bottomright;
+        }
+
+        enum corner_type {
+            CORNER_SPRITE,
+            CORNER_RECT
+        }
+
+        interface draw_rects {
+            (*draw_rectangle_shape_global_bound)(sfRenderWindow *window, sfSprite *sprite, bool full);
+            (*get_corners)(void *r, enum corner_type type);
+        }
+    }
+}
+
+package Distract {
+
+    class game_t<S = void *> {
+        + sfRenderWindow *window
+        + sfRenderStates renderer
+        - scene_info_t *scenes
+        - entity_info_t *entities
+        - scene_t *scene
+        + sfVideoMode mode
+        + sfBool is_paused
+        + S state
+        - input_t input;
+    }
+
+    package Machine {
+
+        package EntityHandler {
+
+            abstract entity_t<T = void *> {
+                - entity_t *next
+                - entity_t *prev
+                - int type
+                - entity_info_t *info
+                + sfVector2f pos;
+                + int z
+                + T instance
+                - bool use_multithreading
+                - thread_info_t *threadinfo;
+            }
+
+            interface entity_info_t {
+                - entity_info_t *next
+                - int type
+                - void create(game_t *game, entity_t *entity)
+                - void destroy(game_t *game, entity_t *entity)
+                - void draw(game_t *game, entity_t *entity)
+                - void update(game_t *game, entity_t *entity)
+                - bool handle_event(game_t *game, entity_t *entity, sfEvent *event)
+            }
+
+            package UserHandler {
+
+                interface keyboard_input {
+                    - bool is_beign_pressed;
+                    - bool is_pressed;
+                    - bool is_beign_released;
+                    - bool was_pressed;
+                }
+
+                class input_t {
+                    + keyboard_input keys[sfKeyCount];
+                }
+
+                input_t::keys --> keyboard_input
+            }
+
+        }
+
+        package SceneHandler {
+
+            abstract scene_t<S = void *> {
+                + int id;
+                - char *world_file;
+                - scene_info_t* info;
+                + entity_t* entities;
+                + hashmap_t* resources;
+                - bool in_exit_state;
+                - int pending_scene_id;
+                + S state;
+            }
+
+            interface scene_info_t<S = void *> {
+                - scene_info_t *next
+                - int id
+                - int lifecycle(game_t *game)
+                + S storage
+            }
+
+        }
+
+        package Threads {
+
+            class thread_info_t {
+                - sfThread *thread;
+                + game_t *game;
+                + entity_t *entity;
+            }
+
+            interface job_message_t {
+                - int type;
+                + void *content;
+            }
+
+            class job_t {
+                - sfMutex *mutex;
+                - sfThread *thread;
+                - void *data;
+                - void (*action)(struct job *);
+                - unsigned char messages_count;
+                - job_message_t messages[256];
+                - bool in_progress;
+            }
+
+            job_t::messages --> job_message_t
+
+        }
+
+    }
+
+    package ResourceHandler {
+
+        enum resource_type_t {
+            R_TEXTURE,
+            R_MUSIC,
+            R_SOUND_BUFFER,
+            R_SOUND,
+            R_FONT,
+            R_VERTEX
+        }
+
+        interface "resource_data_union_t" <<Union>> {
+            sfTexture *texture;
+            sfMusic *music;
+            sfSoundBuffer *sound_buffer;
+            sfSound *sound;
+            sfFont *font;
+            sfVertexArray *vao;
+        }
+
+        class hashmap_t {
+            size_t size;
+            size_t capacity;
+            void **keys;
+            void **values;
+            size_t (*hasher)(struct hashmap *map, void *key);
+        }
+
+        class resource_t {
+            resource_type_t type;
+            char *path;
+            resource_data_union_t data;
+        }
+
+    }
+
+    package Component {
+
+        package ClockHandler {
+
+            class pausable_clock_t {
+                game_t *game;
+                sfClock *frame_clock;
+                float time;
+                sfBool is_paused;
+                sfBool hash_game_pause;
+            }
+
+        }
+
+        package Sound {
+
+            class sound_emitter_t {
+                float volumes[32];
+            }
+
+        }
+
+    }
+
+    package DebugDistract {
+
+        interface debug {
+            void (*print_error)(char *error);
+            void (*D_ASSERT)(T var, T2 unexpected, char *error, T3 return_value)
+        }
+
+    }
+
+    package CollisionHandler {
+
+        package RayCast {
+
+            interface ray_t <<Input>> {
+                sfVector2f base;
+                sfVector2f direction;
+                float max_distance;
+            }
+
+            interface rayhit_t <<Output>> {
+                sfVector2f point;
+                entity_t *target;
+            }
+
+            rayhit_t::target -> entity_t
+            ray_t -> rayhit_t
+
+        }
+
+    }
+
+    Package Renderer {
+
+        interface framebuffer_t {
+            unsigned int width;
+            unsigned int height;
+            sfUint8 *pixels;
+        }
+
+    }
+
+    game_t::scenes --> scene_info_t
+    game_t::entities --> entity_info_t
+    game_t::scene --> scene_t
+    game_t::input --> input_t
+
+    entity_t::info -> entity_info_t
+    entity_t::threadinfo --> thread_info_t
+
+    resource_t::type --> resource_type_t
+    hashmap_t --> resource_t
+    resource_t --> resource_data_union_t
+    hashmap_t::keys <- resource_t::path
+    hashmap_t::values <- resource_t::data
+
+    scene_t::info ---> scene_info_t
+    scene_t::entities ---> entity_t
+    scene_t::resources ---> hashmap_t
+
+    Renderer -> game_t::renderer
+
+}
+
+@enduml
