@@ -100,7 +100,7 @@
     #endif
 
     #define DEBUG_PRINTF(format, ...) \
-        efprintf(stderr, GREEN"%s:%d -> "BLUE"["format"]\n"DEFAULT, \
+        efprintf(stderr, RED"%s:%d -> "YELLOW"["format"]\n"DEFAULT, \
             __FILE__, __LINE__, ## __VA_ARGS__)
 
 #endif /* !__LIBERTY__ASSERT__H__ */

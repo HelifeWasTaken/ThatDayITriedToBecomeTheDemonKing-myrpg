@@ -96,7 +96,7 @@ static const struct json_deser_data IG_LAYER[] = {
             .woff = false
         },
         .type = JSON_ARR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".draworder",

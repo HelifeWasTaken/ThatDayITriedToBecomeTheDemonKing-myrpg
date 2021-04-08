@@ -25,10 +25,6 @@ static const entity_info_t ENTITIES[] = {
         &destroy_menu, NULL, &handle_menu_events),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, NULL, &handle_ath_events),
-    ENTITY(LAYER_MANAGER, &create_layer_manager, NULL,
-        &destroy_layer_manager, NULL, NULL),
-    ENTITY(LAYER, &create_layer, &draw_layer,
-        &destroy_layer, NULL, NULL),
     ENTITY(HERO, &create_hero, &draw_hero,
         &destroy_hero, &update_hero, NULL),
     ENTITY(VIEW, &create_view, NULL,
@@ -37,7 +33,6 @@ static const entity_info_t ENTITIES[] = {
         &destroy_settings, &update_settings, &handle_settings_events),
     ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
         &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
-    ENTITY(WARP, &create_warp, NULL, &destroy_warp, NULL, NULL),
     ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
             &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events)
 };
@@ -46,6 +41,7 @@ static bool configure_window(game_t *game)
 {
     game->mode = MODE(WINDOW_W, WINDOW_H, 32);
     game->window = create_standard_window(game->mode, "My RPG");
+    game->renderer = DEFAULT_RENDERSTATE(NULL);
     if (!game->window) {
         print_error("Could not init window");
         return (false);

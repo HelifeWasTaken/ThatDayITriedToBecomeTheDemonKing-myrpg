@@ -21,7 +21,8 @@ enum resource_type {
     R_MUSIC,
     R_SOUND_BUFFER,
     R_SOUND,
-    R_FONT
+    R_FONT,
+    R_VERTEX
 };
 
 ///
@@ -36,6 +37,7 @@ typedef struct resource {
         sfSoundBuffer *sound_buffer;
         sfSound *sound;
         sfFont *font;
+        sfVertexArray *vao;
     };
 } resource_t;
 
@@ -105,6 +107,12 @@ sfSound *create_sound(game_t *game, char *filepath);
 /// If music is already in memory, will return the existing instance.
 ///
 sfMusic *create_music(game_t *game, char *filepath);
+
+///
+/// Create and register a vertex array
+/// If vertex array is already in memory, will return the existing instance.
+///
+sfVertexArray *create_vertex(game_t *game, char *filepath);
 
 #define DESTROY_TEXTURES(...) \
     destroy_textures(ARGS_COUNT(# __VA_ARGS__), ## __VA_ARGS__)
