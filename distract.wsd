@@ -1,7 +1,7 @@
-@startuml c
+@startuml RpgProject
 
-package MyRpg {
-    package Entities {
+package Rpg {
+    package RpgEntities {
 
         enum arrow_keys <<Deprecated>> {
             KEY_DOWN,
@@ -55,7 +55,6 @@ package MyRpg {
             pausable_clock_t *movement_clock;
             sfSprite *sprite;
             double speed;
-            const struct layer_manager *collision;
             bool disable_collision;
         }
 
@@ -103,7 +102,7 @@ package MyRpg {
 
                 class layer_object_manager_t {
                     entity_t *entity;
-                    vector_layer_object_info_t *layer;
+                    vector_layer_object_info_t* layer;
                     size_t actual_layer;
                 }
 
@@ -164,7 +163,7 @@ package MyRpg {
 
                 class layer_tileset_manager {
                     entity_t *entity;
-                    vectorèlayer_tileset_t *tileset;
+                    vector_layer_tileset_t *tileset;
                     size_t actual_layer;
                 }
 
@@ -467,27 +466,66 @@ package Distract {
         }
 
     }
-
-    game_t::scenes --> scene_info_t
-    game_t::entities --> entity_info_t
-    game_t::scene --> scene_t
-    game_t::input --> input_t
-
-    entity_t::info -> entity_info_t
-    entity_t::threadinfo --> thread_info_t
-
-    resource_t::type --> resource_type_t
-    hashmap_t --> resource_t
-    resource_t --> resource_data_union_t
-    hashmap_t::keys <- resource_t::path
-    hashmap_t::values <- resource_t::data
-
-    scene_t::info ---> scene_info_t
-    scene_t::entities ---> entity_t
-    scene_t::resources ---> hashmap_t
-
-    Renderer -> game_t::renderer
-
 }
+
+game_t::scenes --> scene_info_t
+game_t::entities --> entity_info_t
+game_t::scene --> scene_t
+game_t::input --> input_t
+
+entity_t::info --> entity_info_t
+entity_t::threadinfo --> thread_info_t
+
+resource_t::type --> resource_type_t
+hashmap_t --> resource_t
+resource_t --> resource_data_union_t
+hashmap_t::keys <-- resource_t::path
+hashmap_t::values <-- resource_t::data
+
+scene_t::info ---> scene_info_t
+'scene_t::entities ---> entity_t
+scene_t::resources ---> hashmap_t
+
+Renderer -> game_t::renderer
+
+'RpgEntities -> EntityHandler
+view_t -> Renderer
+
+'hero_t -> EntityHandler
+hero_t -> UserHandler
+'hero_t -> entity_t
+
+hero_t -> layer_collision_t::map
+
+'map_loader_t -> EntityHandler
+
+'debugmenu_t -> EntityHandler
+
+running_scene -> SceneHandler
+
+layer_manager_t -> SceneHandler
+MapRpgTileset -> layer_manager_t
+MapRpgCollision -> layer_manager_t
+MapRpgLayerObject -> layer_manager_t
+
+layer_object_manager_t -> layer_object
+layer_object_manager_t <- layer_object
+layer_object_manager_t::obj -> layer_object_data
+layer_object::obj -> layer_object_data
+
+layer_object_data::type -> layer_object_type_t
+
+layer_object_data::object -> warpzone_t
+layer_object_data::object -> layer_object_value_t
+
+layer_object_info_t <- layer_object_manager_t
+
+layer_collision_t::data -> layer_collision_data_t
+
+tileset_layer_t::layer -> layer_tileset_info_t
+rotation_tile_map -> layer_tileset_info_t::vtx
+layer_tileset_manager::tileset -> layer_tileset_info_t
+
+view_type_t <- Renderer
 
 @enduml
