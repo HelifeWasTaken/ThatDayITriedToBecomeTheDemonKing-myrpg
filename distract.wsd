@@ -1,6 +1,7 @@
 @startuml RpgProject
 
 package Rpg {
+
     package RpgEntities {
 
         enum arrow_keys <<Deprecated>> {
@@ -257,215 +258,695 @@ package Rpg {
     }
 }
 
-package Distract {
+package Engine {
+    package Distract {
 
-    class game_t<S = void *> {
-        + sfRenderWindow *window
-        + sfRenderStates renderer
-        - scene_info_t *scenes
-        - entity_info_t *entities
-        - scene_t *scene
-        + sfVideoMode mode
-        + sfBool is_paused
-        + S state
-        - input_t input;
-    }
+        class game_t<S = void *> {
+            + sfRenderWindow *window
+            + sfRenderStates renderer
+            - scene_info_t *scenes
+            - entity_info_t *entities
+            - scene_t *scene
+            + sfVideoMode mode
+            + sfBool is_paused
+            + S state
+            - input_t input;
+        }
 
-    package Machine {
+        package Machine {
 
-        package EntityHandler {
+            package EntityHandler {
 
-            abstract entity_t<T = void *> {
-                - entity_t *next
-                - entity_t *prev
-                - int type
-                - entity_info_t *info
-                + sfVector2f pos;
-                + int z
-                + T instance
-                - bool use_multithreading
-                - thread_info_t *threadinfo;
-            }
-
-            interface entity_info_t {
-                - entity_info_t *next
-                - int type
-                - void create(game_t *game, entity_t *entity)
-                - void destroy(game_t *game, entity_t *entity)
-                - void draw(game_t *game, entity_t *entity)
-                - void update(game_t *game, entity_t *entity)
-                - bool handle_event(game_t *game, entity_t *entity, sfEvent *event)
-            }
-
-            package UserHandler {
-
-                interface keyboard_input {
-                    - bool is_beign_pressed;
-                    - bool is_pressed;
-                    - bool is_beign_released;
-                    - bool was_pressed;
+                abstract entity_t<T = void *> {
+                    - entity_t *next
+                    - entity_t *prev
+                    - int type
+                    - entity_info_t *info
+                    + sfVector2f pos;
+                    + int z
+                    + T instance
+                    - bool use_multithreading
+                    - thread_info_t *threadinfo;
                 }
 
-                class input_t {
-                    + keyboard_input keys[sfKeyCount];
+                interface entity_info_t {
+                    - entity_info_t *next
+                    - int type
+                    - void create(game_t *game, entity_t *entity)
+                    - void destroy(game_t *game, entity_t *entity)
+                    - void draw(game_t *game, entity_t *entity)
+                    - void update(game_t *game, entity_t *entity)
+                    - bool handle_event(game_t *game, entity_t *entity, sfEvent *event)
                 }
 
-                input_t::keys --> keyboard_input
+                package UserHandler {
+
+                    interface keyboard_input {
+                        - bool is_beign_pressed;
+                        - bool is_pressed;
+                        - bool is_beign_released;
+                        - bool was_pressed;
+                    }
+
+                    class input_t {
+                        + keyboard_input keys[sfKeyCount];
+                    }
+
+                    input_t::keys --> keyboard_input
+                }
+
+            }
+
+            package SceneHandler {
+
+                abstract scene_t<S = void *> {
+                    + int id;
+                    - char *world_file;
+                    - scene_info_t* info;
+                    + entity_t* entities;
+                    + hashmap_t* resources;
+                    - bool in_exit_state;
+                    - int pending_scene_id;
+                    + S state;
+                }
+
+                interface scene_info_t<S = void *> {
+                    - scene_info_t *next
+                    - int id
+                    - int lifecycle(game_t *game)
+                    + S storage
+                }
+
+            }
+
+            package Threads {
+
+                class thread_info_t {
+                    - sfThread *thread;
+                    + game_t *game;
+                    + entity_t *entity;
+                }
+
+                interface job_message_t {
+                    - int type;
+                    + void *content;
+                }
+
+                class job_t {
+                    - sfMutex *mutex;
+                    - sfThread *thread;
+                    - void *data;
+                    - void (*action)(struct job *);
+                    - unsigned char messages_count;
+                    - job_message_t messages[256];
+                    - bool in_progress;
+                }
+
+                job_t::messages --> job_message_t
+
             }
 
         }
 
-        package SceneHandler {
+        package ResourceHandler {
 
-            abstract scene_t<S = void *> {
-                + int id;
-                - char *world_file;
-                - scene_info_t* info;
-                + entity_t* entities;
-                + hashmap_t* resources;
-                - bool in_exit_state;
-                - int pending_scene_id;
-                + S state;
+            enum resource_type_t {
+                R_TEXTURE,
+                R_MUSIC,
+                R_SOUND_BUFFER,
+                R_SOUND,
+                R_FONT,
+                R_VERTEX
             }
 
-            interface scene_info_t<S = void *> {
-                - scene_info_t *next
-                - int id
-                - int lifecycle(game_t *game)
-                + S storage
+            interface "resource_data_union_t" <<Union>> {
+                sfTexture *texture;
+                sfMusic *music;
+                sfSoundBuffer *sound_buffer;
+                sfSound *sound;
+                sfFont *font;
+                sfVertexArray *vao;
+            }
+
+            class hashmap_t {
+                size_t size;
+                size_t capacity;
+                void **keys;
+                void **values;
+                size_t (*hasher)(struct hashmap *map, void *key);
+            }
+
+            class resource_t {
+                resource_type_t type;
+                char *path;
+                resource_data_union_t data;
             }
 
         }
 
-        package Threads {
+        package Component {
 
-            class thread_info_t {
-                - sfThread *thread;
-                + game_t *game;
-                + entity_t *entity;
+            package ClockHandler {
+
+                class pausable_clock_t {
+                    game_t *game;
+                    sfClock *frame_clock;
+                    float time;
+                    sfBool is_paused;
+                    sfBool hash_game_pause;
+                }
+
             }
 
-            interface job_message_t {
-                - int type;
-                + void *content;
+            package Sound {
+
+                class sound_emitter_t {
+                    float volumes[32];
+                }
+
             }
 
-            class job_t {
-                - sfMutex *mutex;
-                - sfThread *thread;
-                - void *data;
-                - void (*action)(struct job *);
-                - unsigned char messages_count;
-                - job_message_t messages[256];
-                - bool in_progress;
+        }
+
+        package DebugDistract {
+
+            interface debug {
+                void (*print_error)(char *error);
+                void (*D_ASSERT)(T var, T2 unexpected, char *error, T3 return_value)
             }
 
-            job_t::messages --> job_message_t
+        }
+
+        package CollisionHandler {
+
+            package RayCast {
+
+                interface ray_t <<Input>> {
+                    sfVector2f base;
+                    sfVector2f direction;
+                    float max_distance;
+                }
+
+                interface rayhit_t <<Output>> {
+                    sfVector2f point;
+                    entity_t *target;
+                }
+
+                rayhit_t::target -> entity_t
+                ray_t -> rayhit_t
+
+            }
+
+        }
+
+        Package Renderer {
+
+            interface framebuffer_t {
+                unsigned int width;
+                unsigned int height;
+                sfUint8 *pixels;
+            }
 
         }
 
     }
 
-    package ResourceHandler {
+    Package IronGoat {
 
-        enum resource_type_t {
-            R_TEXTURE,
-            R_MUSIC,
-            R_SOUND_BUFFER,
-            R_SOUND,
-            R_FONT,
-            R_VERTEX
-        }
+        Package Erty {
 
-        interface "resource_data_union_t" <<Union>> {
-            sfTexture *texture;
-            sfMusic *music;
-            sfSoundBuffer *sound_buffer;
-            sfSound *sound;
-            sfFont *font;
-            sfVertexArray *vao;
-        }
+            package ParsingAndContainers {
 
-        class hashmap_t {
-            size_t size;
-            size_t capacity;
-            void **keys;
-            void **values;
-            size_t (*hasher)(struct hashmap *map, void *key);
-        }
+                interface string_parser {
+                    char *(*estrdup)(char *src);
+                    int (*estrcmp)(char *s1, char *s2);
+                    size_t (*estrlen)(char *s);
+                    char *(*estrndup)(char *s, size_t n);
+                    char **(*esplit)(char *buf, char *delim);
+                    void (*ememcpy)(void *dest, void const *src, size_t size)
+                    void (*ememset)(void *ptr, int c, size_t size);
+                    char *(*eformat)(char const *format, ...);
+                }
 
-        class resource_t {
-            resource_type_t type;
-            char *path;
-            resource_data_union_t data;
-        }
+                class vector <<T>> {
+                    T *data;
+                    size_t size;
+                    size_t a_size;
+                    ssize_t (*push_back)(vector<<T>> *, T);
+                    void (*_del)(T *);
+                    void (*clear)(vector<<T>> **);
+                }
 
-    }
+                interface tuple <<T>> {
+                    T type;
+                    char *name;
+                }
 
-    package Component {
+                class list <<T>> {
+                    T data;
+                    list<<T>> *prev;
+                    list<<T>> *next;
+                }
 
-        package ClockHandler {
+                interface opt<<T>> {
+                    T value;
+                    bool is_ok;
+                }
 
-            class pausable_clock_t {
-                game_t *game;
-                sfClock *frame_clock;
-                float time;
-                sfBool is_paused;
-                sfBool hash_game_pause;
+                interface list_extern <<T>> {
+                    list<<T>> *list;
+                    bool (*push_back)(list_extern<<T>> **head, T data);
+                    bool (*push_front)(list_extern<<T>> **head, T data);
+                    bool (*insert)(list_extern<<T>> **head, T data, size_t i);
+                    bool (*pop_front)(list_extern<<T>> **head);
+                    bool (*pop_back)(list_extern<<T>> **head);
+                    bool (*erase)(list_extern<<T>> **head, size_t i);
+                    bool (*clear)(list_extern<<T>> **head);
+                    void (*_del)(T *data);
+                    opt<<T>> (*at)(list_extern<<T>> **head, size_t i);
+                }
+
+                class hashmap <<T>> {
+                    u64_t (*hash)(const void *);
+                    size_t size;
+                    size_t bucket_count;
+                    bool (*insert)(hashmap<<T>> *, tuple<<T>>);
+                    void (*clear)(hashmap<<T>> *, void *key);
+                }
+            }
+
+            Package PrintAndAssertion {
+
+                interface Assert {
+                    (*assert)(char *prg, char *expr);
+                    (*debug_assert)(char *ptr, char *expr);
+                }
+
+                interface Print {
+                    int (*eprintf)(char const *format, ...);
+                    int (*edprintf)(int fd, char const *format, ...);
+                    int (*efprintf)(FILE *stream, char const *format, ...);
+                }
+
+            }
+
+            Package Json {
+
+                enum json_type {
+                    JSON_ANY,
+                    JSON_STR,
+                    JSON_NUM,
+                    JSON_OBJ,
+                    JSON_ARR,
+                    JSON_BOOL,
+                    JSON_NULL
+                }
+
+                interface json_value <<Union>> {
+                    char *string;
+                    long long number;
+                    bool boolean;
+                    void *null;
+                    void *array;
+                    void object;
+                }
+
+                class json_t {
+                    json_value v;
+                    json_type t;
+                }
+
+                package JsonHashmap {
+
+                    interface json_tuple_bucket_t {
+                        char *key;
+                        json_t data;
+                    }
+
+                    class json_hashmap_t {
+                        unsigned long long (*hash)(const void *);
+                        size_t key;
+                        size_t bucket_count;
+                        bool (*insert)(json_hashmap_t **, json_tuple_bucket_t);
+                        void (*clear)(json_hashmap_t **);
+                        opt<<json_t>> (*get)(json_hashmap_t **, void *key);
+                        json_bucket_t *bucket;
+                    }
+
+                    interface json_bucket_data_t {
+                        json_tuple_bucket_t data;
+                        json_bucket_data_t *next;
+                        json_bucket_data_t *prev;
+                    }
+
+                    class json_bucket_t {
+                        json_bucket_data_t *list;
+                        bool (*push_back)(json_bucket_t *, json_tuple_bucket_t);
+                        bool (*push_front)(json_bucket_t *, json_tuple_bucket_t);
+                        bool (*insert)(json_bucket_t *, json_tuple_bucket_t, size_t);
+                        void (*pop_front)(json_bucket_t *);
+                        void (*pop_back)(json_bucket_t *);
+                        void (*erase)(json_bucket_t *, size_t);
+                        void (*clear)(json_bucket_t *);
+                        void (*_del)(json_tuple_bucket_t *);
+                        OPT(json_bucket) (*at)(json_bucket_t *, size_t i);
+                    }
+
+                }
+
+                class json_array_t {
+                    json_t *data;
+                    size_t size;
+                    size_t a_size;
+                    ssize_t (*push_back)(json_array_t **, json_t);
+                    void (*_del)(json_t *);
+                    void (*clear)(json_array_t **);
+                }
+
             }
 
         }
 
-        package Sound {
+        Package TiledGoat {
 
-            class sound_emitter_t {
-                float volumes[32];
+            Package TiledData {
+
+                enum ig_map_orient_t {
+                    MAP_ORIENT_NONE,
+                    MAP_ORTHOGONAL,
+                    MAP_ISOMETRIC,
+                    MAP_STAGGERED,
+                    MAP_HEXAGONAL
+                }
+
+                enum ig_map_renderorder_t {
+                    MAP_RENDER_NONE,
+                    MAP_RIGHT_DOWN,
+                    MAP_RIGHT_UP,
+                    MAP_LEFT_DOWN,
+                    MAP_LEFT_UP
+                }
+
+                enum ig_map_staggerindex_t {
+                    MAP_STAG_ODD,
+                    MAP_STAG_EVEN
+                }
+
+                enum ig_layer_draworder_t {
+                    LAYER_DRAWORDER_NONE,
+                    LAYER_TOPDOWN,
+                    LAYER_INDEX
+                }
+
+                enum ig_layer_type_t {
+                    LAYER_TYPE_NONE,
+                    LAYER_TILELAYER,
+                    LAYER_OBJECT_GROUP,
+                    LAYER_IMAGE_LAYER,
+                    LAYER_GROUP
+                }
+
+                enum ig_layer_encoding_t {
+                    LAYER_ENCODE_NONE,
+                    LAYER_CSV,
+                    LAYER_BASE64
+                }
+
+                enum ig_text_halign_t {
+                    HALIGN_NONE,
+                    HALIGN_CENTER,
+                    HALIGN_RIGHT,
+                    HALIGN_JUSTIFY,
+                    HALIGN_LEFT
+                }
+
+                enum ig_text_valign_t {
+                    VALIGN_NONE,
+                    VALIGN_CENTER,
+                    VALIGN_BOTTOM,
+                    VALIGN_TOP
+                }
+
+                enum ig_object_type_t {
+                    OBJECT_NONE,
+                    OBJECT_ELLIPSE,
+                    OBJECT_POINT,
+                    OBJECT_RECT,
+                    OBJECT_POLYGON,
+                    OBJECT_POLYLINE,
+                    OBJECT_TEXT,
+                    OBJECT_TILE
+                }
+
+                enum ig_property_type_t {
+                    PROP_NONE,
+                    PROP_STRING,
+                    PROP_INT,
+                    PROP_FLOAT,
+                    PROP_BOOL,
+                    PROP_COLOR,
+                    PROP_FILE
+                }
+
+                enum ig_grid_orientation_t {
+                    GRID_NONE,
+                    GRID_ORTHOGONAL,
+                    GRID_ISOMETRIC
+                }
+
+                interface iron_goat_property_value <<Union>> {
+                    char *str;
+                    long long i;
+                    long long f;
+                    bool b;
+                    u32_t color;
+                    char *file;
+                }
+
+                class iron_goat_grid {
+                    unsigned long long height;
+                    ig_grid_orientation_t orientation;
+                    unsigned long long width;
+                }
+
+                class iron_goat_tileoffset {
+                    long long x;
+                    long long y;
+                }
+
+                class iron_goat_frame {
+                    unsigned long long duration;
+                    unsigned long long tileid;
+                }
+
+                class iron_goat_terrain {
+                    char *name;
+                    vector<<iron_goat_property>> *properties;
+                    unsigned long long tile;
+                }
+
+                class iron_goat_tile_terrain {
+                    size_t tile[4];
+                }
+
+                class iron_goat_wangcolor {
+                    unsigned int color;
+                    char *name;
+                    long long probability;
+                    vector<<iron_goat_property>> *properties;
+                    unsigned long long tile;
+                }
+
+                class iron_goat_wangtile {
+                    long long tiledid;
+                    char wangid[8];
+                }
+
+                class iron_goat_wangset {
+                    vector<<iron_goat_wangcolor>> *cornercolors;
+                    vector<<iron_goat_wangocolor>> *edgecolors;
+                    char *name;
+                    vector<<iron_goat_properties>> *properties;
+                    unsigned long long tile;
+                    vector<<iron_goat_wangtile>> *wangtiles;
+                }
+
+                class iron_goat_tileset {
+                    unsigned int backgroundcolor;
+                    unsigned long long columns;
+                    unsigned long long firstgid;
+                    opt<<iron_goat_grid>> grid;
+                    char *image;
+                    unsigned long long imageheight;
+                    unsigned long long imagewidth;
+                    unsigned long long margin;
+                    char *name;
+                    vector<<iron_goat_properties>> *properties;
+                    char *source;
+                    unsigned long long spacing;
+                    vector<<iron_goat_terrain>> *terrains;
+                    unsigned long long tilecount;
+                    char *tiledversion;
+                    unsigned long long tileheight;
+                    iron_goat_tileoffset tileoffset;
+                    vector<<iron_goat_tile>> *tiles;
+                    unsigned long long tilewidth;
+                    opt<<unsigned int>> transparentcolor;
+                    char *type;
+                    vector<<iron_goat_wangset>> *wangsets;
+                }
+
+                class iron_goat_property {
+                    char *name;
+                    ig_property_type_t type;
+                    iron_goat_property_value value;
+                }
+
+                class iron_goat_object {
+                    bool ellipse;
+                    unsigned long long gid;
+                    long long height;
+                    unsigned long long id;
+                    char *name;
+                    bool point;
+                    vector<<iron_goat_point>> *polygon;
+                    vector<<iron_goat_property>> *properties;
+                    char *template;
+                    char *type;
+                    bool visible;
+                    long long width;
+                    long long x;
+                    long long y;
+                }
+
+                class iron_goat_text {
+                    bool bold;
+                    unsigned int color;
+                    char *fontfamily;
+                    ig_text_halign_t halign;
+                    bool italic;
+                    bool kerning;
+                    unsigned long long pixelsize;
+                    bool strikeout;
+                    char *text;
+                    bool underline;
+                    ig_text_valign_t valign;
+                    bool wrap;
+                }
+
+                class iron_goat_point {
+                    long long x;
+                    long long y;
+                }
+
+                class iron_goat_chunk {
+                    vector<<unsigned long long>> *data;
+                    unsigned long long height;
+                    unsigned long long width;
+                    long long x;
+                    long long y;
+                }
+
+                interface layer_data_vector {
+                    size_t size;
+                    unsigned long long *data;
+                }
+
+                class iron_goat_layer {
+                    vector<<iron_goat_chunk>> *chunks;
+                    layer_data_vector data;
+                    ig_layer_draworder_t draworder;
+                    ig_layer_encoding_t encoding;
+                    unsigned long long height;
+                    unsigned long long id;
+                    char *image;
+                    vector<<iron_goat_layer>> *layers;
+                    char *name;
+                    vector<<iron_goat_object>> *objects;
+                    long long offsetx;
+                    long long offsety;
+                    long long opacity;
+                    vector<<iron_goat_properties>> *properties;
+                    long long startx;
+                    long long starty;
+                    unsigned int tintcolor;
+                    unsigned int transparentcolor;
+                    ig_layer_type_t type;
+                    bool visible;
+                    unsigned long long width;
+                    long long x;
+                    long long y;
+                }
+
+                class iron_goat_tile {
+                    vector<<iron_goat_frame>> *animation;
+                    unsigned long long id;
+                    char *image;
+                    unsigned long long imageheight;
+                    unsigned long long imagewidth;
+                    opt<<iron_goat_layer>> objectgroup;
+                    opt<<long long>> probability;
+                    vector<<iron_goat_layer>> properties;
+                    opt<<iron_goat_terrain>> terrain;
+                    char *type;
+                }
+
+                class iron_goat_map {
+                    unsigned int backgroundcolor;
+                    long long compressionlevel;
+                    unsigned long long height;
+                    long long hexsidelength;
+                    bool infinite;
+                    vector<<iron_goat_layer>> *layers;
+                    long long nextlayerid;
+                    long long nextobjectid;
+                    ig_map_orient_t orientation;
+                    vector<<iron_goat_properties>> *properties;
+                    ig_map_renderorder_t renderorder;
+                    ig_map_staggerindex_t staggerindex;
+                    char *tiledversion;
+                    unsigned long long tileheight;
+                    vector<<iron_goat_tileset>> *tilesets;
+                    char *type;
+                    long long version;
+                    unsigned long long width;
+                }
+
+            }
+
+            Package Deser {
+
+                interface inter_fun_deser {
+                    bool (*callback)();
+                    bool woff;
+                }
+
+                class json_deser_data {
+                    char *data;
+                    const size_t size_data;
+                    const size_t offset;
+                    const inter_fun_deser intern;
+                    const int type;
+                    bool opt;
+                }
+
+                class json_deser {
+                    const json_deser_data *data;
+                    const size_t size;
+                }
+
+                interface deser_loop <<T>> {
+                    bool (*deser_loop)(json_t *conf, T new, json_deser info);
+                    bool (*deser_opt_check)(json_t *conf, T new, json_deser info);
+                    bool (*deser_intern_copy)(json_t *conf, T new, json_deser info, json_deser tmp, void *ptr);
+                }
+
             }
 
         }
 
     }
 
-    package DebugDistract {
-
-        interface debug {
-            void (*print_error)(char *error);
-            void (*D_ASSERT)(T var, T2 unexpected, char *error, T3 return_value)
-        }
-
-    }
-
-    package CollisionHandler {
-
-        package RayCast {
-
-            interface ray_t <<Input>> {
-                sfVector2f base;
-                sfVector2f direction;
-                float max_distance;
-            }
-
-            interface rayhit_t <<Output>> {
-                sfVector2f point;
-                entity_t *target;
-            }
-
-            rayhit_t::target -> entity_t
-            ray_t -> rayhit_t
-
-        }
-
-    }
-
-    Package Renderer {
-
-        interface framebuffer_t {
-            unsigned int width;
-            unsigned int height;
-            sfUint8 *pixels;
-        }
-
-    }
 }
 
 game_t::scenes --> scene_info_t
@@ -479,8 +960,9 @@ entity_t::threadinfo --> thread_info_t
 resource_t::type --> resource_type_t
 hashmap_t --> resource_t
 resource_t --> resource_data_union_t
-hashmap_t::keys <-- resource_t::path
-hashmap_t::values <-- resource_t::data
+
+resource_t::path -> hashmap_t::keys
+resource_t::data -> hashmap_t::values
 
 scene_t::info ---> scene_info_t
 'scene_t::entities ---> entity_t
@@ -527,5 +1009,82 @@ rotation_tile_map -> layer_tileset_info_t::vtx
 layer_tileset_manager::tileset -> layer_tileset_info_t
 
 view_type_t <- Renderer
+
+tuple --> hashmap
+
+vector <-- opt
+hashmap <-- opt
+
+list_extern::list -> list
+
+Json <-- string_parser
+
+json_hashmap_t::bucket --> json_bucket_t
+json_bucket_t::list --> json_bucket_data_t
+json_hashmap_t <-- string_parser
+json_tuple_bucket_t <-- json_bucket_data_t::data
+json_array_t <-- string_parser
+
+json_value -> json_t::v
+json_t::t <- json_type
+
+json_t --> json_hashmap_t
+json_t --> json_array_t
+
+Print --> Assert
+
+string_parser::eformat --> Print::eprintf
+
+iron_goat_layer::chunks -> iron_goat_chunk
+layer_data_vector <- iron_goat_layer::data
+iron_goat_layer::draworder -> ig_layer_draworder_t
+iron_goat_layer::encoding -> ig_layer_encoding_t
+iron_goat_layer::objects --> iron_goat_object
+iron_goat_layer::properties --> iron_goat_property
+iron_goat_layer::type --> ig_layer_type_t
+
+iron_goat_grid::orientaiton --> ig_grid_orientation_t
+
+iron_goat_terrain::properties --> iron_goat_property
+
+iron_goat_wangcolor::properties --> iron_goat_property
+
+iron_goat_text::valign --> ig_text_valign_t
+iron_goat_text::halign --> ig_text_halign_t
+
+iron_goat_tile::animation --> iron_goat_frame
+iron_goat_tile::objectgroup --> iron_goat_object
+iron_goat_tile::properties --> iron_goat_property
+iron_goat_tile::terrain ---> iron_goat_tile_terrain
+
+iron_goat_tileset::properties --> iron_goat_property
+iron_goat_tileset::terrains --> iron_goat_terrain
+iron_goat_tileset::grid --> iron_goat_grid
+iron_goat_tileset::tileoffset --> iron_goat_tileoffset
+iron_goat_tileset::tiles --> iron_goat_tile
+iron_goat_tileset::wangsets --> iron_goat_wangset
+
+iron_goat_wangset::cornercolors --> iron_goat_wangcolor
+iron_goat_wangset::edgecolors --> iron_goat_wangcolor
+iron_goat_wangset::properties --> iron_goat_property
+iron_goat_wangset::wangtiles --> iron_goat_wangtile
+
+iron_goat_property::type --> ig_property_type_t
+iron_goat_property::value --> iron_goat_property_value
+
+iron_goat_map::layers --> iron_goat_layer
+iron_goat_map::orientaiton --> ig_map_orient_t
+iron_goat_property <-- iron_goat_map::properties
+ig_map_renderorder_t <-- iron_goat_map::renderorder
+iron_goat_map::staggerindex --> ig_map_staggerindex_t
+iron_goat_map::tilesets --> iron_goat_tileset
+
+iron_goat_object::polygon <-- iron_goat_point
+iron_goat_object::properties <-- iron_goat_property
+iron_goat_object::type --> ig_object_type_t
+
+inter_fun_deser -> json_deser_data::intern
+json_deser::data <- json_deser_data
+json_deser::type --> json_type
 
 @enduml
