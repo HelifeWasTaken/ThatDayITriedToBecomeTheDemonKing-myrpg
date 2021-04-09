@@ -5,7 +5,7 @@
 ** objects
 */
 
-#include "myrpg/map.h"
+#include "myrpg/map/map.h"
 
 void (*DESTROY_PTR[])(layer_object_value_t *) = {
     destroy_layer_object_warpzone,
@@ -14,5 +14,5 @@ void (*DESTROY_PTR[])(layer_object_value_t *) = {
 
 void destroy_layer_object_data(struct layer_object_data *layer)
 {
-    DESTROY_PTR[layer->type](layer->object);
+    DESTROY_PTR[layer->type](&layer->object);
 }

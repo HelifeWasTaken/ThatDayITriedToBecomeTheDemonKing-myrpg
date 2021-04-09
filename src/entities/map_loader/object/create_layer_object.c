@@ -1,11 +1,4 @@
 /*
-** EPITECH PROJECT, 2021
-** create
-** File description:
-** lauer
-*/
-
-/*
 ** EPITECH PROJECT, 2020
 ** layer_object
 ** File description:
@@ -23,7 +16,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
-
+#include "distract/util.h"
 
 bool create_layer_object(game_t *game UNUSED, entity_t *entity)
 {
@@ -38,6 +31,7 @@ bool create_layer_object(game_t *game UNUSED, entity_t *entity)
     layer_object->entity = entity;
     entity->instance = layer_object;
     manager->actual_layer++;
+    return (true);
 }
 
 void destroy_layer_object_info(layer_object_info_t *obj)

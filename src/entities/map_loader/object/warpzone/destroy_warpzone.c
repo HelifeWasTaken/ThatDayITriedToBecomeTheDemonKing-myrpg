@@ -6,9 +6,10 @@
 */
 
 #include "myrpg/map/object.h"
+#include "stdlib.h"
 
 void destroy_layer_object_warpzone(layer_object_value_t *object)
 {
-    if (object->warp->file)
-        free(object->warp->file);
+    if (object->warp.world)
+        free(object->warp.world);
 }

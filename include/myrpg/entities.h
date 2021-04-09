@@ -76,7 +76,7 @@ typedef struct hero {
     pausable_clock_t *movement_clock;
     sfSprite *sprite;
     double speed;
-    const struct layer_manager *collision;
+    const struct map_loader *layers;
     bool disable_collision;
 } hero_t;
 

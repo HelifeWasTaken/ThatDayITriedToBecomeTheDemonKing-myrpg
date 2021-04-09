@@ -24,6 +24,7 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "myrpg/map/map.h"
+#include "distract/util.h"
 
 bool create_layer_collision(game_t *game UNUSED, entity_t *entity)
 {
@@ -41,6 +42,7 @@ bool create_layer_collision(game_t *game UNUSED, entity_t *entity)
     destroy_iron_goat_map(&mapconf);
     layer_collision->entity = entity;
     entity->instance = layer_collision;
+    layer_collision->data = data;
     entity->z = layer_collision->data.z;
     return (true);
 }
@@ -56,7 +58,7 @@ void draw_layer_collision(game_t *game UNUSED, entity_t *entity)
 {
     layer_collision_t *collision = entity->instance;
 
-    game->renderer.texture = NULL;
-    sfRenderwindow_drawvertexarray(game->window,
-        collision->data.vtx, &game->renderer);
+    (void)(collision);
+   // sfRenderWindow_drawVertexArray(game->window,
+   //     collision->data.vtx, NULL);
 }

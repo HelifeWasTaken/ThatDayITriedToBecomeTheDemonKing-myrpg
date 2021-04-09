@@ -17,6 +17,7 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "myrpg/map/map.h"
+#include "distract/util.h"
 
 bool create_layer_object_manager(game_t *game UNUSED, entity_t *entity)
 {

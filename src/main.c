@@ -12,7 +12,7 @@
 #include "distract/graphics.h"
 #include "distract/resources.h"
 #include "distract/game.h"
-#include "myrpg/map.h"
+#include "myrpg/map/map.h"
 #include <stdio.h>
 #include <SFML/Graphics.h>
 #include <iron_goat/deser.h>
@@ -141,7 +141,6 @@ bool init_pnjs(struct json *conf, struct pnj *self)
 }
 */
 
-#include "myrpg/mapdata.h"
 int main(void)
 {
     return (load_game());

@@ -34,7 +34,19 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
         &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
     ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
-            &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events)
+            &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events),
+    ENTITY(LAYER_MANAGER, &create_map_loader, NULL,
+            &destroy_map_loader, NULL, NULL),
+    ENTITY(COLLISION_LAYER, &create_layer_collision,
+        &draw_layer_collision, &destroy_layer_collision, NULL, NULL),
+    ENTITY(OBJECT_LAYER_MANAGER, &create_layer_object_manager,
+        NULL, &destroy_layer_object_manager, NULL, NULL),
+    ENTITY(OBJECT_LAYER, &create_layer_object, NULL,
+        &destroy_layer_object, NULL, NULL),
+    ENTITY(TILESET_LAYER_MANAGER, &create_tileset_manager,
+        NULL, &destroy_tileset_manager, NULL, NULL),
+    ENTITY(TILESET_LAYER, &create_layer_tileset, &draw_layer_tileset,
+        &destroy_layer_tileset, NULL, NULL)
 };
 
 static bool configure_window(game_t *game)
@@ -94,6 +106,7 @@ int load_game(void)
         return (84);
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
+    game->scene->world_file = "asset/map_asset/map_files/map_village.json";
     do {
         code = load_pending_scene(game);
         if (code != 0)

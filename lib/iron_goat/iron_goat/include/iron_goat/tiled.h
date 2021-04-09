@@ -30,7 +30,7 @@
     typedef struct iron_goat_wangcolor ig_wangcolor_t;
     typedef struct iron_goat_wangtile ig_wangtile_t;
     typedef struct iron_goat_wangset ig_wangset_t;
-    typedef struct iron_goat_tileset ig_goat_tileset_t;
+    typedef struct iron_goat_tileset ig_tileset_t;
 
     INIT_VECTOR(ig_u64, u64_t, NULL);
     INIT_VECTOR(ig_i64, i64_t, NULL);

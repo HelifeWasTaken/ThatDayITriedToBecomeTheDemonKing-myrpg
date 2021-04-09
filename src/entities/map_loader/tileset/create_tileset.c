@@ -16,6 +16,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
+#include "distract/util.h"
 
 bool create_layer_tileset(game_t *game UNUSED, entity_t *entity)
 {
@@ -33,6 +34,7 @@ bool create_layer_tileset(game_t *game UNUSED, entity_t *entity)
         manager->tileset->data[manager->actual_layer].vtx;
     entity->z = manager->tileset->data[manager->actual_layer].z;
     manager->actual_layer++;
+    return (true);
 }
 
 void destroy_layer_tileset(game_t *game UNUSED, entity_t *entity)
@@ -45,8 +47,10 @@ void destroy_layer_tileset(game_t *game UNUSED, entity_t *entity)
 void draw_layer_tileset(game_t *game UNUSED, entity_t *entity)
 {
     layer_tileset_t *layer_tileset = entity->instance;
+    static int layer_chose = 2;
 
     game->renderer.texture = layer_tileset->layer.texture;
-    sfRenderwindow_drawvertexarray(game->window,
-        layer_tileset->layer.vtx, &game->renderer);
+    if (layer_tileset->entity->z == layer_chose)
+        sfRenderWindow_drawVertexArray(game->window,
+            layer_tileset->layer.vtx, &game->renderer);
 }

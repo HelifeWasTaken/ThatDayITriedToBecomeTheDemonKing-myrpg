@@ -59,15 +59,14 @@ static void set_texture_coords_rot_twoseventy(sfVertex *quad,
         data->tu * data->tilesize, (data->tv + 1) * data->tilesize);
 }
 
-static const (*ROT_FUN[])(sfVertex *, struct vertex_loader *) = {
-    set_texture_coords_rot_zero,
-    set_texture_coords_rot_ninety,
-    set_texture_coords_rot_oneeighty,
-    set_texture_coords_rot_twoseventy
-};
-
 void set_txrot_quad(sfVertex *quad, struct vertex_loader *ldata,
     struct tile_id_rot *idrot)
 {
+    void (*ROT_FUN[])(sfVertex *, struct vertex_loader *) = {
+        set_texture_coords_rot_zero,
+        set_texture_coords_rot_ninety,
+        set_texture_coords_rot_oneeighty,
+        set_texture_coords_rot_twoseventy
+    };
     ROT_FUN[idrot->rot](quad, ldata);
 }

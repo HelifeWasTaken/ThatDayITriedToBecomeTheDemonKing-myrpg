@@ -41,6 +41,15 @@ typedef struct resource {
     };
 } resource_t;
 
+#define GENERIC_RESOURCE_DESTROY(resource) \
+    _Generic((resource), \
+        sfTexture *: sfTexture_destroy, \
+        sfSound *: sfSound_destroy, \
+        sfSoundBuffer *: sfSoundBuffer_destroy, \
+        sfMusic *: sfMusic_destroy, \
+        sfFont *: sfFont_destroy, \
+        sfVertexArray *: sfVertexArray_destroy)(resource)
+
 #define SAFE_RESOURCE_DESTROY(fun, res) \
     do { \
         if (res) \

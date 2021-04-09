@@ -19,7 +19,7 @@ int load_tileset_info(game_t *game,
     if (estrcmp(map->layers->data[i].name, "collision") == 0)
         return (1);
     if (load_tileset_texture(game, &(struct tileset_parser_args){
-        &map->layers->data[i], map->tilesets, tileset_info},
+        &map->layers->data[i], tileset_info, map->tilesets},
         &tilesetchosen) == false)
         return (2);
     tileset_info->z = i;

@@ -23,20 +23,25 @@ static bool check_collision(sfVector2u *pos_v, hero_t *hero)
 {
     if (hero->disable_collision == true)
         return (true);
-    if (pos_v->x >= hero->collision->map.map_size.x ||
-            pos_v->y >= hero->collision->map.map_size.y) {
+    if (pos_v->x >= hero->layers->manager.mapsize.x ||
+            pos_v->y >= hero->layers->manager.mapsize.y) {
         print_error("Warning: Unexpected collision encoutered");
         return (false);
     }
-    return (!(GET_POS_MAP(*pos_v, hero->collision->map.map_size.x,
-        hero->collision->map.v_collision.layer)));
+/*    printf("%d %d %d %d\n", pos_v->x, pos_v->y, pos_v->x +
+        pos_v->y * hero->layers->manager.mapsize.x,
+        hero->layers->manager.collision->data.map[
+        pos_v->x + pos_v->y * hero->layers->manager.mapsize.x]);
+        */
+    return (!hero->layers->manager.collision->data.map[
+        pos_v->x + pos_v->y * hero->layers->manager.mapsize.x]);
 }
 
 void player_move_up(hero_t *hero, sfIntRect *rect)
 {
     sfVector2f entitypos = hero->entity->pos;
     sfVector2u pos_v =  GET_REAL_POSITION_XY(entitypos, rect->width / 2,
-            rect->height / 3);
+            rect->height / 3, hero->layers->manager.tilesize);
 
     if (check_collision(&pos_v, hero))
         hero->entity->pos.y += -hero->speed;
@@ -46,7 +51,8 @@ void player_move_down(hero_t *hero, sfIntRect *rect)
 {
     sfVector2f entitypos = hero->entity->pos;
     sfVector2u pos_v = GET_REAL_POSITION_XY(entitypos,
-            rect->width / 2, rect->height / 2);
+        rect->width / 2, rect->height / 2,
+        hero->layers->manager.tilesize);
 
     if (check_collision(&pos_v, hero))
         hero->entity->pos.y += hero->speed;
@@ -56,7 +62,8 @@ void player_move_left(hero_t *hero, sfIntRect *rect)
 {
     sfVector2f entitypos = hero->entity->pos;
     sfVector2u pos_v = GET_REAL_POSITION_XY(
-            entitypos, 0, (rect->height / 2) - 2);
+        entitypos, 0, (rect->height / 2) - 2,
+        hero->layers->manager.tilesize);
 
     if (check_collision(&pos_v, hero))
         hero->entity->pos.x -= hero->speed;
@@ -66,7 +73,8 @@ void player_move_right(hero_t *hero, sfIntRect *rect)
 {
     sfVector2f entitypos = hero->entity->pos;
     sfVector2u pos_v = GET_REAL_POSITION_XY(
-            entitypos, (rect->width / 2) + 4, (rect->height / 2) - 2);
+        entitypos, (rect->width / 2) + 4, (rect->height / 2) - 2,
+        hero->layers->manager.tilesize);
 
     if (check_collision(&pos_v, hero))
         hero->entity->pos.x += hero->speed;

@@ -6,18 +6,17 @@
 */
 
 #include "myrpg/map/map.h"
+#include "distract/debug.h"
 
 static void set_full_alpha(sfVertex *vertex)
 {
-    sfColor alpha = sfColor_fromRGBA(0, 0, 0, 0);
-
-    vertex[0].color = alpha;
-    vertex[1].color = alpha;
-    vertex[2].color = alpha;
-    vertex[3].color = alpha;
+    vertex[0].color = sfColor_fromRGBA(0, 0, 0, 0);
+    vertex[1].color = sfColor_fromRGBA(0, 0, 0, 0);
+    vertex[2].color = sfColor_fromRGBA(0, 0, 0, 0);
+    vertex[3].color = sfColor_fromRGBA(0, 0, 0, 0);
 }
 
-static bool load_vertex_quad(layer_tileset_info_t *tileset_info,
+static void load_vertex_quad(layer_tileset_info_t *tileset_info,
     struct vertex_loader *ldata, ig_map_t *map)
 {
     struct tile_id_rot idrot = get_real_tile_id_and_rotation(
@@ -37,7 +36,10 @@ static bool load_vertex_quad(layer_tileset_info_t *tileset_info,
         (ldata->j + 1) * ldata->tilesize);
     quad[3].position = VEC2F(ldata->i * ldata->tilesize,
         (ldata->j + 1) * ldata->tilesize);
-    idrot.id == -1 ? set_full_alpha(quad) : set_txrot_quad(quad, ldata, &idrot);
+    if (idrot.id == -1)
+        set_full_alpha(quad);
+    else
+        set_txrot_quad(quad, ldata, &idrot);
 }
 
 bool load_vertex_tileset(layer_tileset_info_t *tileset_info,
@@ -56,4 +58,5 @@ bool load_vertex_tileset(layer_tileset_info_t *tileset_info,
             load_vertex_quad(tileset_info, &ldata, map);
         }
     }
+    return (true);
 }

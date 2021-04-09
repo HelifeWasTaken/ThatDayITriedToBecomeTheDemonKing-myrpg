@@ -53,7 +53,7 @@ static bool get_object_data(layer_object_info_t *object, ig_object_t *obj_layer)
     return (false);
 }
 
-static bool load_one_object_group(game_t *game, layer_object_manager_t **manager,
+static bool load_one_object_group(game_t *game UNUSED, layer_object_manager_t **manager,
     ig_layer_t *layer, usize_t z)
 {
     layer_object_info_t obj_info = {0};
@@ -63,7 +63,7 @@ static bool load_one_object_group(game_t *game, layer_object_manager_t **manager
         " but layer->object is null", false);
     for (usize_t i = 0; i < layer->objects->size; i++) {
         obj_info = (layer_object_info_t){0};
-        if (get_object_info(&obj_info, &layer->objects[i]) == false)
+        if (get_object_data(&obj_info, &layer->objects->data[i]) == false)
             return (false);
         if ((*manager)->layer->push_back(&(*manager)->layer, obj_info) == -1)
             return (false);
@@ -71,7 +71,7 @@ static bool load_one_object_group(game_t *game, layer_object_manager_t **manager
     return (true);
 }
 
-bool load_layers_object(game_t *game, layer_object_manager_t **manager, ig_map_t *map)
+bool load_layers_object(game_t *game UNUSED, layer_object_manager_t **manager, ig_map_t *map)
 {
     (*manager)->layer = VECTOR_CREATE(lobject_info);
     D_ASSERT((*manager)->layer, NULL, "Could not init layer data"

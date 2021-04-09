@@ -16,6 +16,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
+#include "distract/util.h"
 
 bool create_tileset_manager(game_t *game UNUSED, entity_t *entity)
 {
@@ -24,7 +25,7 @@ bool create_tileset_manager(game_t *game UNUSED, entity_t *entity)
 
     D_ASSERT(tileset_manager, NULL, "Could not init tileset manager", false);
     D_ASSERT(load_map_from_file(game, &mapconf), false, "", false);
-    if ((load_tileset(game, &mapconf, tileset_manager) == false) {
+    if (load_tileset(game, &mapconf, tileset_manager) == false) {
         destroy_iron_goat_map(&mapconf);
         return (false);
     }

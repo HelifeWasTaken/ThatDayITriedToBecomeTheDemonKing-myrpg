@@ -13,7 +13,7 @@ sfVertexArray *create_vertex(game_t *game, char *filepath)
     resource_t *resource = get_resource(game, filepath);
 
     if (resource == NULL) {
-        resource = create_resource(game, NULL, R_VERTEX);
+        resource = create_resource(game, filepath, R_VERTEX);
         if (resource == NULL)
             return (NULL);
         if ((resource->vao = sfVertexArray_create()) == NULL)
