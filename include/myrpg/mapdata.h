@@ -48,6 +48,16 @@
                 .warpfile = MAP_FILE_DIR"/warp_map_monde.json"
             }
         },
+        {
+            .p_info = {
+                .z_player = 6,
+                .pos = { 300, 309 }
+            },
+            .m_files = {
+                .mapfile = MAP_FILE_DIR"/cattle.json",
+                .warpfile = MAP_FILE_DIR"/castle_warp.json"
+            }
+        },
     };
 
     // If -1 is called there is a major problem
