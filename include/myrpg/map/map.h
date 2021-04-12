@@ -30,4 +30,5 @@
 
     #define GET_POS_MAP(v, mw, map) \
         map[(i64_t)((v).x + (v).y * (mw))]
+
 #endif

@@ -17,40 +17,40 @@ static void set_full_alpha(sfVertex *vertex)
 }
 
 static void load_vertex_quad(layer_tileset_info_t *tileset_info,
-    struct vertex_loader *ldata, ig_map_t *map)
+        struct vertex_loader *ldata, ig_map_t *map)
 {
     struct tile_id_rot idrot = get_real_tile_id_and_rotation(
-        map->layers->data[ldata->layerindex].data.data[
-        ldata->i + ldata->j * ldata->mapx]);
+            map->layers->data[ldata->layerindex].data.data[
+            ldata->i + ldata->j * ldata->mapx]);
     sfVertex *quad = sfVertexArray_getVertex(tileset_info->vtx,
-        (ldata->i + ldata->j * ldata->mapx) * 4);
+            (ldata->i + ldata->j * ldata->mapx) * 4);
 
     idrot.id -= map->tilesets->data[ldata->tilesetindex].firstgid;
     ldata->tu = idrot.id % (ldata->txsize.x / ldata->tilesize);
     ldata->tv = idrot.id / (ldata->txsize.x / ldata->tilesize);
     quad[0].position = VEC2F(ldata->i * ldata->tilesize,
-        ldata->j * ldata->tilesize);
+            ldata->j * ldata->tilesize);
     quad[1].position = VEC2F((ldata->i + 1) * ldata->tilesize,
-        ldata->j * ldata->tilesize);
+            ldata->j * ldata->tilesize);
     quad[2].position = VEC2F((ldata->i + 1) * ldata->tilesize,
-        (ldata->j + 1) * ldata->tilesize);
+            (ldata->j + 1) * ldata->tilesize);
     quad[3].position = VEC2F(ldata->i * ldata->tilesize,
-        (ldata->j + 1) * ldata->tilesize);
-    if (idrot.id == -1)
+            (ldata->j + 1) * ldata->tilesize);
+    if (idrot.id < 0)
         set_full_alpha(quad);
     else
         set_txrot_quad(quad, ldata, &idrot);
 }
 
 bool load_vertex_tileset(layer_tileset_info_t *tileset_info,
-    usize_t tilesetchose, usize_t i, ig_map_t *map)
+        usize_t tilesetchose, usize_t i, ig_map_t *map)
 {
     struct vertex_loader ldata = {0, 0, 0, 0, map->width, map->height,
         sfTexture_getSize(tileset_info->texture),
         map->tilesets->data[tilesetchose].tilewidth, tilesetchose, i};
 
     D_ASSERT(tileset_info->vtx, NULL,
-        "Vertex array could not be initted", false);
+            "Vertex array could not be initted", false);
     sfVertexArray_setPrimitiveType(tileset_info->vtx, sfQuads);
     sfVertexArray_resize(tileset_info->vtx, map->width * map->height * 4);
     for (ldata.i = 0; ldata.i < ldata.mapx; ++ldata.i) {

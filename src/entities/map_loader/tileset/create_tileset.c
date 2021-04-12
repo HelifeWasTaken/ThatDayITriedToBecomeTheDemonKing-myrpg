@@ -47,10 +47,8 @@ void destroy_layer_tileset(game_t *game UNUSED, entity_t *entity)
 void draw_layer_tileset(game_t *game UNUSED, entity_t *entity)
 {
     layer_tileset_t *layer_tileset = entity->instance;
-    static int layer_chose = 2;
 
     game->renderer.texture = layer_tileset->layer.texture;
-    if (layer_tileset->entity->z == layer_chose)
-        sfRenderWindow_drawVertexArray(game->window,
-            layer_tileset->layer.vtx, &game->renderer);
+    sfRenderWindow_drawVertexArray(game->window,
+        layer_tileset->layer.vtx, &game->renderer);
 }
