@@ -18,7 +18,6 @@ int await_scene(game_t *game, int scene_id)
         return (-1);
     set_pending_scene(game, scene_id);
     code = load_pending_scene(game);
-    printf("hahah");
     deallocate_scene(game->scene);
     game->scene = parent_scene;
     return (code);
