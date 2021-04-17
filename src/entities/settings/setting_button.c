@@ -15,6 +15,7 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "myrpg/scenes.h"
+#include "myrpg/state.h"
 #include "stdlib.h"
 #include <stdio.h>
 
@@ -51,7 +52,7 @@ void destroy_settings(game_t *game UNUSED, entity_t *entity)
 void update_settings(game_t *game UNUSED, entity_t *entity)
 {
     settings_t *setting_button = entity->instance;
-    parameters_t *param = game->state;
+    game_state_t *param = game->state;
 
     (void)param;
     sfSprite_setPosition(setting_button->sprite_button[1], VEC2F(300, 300));
@@ -76,14 +77,14 @@ bool handle_settings_events(game_t *game UNUSED,
     settings_t *button = entity->instance;
     sfFloatRect pos;
     sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
-    parameters_t *params = {0};
+    game_state_t *state = game->state;
 
     for (int i = 0; i <= 2; i++) {
         pos = sfSprite_getGlobalBounds(button->sprite_button[i]);
         if (sfFloatRect_contains(&pos, mouse.x, mouse.y)) {
             sfSprite_setScale(button->sprite_button[i], VEC2F(4, 4));
             sfSprite_setScale(button->sprite_button[2], VEC2F(2, 2));
-            return (function_button_settings(game, i, params,  entity));
+            return (function_button_settings(game, i, &state->params,  entity));
         } else {
             sfSprite_setScale(button->sprite_button[i], VEC2F(3, 3));
             sfSprite_setScale(button->sprite_button[2], VEC2F(2, 2));

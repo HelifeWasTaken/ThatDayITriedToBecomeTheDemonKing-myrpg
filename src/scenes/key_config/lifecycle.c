@@ -9,7 +9,7 @@
 #include "distract/entity.h"
 #include "distract/resources.h"
 #include "myrpg/entities.h"
-#include "myrpg/parameters.h"
+#include "myrpg/state.h"
 
 int key_lifecycle(game_t *game)
 {

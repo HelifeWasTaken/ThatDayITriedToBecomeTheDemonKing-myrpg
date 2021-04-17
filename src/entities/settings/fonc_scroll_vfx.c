@@ -15,7 +15,7 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "myrpg/scenes.h"
-#include "myrpg/parameters.h"
+#include "myrpg/state.h"
 #include "stdlib.h"
 #include <stdio.h>
 
