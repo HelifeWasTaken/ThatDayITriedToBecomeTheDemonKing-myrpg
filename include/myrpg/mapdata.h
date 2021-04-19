@@ -58,6 +58,26 @@
                 .warpfile = MAP_FILE_DIR"/castle_warp.json"
             }
         },
+        {
+            .p_info = {
+                .z_player = 3,
+                .pos = { 722, 119 }
+            },
+            .m_files = {
+                .mapfile = MAP_FILE_DIR"/forest_map.json",
+                .warpfile = MAP_FILE_DIR"/forest_warp.json"
+            }
+        },
+        {
+            .p_info = {
+                .z_player = 4,
+                .pos = { 408, 743 }
+            },
+            .m_files = {
+                .mapfile = MAP_FILE_DIR"/desert.json",
+                .warpfile = MAP_FILE_DIR"/warp_desert.json"
+            }
+        },
     };
 
     // If -1 is called there is a major problem
