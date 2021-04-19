@@ -15,7 +15,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
-#include "myrpg/parameters.h"
+#include "myrpg/state.h"
 
 
 bool create_vfx_scroll(game_t *game UNUSED, entity_t *entity)

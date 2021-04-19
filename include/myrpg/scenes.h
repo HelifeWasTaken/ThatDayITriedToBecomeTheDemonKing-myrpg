@@ -10,7 +10,7 @@
 
 #include "myrpg/entities.h"
 #include "myrpg/game.h"
-#include "myrpg/parameters.h"
+#include "myrpg/state.h"
 
 enum scene_id {
     PLAY_SCENE,

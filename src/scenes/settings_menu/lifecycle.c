@@ -7,7 +7,7 @@
 
 #include "distract/entity.h"
 #include "myrpg/entities.h"
-#include "myrpg/parameters.h"
+#include "myrpg/state.h"
 #include "myrpg/game.h"
 #include "myrpg/asset.h"
 #include "distract/game.h"
@@ -16,23 +16,23 @@
 
 void music_on_scroll(game_t *game, vfx_scroll_t *scroll)
 {
-    parameters_t *param = game->state;
+    game_state_t *state = game->state;
 
-    param->music_vol = scroll->percentage;
+    state->params.music_vol = scroll->percentage;
 }
 
 void vox_on_scroll(game_t *game, vfx_scroll_t *scroll)
 {
-    parameters_t *param = game->state;
+    game_state_t *state = game->state;
 
-    param->voice_vol = scroll->percentage;
+    state->params.voice_vol = scroll->percentage;
 }
 
 void vfx_on_scroll(game_t *game, vfx_scroll_t *scroll)
 {
-    parameters_t *param = game->state;
+    game_state_t *state = game->state;
 
-    param->vfx_vol = scroll->percentage;
+    state->params.vfx_vol = scroll->percentage;
 }
 
 void init_scroll_bar(game_t *game)

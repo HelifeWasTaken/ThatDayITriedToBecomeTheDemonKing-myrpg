@@ -13,11 +13,10 @@
 #include "distract/debug.h"
 #include "myrpg/entities.h"
 #include "myrpg/scenes.h"
+#include "myrpg/state.h"
 #include "stdlib.h"
 
 static const entity_info_t ENTITIES[] = {
-    ENTITY(PLAYER, &create_player, &draw_player,
-        &destroy_player, &update_player, &handle_player_events),
     ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
         &destroy_scroll_bar, &update_scroll_bar,
         &handle_scroll_bar_events),
@@ -65,17 +64,17 @@ static bool configure_entities(game_t *game UNUSED)
     return (true);
 }
 
-void configure_sound(game_t *game)
+void configure_state(game_t *game)
 {
-    parameters_t *param = malloc(sizeof(parameters_t) * 1);
+    game_state_t *state = malloc(sizeof(game_state_t) * 1);
 
-    param->music_vol = 1;
-    param->vfx_vol = 1;
-    param->voice_vol = 1;
-    param->music_muted = false;
-    param->vfx_muted = false;
-    param->voice_muted = false;
-    game->state = param;
+    state->params.music_vol = 1;
+    state->params.vfx_vol = 1;
+    state->params.voice_vol = 1;
+    state->params.music_muted = false;
+    state->params.vfx_muted = false;
+    state->params.voice_muted = false;
+    game->state = state;
 }
 
 void configure_game(game_t *game)
@@ -85,7 +84,7 @@ void configure_game(game_t *game)
     register_scene(game, MENU_SCENE, &menu_lifecycle);
     register_scene(game, KEY_CONFIG, &key_lifecycle);
     register_scene(game, SETTING_SCENE, &setting_lifecycle);
-    configure_sound(game);
+    configure_state(game);
     configure_entities(game);
 }
 
