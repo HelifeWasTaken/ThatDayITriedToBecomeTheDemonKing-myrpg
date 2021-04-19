@@ -30,6 +30,8 @@ int init_play_lifecycle(game_t *game)
     return (0);
 }
 
+
+
 int play_lifecycle(game_t *game)
 {
     sfEvent event;
