@@ -40,6 +40,8 @@ enum entity_type {
     WARP,
     HERO,
     VIEW,
+    NPC,
+    DIALOGBOX,
     DEBUGMENU
 };
 
@@ -194,6 +196,75 @@ typedef struct map_loader {
     entity_t *entity;
     layer_manager_t manager;
 } map_loader_t;
+
+bool create_layer(game_t *game, entity_t *entity);
+void draw_layer(game_t *game, entity_t *entity);
+void destroy_layer(game_t *game, entity_t *entity);
+
+typedef struct dialogbox {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfRectangleShape *background;
+    sfText *name_text;
+    sfText *content_text;
+    view_t *view;
+    struct npc *npc;
+    char pending_buffer[4096];
+    unsigned char chunk_id;
+    bool is_visible;
+} dialogbox_t;
+
+bool create_dialogbox(game_t *game, entity_t *entity);
+void update_dialogbox(game_t *game, entity_t *entity);
+void draw_dialogbox(game_t *game, entity_t *entity);
+void destroy_dialogbox(game_t *game, entity_t *entity);
+bool handle_dialogbox_events(game_t *game, entity_t *entity, sfEvent *event);
+bool show_dialog(struct npc *npc);
+void hide_dialog(dialogbox_t *dialog);
+void show_next_dialog(dialogbox_t *dialog);
+void wrap_dialog_text(dialogbox_t *dialog);
+
+typedef struct npc {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    hero_t *hero;
+    dialogbox_t *dialog;
+    char *name;
+    char **messages;
+} npc_t;
+
+bool create_npc(game_t *game, entity_t *entity);
+void update_npc(game_t *game, entity_t *entity);
+void draw_npc(game_t *game, entity_t *entity);
+void destroy_npc(game_t *game, entity_t *entity);
+bool handle_npc_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct layer_manager {
+    vertex_map_t map;
+    entity_t *entity;
+    unsigned int layers_count;
+    const struct warp *warp_list;
+} layer_manager_t;
+
+bool create_layer_manager(game_t *game, entity_t *entity);
+void destroy_layer_manager(game_t *game, entity_t *entity);
+bool generate_map(game_t *game);
+
+struct warp_data {
+    sfIntRect warpzone;
+    char *warploader;
+};
+
+INIT_VECTOR(wrp, struct warp_data, NULL);
+
+typedef struct warp {
+    entity_t *entity;
+    VECTOR(wrp) *warp;
+} warp_t;
+
+bool create_warp(game_t *game, entity_t *entity);
+void destroy_warp(game_t *game, entity_t *entity);
 
 bool create_map_loader(game_t *game, entity_t *entity);
 void destroy_map_loader(game_t *game, entity_t *entity);

@@ -11,8 +11,10 @@
 #include "distract/entity.h"
 #include "distract/resources.h"
 #include "distract/debug.h"
+#include "distract/util.h"
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
+    VIEW, DIALOGBOX, ATH,
     LAYER_MANAGER, VIEW, ATH, HERO,
 #if ENABLE_DEBUG_MENU
     DEBUGMENU
@@ -28,12 +30,34 @@ int init_play_lifecycle(game_t *game)
     return (0);
 }
 
+bool spawn_npc(game_t *game)
+{
+    npc_t *npc;
+    entity_t *entity = create_entity(game, NPC);
+    char **arr = dcalloc(sizeof(char *), 3);
+
+    arr[0] = estrdup("Stange instructions are written on this sign. "
+        "You can read things about segmentation fault, undefined behaviour "
+        "and manual word wrapping. It also mention something or "
+        "someone called 'C'. You wonder what all these things mean.");
+    arr[1] = estrdup("Looking at the sign fills you with DETERMINATION.");
+    if (entity == NULL)
+        return (false);
+    npc = entity->instance;
+    npc->name = "Sign";
+    npc->messages = arr;
+    npc->entity->pos = VEC2F(235, 674);
+    return (true);
+}
+
 int play_lifecycle(game_t *game)
 {
     sfEvent event;
 
     eprintf("LOADED GAME SCENE\n");
     if (init_play_lifecycle(game) == 84)
+        return (84);
+    if (!spawn_npc(game))
         return (84);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
