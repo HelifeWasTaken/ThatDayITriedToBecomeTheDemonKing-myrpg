@@ -112,24 +112,6 @@ void draw_menu(game_t *game UNUSED, entity_t *entity);
 bool handle_menu_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
 
-typedef struct player {
-    entity_t *entity;
-    pausable_clock_t *clock;
-    //parsed_args_t args = my_parse_args(argc, argv);
-
-    //if (my_char_in(args.flags, 'h')) {
-    //       print_help();
-    //    return (0);
-    //}
-    sfSprite *sprite;
-} player_t;
-
-bool create_player(game_t *game, entity_t *entity);
-void update_player(game_t *game, entity_t *entity);
-void draw_player(game_t *game, entity_t *entity);
-void destroy_player(game_t *game, entity_t *entity);
-bool handle_player_events(game_t *game, entity_t *entity, sfEvent *event);
-
 typedef struct scroll_bar {
     entity_t *entity;
     pausable_clock_t *clock;

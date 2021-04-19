@@ -65,7 +65,6 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 	    	src/entities/debugmenu/display.c \
 
 SRC = 	src/game.c \
-		    src/entities/player/player.c \
 	    	src/entities/scroll_bar/scroll_bar.c    \
         src/entities/settings/setting_button.c	\
 	      src/entities/settings/function_button.c	\
