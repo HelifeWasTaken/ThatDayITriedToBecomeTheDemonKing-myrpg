@@ -32,6 +32,21 @@ typedef struct scene {
 } scene_t;
 
 ///
+/// Allocate scene.
+///
+scene_t *allocate_scene(void);
+
+///
+/// Deallocate scene.
+///
+void deallocate_scene(scene_t *scene);
+
+///
+/// Push a scene on top of the scenes stack and await until the scene exit.
+///
+int await_scene(game_t *game, int scene_id);
+
+///
 /// Call the draw function of every entities in the scene.
 ///
 void draw_scene(game_t *game);

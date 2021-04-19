@@ -10,5 +10,6 @@
 bool is_scene_updated(game_t *game)
 {
     return (sfRenderWindow_isOpen(game->window)
-        && !game->scene->in_exit_state);
+        && !game->scene->in_exit_state
+        && !game->is_closing);
 }

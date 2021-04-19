@@ -53,6 +53,8 @@ SRC =	src/debug/print_error.c \
 		src/resources/texture.c \
 		src/resources/font.c \
 		src/resources/sound.c \
+		src/scene/allocate_scene.c \
+		src/scene/await_scene.c \
 		src/scene/destroy_scene.c \
 		src/scene/draw_scene.c \
 		src/scene/update_scene.c \

@@ -56,6 +56,11 @@ typedef struct game {
     input_t input;
 
     ///
+    /// Is the game in a closing state?
+    ///
+    bool is_closing;
+
+    ///
     /// global game parameters
     ///
     ///
