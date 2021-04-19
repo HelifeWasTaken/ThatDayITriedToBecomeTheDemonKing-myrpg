@@ -17,14 +17,16 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "myrpg/map/map.h"
+#include "distract/util.h"
 
 bool create_warpzone(game_t *game UNUSED, entity_t *entity)
 {
     warpzone_t *warpzone = dcalloc(sizeof(warpzone_t), 1);
 
-    D_ASSERT(warpzone, NULL, "", false);
+    D_ASSERT(warpzone, NULL, "Warpzone could not be initted", false);
     warpzone->entity = entity;
     entity->instance = warpzone;
+    return (true);
 }
 
 void destroy_warpzone(game_t *game UNUSED, entity_t *entity)

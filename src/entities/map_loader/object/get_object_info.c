@@ -46,7 +46,7 @@ static bool get_object_data(game_t *game,
     for (usize_t i = 0; i < ARRAY_SIZE(L_PARSER_OBJ); i++) {
         if (estrcmp(obj_layer->type, L_PARSER_OBJ[i].match) == 0) {
             object->obj.type = L_PARSER_OBJ[i].type;
-            return (L_PARSER_OBJ[i].parser(&object->obj, obj_layer));
+            return (L_PARSER_OBJ[i].parser(game, &object->obj, obj_layer));
         }
     }
     DEBUG_PRINTF("Layer object info loader did not"

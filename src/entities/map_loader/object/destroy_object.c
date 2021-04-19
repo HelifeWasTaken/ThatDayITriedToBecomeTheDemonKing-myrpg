@@ -7,12 +7,16 @@
 
 #include "myrpg/map/map.h"
 
-void (*DESTROY_PTR[])(layer_object_value_t *) = {
-    destroy_layer_object_warpzone,
-    destroy_layer_object_message
+struct destroy_ptr_fun {
+    void (*ptr)(layer_object_value_t *);
 };
 
-void destroy_layer_object_data(struct layer_object_data *layer)
+static const struct destroy_ptr_fun OBJ_DESTROY[] = {
+    { destroy_layer_object_warpzone },
+    { destroy_layer_object_message }
+};
+
+void destroy_layer_object_data(layer_object_info_t *obj)
 {
-    DESTROY_PTR[layer->type](&layer->object);
+    OBJ_DESTROY[obj->obj.type].ptr(&obj->obj.object);
 }

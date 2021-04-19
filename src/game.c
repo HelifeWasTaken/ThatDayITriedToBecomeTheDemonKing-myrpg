@@ -37,17 +37,16 @@ static const entity_info_t ENTITIES[] = {
         &destroy_dialogbox, &update_dialogbox, &handle_dialogbox_events),
     ENTITY(NPC, &create_npc, &draw_npc,
         &destroy_npc, &update_npc, &handle_npc_events),
-    ENTITY(WARP, &create_warp, NULL, &destroy_warp, NULL, NULL),
+    ENTITY(WARP, &create_warpzone, &update_warpzone,
+        &destroy_warpzone, NULL, NULL),
     ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
-        &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events)
+        &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events),
     ENTITY(LAYER_MANAGER, &create_map_loader, NULL,
             &destroy_map_loader, NULL, NULL),
     ENTITY(COLLISION_LAYER, &create_layer_collision,
         &draw_layer_collision, &destroy_layer_collision, NULL, NULL),
     ENTITY(OBJECT_LAYER_MANAGER, &create_layer_object_manager,
         NULL, &destroy_layer_object_manager, NULL, NULL),
-    ENTITY(OBJECT_LAYER, &create_layer_object, NULL,
-        &destroy_layer_object, NULL, NULL),
     ENTITY(TILESET_LAYER_MANAGER, &create_tileset_manager,
         NULL, &destroy_tileset_manager, NULL, NULL),
     ENTITY(TILESET_LAYER, &create_layer_tileset, &draw_layer_tileset,
@@ -111,7 +110,7 @@ int load_game(void)
         return (84);
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
-    game->scene->world_file = "asset/map_asset/map_files/map_monde.json";
+    game->scene->world_file = "asset/map_asset/map_files/map_village.json";
     do {
         code = load_pending_scene(game);
         if (code != 0)

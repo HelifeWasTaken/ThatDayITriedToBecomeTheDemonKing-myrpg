@@ -36,7 +36,6 @@ enum entity_type {
     TILESET_LAYER,
     COLLISION_LAYER,
     OBJECT_LAYER_MANAGER,
-    OBJECT_LAYER,
     WARP,
     HERO,
     VIEW,
@@ -197,6 +196,9 @@ typedef struct map_loader {
     layer_manager_t manager;
 } map_loader_t;
 
+bool create_map_loader(game_t *game, entity_t *entity);
+void destroy_map_loader(game_t *game, entity_t *entity);
+
 bool create_layer(game_t *game, entity_t *entity);
 void draw_layer(game_t *game, entity_t *entity);
 void destroy_layer(game_t *game, entity_t *entity);
@@ -239,35 +241,6 @@ void update_npc(game_t *game, entity_t *entity);
 void draw_npc(game_t *game, entity_t *entity);
 void destroy_npc(game_t *game, entity_t *entity);
 bool handle_npc_events(game_t *game, entity_t *entity, sfEvent *event);
-
-typedef struct layer_manager {
-    vertex_map_t map;
-    entity_t *entity;
-    unsigned int layers_count;
-    const struct warp *warp_list;
-} layer_manager_t;
-
-bool create_layer_manager(game_t *game, entity_t *entity);
-void destroy_layer_manager(game_t *game, entity_t *entity);
-bool generate_map(game_t *game);
-
-struct warp_data {
-    sfIntRect warpzone;
-    char *warploader;
-};
-
-INIT_VECTOR(wrp, struct warp_data, NULL);
-
-typedef struct warp {
-    entity_t *entity;
-    VECTOR(wrp) *warp;
-} warp_t;
-
-bool create_warp(game_t *game, entity_t *entity);
-void destroy_warp(game_t *game, entity_t *entity);
-
-bool create_map_loader(game_t *game, entity_t *entity);
-void destroy_map_loader(game_t *game, entity_t *entity);
 
 typedef struct debugmenu {
     entity_t *entity;

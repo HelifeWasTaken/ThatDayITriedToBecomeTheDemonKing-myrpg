@@ -27,17 +27,13 @@
 
 static bool init_dialogbox(game_t *game, dialogbox_t *dialogbox)
 {
-    sfIntRect rect = IRECT(0, 0, 216, 216);
-    sfTexture *texture = create_texture(game, "asset/collision.png", &rect);
     sfFont *font = create_font(game, "asset/title.ttf");
 
-    //D_ASSERT(texture, NULL, "Can't get texture", false)
     D_ASSERT(font, NULL, "Can't get font", false)
     sfText_setColor(dialogbox->name_text, sfBlack);
     sfText_setFont(dialogbox->name_text, font);
     sfText_setColor(dialogbox->content_text, sfBlack);
     sfText_setFont(dialogbox->content_text, font);
-    sfRectangleShape_setTexture(dialogbox->background, texture, false);
     sfRectangleShape_setSize(dialogbox->background, VEC2F(1280, 200));
     sfText_setPosition(dialogbox->name_text, VEC2F(120, 110));
     sfText_setPosition(dialogbox->content_text, VEC2F(120, 170));

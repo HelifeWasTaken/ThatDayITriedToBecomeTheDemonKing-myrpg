@@ -34,12 +34,10 @@ bool create_npc(game_t *game UNUSED, entity_t *entity)
 
     D_ASSERT(npc, NULL, "Cannot create npc", false);
     D_ASSERT(texture, NULL, "Cannot create npc texture", false);
-    D_ASSERT(heroentity, NULL, "Cannot get hero entity for npc", false);
     D_ASSERT(dialog, NULL, "Cannot get dialogbox entity for npc", false);
     npc->entity = entity;
     npc->clock = create_pausable_clock(game);
     npc->sprite = create_sprite(texture, NULL);
-    npc->hero = heroentity->instance;
     npc->dialog = dialog->instance;
     D_ASSERT(npc->clock, NULL, "Cannot create npc clock", false);
     D_ASSERT(npc->sprite, NULL, "Cannot create npc sprite", false);

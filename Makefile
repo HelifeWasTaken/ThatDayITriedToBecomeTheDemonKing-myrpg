@@ -38,20 +38,20 @@ SRC_MAP =	src/entities/map_loader/map_loader.c \
 			src/entities/map_loader/collision/collision_loader.c \
 			src/entities/map_loader/collision/create_collision.c \
 			src/entities/map_loader/object/create_layer_object_manager.c \
-			src/entities/map_loader/object/create_layer_object.c \
 			src/entities/map_loader/object/destroy_object.c \
 			src/entities/map_loader/object/get_object_info.c \
 			src/entities/map_loader/object/message/destroy_message.c \
 			src/entities/map_loader/object/message/load_pnj.c \
 			src/entities/map_loader/object/warpzone/destroy_warpzone.c \
 			src/entities/map_loader/object/warpzone/load_warp.c \
+			src/entities/map_loader/object/warpzone/warp_entity.c \
 			src/entities/map_loader/tileset/create_manager_tileset.c \
 			src/entities/map_loader/tileset/create_tileset.c \
 			src/entities/map_loader/tileset/load_tilesets.c \
 			src/entities/map_loader/tileset/load_tileset_texture.c \
 			src/entities/map_loader/tileset/load_vertex.c \
 			src/entities/map_loader/tileset/set_txrot_quad.c \
-			src/entities/map_loader/tileset/tileid_and_rotation.c
+			src/entities/map_loader/tileset/tileid_and_rotation.c \
 
 SRC_HERO = src/entities/hero/hero.c \
     		src/entities/hero/hero_collision.c \

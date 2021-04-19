@@ -46,7 +46,7 @@
     } warpzone_data_t;
 
     typedef union {
-        char *message;
+        char **message;
         warpzone_data_t warp;
     } layer_object_value_t;
 
@@ -62,14 +62,14 @@
         const enum layer_object_type type;
     } layer_parser_object_t;
 
-    void destroy_layer_object_data(struct layer_object_data *object);
-    void destroy_layer_object_warpzone(layer_object_value_t *object);
-    void destroy_layer_object_message(layer_object_value_t *object);
-    void destroy_layer_object_info(layer_object_info_t *data);
+    void destroy_layer_object_message(layer_object_value_t *value);
+    void destroy_layer_object_warpzone(layer_object_value_t *value);
+    void destroy_layer_object_data(layer_object_info_t *obj);
 
     bool load_warpzone(game_t *game,
         struct layer_object_data *data, ig_object_t *obj);
-    bool load_pnj(struct layer_object_data *data, ig_object_t *obj);
+    bool load_pnj(game_t *game,
+        struct layer_object_data *data, ig_object_t *obj);
     bool load_layers_object(game_t *game,
         struct layer_object_manager **manager, ig_map_t *map);
 
@@ -78,12 +78,13 @@
         usize_t z;
     };
 
-    INIT_VECTOR(lobject_info, layer_object_info_t, destroy_layer_object_info);
+    INIT_VECTOR(lobject_info, layer_object_info_t, NULL);
 
     typedef struct warpzone {
         entity_t *entity;
         warpzone_data_t *warp;
-        hero_t *hero;
+        sfIntRect rect;
+        struct hero *hero;
     } warpzone_t;
 
     bool create_warpzone(game_t *game, entity_t *entity);

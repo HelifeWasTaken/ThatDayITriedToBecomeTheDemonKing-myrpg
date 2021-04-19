@@ -71,5 +71,6 @@ bool load_warpzone(game_t *game,
         return (false);
     warp = entity->instance;
     warp->warp = &data->object.warp;
+    warp->rect = data->rect;
     return (true);
 }

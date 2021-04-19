@@ -53,11 +53,6 @@ static bool generate_entities_layer(game_t *game UNUSED,
     manager->collision = entity_stock->instance;
     if ((entity_stock = create_entity(game, OBJECT_LAYER_MANAGER)) == NULL)
         return (false);
-    manager->objects = entity_stock->instance;
-    for (usize_t i = 0; i < manager->objects->layer->size; i++) {
-        if (create_entity(game, OBJECT_LAYER) == NULL)
-            return (false);
-    }
     return (true);
 }
 

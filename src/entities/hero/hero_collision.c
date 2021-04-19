@@ -28,11 +28,6 @@ static bool check_collision(sfVector2u *pos_v, hero_t *hero)
         print_error("Warning: Unexpected collision encoutered");
         return (false);
     }
-/*    printf("%d %d %d %d\n", pos_v->x, pos_v->y, pos_v->x +
-        pos_v->y * hero->layers->manager.mapsize.x,
-        hero->layers->manager.collision->data.map[
-        pos_v->x + pos_v->y * hero->layers->manager.mapsize.x]);
-        */
     return (!hero->layers->manager.collision->data.map[
         pos_v->x + pos_v->y * hero->layers->manager.mapsize.x]);
 }
