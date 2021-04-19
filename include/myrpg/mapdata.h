@@ -60,7 +60,7 @@
         },
         {
             .p_info = {
-                .z_player = 3,
+                .z_player = 2,
                 .pos = { 722, 119 }
             },
             .m_files = {
