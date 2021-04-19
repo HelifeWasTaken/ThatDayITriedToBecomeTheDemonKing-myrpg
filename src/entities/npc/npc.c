@@ -30,7 +30,6 @@ bool create_npc(game_t *game UNUSED, entity_t *entity)
     npc_t *npc = dcalloc(sizeof(npc_t), 1);
     sfIntRect rect = IRECT(0, 0, 16, 16);
     sfTexture *texture = create_texture(game, "asset/icon/talk.png", &rect);
-    entity_t *heroentity = get_entity(game, HERO);
     entity_t *dialog = get_entity(game, DIALOGBOX);
 
     D_ASSERT(npc, NULL, "Cannot create npc", false);
@@ -69,8 +68,14 @@ void update_npc(game_t *game UNUSED, entity_t *entity)
 void draw_npc(game_t *game UNUSED, entity_t *entity)
 {
     npc_t *npc = entity->instance;
-    sfVector2f pos = sfSprite_getPosition(npc->hero->sprite);
-
+    entity_t *heroentity = get_entity(game, HERO);
+    sfVector2f pos;
+    
+    if (npc->hero == NULL) {
+        npc->hero = heroentity->instance;
+        return;
+    }
+    pos = npc->hero->entity->pos;
     if (v2fdistance(&pos, &entity->pos) < 50)
         sfRenderWindow_drawSprite(game->window, npc->sprite, NULL);
 }
@@ -79,8 +84,14 @@ bool handle_npc_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     npc_t *npc = entity->instance;
-    sfVector2f pos = npc->hero->entity->pos;
-
+    entity_t *heroentity = get_entity(game, HERO);
+    sfVector2f pos;
+    
+    if (npc->hero == NULL) {
+        npc->hero = heroentity->instance;
+        return (false);
+    }
+    pos = npc->hero->entity->pos;
     if (v2fdistance(&pos, &entity->pos) >= 50)
         return (false);
     if (event->type == sfEvtKeyPressed && event->key.code == sfKeySpace
