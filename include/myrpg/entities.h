@@ -10,9 +10,9 @@
 
 #include "distract/entity.h"
 #include "myrpg/game.h"
-#include "myrpg/map.h"
+#include "myrpg/map/map.h"
 #include "define.h"
-#include "erty/tuple.h"
+#include "myrpg/map/map.h"
 
 enum arrow_keys {
     KEY_DOWN,
@@ -21,6 +21,9 @@ enum arrow_keys {
     KEY_UP
 };
 
+// Everything related to layers
+// except layer_manager is located in
+// myrpg/map/map.h
 enum entity_type {
     PLAYER,
     SCROLL,
@@ -29,7 +32,11 @@ enum entity_type {
     VFX_SC,
     ATH,
     LAYER_MANAGER,
-    LAYER,
+    TILESET_LAYER_MANAGER,
+    TILESET_LAYER,
+    COLLISION_LAYER,
+    OBJECT_LAYER_MANAGER,
+    OBJECT_LAYER,
     WARP,
     HERO,
     VIEW,
@@ -71,7 +78,7 @@ typedef struct hero {
     pausable_clock_t *movement_clock;
     sfSprite *sprite;
     double speed;
-    const struct layer_manager *collision;
+    const struct map_loader *layers;
     bool disable_collision;
 } hero_t;
 
@@ -182,11 +189,13 @@ void set_size_vox(game_t *game, vfx_scroll_t *scroll);
 void set_size_mus(game_t *game, vfx_scroll_t *scroll);
 void set_size_vfx(game_t *game, vfx_scroll_t *scroll);
 
-typedef struct layer {
+// More entities in the layer_manager_t include
+// myrpg/map/map.h
+// Entities in this .h need also to be registered
+typedef struct map_loader {
     entity_t *entity;
-    unsigned int id;
-    struct layer_manager *manager;
-} layer_t;
+    layer_manager_t manager;
+} map_loader_t;
 
 bool create_layer(game_t *game, entity_t *entity);
 void draw_layer(game_t *game, entity_t *entity);
@@ -256,6 +265,9 @@ typedef struct warp {
 
 bool create_warp(game_t *game, entity_t *entity);
 void destroy_warp(game_t *game, entity_t *entity);
+
+bool create_map_loader(game_t *game, entity_t *entity);
+void destroy_map_loader(game_t *game, entity_t *entity);
 
 typedef struct debugmenu {
     entity_t *entity;

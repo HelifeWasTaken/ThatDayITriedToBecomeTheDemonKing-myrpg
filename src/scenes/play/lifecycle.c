@@ -14,7 +14,8 @@
 #include "distract/util.h"
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
-    VIEW, DIALOGBOX, ATH, HERO,
+    VIEW, DIALOGBOX, ATH,
+    LAYER_MANAGER, VIEW, ATH, HERO,
 #if ENABLE_DEBUG_MENU
     DEBUGMENU
 #endif
@@ -22,8 +23,6 @@ static const enum entity_type ENTITY_INITTER_PLAY[] = {
 
 int init_play_lifecycle(game_t *game)
 {
-    if (generate_map(game) == false)
-        return (84);
     for (unsigned int i = 0; i < ARRAY_SIZE(ENTITY_INITTER_PLAY); i++) {
         if (create_entity(game, ENTITY_INITTER_PLAY[i]) == NULL)
             return (84);

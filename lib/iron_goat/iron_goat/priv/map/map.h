@@ -1,7 +1,7 @@
 /*
-** EPITECH PROJECT, 2021
-** iron$
-** File description:
+** epitech project, 2021
+** iron
+** file description:
 ** goat
 */
 

@@ -21,7 +21,7 @@ typedef struct scene_info {
 
 typedef struct scene {
     int id;
-    int world_id;
+    char *world_file;
     scene_info_t *info;
     struct entity *entities;
     hashmap_t *resources;
@@ -61,9 +61,9 @@ void switch_to_scene(game_t *game, int id);
 
 ///
 /// Do no exit the current scene but recreate it to load a new world
-/// specified by an id
+/// specified by an file
 ///
-void switch_to_world(game_t *game, int id);
+void switch_to_world(game_t *game, char const *file);
 
 ///
 /// Set the scene to open when the current scene is closed.

@@ -19,6 +19,11 @@ typedef struct game {
     sfRenderWindow *window;
 
     ///
+    /// State renderer to draw
+    ///
+    sfRenderStates renderer;
+
+    ///
     /// Scenes registry
     ///
     struct scene_info *scenes;
