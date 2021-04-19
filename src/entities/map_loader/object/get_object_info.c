@@ -36,7 +36,8 @@ static const struct layer_parser_object L_PARSER_OBJ[] = {
     }
 };
 
-static bool get_object_data(layer_object_info_t *object, ig_object_t *obj_layer)
+static bool get_object_data(game_t *game,
+    layer_object_info_t *object, ig_object_t *obj_layer)
 {
     D_ASSERT(obj_layer->properties, NULL, "Expected to have at least one"
         " custom properties in the object data", false);
@@ -53,8 +54,8 @@ static bool get_object_data(layer_object_info_t *object, ig_object_t *obj_layer)
     return (false);
 }
 
-static bool load_one_object_group(game_t *game UNUSED, layer_object_manager_t **manager,
-    ig_layer_t *layer, usize_t z)
+static bool load_one_object_group(game_t *game UNUSED,
+    layer_object_manager_t **manager, ig_layer_t *layer, usize_t z)
 {
     layer_object_info_t obj_info = {0};
 
@@ -63,7 +64,7 @@ static bool load_one_object_group(game_t *game UNUSED, layer_object_manager_t **
         " but layer->object is null", false);
     for (usize_t i = 0; i < layer->objects->size; i++) {
         obj_info = (layer_object_info_t){0};
-        if (get_object_data(&obj_info, &layer->objects->data[i]) == false)
+        if (get_object_data(game, &obj_info, &layer->objects->data[i]) == false)
             return (false);
         if ((*manager)->layer->push_back(&(*manager)->layer, obj_info) == -1)
             return (false);

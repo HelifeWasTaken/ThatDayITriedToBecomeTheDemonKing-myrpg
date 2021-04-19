@@ -54,8 +54,12 @@ bool load_warpzone_coordinates_spawn(struct layer_object_data *data,
     return (false);
 }
 
-bool load_warpzone(struct layer_object_data *data, ig_object_t *obj)
+bool load_warpzone(game_t *game,
+    struct layer_object_data *data, ig_object_t *obj)
 {
+    entity_t *entity = NULL;
+    warpzone_t *warp = NULL;
+
     D_ASSERT(load_warpzone_world(data, obj), false,
         "Expected to load a property of string or "
         "file with a name world giving the next"
@@ -63,5 +67,9 @@ bool load_warpzone(struct layer_object_data *data, ig_object_t *obj)
     D_ASSERT(load_warpzone_coordinates_spawn(data, obj), false,
         "Expected to have an x and y coordinates called spawnx, and spawny to"
         " load the spawn for the \"afterwarp\"", false);
+    if ((entity = create_entity(game, WARP)) == NULL)
+        return (false);
+    warp = entity->instance;
+    warp->warp = &data->object.warp;
     return (true);
 }

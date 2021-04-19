@@ -106,7 +106,7 @@ int load_game(void)
         return (84);
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
-    game->scene->world_file = "asset/map_asset/map_files/map_village.json";
+    game->scene->world_file = "asset/map_asset/map_files/map_monde.json";
     do {
         code = load_pending_scene(game);
         if (code != 0)
