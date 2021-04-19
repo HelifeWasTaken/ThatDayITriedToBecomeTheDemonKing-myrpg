@@ -34,6 +34,11 @@ typedef struct game {
     struct scene *scene;
 
     ///
+    /// Sound emitter
+    ///
+    struct sound_emitter *sound;
+
+    ///
     /// Screen video mode
     ///
     sfVideoMode mode;

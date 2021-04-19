@@ -23,13 +23,13 @@ sound_emitter_t *create_sound_emitter(game_t *game);
 
 void destroy_sound_emitter(sound_emitter_t *emitter);
 
-void set_sound_volume(sound_emitter_t *emitter, unsigned char sound_type,
+float get_sound_volume(game_t *game, unsigned char sound_type);
+
+void set_sound_volume(game_t *game, unsigned char sound_type,
     float percentage);
 
-bool play_sound(game_t *game, sound_emitter_t *emitter, int sound_type,
-    char *file);
+bool play_sound(game_t *game, int sound_type, char *file);
 
-bool play_music(game_t *game, sound_emitter_t *emitter, int sound_type,
-    char *file);
+bool play_music(game_t *game, int sound_type, char *file);
 
 #endif /* D9549010_058C_4F95_B768_A6F8959E7D36 */

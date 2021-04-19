@@ -5,8 +5,10 @@
 ** Source code
 */
 #include "distract/entity.h"
+#include "distract/sound.h"
 #include "erty/eprintf.h"
 #include "myrpg/entities.h"
+#include "myrpg/asset.h"
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"
@@ -36,6 +38,7 @@ int play_lifecycle(game_t *game)
 {
     sfEvent event;
 
+    play_music(game, MUSIC, "asset/song/forest_cut.ogg");
     eprintf("LOADED GAME SCENE\n");
     if (init_play_lifecycle(game) == 84)
         return (84);

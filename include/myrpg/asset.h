@@ -84,4 +84,10 @@
         "asset/song/travel_cut.ogg", "asset/song/castle_cut.ogg",\
         "asset/song/forest_cut.ogg", "asset/song/desert_village_cut.ogg"}
 
+    typedef enum sound_types {
+        MUSIC,
+        SFX,
+        VOX
+    } sound_types_t;
+
 #endif
