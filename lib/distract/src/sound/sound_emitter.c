@@ -7,6 +7,7 @@
 
 #include <SFML/Audio.h>
 #include <SFML/Audio/Music.h>
+#include <SFML/Audio/Types.h>
 #include "distract/game.h"
 #include "distract/sound.h"
 #include "distract/resources.h"
@@ -56,6 +57,7 @@ bool play_music(game_t *game, int sound_type, char *file)
 
     if (music == NULL)
         return (false);
+    sfMusic_setLoop(music, true);
     sfMusic_setVolume(music, volume);
     sfMusic_play(music);
     return (true);
