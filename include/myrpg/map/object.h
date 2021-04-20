@@ -45,8 +45,12 @@
         sfVector2i spawn;
     } warpzone_data_t;
 
+
     typedef union {
-        char **message;
+        struct {
+            char **message;
+            char *name;
+        } pnj;
         warpzone_data_t warp;
     } layer_object_value_t;
 
@@ -78,7 +82,8 @@
         usize_t z;
     };
 
-    INIT_VECTOR(lobject_info, layer_object_info_t, NULL);
+    INIT_VECTOR(lobject_info, layer_object_info_t,
+                destroy_layer_object_data);
 
     typedef struct warpzone {
         entity_t *entity;

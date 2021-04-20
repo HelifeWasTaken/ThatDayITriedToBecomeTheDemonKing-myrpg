@@ -10,9 +10,11 @@
 
 void destroy_layer_object_message(layer_object_value_t *object)
 {
-    if (object->message == NULL)
-        return;
-    /*for (usize_t i = 0; object->message[i]; i++)
-        free(object->message[i]);*/
-    free(object->message);
+    if (object->pnj.message != NULL) {
+        for (usize_t i = 0; object->pnj.message[i]; i++)
+            free(object->pnj.message[i]);
+        free(object->pnj.message);
+    }
+    if (object->pnj.name != NULL)
+        free(object->pnj.name);
 }
