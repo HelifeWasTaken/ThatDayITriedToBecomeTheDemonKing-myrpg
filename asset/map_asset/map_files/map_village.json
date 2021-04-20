@@ -95,44 +95,11 @@
         }, 
         {
          "draworder":"topdown",
-         "id":8,
-         "name":"pnj",
-         "objects":[
-                {
-                 "height":0,
-                 "id":1,
-                 "name":"pnj one",
-                 "properties":[
-                        {
-                         "name":"message",
-                         "type":"string",
-                         "value":"i don't like you"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"sign"
-                        }],
-                 "rotation":0,
-                 "type":"pnj",
-                 "visible":true,
-                 "width":0,
-                 "x":233.337388726946,
-                 "y":687.822763161291
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
          "id":10,
          "name":"warp",
          "objects":[
                 {
-                 "height":6.8683216915235,
+                 "height":12.8683216915235,
                  "id":2,
                  "name":"to map monde ext 1",
                  "properties":[
@@ -294,7 +261,7 @@
                  "y":730.75
                 }, 
                 {
-                 "height":6.25,
+                 "height":16.25,
                  "id":20,
                  "name":"ferme int",
                  "properties":[
@@ -318,10 +285,10 @@
                  "visible":true,
                  "width":78.5,
                  "x":1472.75,
-                 "y":1305.5
+                 "y":1295.5
                 }, 
                 {
-                 "height":56.75,
+                 "height":68.0833333333334,
                  "id":21,
                  "name":"to map monde ext 2",
                  "properties":[
@@ -345,7 +312,40 @@
                  "visible":true,
                  "width":22.1666666666667,
                  "x":1.16666666666667,
-                 "y":436.833333333333
+                 "y":425.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":8,
+         "name":"pnj",
+         "objects":[
+                {
+                 "height":0,
+                 "id":1,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"i don't like you"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":233.337388726946,
+                 "y":687.822763161291
                 }],
          "opacity":1,
          "type":"objectgroup",
