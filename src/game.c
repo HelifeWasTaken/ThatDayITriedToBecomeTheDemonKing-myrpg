@@ -47,7 +47,7 @@ static bool configure_window(game_t *game)
     game->window = create_standard_window(game->mode, "My RPG");
     game->view = sfView_create();
     game->gui_view = sfView_createFromRect(FRECT(0, 0, WINDOW_W, WINDOW_H));
-    if (!game->window || game->view || game->gui_view) {
+    if (!game->window || !game->view || !game->gui_view) {
         print_error("Could not init window");
         return (false);
     }
