@@ -37,8 +37,6 @@ int init_play_lifecycle(game_t *game)
 int play_lifecycle(game_t *game)
 {
     sfEvent event;
-
-    play_music(game, MUSIC, "asset/song/forest_cut.ogg");
     eprintf("LOADED GAME SCENE\n");
     if (init_play_lifecycle(game) == 84)
         return (84);
@@ -53,6 +51,7 @@ int play_lifecycle(game_t *game)
         draw_scene(game);
         sfRenderWindow_display(game->window);
     }
+    //sfMusic_destroy(song);
     destroy_scene(game, true);
     return (0);
 }
