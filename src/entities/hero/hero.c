@@ -53,7 +53,6 @@ void destroy_hero(game_t *game UNUSED, entity_t *entity)
     free(hero);
 }
 
-// warps handling is prone to change
 void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     hero_t *hero = entity->instance;
