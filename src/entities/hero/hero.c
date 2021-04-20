@@ -35,7 +35,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
     hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
-    hero->entity->pos = VEC2F(50, 50);
+    hero->entity->pos = get_save_state(game)->player_pos;
     entity->instance = hero;
     hero->entity->z = 4;
     hero->speed = 2;
@@ -53,7 +53,6 @@ void destroy_hero(game_t *game UNUSED, entity_t *entity)
     free(hero);
 }
 
-// warps handling is prone to change
 void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     hero_t *hero = entity->instance;

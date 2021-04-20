@@ -19,6 +19,7 @@
 #include "myrpg/map/map.h"
 #include "distract/util.h"
 #include "myrpg/util.h"
+#include "myrpg/scenes.h"
 
 bool create_warpzone(game_t *game UNUSED, entity_t *entity)
 {
@@ -46,6 +47,9 @@ void update_warpzone(game_t *game UNUSED, entity_t *entity)
         return;
     }
     if (sfFloatRect_contains(&CAST_R(sfFloatRect, warpzone->rect),
-        warpzone->hero->entity->pos.x, warpzone->hero->entity->pos.y) == true)
+        warpzone->hero->entity->pos.x, warpzone->hero->entity->pos.y) == true) {
         switch_to_world(game, warpzone->warp.world);
+        get_save_state(game)->player_pos = CAST_V2(sfVector2f,
+            warpzone->warp.spawn);
+    }
 }
