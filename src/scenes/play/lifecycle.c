@@ -32,8 +32,6 @@ int init_play_lifecycle(game_t *game)
     return (0);
 }
 
-
-
 int play_lifecycle(game_t *game)
 {
     sfEvent event;
@@ -51,7 +49,6 @@ int play_lifecycle(game_t *game)
         draw_scene(game);
         sfRenderWindow_display(game->window);
     }
-    //sfMusic_destroy(song);
     destroy_scene(game, true);
     return (0);
 }
