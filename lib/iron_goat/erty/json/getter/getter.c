@@ -32,7 +32,7 @@ OPT(json) json_get(struct json *self, char *path, enum json_type type_expect)
     struct json value = {0};
 
     if (json_getter_loop(self, path, &value) == true) {
-        if (value.t == type_expect) {
+        if (value.t == type_expect || type_expect == JSON_ANY) {
             return (OK(json, value));
         } else {
             ASSERT("Json", "Argument asked was found but"

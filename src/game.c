@@ -24,10 +24,6 @@ static const entity_info_t ENTITIES[] = {
         &destroy_menu, NULL, &handle_menu_events),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, NULL, &handle_ath_events),
-    ENTITY(LAYER_MANAGER, &create_layer_manager, NULL,
-        &destroy_layer_manager, NULL, NULL),
-    ENTITY(LAYER, &create_layer, &draw_layer,
-        &destroy_layer, NULL, NULL),
     ENTITY(HERO, &create_hero, &draw_hero,
         &destroy_hero, &update_hero, NULL),
     ENTITY(VIEW, &create_view, NULL,
@@ -36,15 +32,31 @@ static const entity_info_t ENTITIES[] = {
         &destroy_settings, &update_settings, &handle_settings_events),
     ENTITY(VFX_SC, &create_vfx_scroll, &draw_vfx_scroll,
         &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
-    ENTITY(WARP, &create_warp, NULL, &destroy_warp, NULL, NULL),
+    ENTITY(DIALOGBOX, &create_dialogbox, &draw_dialogbox,
+        &destroy_dialogbox, &update_dialogbox, &handle_dialogbox_events),
+    ENTITY(NPC, &create_npc, &draw_npc,
+        &destroy_npc, &update_npc, &handle_npc_events),
+    ENTITY(WARP, &create_warpzone, &update_warpzone,
+        &destroy_warpzone, NULL, NULL),
     ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
-            &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events)
+        &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events),
+    ENTITY(LAYER_MANAGER, &create_map_loader, NULL,
+            &destroy_map_loader, NULL, NULL),
+    ENTITY(COLLISION_LAYER, &create_layer_collision,
+        &draw_layer_collision, &destroy_layer_collision, NULL, NULL),
+    ENTITY(OBJECT_LAYER_MANAGER, &create_layer_object_manager,
+        NULL, &destroy_layer_object_manager, NULL, NULL),
+    ENTITY(TILESET_LAYER_MANAGER, &create_tileset_manager,
+        NULL, &destroy_tileset_manager, NULL, NULL),
+    ENTITY(TILESET_LAYER, &create_layer_tileset, &draw_layer_tileset,
+        &destroy_layer_tileset, NULL, NULL)
 };
 
 static bool configure_window(game_t *game)
 {
     game->mode = MODE(WINDOW_W, WINDOW_H, 32);
     game->window = create_standard_window(game->mode, "My RPG");
+    game->renderer = DEFAULT_RENDERSTATE(NULL);
     if (!game->window) {
         print_error("Could not init window");
         return (false);
@@ -97,6 +109,7 @@ int load_game(void)
         return (84);
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
+    game->scene->world_file = "asset/map_asset/map_files/map_village.json";
     do {
         code = load_pending_scene(game);
         if (code != 0)

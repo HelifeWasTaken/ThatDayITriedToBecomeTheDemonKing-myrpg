@@ -35,8 +35,7 @@ static const struct iron_goat_get_property_parser IG_PROPS_TOKENS_PARSER[] = {
 };
 
 static bool iron_goat_set_property(struct json *conf,
-                                    struct iron_goat_property *self,
-                                    size_t i)
+    struct iron_goat_property *self, size_t i)
 {
     char *ptr = (char *)self;
     size_t offset = offsetof(struct iron_goat_property, value);
@@ -45,7 +44,7 @@ static bool iron_goat_set_property(struct json *conf,
     if (IG_PROPS_TOKENS_PARSER[i].callback != NULL)
         return (IG_PROPS_TOKENS_PARSER[i].callback(conf,
             offset, ptr));
-    ememcpy(ptr + offset, conf->v.null, IG_PROPS_TOKENS_PARSER[i].size_arg);
+    ememcpy(ptr + offset, &conf->v.number, IG_PROPS_TOKENS_PARSER[i].size_arg);
     return (true);
 }
 

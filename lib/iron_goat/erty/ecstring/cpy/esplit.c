@@ -16,12 +16,12 @@ void free_esplit(cstr_t *buf)
     efree(buf);
 }
 
-static void skip_char_copy(cstr_t str, char c, size_t *i)
+static void skip_char_copy(const_cstr_t str, char const c, size_t *i)
 {
     for (; str[*i] == c; (*i)++);
 }
 
-static size_t count_array(cstr_t str, char c)
+static size_t count_array(const_cstr_t str, char const c)
 {
     size_t count = 1;
     size_t i = 0;
@@ -36,7 +36,7 @@ static size_t count_array(cstr_t str, char c)
     return (count);
 }
 
-static cstr_t get_sub_string(cstr_t str, char c, size_t *i)
+static cstr_t get_sub_string(const_cstr_t str, const char c, size_t *i)
 {
     size_t index2 = *i;
     char *new = NULL;
@@ -49,7 +49,7 @@ static cstr_t get_sub_string(cstr_t str, char c, size_t *i)
     return (new);
 }
 
-cstr_t *split(cstr_t str, char c)
+cstr_t *esplit(const_cstr_t str, const char c)
 {
     size_t i = 0;
     size_t j = 0;
