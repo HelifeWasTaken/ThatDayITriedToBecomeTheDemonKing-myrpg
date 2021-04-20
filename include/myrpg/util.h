@@ -109,6 +109,6 @@ bool deser_frect(struct json *conf, size_t offset, void *data);
 #define CAST_R(cast, r) \
     (cast){ .top = r.top, .left = r.left, .width = r.width, .height = r.height }
 
-game_save_t *get_save_state(game_t *game);
+game_state_t *get_game_state(game_t *game);
 
 #endif

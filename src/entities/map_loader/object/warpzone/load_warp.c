@@ -35,12 +35,14 @@ bool load_warpzone_world(struct layer_object_data *data, ig_object_t *obj)
 bool load_warpzone_coordinates_spawn(struct layer_object_data *data,
     ig_object_t *obj)
 {
+    bool hasx = false;
+
     for (usize_t i = 0; i < obj->properties->size; i++) {
         if ((obj->properties->data[i].type == PROP_INT ||
             obj->properties->data->type == PROP_FLOAT) &&
             estrcmp(obj->properties->data[i].name, "spawnx") == 0) {
             data->object.warp.spawn.x = obj->properties->data[i].value.i;
-            return (true);
+            hasx = true;
         }
     }
     for (usize_t i = 0; i < obj->properties->size; i++) {
@@ -48,7 +50,7 @@ bool load_warpzone_coordinates_spawn(struct layer_object_data *data,
             obj->properties->data->type == PROP_FLOAT) &&
             estrcmp(obj->properties->data[i].name, "spawny") == 0) {
             data->object.warp.spawn.y = obj->properties->data[i].value.i;
-            return (true);
+            return (hasx == true);
         }
     }
     return (false);
@@ -70,6 +72,8 @@ bool load_warpzone(game_t *game,
     if ((entity = create_entity(game, WARP)) == NULL)
         return (false);
     warp = entity->instance;
+    printf("%d %d\n",
+        data->object.warp.spawn.x, data->object.warp.spawn.y);
     warp->warp.spawn = data->object.warp.spawn;
     warp->rect = data->rect;
     warp->warp.world = data->object.warp.world;

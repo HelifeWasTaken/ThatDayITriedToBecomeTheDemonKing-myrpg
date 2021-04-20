@@ -112,7 +112,7 @@ int load_game(void)
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
     game->scene->world_file = "asset/map_asset/map_files/map_village.json";
-    get_save_state(game)->player_pos = VEC2F(2060, 100);
+    get_game_state(game)->save.player_pos = VEC2F(2060, 100);
     do {
         code = load_pending_scene(game);
         if (code != 0)
