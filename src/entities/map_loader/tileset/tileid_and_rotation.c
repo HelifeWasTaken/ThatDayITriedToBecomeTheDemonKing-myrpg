@@ -5,7 +5,7 @@
 ** myrpg
 */
 
-#include "myrpg/map.h"
+#include "myrpg/map/map.h"
 
 static const uint64_t FLIP_H_FLAG = 0x80000000;
 static const uint64_t FLIP_V_FLAG = 0x40000000;

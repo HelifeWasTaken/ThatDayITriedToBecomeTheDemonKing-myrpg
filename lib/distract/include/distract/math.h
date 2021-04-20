@@ -115,6 +115,8 @@ sfVector2f *pv2fmulf(sfVector2f *v1, float f);
 ///
 sfVector2i *pv2imulf(sfVector2i *v1, float f);
 
-#define ABS(x) (x < 0 ? -x : x)
+#ifndef ABS
+    #define ABS(x) (x < 0 ? -x : x)
+#endif
 
 #endif //DISTRACT_MATH_H

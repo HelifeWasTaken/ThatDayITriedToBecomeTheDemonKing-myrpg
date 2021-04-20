@@ -13,6 +13,7 @@
 #include "distract/def.h"
 #include "myrpg/matrix.h"
 #include "erty/eprintf.h"
+#include "myrpg/state.h"
 
 #define SIZE_COLLIDE_R 4
 
@@ -107,5 +108,7 @@ bool deser_frect(struct json *conf, size_t offset, void *data);
 
 #define CAST_R(cast, r) \
     (cast){ .top = r.top, .left = r.left, .width = r.width, .height = r.height }
+
+game_state_t *get_game_state(game_t *game);
 
 #endif

@@ -28,7 +28,7 @@ resource_t *create_resource(game_t *game, char *file, enum resource_type type)
         free(resource);
         return (NULL);
     }
-    if (hashmap_set(&game->scene->resources, file, resource) < 0) {
+    if (hashmap_set(&game->scene->resources, resource->path, resource) < 0) {
         free(resource);
         print_error("Failed to set in hashmap resource");
         return (NULL);
@@ -44,24 +44,23 @@ resource_t *get_resource(game_t *game, char *file)
 void destroy_resource_asset(resource_t *resource)
 {
     switch(resource->type) {
-        case R_TEXTURE:
-            SAFE_RESOURCE_DESTROY(sfTexture_destroy, resource->texture);
+        case R_TEXTURE: SAFE_RESOURCE_DESTROY(sfTexture_destroy,
+            resource->texture);
             break;
-        case R_SOUND:
-            SAFE_RESOURCE_DESTROY(sfSound_destroy, resource->sound);
+        case R_SOUND: SAFE_RESOURCE_DESTROY(sfSound_destroy, resource->sound);
             break;
-        case R_SOUND_BUFFER:
-            SAFE_RESOURCE_DESTROY(sfSoundBuffer_destroy,
-                resource->sound_buffer);
+        case R_SOUND_BUFFER: SAFE_RESOURCE_DESTROY(sfSoundBuffer_destroy,
+            resource->sound_buffer);
             break;
-        case R_MUSIC:
-            SAFE_RESOURCE_DESTROY(sfMusic_destroy, resource->music);
+        case R_MUSIC: SAFE_RESOURCE_DESTROY(sfMusic_destroy, resource->music);
             break;
-        case R_FONT:
-            SAFE_RESOURCE_DESTROY(sfFont_destroy, resource->font);
+        case R_FONT: SAFE_RESOURCE_DESTROY(sfFont_destroy, resource->font);
             break;
-        default:
-            print_error("Unknown asset");
+        case R_VERTEX: SAFE_RESOURCE_DESTROY(sfVertexArray_destroy,
+            resource->vao);
+            break;
+        default: print_error("Unknown asset");
+            break;
     }
 }
 

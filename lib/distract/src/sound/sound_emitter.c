@@ -7,11 +7,12 @@
 
 #include <SFML/Audio.h>
 #include <SFML/Audio/Music.h>
+#include <SFML/Audio/Types.h>
 #include "distract/game.h"
-#include "distract/sound_emitter.h"
+#include "distract/sound.h"
 #include "distract/resources.h"
 
-sound_emitter_t *create_sound_emitter(game_t *game)
+sound_emitter_t *create_sound_emitter(game_t *game UNUSED)
 {
     sound_emitter_t *emitter = dcalloc(1, sizeof(sound_emitter_t));
 
@@ -23,15 +24,21 @@ sound_emitter_t *create_sound_emitter(game_t *game)
     return (emitter);
 }
 
-void set_sound_volume(sound_emitter_t *emitter, unsigned char sound_type,
+void set_sound_volume(game_t *game, unsigned char sound_type,
     float percentage)
 {
-    emitter->volumes[sound_type] = percentage;
+    game->sound->volumes[sound_type] = percentage;
 }
 
-bool play_sound(game_t *game, sound_emitter_t *emitter, int sound_type,
-    char *file)
+float get_sound_volume(game_t *game, unsigned char sound_type)
 {
+    return game->sound->volumes[sound_type];
+}
+
+bool play_sound(game_t *game, int sound_type, char *file)
+{
+    sound_emitter_t *emitter = game->sound;
+
     float volume = sound_type == -1 ? 100 : emitter->volumes[sound_type];
     sfSound *sound = create_sound(game, file);
 
@@ -42,14 +49,15 @@ bool play_sound(game_t *game, sound_emitter_t *emitter, int sound_type,
     return (true);
 }
 
-bool play_music(game_t *game, sound_emitter_t *emitter, int sound_type,
-    char *file)
+bool play_music(game_t *game, int sound_type, char *file)
 {
+    sound_emitter_t *emitter = game->sound;
     float volume = sound_type == -1 ? 100 : emitter->volumes[sound_type];
     sfMusic *music = create_music(game, file);
 
     if (music == NULL)
         return (false);
+    sfMusic_setLoop(music, true);
     sfMusic_setVolume(music, volume);
     sfMusic_play(music);
     return (true);

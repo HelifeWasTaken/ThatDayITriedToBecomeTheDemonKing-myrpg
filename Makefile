@@ -34,16 +34,24 @@ TARGET = my_rpg
 
 TARGET_TEST = unit_tests
 
-SRC_MAP =	src/entities/map_loader/checks_tileset_layer.c \
-			src/entities/map_loader/draw_vertex_array.c \
-			src/entities/map_loader/get_tile_id_and_rotation.c \
-			src/entities/map_loader/load_vertex_array_map.c \
-			src/entities/map_loader/load_vertex_array.c \
-			src/entities/map_loader/load_texture_coords_rot.c \
-			src/entities/map_loader/create_layer.c \
-			src/entities/map_loader/create_layer_manager.c \
-			src/entities/map_loader/generate_map.c \
-			src/entities/map_loader/create_warp.c
+SRC_MAP =	src/entities/map_loader/map_loader.c \
+			src/entities/map_loader/collision/collision_loader.c \
+			src/entities/map_loader/collision/create_collision.c \
+			src/entities/map_loader/object/create_layer_object_manager.c \
+			src/entities/map_loader/object/destroy_object.c \
+			src/entities/map_loader/object/get_object_info.c \
+			src/entities/map_loader/object/message/destroy_message.c \
+			src/entities/map_loader/object/message/load_pnj.c \
+			src/entities/map_loader/object/warpzone/destroy_warpzone.c \
+			src/entities/map_loader/object/warpzone/load_warp.c \
+			src/entities/map_loader/object/warpzone/warp_entity.c \
+			src/entities/map_loader/tileset/create_manager_tileset.c \
+			src/entities/map_loader/tileset/create_tileset.c \
+			src/entities/map_loader/tileset/load_tilesets.c \
+			src/entities/map_loader/tileset/load_tileset_texture.c \
+			src/entities/map_loader/tileset/load_vertex.c \
+			src/entities/map_loader/tileset/set_txrot_quad.c \
+			src/entities/map_loader/tileset/tileid_and_rotation.c \
 
 SRC_HERO = src/entities/hero/hero.c \
     		src/entities/hero/hero_collision.c \
@@ -55,7 +63,8 @@ SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
         src/scenes/key_config/lifecycle.c \
         src/scenes/settings_menu/lifecycle.c  \
 
-SRC_UTIL = src/util/sfml_deser.c
+SRC_UTIL = src/util/sfml_deser.c \
+		   src/util/get_save_state.c
 
 SRC_MENU = src/entities/menu/menu.c \
         src/entities/menu/create_menu.c \
@@ -65,14 +74,18 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 	    	src/entities/debugmenu/display.c \
 
 SRC = 	src/game.c \
-	    	src/entities/scroll_bar/scroll_bar.c    \
+	    src/entities/scroll_bar/scroll_bar.c    \
         src/entities/settings/setting_button.c	\
-	      src/entities/settings/function_button.c	\
-	      src/entities/settings/vfx_scroll.c	\
-	      src/entities/settings/fonc_scroll_vfx.c	\
+	    src/entities/settings/function_button.c	\
+	    src/entities/settings/vfx_scroll.c	\
+	    src/entities/settings/fonc_scroll_vfx.c	\
         src/entities/settings/set_size.c 	\
         src/entities/ath/ath.c \
         src/entities/view/view.c \
+		src/entities/dialogbox/dialogbox.c \
+		src/entities/dialogbox/create.c \
+		src/entities/dialogbox/show_text.c \
+		src/entities/npc/npc.c \
         $(SRC_DEBUGMENU) \
         $(SRC_MENU) \
         $(SRC_UTIL) \
