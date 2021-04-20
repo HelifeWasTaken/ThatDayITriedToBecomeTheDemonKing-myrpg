@@ -36,7 +36,6 @@ static bool create_texture_tileset(game_t *game,
     D_ASSERT(file, NULL, "Could not allocate memory", false);
     args->manager->texture =
         create_texture(game, file, NULL);
-    FREE(file);
     return (args->manager->texture != NULL);
 }
 
