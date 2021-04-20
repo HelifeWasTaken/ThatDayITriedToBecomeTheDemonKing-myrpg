@@ -63,7 +63,8 @@ SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
         src/scenes/key_config/lifecycle.c \
         src/scenes/settings_menu/lifecycle.c  \
 
-SRC_UTIL = src/util/sfml_deser.c
+SRC_UTIL = src/util/sfml_deser.c \
+		   src/util/get_save_state.c
 
 SRC_MENU = src/entities/menu/menu.c \
         src/entities/menu/create_menu.c \

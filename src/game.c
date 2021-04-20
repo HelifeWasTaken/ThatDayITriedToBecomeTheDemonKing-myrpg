@@ -15,6 +15,8 @@
 #include "myrpg/scenes.h"
 #include "myrpg/state.h"
 #include "stdlib.h"
+#include "myrpg/scenes.h"
+#include "myrpg/util.h"
 
 static const entity_info_t ENTITIES[] = {
     ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
@@ -110,6 +112,7 @@ int load_game(void)
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
     game->scene->world_file = "asset/map_asset/map_files/map_village.json";
+    get_save_state(game)->player_pos = VEC2F(2060, 100);
     do {
         code = load_pending_scene(game);
         if (code != 0)
