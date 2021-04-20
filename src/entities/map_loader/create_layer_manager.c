@@ -19,6 +19,7 @@
 #include "myrpg/map.h"
 #include "distract/debug.h"
 #include "myrpg/mapdata.h"
+#include "distract/sound.h"
 
 static const char *MAP_DIRECTORY = "asset/map_asset/map_files/";
 
@@ -43,6 +44,7 @@ bool create_layer_manager(game_t *game UNUSED, entity_t *entity)
     layer->entity = entity;
     layer->map = vmap;
     entity->instance = layer;
+    play_music(game, MUSIC, SCENE_SONG[game->scene->world_id]);
     return (true);
 }
 

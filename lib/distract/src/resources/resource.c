@@ -28,7 +28,7 @@ resource_t *create_resource(game_t *game, char *file, enum resource_type type)
         free(resource);
         return (NULL);
     }
-    if (hashmap_set(&game->scene->resources, file, resource) < 0) {
+    if (hashmap_set(&game->scene->resources, resource->path, resource) < 0) {
         free(resource);
         print_error("Failed to set in hashmap resource");
         return (NULL);

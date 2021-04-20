@@ -8,6 +8,7 @@
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/hashmap.h"
+#include "distract/sound.h"
 #include "stdlib.h"
 #include "distract/debug.h"
 #include "distract/util.h"
@@ -16,8 +17,9 @@ game_t *create_game(void)
 {
     game_t *game = dcalloc(1, sizeof(game_t));
     
+    game->sound = create_sound_emitter(game);
     game->scene = allocate_scene();
-    if (game == NULL || game->scene == NULL) {
+    if (game == NULL || game->sound == NULL || game->scene == NULL) {
         print_error("Game initialisation failed");
         return (NULL);
     }
@@ -58,6 +60,7 @@ void destroy_game(game_t *game)
         sfRenderWindow_destroy(game->window);
     destroy_scene(game, true);
     deallocate_scene(game->scene);
+    destroy_sound_emitter(game->sound);
     destroy_entity_infos(game);
     destroy_scene_infos(game);
     free(game);

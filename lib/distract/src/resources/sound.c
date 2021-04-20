@@ -40,7 +40,7 @@ sfMusic *create_music(game_t *game, char *filepath)
     resource_t *resource = get_resource(game, filepath);
 
     if (resource == NULL) {
-        resource = create_resource(game, NULL, R_MUSIC);
+        resource = create_resource(game, filepath, R_MUSIC);
         if (resource == NULL)
             return (NULL);
         if ((resource->music = sfMusic_createFromFile(filepath)) == NULL)

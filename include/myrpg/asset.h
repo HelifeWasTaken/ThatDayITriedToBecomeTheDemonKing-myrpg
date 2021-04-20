@@ -80,4 +80,14 @@
     #define FULL_HERO_FIGHT_RECT IRECT(0 ,0, 450, 166)
     #define ONE_HERO_FIGHT_RECT IRECT(0, 0, 90, 83)
 
+    #define SCENE_SONG (char *[]) {"asset/song/village_audio_cut.ogg",\
+        "asset/song/travel_cut.ogg", "asset/song/castle_cut.ogg",\
+        "asset/song/forest_cut.ogg", "asset/song/desert_village_cut.ogg"}
+
+    typedef enum sound_types {
+        MUSIC,
+        SFX,
+        VOX
+    } sound_types_t;
+
 #endif
