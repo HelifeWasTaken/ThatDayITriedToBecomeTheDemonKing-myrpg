@@ -64,7 +64,7 @@ static const struct json_deser_data IG_OBJECT[] = {
             .woff = false
         },
         .type = JSON_BOOL,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".gid",
@@ -75,7 +75,7 @@ static const struct json_deser_data IG_OBJECT[] = {
             .woff = false
         },
         .type = JSON_NUM,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".height",
@@ -119,7 +119,7 @@ static const struct json_deser_data IG_OBJECT[] = {
             .woff = false
         },
         .type = JSON_BOOL,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".polygon",
@@ -130,7 +130,7 @@ static const struct json_deser_data IG_OBJECT[] = {
             .woff = false
         },
         .type = JSON_ARR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".properties",
@@ -163,7 +163,7 @@ static const struct json_deser_data IG_OBJECT[] = {
             .woff = true
         },
         .type = JSON_STR,
-        .opt = false
+        .opt = true
     },
     {
         .data = ".type",
