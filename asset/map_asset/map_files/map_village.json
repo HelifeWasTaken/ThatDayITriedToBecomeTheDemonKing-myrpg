@@ -203,7 +203,7 @@
                         {
                          "name":"world",
                          "type":"string",
-                         "value":"asset\/map_asset\/map_village.json"
+                         "value":"asset\/map_asset\/map_files\/map_village.json"
                         }],
                  "rotation":0,
                  "type":"warpzone",
