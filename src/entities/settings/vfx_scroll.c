@@ -17,7 +17,6 @@
 #include "myrpg/define.h"
 #include "myrpg/parameters.h"
 
-
 bool create_vfx_scroll(game_t *game UNUSED, entity_t *entity)
 {
     vfx_scroll_t *vfx_scroll = malloc(sizeof(vfx_scroll_t) * 1);
@@ -57,7 +56,8 @@ void update_vfx_scroll(game_t *game UNUSED, entity_t *entity)
     vfx_scroll_t *vfx_scroll = entity->instance;
     sfFloatRect pos = sfSprite_getGlobalBounds(vfx_scroll->sprite_bar);
 
-    sfText_setPosition(vfx_scroll->text, VEC2F(pos.left, pos.top - (pos.height / 2)));
+    sfText_setPosition(vfx_scroll->text,
+        VEC2F(pos.left, pos.top - (pos.height / 2)));
     tick_pausable_clock(vfx_scroll->clock);
 }
 

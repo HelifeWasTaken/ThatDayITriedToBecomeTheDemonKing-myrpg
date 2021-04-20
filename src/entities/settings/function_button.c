@@ -19,7 +19,6 @@
 #include "stdlib.h"
 #include <stdio.h>
 
-
 void vfx_scrolin(game_t *game UNUSED,
     parameters_t *parm UNUSED, entity_t *entity UNUSED)
 {
@@ -34,7 +33,6 @@ void vfx_scrolin(game_t *game UNUSED,
             VEC2F(mouse.x - 20, pos.y));
     return;
 }
-
 
 void load_button(game_t *game, sfTexture *texture, settings_t *setting_button)
 {
