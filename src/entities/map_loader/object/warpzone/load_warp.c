@@ -70,7 +70,9 @@ bool load_warpzone(game_t *game,
     if ((entity = create_entity(game, WARP)) == NULL)
         return (false);
     warp = entity->instance;
-    warp->warp = &data->object.warp;
+    warp->warp.spawn = data->object.warp.spawn;
+    warp->rect = data->rect;
+    warp->warp.world = data->object.warp.world;
     warp->rect = data->rect;
     return (true);
 }

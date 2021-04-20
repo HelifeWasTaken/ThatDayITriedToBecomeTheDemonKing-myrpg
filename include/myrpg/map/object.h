@@ -82,7 +82,7 @@
 
     typedef struct warpzone {
         entity_t *entity;
-        warpzone_data_t *warp;
+        warpzone_data_t warp;
         sfIntRect rect;
         struct hero *hero;
     } warpzone_t;

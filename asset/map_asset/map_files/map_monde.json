@@ -55,7 +55,7 @@
         {
          "columns":112,
          "firstgid":1,
-         "image":"asset\/map_asset\/map_monde_sheet.png",
+         "image":"..\/map_monde_sheet.png",
          "imageheight":512,
          "imagewidth":1792,
          "margin":0,
