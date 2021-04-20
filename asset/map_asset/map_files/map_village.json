@@ -112,8 +112,46 @@
                  "type":"pnj",
                  "visible":true,
                  "width":0,
-                 "x":246.857426397618,
-                 "y":710.800529275554
+                 "x":222.587388726946,
+                 "y":687.572763161291
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"warp",
+         "objects":[
+                {
+                 "height":17.3683216915235,
+                 "id":2,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"spawnx",
+                         "type":"int",
+                         "value":200
+                        }, 
+                        {
+                         "name":"spawny",
+                         "type":"int",
+                         "value":200
+                        }, 
+                        {
+                         "name":"world",
+                         "type":"string",
+                         "value":"asset\/map_asset\/map_files\/map_monde.json"
+                        }],
+                 "rotation":0,
+                 "type":"warpzone",
+                 "visible":true,
+                 "width":57.3909760241646,
+                 "x":243.9116481027,
+                 "y":0.377572210685293
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -121,8 +159,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":2,
+ "nextlayerid":11,
+ "nextobjectid":3,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.3",
