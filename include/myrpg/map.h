@@ -5,7 +5,6 @@
 ** map
 */
 
-
 #ifndef __MY_RPG__MAP__H__
     #define __MY_RPG__MAP__H__
 

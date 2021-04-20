@@ -33,7 +33,7 @@ sfSprite *init_bkbtn(game_t *game, entity_t * entity)
 
 sfSprite *init_background(game_t *game, entity_t *entity)
 {
-    sfTexture *texture = create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT);
+    sfTexture *texture = create_texture(game, MAIN_MENU_BG, NULL);
     sfSprite *sprite = NULL;
 
     D_ASSERT(texture, NULL, "error texture background", NULL);
@@ -53,4 +53,15 @@ sfText *init_text(game_t *game, entity_t *entity)
     sfText_setString(text, "BACK");
     sfText_setCharacterSize(text, 40);
     return (text);
+}
+
+sfSprite *init_ground(game_t *game, entity_t *entity)
+{
+    sfTexture *texture = create_texture(game, SET_BACK, NULL);
+    sfSprite *sprite = NULL;
+
+    D_ASSERT(texture, NULL, "error background setting", NULL);
+    sprite = create_sprite(texture, NULL);
+    D_ASSERT(sprite, NULL, "error sprite background sett", NULL);
+
 }

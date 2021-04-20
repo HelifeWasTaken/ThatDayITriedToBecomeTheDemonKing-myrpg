@@ -35,11 +35,13 @@ void vfx_scrolin(game_t *game UNUSED,
     return;
 }
 
-void load_button(game_t *game, settings_t *setting_button)
+bool load_button(game_t *game, settings_t *setting_button)
 {
     sfTexture *texture = create_texture(game, BACK_BUTTON, NULL);
 
-    setting_button->sprite_button = create_sprite(texture, NULL);
+    D_ASSERT(texture, NULL, "error back button", false);
+    setting_button->sprite_button = create_sprite(texture, false);
+    D_ASSERT(setting_button->sprite_button, NULL, "error spr bk_button", false);
 }
 
 bool function_button_settings(game_t *game, int i,

@@ -150,7 +150,7 @@ typedef struct vfx_scroll {
     sfText *text;
 } vfx_scroll_t;
 
-sfText *init_text(game_t *game);
+sfText *init_text(game_t *game, entity_t *entity);
 sfSprite *init_scrolin(game_t *game);
 sfSprite *init_scroll(game_t *game);
 bool fonc_scroll_vfx(game_t *game, entity_t *entity);
@@ -182,6 +182,7 @@ typedef struct mute_button {
     char *text;
 } mute_button_t;
 
+sfSprite *init_background(game_t *game, entity_t *entity);
 void init_select_btn(game_t *game);
 bool create_mute_button(game_t *game, entity_t *entity);
 void update_mute_button(game_t *game, entity_t *entity);
