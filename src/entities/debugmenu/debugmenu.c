@@ -45,6 +45,7 @@ bool create_debugmenu(game_t *game UNUSED, entity_t *entity)
     sfText_setPosition(debugmenu->debugtext, VEC2F(10, 10));
     entity->instance = debugmenu;
     entity->z = 100000;
+    entity->draw_on_gui = true;
     return (true);
 }
 
@@ -76,9 +77,7 @@ void draw_debugmenu(game_t *game UNUSED, entity_t *entity)
 
     if (!debugmenu->enabled)
         return;
-    set_view_type(game, debugmenu->view, HUD_VIEW);
     sfRenderWindow_drawText(game->window, debugmenu->debugtext, NULL);
-    set_view_type(game, debugmenu->view, WORLD_VIEW);
 }
 
 bool handle_debugmenu_events(game_t *game UNUSED,

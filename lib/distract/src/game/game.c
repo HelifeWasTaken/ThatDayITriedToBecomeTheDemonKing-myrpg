@@ -11,6 +11,8 @@
 #include "stdlib.h"
 #include "distract/debug.h"
 #include "distract/util.h"
+#include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Graphics/View.h>
 
 game_t *create_game(void)
 {
@@ -22,6 +24,12 @@ game_t *create_game(void)
         return (NULL);
     }
     return (game);
+}
+
+void set_game_view(game_t *game, sfView *view)
+{
+    game->view = view;
+    sfRenderWindow_setView(game->window, view);
 }
 
 static void destroy_entity_infos(game_t *game)

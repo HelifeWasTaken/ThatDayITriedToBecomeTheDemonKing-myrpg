@@ -51,6 +51,16 @@ typedef struct game {
     void *state;
 
     ///
+    /// GUI view
+    ///
+    sfView *gui_view;
+
+    ///
+    /// World (non-GUI) view
+    ///
+    sfView *view;
+
+    ///
     /// Input manager
     ///
     input_t input;
@@ -82,6 +92,11 @@ void destroy_game(game_t *game);
 /// Close the game in a clean manner.
 ///
 void close_game(game_t *game);
+
+///
+/// Set game view
+///
+void set_game_view(game_t *game, sfView *view);
 
 ///
 /// Basically an sfClock that can be paused

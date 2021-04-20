@@ -44,8 +44,6 @@ typedef enum view_type {
 } view_type_t;
 
 typedef struct view {
-    sfView *view;
-    sfView *hud_view;
     entity_t *entity;
     const struct hero *hero;
 } view_t;
@@ -53,7 +51,6 @@ typedef struct view {
 bool create_view(game_t *game, entity_t *entity);
 void update_view(game_t *game, entity_t *entity);
 void destroy_view(game_t *game, entity_t *entity);
-void set_view_type(game_t *game, view_t *view, view_type_t type);
 
 enum player_move {
     PLAYER_MOVE_DOWN,

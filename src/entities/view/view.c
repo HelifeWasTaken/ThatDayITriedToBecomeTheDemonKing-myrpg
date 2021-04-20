@@ -24,26 +24,13 @@ bool create_view(game_t *game UNUSED, entity_t *entity)
 
     D_ASSERT(view, NULL, "view could not be init", false);
     view->entity = entity;
-    view->view = sfView_createFromRect((sfFloatRect){0, 0,
-        game->mode.width / 3.f, game->mode.height / 3.f});
-    view->hud_view = sfView_createFromRect(FRECT(0, 0,
-        game->mode.width, game->mode.height));
     entity->instance = view;
     return (true);
-}
-
-void set_view_type(game_t *game, view_t *view, view_type_t type)
-{
-    sfRenderWindow_setView(game->window, type == HUD_VIEW ? view->hud_view
-        : view->view);
 }
 
 void destroy_view(game_t *game UNUSED, entity_t *entity)
 {
     view_t *view = entity->instance;
-
-    sfView_destroy(view->hud_view);
-    sfView_destroy(view->view);
     free(view);
 }
 
@@ -57,6 +44,5 @@ void update_view(game_t *game UNUSED, entity_t *entity)
         view->hero = player_entity->instance;
         return;
     }
-    sfView_setCenter(view->view, view->hero->entity->pos);
-    set_view_type(game, view, WORLD_VIEW);
+    sfView_setCenter(game->view, view->hero->entity->pos);
 }
