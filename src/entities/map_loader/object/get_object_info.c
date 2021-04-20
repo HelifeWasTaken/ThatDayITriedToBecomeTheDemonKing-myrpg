@@ -78,6 +78,7 @@ bool load_layers_object(game_t *game UNUSED, layer_object_manager_t **manager, i
     D_ASSERT((*manager)->layer, NULL, "Could not init layer data"
         "in object manager", false);
     for (usize_t i = 0; i < map->layers->size; i++) {
+        DEBUG_PRINTF("object: %d", map->layers->data[i].type);
         if (map->layers->data[i].type == LAYER_OBJECTGROUP) {
             if (load_one_object_group(game, manager, &map->layers->data[i], i) == false)
                 return (false);

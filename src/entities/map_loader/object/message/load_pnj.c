@@ -27,6 +27,7 @@ static bool load_pnj_entity(game_t *game, struct layer_object_data *data)
         return (false);
     npc = entity->instance;
     npc->messages = data->object.message;
+    npc->name = estrdup("Undefined name");
     npc->entity->pos = VEC2F(data->rect.left, data->rect.top);
     return (true);
 }

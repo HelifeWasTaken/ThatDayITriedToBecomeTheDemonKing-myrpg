@@ -27,6 +27,19 @@ static bool check_tileset_overlapping(ig_tileset_t *tileset,
     return (true);
 }
 
+static bool create_texture_tileset(game_t *game,
+    struct tileset_parser_args *args, usize_t i)
+{
+    char *file = eformat("%s%s",
+        "asset/map_asset/map_files/", args->tileset->data[i].image);
+
+    D_ASSERT(file, NULL, "Could not allocate memory", false);
+    args->manager->texture =
+        create_texture(game, file, NULL);
+    FREE(file);
+    return (args->manager->texture != NULL);
+}
+
 static bool check_tileset_logic(game_t *game,
     struct tileset_parser_args *args, i64_t random_id,
     usize_t *tilesetloaded)
@@ -43,8 +56,7 @@ static bool check_tileset_logic(game_t *game,
         "One id has no tileset attributed", false);
     if (check_tileset_overlapping(&tilesetinfo, args) == false)
         return (false);
-    if ((args->manager->texture =
-        create_texture(game, args->tileset->data[i].image, NULL)) == NULL)
+    if (create_texture_tileset(game, args, i) == false)
         return (false);
     *tilesetloaded = i;
     return (true);
