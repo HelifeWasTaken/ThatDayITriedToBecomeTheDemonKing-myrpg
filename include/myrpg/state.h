@@ -12,6 +12,7 @@
 #include "myrpg/game.h"
 #include "define.h"
 #include <stdint.h>
+#include "iron_goat/deser.h"
 
     typedef struct parameters {
         float music_vol;
@@ -37,6 +38,7 @@
     typedef struct game_state {
         parameters_t params;
         game_save_t save;
+        ig_map_t map;
     } game_state_t;
 
 #endif /* !PARAMETERS_H_ */

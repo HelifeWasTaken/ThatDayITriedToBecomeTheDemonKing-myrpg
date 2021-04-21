@@ -14,6 +14,7 @@
 #include "distract/resources.h"
 #include "distract/debug.h"
 #include "distract/util.h"
+#include "myrpg/state.h"
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
     VIEW, DIALOGBOX, ATH,
@@ -41,15 +42,21 @@ static const char *WORLD_SONG[] = {
 
 int init_play_lifecycle(game_t *game)
 {
-    for (unsigned int i = 0; i < ARRAY_SIZE(ENTITY_INITTER_PLAY); i++) {
-        if (create_entity(game, ENTITY_INITTER_PLAY[i]) == NULL)
+    game_state_t *state = game->state;
+
+    D_ASSERT(load_map_from_file(game, &state->map), false,
+            "Could not init map", 84)
+    for (unsigned int i = 0; i < ARRAY_SIZE(ENTITY_INITTER_PLAY); i++)
+        if (create_entity(game, ENTITY_INITTER_PLAY[i]) == NULL) {
+            destroy_iron_goat_map(&state->map);
             return (84);
-    }
+        }
     for (int i = 0; i < 5; i++)
         if (estrcmp(game->scene->world_file, WORLD_FILES[i]) == 0) {
             play_music(game, MUSIC, (char *)WORLD_SONG[i]);
             return (0);
         }
+    destroy_iron_goat_map(&state->map);
     return (0);
 }
 
