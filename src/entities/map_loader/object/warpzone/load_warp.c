@@ -73,8 +73,6 @@ bool load_warpzone(game_t *game,
     if ((entity = create_entity(game, WARP)) == NULL)
         return (false);
     warp = entity->instance;
-    printf("%d %d\n",
-        data->object.warp.spawn.x, data->object.warp.spawn.y);
     warp->warp.spawn = data->object.warp.spawn;
     warp->rect = data->rect;
     warp->warp.world = data->object.warp.world;
