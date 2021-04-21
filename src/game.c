@@ -6,6 +6,7 @@
 */
 
 #include "distract/game.h"
+#include "distract/util.h"
 #include "distract/window.h"
 #include "distract/scene.h"
 #include "myrpg/asset.h"
@@ -51,7 +52,16 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(TILESET_LAYER_MANAGER, &create_tileset_manager,
         NULL, &destroy_tileset_manager, NULL, NULL),
     ENTITY(TILESET_LAYER, &create_layer_tileset, &draw_layer_tileset,
-        &destroy_layer_tileset, NULL, NULL)
+        &destroy_layer_tileset, NULL, NULL),
+    ENTITY(BATTLEHUD, &create_battlehud, &draw_battlehud,
+            &destroy_battlehud, &update_battlehud, &handle_battlehud_events),
+    ENTITY(BATTLEDUMMY, &create_battledummy, &draw_battledummy,
+            &destroy_battledummy, &update_battledummy,
+            &handle_battledummy_events),
+    ENTITY(GUI_BUTTON, &create_button, &draw_button,
+            &destroy_button, &update_button, &handle_button_events),
+    ENTITY(GUI_LABEL, &create_label, &draw_label,
+            &destroy_label, &update_label, NULL)
 };
 
 static bool configure_window(game_t *game)
@@ -82,7 +92,7 @@ static bool configure_entities(game_t *game UNUSED)
 
 void configure_state(game_t *game)
 {
-    game_state_t *state = malloc(sizeof(game_state_t) * 1);
+    game_state_t *state = dcalloc(sizeof(game_state_t), 1);
 
     state->params.music_vol = 1;
     state->params.vfx_vol = 1;
@@ -90,6 +100,9 @@ void configure_state(game_t *game)
     state->params.music_muted = false;
     state->params.vfx_muted = false;
     state->params.voice_muted = false;
+    state->save.player_hp = 100;
+    state->save.player_lv = 1;
+    state->save.player_mana = 30;
     game->state = state;
 }
 
@@ -100,6 +113,7 @@ void configure_game(game_t *game)
     register_scene(game, MENU_SCENE, &menu_lifecycle);
     register_scene(game, KEY_CONFIG, &key_lifecycle);
     register_scene(game, SETTING_SCENE, &setting_lifecycle);
+    register_scene(game, BATTLE_SCENE, &battle_lifecycle);
     configure_state(game);
     configure_entities(game);
 }

@@ -13,6 +13,8 @@
 #include "myrpg/map/map.h"
 #include "define.h"
 #include "myrpg/map/map.h"
+#include "erty/tuple.h"
+#include <SFML/System/Vector2.h>
 
 enum arrow_keys {
     KEY_DOWN,
@@ -41,10 +43,44 @@ enum entity_type {
     VIEW,
     NPC,
     DIALOGBOX,
-    DEBUGMENU
+    DEBUGMENU,
+    BATTLEHUD,
+    BATTLEDUMMY,
+    GUI_BUTTON,
+    GUI_LABEL
 };
 
 //----------------------------------------
+
+typedef struct gui_button {
+    entity_t *entity;
+    void (*on_click)(game_t *game, entity_t *entity);
+    sfText *text;
+    char *title;
+    bool mouse_entered;
+    bool clicked;
+    bool is_centered;
+    bool is_enabled;
+} gui_button_t;
+
+bool create_button(game_t *game, entity_t *entity);
+void destroy_button(game_t *game, entity_t *entity);
+void draw_button(game_t *game, entity_t *entity);
+void update_button(game_t *game, entity_t *entity);
+bool handle_button_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct gui_label {
+    entity_t *entity;
+    sfText *text;
+    char *title;
+    bool is_enabled;
+} gui_label_t;
+
+bool create_label(game_t *game, entity_t *entity);
+void update_label(game_t *game, entity_t *entity);
+void draw_label(game_t *game, entity_t *entity);
+void destroy_label(game_t *game, entity_t *entity);
+bool handle_label_events(game_t *game, entity_t *entity, sfEvent *event);
 
 typedef enum view_type {
     HUD_VIEW,
@@ -84,6 +120,7 @@ void draw_hero(game_t *game, entity_t *entity);
 void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
+void trigger_battle_rand(game_t *game, hero_t *hero);
 
 void update_hero_move(game_t *game UNUSED, hero_t *hero);
 void player_move_up(hero_t *hero, sfIntRect *rect);
@@ -235,5 +272,72 @@ void update_debugmenu(game_t *game, entity_t *entity);
 void draw_debugmenu(game_t *game, entity_t *entity);
 void destroy_debugmenu(game_t *game, entity_t *entity);
 bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct battlemanager {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    struct battledummy dummies[10];
+} battlemanager_t;
+
+bool create_battlemanager(game_t *game, entity_t *entity);
+void update_battlemanager(game_t *game, entity_t *entity);
+void draw_battlemanager(game_t *game, entity_t *entity);
+void destroy_battlemanager(game_t *game, entity_t *entity);
+bool handle_battlemanager_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct battlehud {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    gui_label_t *hp_label;
+    gui_label_t *lv_label;
+    gui_label_t *mana_label;
+    battlemanager_t *manager;
+} battlehud_t;
+
+bool create_battlehud(game_t *game, entity_t *entity);
+void update_battlehud(game_t *game, entity_t *entity);
+void draw_battlehud(game_t *game, entity_t *entity);
+void destroy_battlehud(game_t *game, entity_t *entity);
+bool handle_battlehud_events(game_t *game, entity_t *entity, sfEvent *event);
+bool create_battlehud_buttons(game_t *game, battlehud_t *entity);
+bool create_battlehud_labels(game_t *game, battlehud_t *hud);
+void update_battlehub_labels(game_t *game, battlehud_t *hud);
+void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
+
+typedef struct battledummy_animation {
+    int start_id;
+    int end_id;
+} battledummy_animation_t;
+
+typedef struct battledummy_animator {
+    sfVector2f frame_size;
+    int frames_per_line;
+    battledummy_animation_t animations[50];
+} battledummy_animator_t;
+
+typedef struct battledummy {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    sfVector2f *base_pos;
+    int current_anim;
+    int current_frame;
+    bool is_enemy;
+    bool can_attack;
+    sfVector2f scale;
+    int level;
+    int health;
+    int attack;
+    int max_mana;
+    int mana;
+    battledummy_animator_t anim;
+} battledummy_t;
+
+bool create_battledummy(game_t *game, entity_t *entity);
+void update_battledummy(game_t *game, entity_t *entity);
+void draw_battledummy(game_t *game, entity_t *entity);
+void destroy_battledummy(game_t *game, entity_t *entity);
+bool handle_battledummy_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

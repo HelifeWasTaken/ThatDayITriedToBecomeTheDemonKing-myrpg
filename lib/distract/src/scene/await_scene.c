@@ -7,7 +7,6 @@
 
 #include "distract/resources.h"
 #include "distract/scene.h"
-#include <SFML/Audio/Music.h>
 #include <stdio.h>
 
 static void pause_music(scene_t *parent_scene)
