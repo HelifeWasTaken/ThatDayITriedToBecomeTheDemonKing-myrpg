@@ -333,7 +333,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"i don't like you"
+                         "value":"farm"
                         }, 
                         {
                          "name":"name",
@@ -346,6 +346,94 @@
                  "width":0,
                  "x":233.337388726946,
                  "y":687.822763161291
+                }, 
+                {
+                 "height":0,
+                 "id":31,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"i'm working for miss jam"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1548.90909090909,
+                 "y":476.909090909091
+                }, 
+                {
+                 "height":0,
+                 "id":32,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"i'm mister JAM the village chief."
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1760.54545454545,
+                 "y":494.363636363636
+                }, 
+                {
+                 "height":0,
+                 "id":33,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"what a ugly boy, please leave."
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1641.45454545455,
+                 "y":577.636363636364
+                }, 
+                {
+                 "height":0,
+                 "id":34,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"nothing here, your poor."
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1501.875,
+                 "y":42.125
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -353,8 +441,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":14,
- "nextobjectid":22,
+ "nextlayerid":15,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.3",

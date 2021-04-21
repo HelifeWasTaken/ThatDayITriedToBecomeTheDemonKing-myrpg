@@ -24,12 +24,11 @@
 #include <SFML/Graphics/Types.h>
 #include "distract/math.h"
 
-
 bool create_npc(game_t *game UNUSED, entity_t *entity)
 {
     npc_t *npc = dcalloc(sizeof(npc_t), 1);
-    sfIntRect rect = IRECT(0, 0, 16, 16);
-    sfTexture *texture = create_texture(game, "asset/icon/talk.png", &rect);
+    sfIntRect rect = IRECT(0, 0, 114, 36);
+    sfTexture *texture = create_texture(game, "asset/pnj/farmer.png", &rect);
     entity_t *dialog = get_entity(game, DIALOGBOX);
 
     D_ASSERT(npc, NULL, "Cannot create npc", false);
@@ -38,6 +37,7 @@ bool create_npc(game_t *game UNUSED, entity_t *entity)
     npc->entity = entity;
     npc->clock = create_pausable_clock(game);
     npc->sprite = create_sprite(texture, NULL);
+    sfSprite_setTextureRect(npc->sprite, IRECT(0, 0, 38, 36));
     npc->dialog = dialog->instance;
     D_ASSERT(npc->clock, NULL, "Cannot create npc clock", false);
     D_ASSERT(npc->sprite, NULL, "Cannot create npc sprite", false);
@@ -58,7 +58,15 @@ void destroy_npc(game_t *game UNUSED, entity_t *entity)
 void update_npc(game_t *game UNUSED, entity_t *entity)
 {
     npc_t *npc = entity->instance;
+    sfIntRect rect = sfSprite_getTextureRect(npc->sprite);
 
+    if (npc->clock->time >= 0.80f) {
+        rect.left += 38;
+        if (rect.left == 114)
+            rect.left = 0;
+        npc->clock->time = 0;
+    }
+    sfSprite_setTextureRect(npc->sprite, rect);
     sfSprite_setPosition(npc->sprite, entity->pos);
     tick_pausable_clock(npc->clock);
 }
@@ -66,15 +74,15 @@ void update_npc(game_t *game UNUSED, entity_t *entity)
 void draw_npc(game_t *game UNUSED, entity_t *entity)
 {
     npc_t *npc = entity->instance;
-    entity_t *heroentity = get_entity(game, HERO);
-    sfVector2f pos;
-    
-    if (npc->hero == NULL) {
-        npc->hero = heroentity->instance;
-        return;
-    }
-    pos = npc->hero->entity->pos;
-    if (v2fdistance(&pos, &entity->pos) < 50)
+    //entity_t *heroentity = get_entity(game, HERO);
+    //sfVector2f pos;
+
+    //if (npc->hero == NULL) {
+    //    npc->hero = heroentity->instance;
+    //    return;
+    //}
+    //pos = npc->hero->entity->pos;
+    //if (v2fdistance(&pos, &entity->pos) < 50)
         sfRenderWindow_drawSprite(game->window, npc->sprite, NULL);
 }
 
@@ -84,7 +92,7 @@ bool handle_npc_events(game_t *game UNUSED,
     npc_t *npc = entity->instance;
     entity_t *heroentity = get_entity(game, HERO);
     sfVector2f pos;
-    
+
     if (npc->hero == NULL) {
         npc->hero = heroentity->instance;
         return (false);

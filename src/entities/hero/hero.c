@@ -39,7 +39,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     entity->instance = hero;
     hero->entity->z = 4;
     hero->speed = 2;
-    sfSprite_setScale(hero->sprite, VEC2F(0.5, 0.5));
+    sfSprite_setScale(hero->sprite, VEC2F(0.35, 0.35));
     return (true);
 }
 
@@ -58,6 +58,7 @@ void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     hero_t *hero = entity->instance;
 
+    printf("pos x = %f pos y = %f\n", hero->entity->pos.x, hero->entity->pos.y);
     update_hero_move(game, hero);
     sfSprite_setPosition(hero->sprite, entity->pos);
     tick_pausable_clock(hero->animation_clock);
