@@ -139,12 +139,12 @@
                         {
                          "name":"spawnx",
                          "type":"int",
-                         "value":716
+                         "value":712
                         }, 
                         {
                          "name":"spawny",
                          "type":"int",
-                         "value":200
+                         "value":108
                         }, 
                         {
                          "name":"world",
