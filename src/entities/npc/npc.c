@@ -24,7 +24,6 @@
 #include <SFML/Graphics/Types.h>
 #include "distract/math.h"
 
-
 bool create_npc(game_t *game UNUSED, entity_t *entity)
 {
     npc_t *npc = dcalloc(sizeof(npc_t), 1);
@@ -68,7 +67,7 @@ void draw_npc(game_t *game UNUSED, entity_t *entity)
     npc_t *npc = entity->instance;
     entity_t *heroentity = get_entity(game, HERO);
     sfVector2f pos;
-    
+
     if (npc->hero == NULL) {
         npc->hero = heroentity->instance;
         return;
@@ -84,7 +83,7 @@ bool handle_npc_events(game_t *game UNUSED,
     npc_t *npc = entity->instance;
     entity_t *heroentity = get_entity(game, HERO);
     sfVector2f pos;
-    
+
     if (npc->hero == NULL) {
         npc->hero = heroentity->instance;
         return (false);

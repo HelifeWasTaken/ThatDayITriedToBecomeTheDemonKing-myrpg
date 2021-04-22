@@ -37,7 +37,7 @@
     /// SETTINGS_MENU_DEFINE
     ///
 
-    #define FONT "asset/title.ttf"
+    #define FONT "asset/homespun.ttf"
     #define ASSET_BAR "asset/setting/golden_rod.png"
     #define ASSET_SC "asset/setting/cursor.png"
 
