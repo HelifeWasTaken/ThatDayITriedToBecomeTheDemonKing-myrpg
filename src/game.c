@@ -114,6 +114,7 @@ int load_game(void)
     game->scene->world_file = "asset/map_asset/map_files/map_village.json";
     get_game_state(game)->save.player_pos = VEC2F(100, 100);
     do {
+        ememset(game->input.keys, 0, sizeof(struct keyboard_input) * sfKeyCount);
         code = load_pending_scene(game);
         if (code != 0)
             return (code);
