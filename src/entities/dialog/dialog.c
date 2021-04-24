@@ -62,7 +62,7 @@ void update_dialog(game_t *game UNUSED, entity_t *entity)
     tick_pausable_clock(dialog->clock);
 }
 
-void draw_npc(game_t *game UNUSED, entity_t *entity)
+void draw_dialog(game_t *game UNUSED, entity_t *entity)
 {
     dialog_t *dialog = entity->instance;
     entity_t *heroentity = get_entity(game, HERO);
@@ -77,7 +77,7 @@ void draw_npc(game_t *game UNUSED, entity_t *entity)
         sfRenderWindow_drawSprite(game->window, dialog->sprite, NULL);
 }
 
-bool handle_npc_events(game_t *game UNUSED,
+bool handle_dialog_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     dialog_t *dialog = entity->instance;
