@@ -388,8 +388,8 @@
                  "type":"pnj",
                  "visible":true,
                  "width":0,
-                 "x":1760.54545454545,
-                 "y":494.363636363636
+                 "x":1774.04545454545,
+                 "y":498.613636363636
                 }, 
                 {
                  "height":0,
@@ -410,8 +410,8 @@
                  "type":"pnj",
                  "visible":true,
                  "width":0,
-                 "x":1641.45454545455,
-                 "y":577.636363636364
+                 "x":1650.70454545455,
+                 "y":575.386363636364
                 }, 
                 {
                  "height":0,
@@ -444,6 +444,17 @@
  "nextlayerid":15,
  "nextobjectid":52,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"pnj_files",
+         "type":"string",
+         "value":"asset\/pnj\/pnj_files\/pnj_village.json"
+        }, 
+        {
+         "name":"song",
+         "type":"string",
+         "value":"asset\/song\/village_audio_cut.ogg"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.3.3",
  "tileheight":16,

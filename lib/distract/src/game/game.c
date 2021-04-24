@@ -16,7 +16,7 @@
 game_t *create_game(void)
 {
     game_t *game = dcalloc(1, sizeof(game_t));
-    
+
     game->sound = create_sound_emitter(game);
     game->scene = allocate_scene();
     if (game == NULL || game->sound == NULL || game->scene == NULL) {

@@ -51,7 +51,9 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(TILESET_LAYER_MANAGER, &create_tileset_manager,
         NULL, &destroy_tileset_manager, NULL, NULL),
     ENTITY(TILESET_LAYER, &create_layer_tileset, &draw_layer_tileset,
-        &destroy_layer_tileset, NULL, NULL)
+        &destroy_layer_tileset, NULL, NULL),
+    ENTITY(PNJ, &create_pnj, &draw_pnj,
+            &destroy_pnj, NULL, NULL)
 };
 
 static bool configure_window(game_t *game)
@@ -114,7 +116,6 @@ int load_game(void)
     game->scene->world_file = "asset/map_asset/map_files/map_village.json";
     get_game_state(game)->save.player_pos = VEC2F(100, 100);
     do {
-        ememset(game->input.keys, 0, sizeof(struct keyboard_input) * sfKeyCount);
         code = load_pending_scene(game);
         if (code != 0)
             return (code);

@@ -404,7 +404,12 @@
     ///
     ////////////////////////////////////////////////////////////
 
-    cstr_t eformat(const_cstr_t format, ...);
+    #ifdef CHECK_FORMAT_WITH_GNU_C
+        cstr_t eformat(const_cstr_t format, ...)
+            CHECK_EPRINTF_FORMAT(1, 2);
+    #else
+        cstr_t eformat(const_cstr_t format, ...);
+    #endif
 
     //  ______
     //  | ___ |

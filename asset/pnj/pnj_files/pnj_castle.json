@@ -1,0 +1,15 @@
+[
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/farmer_shovel.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1156, "y": 2330},
+        "message": "bonjour"
+    }
+]

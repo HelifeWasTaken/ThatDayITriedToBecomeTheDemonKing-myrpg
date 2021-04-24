@@ -338,6 +338,17 @@
  "nextlayerid":9,
  "nextobjectid":11,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"pnj_files",
+         "type":"string",
+         "value":"asset\/pnj\/pnj_files\/pnj_desert.json"
+        }, 
+        {
+         "name":"song",
+         "type":"string",
+         "value":"asset\/song\/desert_village_cut.ogg"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.3.3",
  "tileheight":16,

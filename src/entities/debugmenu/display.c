@@ -23,7 +23,7 @@ static int count_entities(game_t *game)
     return (count);
 }
 
-char *get_debug_message(game_t *game UNUSED, debugmenu_t *debugmenu)
+char *get_debug_message(game_t *game UNUSED, debugmenu_t *debugmenu UNUSED)
 {
     hero_t *hero = get_entity(game, HERO)->instance;
     sfVector2f pos = sfSprite_getPosition(hero->sprite);
@@ -32,5 +32,8 @@ char *get_debug_message(game_t *game UNUSED, debugmenu_t *debugmenu)
     (void)debugmenu;
     (void)hero;
     count_entities(game);
-    return (eformat("Unusable until stable architecture"));
+    return (eformat("position: %f, %f\n"
+        "map file: %s\n", hero->entity->pos.x, hero->entity->pos.y,
+        game->scene->world_file));
+    return (estrdup(""));
 }

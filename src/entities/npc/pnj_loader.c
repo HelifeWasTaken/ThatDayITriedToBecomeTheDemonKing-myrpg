@@ -62,6 +62,17 @@ static const struct json_deser_data PNJ_DESER[] = {
         },
         .type = JSON_OBJ,
         .opt = false
+    },
+    {
+        .data = ".pos",
+        .size_data = sizeof(sfVector2f),
+        .offset = offsetof(pnj_data_t, pos),
+        .intern = {
+            .callback = deser_vector2f,
+            .woff = true,
+        },
+        .type = JSON_OBJ,
+        .opt = false
     }
 };
 

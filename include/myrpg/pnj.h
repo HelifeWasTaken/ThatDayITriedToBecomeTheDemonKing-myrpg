@@ -24,8 +24,10 @@
         char *name;
         char *file_path;
         int frame;
+        sfVector2u rect_size;
         sfIntRect rect;
         sfSprite *sprite;
+        sfVector2f pos;
     } pnj_data_t;
 
     void destroy_pnj_data(pnj_data_t *my_pnj);
@@ -42,9 +44,7 @@
     } pnj_t;
 
     bool create_pnj(game_t *game, entity_t *entity);
-    void update_pnj(game_t *game, entity_t *entity);
     void draw_pnj(game_t *game, entity_t *entity);
     void destroy_pnj(game_t *game, entity_t *entity);
-    bool handle_pnj_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif
