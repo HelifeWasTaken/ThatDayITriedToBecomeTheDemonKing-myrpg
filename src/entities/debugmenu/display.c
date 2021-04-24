@@ -28,9 +28,6 @@ char *get_debug_message(game_t *game UNUSED, debugmenu_t *debugmenu UNUSED)
     hero_t *hero = get_entity(game, HERO)->instance;
     sfVector2f pos = sfSprite_getPosition(hero->sprite);
 
-    (void)pos;
-    (void)debugmenu;
-    (void)hero;
     count_entities(game);
     return (eformat("position: %f, %f\n"
         "map file: %s\n", hero->entity->pos.x, hero->entity->pos.y,
