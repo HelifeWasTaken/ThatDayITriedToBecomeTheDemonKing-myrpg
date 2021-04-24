@@ -8,12 +8,14 @@
 #ifndef DDBE0D45_A6F4_48A8_BD16_E3A1287341DF
 #define DDBE0D45_A6F4_48A8_BD16_E3A1287341DF
 
+#include "distract/animable.h"
 #include "distract/entity.h"
 #include "myrpg/game.h"
 #include "myrpg/map/map.h"
 #include "define.h"
 #include "myrpg/map/map.h"
 #include "erty/tuple.h"
+#include <SFML/Graphics/Rect.h>
 #include <SFML/System/Vector2.h>
 
 enum arrow_keys {
@@ -46,6 +48,7 @@ enum entity_type {
     DEBUGMENU,
     BATTLEHUD,
     BATTLEDUMMY,
+    BATTLEMANAGER,
     GUI_BUTTON,
     GUI_LABEL
 };
@@ -273,17 +276,38 @@ void draw_debugmenu(game_t *game, entity_t *entity);
 void destroy_debugmenu(game_t *game, entity_t *entity);
 bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 
+typedef struct battle_opponent {
+    sfVector2f scale;
+    animable_t animable;
+    animable_info_t animable_info;
+    char *name;
+    char *asset_file;
+    sfIntRect asset_rect;
+    int level;
+    int health;
+    int attack;
+    int max_mana;
+    int mana;
+} battle_opponent_t;
+
 typedef struct battlemanager {
     entity_t *entity;
     pausable_clock_t *clock;
-    struct battledummy dummies[10];
+    battle_opponent_t enemies[10];
+    battle_opponent_t friends[10];
+    int enemies_count;
+    int friends_count;
 } battlemanager_t;
 
 bool create_battlemanager(game_t *game, entity_t *entity);
 void update_battlemanager(game_t *game, entity_t *entity);
 void draw_battlemanager(game_t *game, entity_t *entity);
 void destroy_battlemanager(game_t *game, entity_t *entity);
-bool handle_battlemanager_events(game_t *game, entity_t *entity, sfEvent *event);
+bool handle_battlemanager_events(game_t *game, entity_t *entity,
+    sfEvent *event);
+int create_battlemanager_enemies(game_t *game, battlemanager_t *manager);
+int create_battlemanager_friends(game_t *game, battlemanager_t *manager);
+void animate_battlemanager_sprites(battlemanager_t *battlemanager);
 
 typedef struct battlehud {
     entity_t *entity;
@@ -304,40 +328,5 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *entity);
 bool create_battlehud_labels(game_t *game, battlehud_t *hud);
 void update_battlehub_labels(game_t *game, battlehud_t *hud);
 void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
-
-typedef struct battledummy_animation {
-    int start_id;
-    int end_id;
-} battledummy_animation_t;
-
-typedef struct battledummy_animator {
-    sfVector2f frame_size;
-    int frames_per_line;
-    battledummy_animation_t animations[50];
-} battledummy_animator_t;
-
-typedef struct battledummy {
-    entity_t *entity;
-    pausable_clock_t *clock;
-    sfSprite *sprite;
-    sfVector2f *base_pos;
-    int current_anim;
-    int current_frame;
-    bool is_enemy;
-    bool can_attack;
-    sfVector2f scale;
-    int level;
-    int health;
-    int attack;
-    int max_mana;
-    int mana;
-    battledummy_animator_t anim;
-} battledummy_t;
-
-bool create_battledummy(game_t *game, entity_t *entity);
-void update_battledummy(game_t *game, entity_t *entity);
-void draw_battledummy(game_t *game, entity_t *entity);
-void destroy_battledummy(game_t *game, entity_t *entity);
-bool handle_battledummy_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

@@ -25,5 +25,4 @@ void set_animable_frame(animable_t *animable, int id)
         (animable->current_sheet_frame / animable->info.frames_per_line)
             * animable->info.frame_size.y,
         animable->info.frame_size.x, animable->info.frame_size.y));
-    printf("%d %d\n", sfSprite_getTextureRect(animable->info.sprite).left, sfSprite_getTextureRect(animable->info.sprite).top);
 }

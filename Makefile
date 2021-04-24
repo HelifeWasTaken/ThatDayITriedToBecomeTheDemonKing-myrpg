@@ -86,9 +86,12 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 	    	src/entities/debugmenu/display.c \
 
 SRC_BATTLE = src/entities/battlehud/battlehud.c \
-			src/entities/battledummy/battledummy.c \
 			src/entities/battlehud/buttons.c \
-			src/entities/battlehud/labels.c
+			src/entities/battlehud/labels.c \
+			src/entities/battlemanager/animate.c \
+			src/entities/battlemanager/battlemanager.c \
+			src/entities/battlemanager/enemies.c \
+			src/entities/battlemanager/friends.c
 
 SRC = 	src/game.c \
 	    src/entities/scroll_bar/scroll_bar.c    \

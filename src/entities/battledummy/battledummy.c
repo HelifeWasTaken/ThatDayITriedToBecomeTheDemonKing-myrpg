@@ -5,6 +5,7 @@
 ** Entity
 */
 
+#include "distract/animable.h"
 #include "stdlib.h"
 #include "distract/game.h"
 #include "distract/entity.h"
@@ -43,25 +44,16 @@ void destroy_battledummy(game_t *game UNUSED, entity_t *entity)
 void update_battledummy(game_t *game UNUSED, entity_t *entity)
 {
     battledummy_t *battledummy = entity->instance;
-    battledummy_animation_t *anim =
-        &battledummy->anim.animations[battledummy->current_anim];
+    animable_t *anim = &battledummy->animable;
     
     if (battledummy->clock->time > 0.4f) {
-        battledummy->current_frame++;
-        if (battledummy->current_frame > anim->end_id) {
-            battledummy->current_frame =
-                battledummy->anim.animations[0].start_id;
-            battledummy->current_anim = 0;
+        if (is_animation_done(anim)) {
+            set_animable_animation(anim, 2);
+        } else {
+            set_animable_frame(anim, get_animable_frame(anim) + 1);
         }
         battledummy->clock->time = 0;
     }
-    sfSprite_setScale(battledummy->sprite, battledummy->scale);
-    sfSprite_setTextureRect(battledummy->sprite, IRECT(
-        (battledummy->current_frame % battledummy->anim.frames_per_line)
-            * battledummy->anim.frame_size.x,
-        (battledummy->current_frame / battledummy->anim.frames_per_line)
-            * battledummy->anim.frame_size.y,
-        battledummy->anim.frame_size.x, battledummy->anim.frame_size.y));
     sfSprite_setPosition(battledummy->sprite, entity->pos);
     tick_pausable_clock(battledummy->clock);
 }
