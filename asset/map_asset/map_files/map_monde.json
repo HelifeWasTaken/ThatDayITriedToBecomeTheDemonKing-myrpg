@@ -221,6 +221,12 @@
  "nextlayerid":6,
  "nextobjectid":8,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"pnj ",
+         "type":"string",
+         "value":"asset\/pnj_files\/pnj.json"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.3.3",
  "tileheight":16,

@@ -54,7 +54,7 @@ int init_play_lifecycle(game_t *game)
     for (int i = 0; i < 5; i++)
         if (estrcmp(game->scene->world_file, WORLD_FILES[i]) == 0) {
             play_music(game, MUSIC, (char *)WORLD_SONG[i]);
-            return (0);
+            break;
         }
     destroy_iron_goat_map(&state->map);
     return (0);
