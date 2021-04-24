@@ -11,6 +11,8 @@
 #include "distract/entity.h"
 #include "myrpg/game.h"
 #include "myrpg/map/map.h"
+#include "define.h"
+#include "myrpg/map/map.h"
 
 enum arrow_keys { KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP };
 
