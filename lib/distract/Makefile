@@ -79,6 +79,12 @@ SRC =	src/debug/print_error.c \
 		src/hashmap/get.c \
 		src/input/input.c \
 		src/input/keyboard.c \
+		src/animable/get_animable_frame.c \
+		src/animable/set_animable_frame.c \
+		src/animable/get_animable_animation.c \
+		src/animable/set_animable_animation.c \
+		src/animable/is_animation_done.c \
+		src/animable/set_animable_info.c \
 		src/strutil.c \
 		src/allocutil.c
 
