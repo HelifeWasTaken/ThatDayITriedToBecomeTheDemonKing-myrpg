@@ -60,6 +60,6 @@ void draw_layer_collision(game_t *game UNUSED, entity_t *entity)
 
     IN_DEBUG_MENU(
         sfRenderWindow_drawVertexArray(game->window,
-        collision->data.vtx, NULL)
+            collision->data.vtx, NULL)
     );
 }
