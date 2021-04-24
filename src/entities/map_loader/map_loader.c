@@ -18,6 +18,7 @@
 #include "myrpg/define.h"
 #include "iron_goat/deser.h"
 #include "distract/util.h"
+#include "myrpg/state.h"
 
 bool load_map_from_file(game_t *game, ig_map_t *map_conf)
 {
@@ -60,13 +61,12 @@ bool create_map_loader(game_t *game UNUSED, entity_t *entity)
 {
     map_loader_t *map_loader = dcalloc(sizeof(map_loader_t), 1);
     layer_manager_t manager = {0};
-    ig_map_t map = {0};
+    game_state_t *state = game->state;
+    ig_map_t map = state->map;
 
     D_ASSERT(map_loader, NULL, "", false)
     D_ASSERT(generate_entities_layer(game, &manager), false,
         "Could not generate layers", false);
-    D_ASSERT(load_map_from_file(game, &map), false,
-        "Could not read mapfile", false);
     manager.mapsize = (sfVector2u){map.width, map.height};
     manager.tilesize = map.tilewidth;
     map_loader->manager = manager;

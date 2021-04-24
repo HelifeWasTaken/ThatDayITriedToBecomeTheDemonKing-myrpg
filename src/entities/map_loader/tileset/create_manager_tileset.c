@@ -17,19 +17,16 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "distract/util.h"
+#include "myrpg/state.h"
 
 bool create_tileset_manager(game_t *game UNUSED, entity_t *entity)
 {
     tileset_manager_t *tileset_manager = dcalloc(sizeof(tileset_manager_t), 1);
-    ig_map_t mapconf = {0};
+    game_state_t *state = game->state;
 
     D_ASSERT(tileset_manager, NULL, "Could not init tileset manager", false);
-    D_ASSERT(load_map_from_file(game, &mapconf), false, "", false);
-    if (load_tileset(game, &mapconf, tileset_manager) == false) {
-        destroy_iron_goat_map(&mapconf);
+    if (load_tileset(game, &state->map, tileset_manager) == false)
         return (false);
-    }
-    destroy_iron_goat_map(&mapconf);
     tileset_manager->entity = entity;
     entity->instance = tileset_manager;
     return (true);

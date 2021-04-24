@@ -18,7 +18,8 @@
 #include "myrpg/define.h"
 #include "myrpg/map/map.h"
 
-bool load_warpzone_world(struct layer_object_data *data, ig_object_t *obj)
+static bool load_warpzone_world(struct layer_object_data *data,
+                                ig_object_t *obj)
 {
    for (usize_t i = 0; i < obj->properties->size; i++) {
         if ((obj->properties->data[i].type == PROP_STRING ||
@@ -32,8 +33,8 @@ bool load_warpzone_world(struct layer_object_data *data, ig_object_t *obj)
     return (false);
 }
 
-bool load_warpzone_coordinates_spawn(struct layer_object_data *data,
-    ig_object_t *obj)
+static bool load_warpzone_coordinates_spawn(struct layer_object_data *data,
+                                            ig_object_t *obj)
 {
     bool hasx = false;
 
@@ -72,8 +73,6 @@ bool load_warpzone(game_t *game,
     if ((entity = create_entity(game, WARP)) == NULL)
         return (false);
     warp = entity->instance;
-    printf("%d %d\n",
-        data->object.warp.spawn.x, data->object.warp.spawn.y);
     warp->warp.spawn = data->object.warp.spawn;
     warp->rect = data->rect;
     warp->warp.world = data->object.warp.world;
