@@ -15,14 +15,20 @@
 #include <SFML/Graphics/Color.h>
 #include <SFML/Graphics/Sprite.h>
 
+static const enum entity_type SCENE_ENTITIES[] = {
+    BATTLEMANAGER, BATTLEHUD
+};
+
+
 int battle_lifecycle(game_t *game)
 {
     sfEvent event;
 
     set_game_view(game, sfView_createFromRect((sfFloatRect){0, 0,
         game->mode.width / 3.f, game->mode.height / 3.f}));
-    create_entity(game, BATTLEMANAGER);
-    create_entity(game, BATTLEHUD);
+    for (unsigned int i = 0; i < ARRAY_SIZE(SCENE_ENTITIES); i++)
+        if (create_entity(game, SCENE_ENTITIES[i]) == NULL)
+            return (84);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)
