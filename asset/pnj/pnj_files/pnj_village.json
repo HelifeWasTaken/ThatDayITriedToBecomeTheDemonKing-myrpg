@@ -1,7 +1,7 @@
 [
     {
         "name": "bob",
-        "file_path": "asset/pnj/pnj_asset/eating_left.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/eating_left.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -14,7 +14,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/carry_box_farmer.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/carry_box_farmer.png",
         "frame": 6,
         "rect": {
             "left": 0,
@@ -27,7 +27,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/little_shovel.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/little_shovel.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -40,7 +40,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/rake_farmer.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/rake_farmer.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -53,7 +53,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/heat_farmer.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/heat_farmer.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -66,7 +66,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/green_girl_right.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/green_girl_right.png",
         "frame": 1,
         "rect": {
             "left": 0,
@@ -79,7 +79,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/blu_boy_left.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/blu_boy_left.png",
         "frame": 1,
         "rect": {
             "left": 0,
@@ -92,7 +92,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/farmer_wife.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -105,7 +105,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/old_woman.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/old_woman.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -118,7 +118,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/old_man.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/old_man.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -131,7 +131,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/making_food.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/making_food.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -144,7 +144,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/farmer_wife_right.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife_right.png",
         "frame": 1,
         "rect": {
             "left": 0,
@@ -157,7 +157,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/farmer_wife_left.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife_left.png",
         "frame": 1,
         "rect": {
             "left": 0,
@@ -170,7 +170,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/water_pull.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/water_pull.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -183,7 +183,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/maid.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/maid.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -196,7 +196,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/maid.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/maid.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -209,7 +209,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/girl_dancing.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/girl_dancing.png",
         "frame": 3,
         "rect": {
             "left": 0,
@@ -222,7 +222,7 @@
     },
     {
         "name": "david",
-        "file_path": "asset/pnj/pnj_asset/flower_child.png",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/flower_child.png",
         "frame": 1,
         "rect": {
             "left": 0,
