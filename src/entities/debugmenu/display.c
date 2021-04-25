@@ -26,7 +26,6 @@ static int count_entities(game_t *game)
 char *get_debug_message(game_t *game UNUSED, debugmenu_t *debugmenu UNUSED)
 {
     hero_t *hero = get_entity(game, HERO)->instance;
-    sfVector2f pos = sfSprite_getPosition(hero->sprite);
 
     count_entities(game);
     return (eformat("position: %f, %f\n"
