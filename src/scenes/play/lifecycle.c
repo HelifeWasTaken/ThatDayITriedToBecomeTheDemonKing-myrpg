@@ -67,6 +67,7 @@ int play_lifecycle(game_t *game)
     eprintf("LOADED GAME SCENE\n");
     if (init_play_lifecycle(game) == 84)
         return (84);
+    reset_game_events(game);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)
