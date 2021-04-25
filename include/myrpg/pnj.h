@@ -20,18 +20,31 @@
     #include <iron_goat/deser.h>
     #include "myrpg/util.h"
 
-    typedef struct pnj {
+    typedef struct pnj_data {
         char *name;
         char *file_path;
         int frame;
+        sfVector2u rect_size;
         sfIntRect rect;
+        sfSprite *sprite;
+        sfVector2f pos;
+    } pnj_data_t;
+
+    void destroy_pnj_data(pnj_data_t *my_pnj);
+
+    INIT_VECTOR(pnj_vector, struct pnj_data, destroy_pnj_data);
+
+    bool load_pnj_data_loop(struct json *pnj_conf,
+        VECTOR(pnj_vector) **pnj_vector_tab);
+
+    typedef struct pnj {
+        entity_t *entity;
+        pausable_clock_t *clock;
+        VECTOR(pnj_vector) *pnj_vector;
     } pnj_t;
 
-    void destroy_pnj(pnj_t *my_pnj);
-
-    INIT_VECTOR(pnj_vector, struct pnj, destroy_pnj);
-
-    bool load_pnj_loop(struct json *pnj_conf,
-        VECTOR(pnj_vector) **pnj_vector_tab);
+    bool create_pnj(game_t *game, entity_t *entity);
+    void draw_pnj(game_t *game, entity_t *entity);
+    void destroy_pnj(game_t *game, entity_t *entity);
 
 #endif

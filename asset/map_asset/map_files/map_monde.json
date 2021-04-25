@@ -221,6 +221,17 @@
  "nextlayerid":6,
  "nextobjectid":8,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"pnj_files",
+         "type":"string",
+         "value":"asset\/pnj\/pnj_files\/world_pnj.json"
+        }, 
+        {
+         "name":"song",
+         "type":"string",
+         "value":"asset\/song\/travel_cut.ogg"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.3.3",
  "tileheight":16,

@@ -10,9 +10,9 @@
 
 #include "distract/entity.h"
 #include "myrpg/game.h"
-#include "myrpg/map/map.h"
 #include "define.h"
 #include "myrpg/map/map.h"
+#include "myrpg/pnj.h"
 
 enum arrow_keys {
     KEY_DOWN,
@@ -41,7 +41,8 @@ enum entity_type {
     VIEW,
     NPC,
     DIALOGBOX,
-    DEBUGMENU
+    DEBUGMENU,
+    PNJ
 };
 
 //----------------------------------------

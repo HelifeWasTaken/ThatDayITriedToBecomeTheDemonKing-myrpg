@@ -64,7 +64,8 @@ SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
         src/scenes/settings_menu/lifecycle.c  \
 
 SRC_UTIL = src/util/sfml_deser.c \
-		   src/util/get_save_state.c
+		   src/util/get_save_state.c\
+		   src/util/property_loader.c
 
 SRC_MENU = src/entities/menu/menu.c \
         src/entities/menu/create_menu.c \
@@ -88,6 +89,7 @@ SRC = 	src/game.c \
 		src/entities/dialogbox/show_text.c \
 		src/entities/npc/npc.c \
 		src/entities/npc/pnj_loader.c \
+		src/entities/npc/create_pnj.c \
         $(SRC_DEBUGMENU) \
         $(SRC_MENU) \
         $(SRC_UTIL) \
