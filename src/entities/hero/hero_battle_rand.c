@@ -23,6 +23,11 @@ void start_battle(game_t *game, hero_t *hero UNUSED)
 
 void trigger_battle_rand(game_t *game, hero_t *hero)
 {
-    if (hero->animation_clock->time > 0.01f && rand() % 10 == 0)
+    bool is_scene_attackable = (estrcmp(game->scene->world_file,
+            "asset/map_asset/map_files/map_monde.json") == 0);
+
+    if (hero->animation_clock->time > 0.01f
+        && rand() % 250 == 0
+        && is_scene_attackable)
         start_battle(game, hero);
 }
