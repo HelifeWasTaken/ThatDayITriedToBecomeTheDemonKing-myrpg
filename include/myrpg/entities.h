@@ -8,18 +8,18 @@
 #ifndef DDBE0D45_A6F4_48A8_BD16_E3A1287341DF
 #define DDBE0D45_A6F4_48A8_BD16_E3A1287341DF
 
+#include "distract/animable.h"
 #include "distract/entity.h"
 #include "myrpg/game.h"
 #include "define.h"
 #include "myrpg/map/map.h"
+#include "myrpg/battle.h"
+#include "erty/tuple.h"
+#include <SFML/Graphics/Rect.h>
+#include <SFML/System/Vector2.h>
 #include "myrpg/pnj.h"
 
-enum arrow_keys {
-    KEY_DOWN,
-    KEY_LEFT,
-    KEY_RIGHT,
-    KEY_UP
-};
+enum arrow_keys { KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP };
 
 // Everything related to layers
 // except layer_manager is located in
@@ -39,13 +39,48 @@ enum entity_type {
     WARP,
     HERO,
     VIEW,
-    NPC,
+    DIALOG,
     DIALOGBOX,
     DEBUGMENU,
+    BATTLEHUD,
+    BATTLEDUMMY,
+    BATTLEMANAGER,
+    GUI_BUTTON,
+    GUI_LABEL,
     PNJ
 };
 
 //----------------------------------------
+
+typedef struct gui_button {
+    entity_t *entity;
+    void (*on_click)(game_t *game, entity_t *entity);
+    sfText *text;
+    char *title;
+    bool mouse_entered;
+    bool clicked;
+    bool is_centered;
+    bool is_enabled;
+} gui_button_t;
+
+bool create_button(game_t *game, entity_t *entity);
+void destroy_button(game_t *game, entity_t *entity);
+void draw_button(game_t *game, entity_t *entity);
+void update_button(game_t *game, entity_t *entity);
+bool handle_button_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct gui_label {
+    entity_t *entity;
+    sfText *text;
+    char *title;
+    bool is_enabled;
+} gui_label_t;
+
+bool create_label(game_t *game, entity_t *entity);
+void update_label(game_t *game, entity_t *entity);
+void draw_label(game_t *game, entity_t *entity);
+void destroy_label(game_t *game, entity_t *entity);
+bool handle_label_events(game_t *game, entity_t *entity, sfEvent *event);
 
 typedef enum view_type {
     HUD_VIEW,
@@ -53,8 +88,6 @@ typedef enum view_type {
 } view_type_t;
 
 typedef struct view {
-    sfView *view;
-    sfView *hud_view;
     entity_t *entity;
     const struct hero *hero;
 } view_t;
@@ -62,7 +95,6 @@ typedef struct view {
 bool create_view(game_t *game, entity_t *entity);
 void update_view(game_t *game, entity_t *entity);
 void destroy_view(game_t *game, entity_t *entity);
-void set_view_type(game_t *game, view_t *view, view_type_t type);
 
 enum player_move {
     PLAYER_MOVE_DOWN,
@@ -88,6 +120,9 @@ void draw_hero(game_t *game, entity_t *entity);
 void destroy_hero(game_t *game, entity_t *entity);
 bool handle_hero_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
+void trigger_battle_rand(game_t *game, hero_t *hero);
+bool handle_hero_events(game_t *game UNUSED, entity_t *entity UNUSED,
+                        sfEvent *event UNUSED);
 
 void update_hero_move(game_t *game UNUSED, hero_t *hero);
 void player_move_up(hero_t *hero, sfIntRect *rect);
@@ -106,8 +141,8 @@ typedef struct ath {
 bool create_ath(game_t *game, entity_t *entity);
 void destroy_ath(game_t *game, entity_t *entity);
 void draw_ath(game_t *game UNUSED, entity_t *entity);
-bool handle_ath_events(game_t *game UNUSED,
-        entity_t *entity UNUSED, sfEvent *event UNUSED);
+bool handle_ath_events(game_t *game UNUSED, entity_t *entity UNUSED,
+                       sfEvent *event UNUSED);
 
 typedef struct menu {
     entity_t *entity;
@@ -118,15 +153,15 @@ typedef struct menu {
 bool create_menu(game_t *game, entity_t *entity);
 void destroy_menu(game_t *game, entity_t *entity);
 void draw_menu(game_t *game UNUSED, entity_t *entity);
-bool handle_menu_events(game_t *game UNUSED,
-        entity_t *entity UNUSED, sfEvent *event UNUSED);
+bool handle_menu_events(game_t *game UNUSED, entity_t *entity UNUSED,
+                        sfEvent *event UNUSED);
 
 typedef struct player {
     entity_t *entity;
     pausable_clock_t *clock;
-    //parsed_args_t args = my_parse_args(argc, argv);
+    // parsed_args_t args = my_parse_args(argc, argv);
 
-    //if (my_char_in(args.flags, 'h')) {
+    // if (my_char_in(args.flags, 'h')) {
     //       print_help();
     //    return (0);
     //}
@@ -146,7 +181,7 @@ typedef struct scroll_bar {
 } scroll_bar_t;
 
 struct func_button {
-    void (*fonc)(game_t *game);
+  void (*fonc)(game_t *game);
 };
 
 typedef struct settings {
@@ -211,7 +246,7 @@ typedef struct dialogbox {
     sfText *name_text;
     sfText *content_text;
     view_t *view;
-    struct npc *npc;
+    struct dialog *dialog;
     char pending_buffer[4096];
     unsigned char chunk_id;
     bool is_visible;
@@ -222,26 +257,26 @@ void update_dialogbox(game_t *game, entity_t *entity);
 void draw_dialogbox(game_t *game, entity_t *entity);
 void destroy_dialogbox(game_t *game, entity_t *entity);
 bool handle_dialogbox_events(game_t *game, entity_t *entity, sfEvent *event);
-bool show_dialog(struct npc *npc);
+bool show_dialog(struct dialog *npc);
 void hide_dialog(dialogbox_t *dialog);
 void show_next_dialog(dialogbox_t *dialog);
 void wrap_dialog_text(dialogbox_t *dialog);
 
-typedef struct npc {
+typedef struct dialog {
     entity_t *entity;
     pausable_clock_t *clock;
     sfSprite *sprite;
     hero_t *hero;
-    dialogbox_t *dialog;
+    dialogbox_t *box;
     char *name;
     char **messages;
-} npc_t;
+} dialog_t;
 
-bool create_npc(game_t *game, entity_t *entity);
-void update_npc(game_t *game, entity_t *entity);
-void draw_npc(game_t *game, entity_t *entity);
-void destroy_npc(game_t *game, entity_t *entity);
-bool handle_npc_events(game_t *game, entity_t *entity, sfEvent *event);
+bool create_dialog(game_t *game, entity_t *entity);
+void update_dialog(game_t *game, entity_t *entity);
+void draw_dialog(game_t *game, entity_t *entity);
+void destroy_dialog(game_t *game, entity_t *entity);
+bool handle_dialog_events(game_t *game, entity_t *entity, sfEvent *event);
 
 typedef struct debugmenu {
     entity_t *entity;
@@ -257,5 +292,48 @@ void update_debugmenu(game_t *game, entity_t *entity);
 void draw_debugmenu(game_t *game, entity_t *entity);
 void destroy_debugmenu(game_t *game, entity_t *entity);
 bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct battlemanager {
+    struct battlehud *hud;
+    entity_t *entity;
+    pausable_clock_t *clock;
+    battle_opponent_t enemies[10];
+    battle_opponent_t friends[10];
+    int enemies_count;
+    int friends_count;
+    int exit_code;
+} battlemanager_t;
+
+bool create_battlemanager(game_t *game, entity_t *entity);
+void update_battlemanager(game_t *game, entity_t *entity);
+void draw_battlemanager(game_t *game, entity_t *entity);
+void destroy_battlemanager(game_t *game, entity_t *entity);
+bool handle_battlemanager_events(game_t *game, entity_t *entity,
+    sfEvent *event);
+int create_battlemanager_enemies(game_t *game, battlemanager_t *manager);
+int create_battlemanager_friends(game_t *game, battlemanager_t *manager);
+void animate_battlemanager_sprites(battlemanager_t *battlemanager);
+
+typedef struct battlehud {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    gui_button_t *attack;
+    gui_button_t *run;
+    gui_label_t *hp_label;
+    gui_label_t *lv_label;
+    gui_label_t *mana_label;
+    battlemanager_t *manager;
+} battlehud_t;
+
+bool create_battlehud(game_t *game, entity_t *entity);
+void update_battlehud(game_t *game, entity_t *entity);
+void draw_battlehud(game_t *game, entity_t *entity);
+void destroy_battlehud(game_t *game, entity_t *entity);
+bool handle_battlehud_events(game_t *game, entity_t *entity, sfEvent *event);
+bool create_battlehud_buttons(game_t *game, battlehud_t *entity);
+bool create_battlehud_labels(game_t *game, battlehud_t *hud);
+void update_battlehub_labels(game_t *game, battlehud_t *hud);
+void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

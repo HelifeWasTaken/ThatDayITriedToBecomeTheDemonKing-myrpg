@@ -9,8 +9,24 @@
 #include "distract/debug.h"
 #include "distract/resources.h"
 #include "SFML/Graphics.h"
+#include "distract/util.h"
 #include "stdio.h"
 #include "stdarg.h"
+#include <stdlib.h>
+
+static char *get_sb_filepath(char *filepath)
+{
+    char *sb_filepath = malloc(sizeof(char) * (dstrlen(filepath) + 1));
+    int i = 0;
+
+    for (i = 0; filepath[i] != '\0'; i++) {
+        sb_filepath[i] = filepath[i];
+    }
+    sb_filepath[i++] = 's';
+    sb_filepath[i++] = 'b';
+    sb_filepath[i] = '\0';
+    return (sb_filepath);
+}
 
 sfSound *create_sound(game_t *game, char *filepath)
 {
@@ -22,7 +38,8 @@ sfSound *create_sound(game_t *game, char *filepath)
             print_error("Failed to init sound");
             return (NULL);
         }
-        resource = create_resource(game, NULL, R_SOUND_BUFFER);
+        resource = create_resource(game, get_sb_filepath(filepath),
+            R_SOUND_BUFFER);
         if (resource == NULL)
             return (NULL);
         resource->sound_buffer = sfSoundBuffer_createFromFile(filepath);

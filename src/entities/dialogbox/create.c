@@ -63,5 +63,6 @@ bool create_dialogbox(game_t *game UNUSED, entity_t *entity)
         "Can't initialize dialog box", false)
     entity->instance = dialogbox;
     entity->z = 1000000000;
+    entity->draw_on_gui = true;
     return (true);
 }

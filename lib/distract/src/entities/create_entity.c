@@ -15,6 +15,7 @@
 static void set_defaults(int type, entity_t *entity,
     entity_info_t *info)
 {
+    entity->draw_on_gui = false;
     entity->use_multithreading = false;
     entity->threadinfo = NULL;
     entity->prev = NULL;
