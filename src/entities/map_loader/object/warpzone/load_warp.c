@@ -19,7 +19,7 @@
 #include "myrpg/map/map.h"
 
 static bool load_warpzone_world(struct layer_object_data *data,
-                                ig_object_t *obj)
+    ig_object_t *obj)
 {
    for (usize_t i = 0; i < obj->properties->size; i++) {
         if ((obj->properties->data[i].type == PROP_STRING ||

@@ -18,27 +18,22 @@
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
     VIEW, DIALOGBOX, ATH,
-    LAYER_MANAGER, VIEW, ATH, HERO,
+    LAYER_MANAGER, VIEW, ATH, HERO, PNJ,
 #if ENABLE_DEBUG_MENU
     DEBUGMENU
 #endif
 };
 
-static const char *WORLD_FILES[] = {
-    "asset/map_asset/map_files/map_village.json",
-    "asset/map_asset/map_files/map_monde.json",
-    "asset/map_asset/map_files/cattle.json",
-    "asset/map_asset/map_files/forest_map.json",
-    "asset/map_asset/map_files/desert.json"
-};
+bool init_music(game_state_t *state, game_t *game)
+{
+    char *file = NULL;
 
-static const char *WORLD_SONG[] = {
-    "asset/song/village_audio_cut.ogg",
-    "asset/song/travel_cut.ogg",
-    "asset/song/castle_cut.ogg",
-    "asset/song/forest_cut.ogg",
-    "asset/song/desert_village_cut.ogg"
-};
+    if (load_property_string(state->map.properties, &file, "song",
+        "could not load music") == false)
+        return (false);
+    play_music(game, MUSIC, file);
+    return (true);
+}
 
 int init_play_lifecycle(game_t *game)
 {
@@ -53,11 +48,10 @@ int init_play_lifecycle(game_t *game)
             destroy_iron_goat_map(&state->map);
             return (84);
         }
-    for (int i = 0; i < 5; i++)
-        if (estrcmp(game->scene->world_file, WORLD_FILES[i]) == 0) {
-            play_music(game, MUSIC, (char *)WORLD_SONG[i]);
-            return (0);
-        }
+    if (init_music(state, game) == false) {
+        destroy_iron_goat_map(&state->map);
+        return (84);
+    }
     destroy_iron_goat_map(&state->map);
     return (0);
 }
@@ -68,6 +62,7 @@ int play_lifecycle(game_t *game)
 
     if (init_play_lifecycle(game) == 84)
         return (84);
+    reset_game_events(game);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)
