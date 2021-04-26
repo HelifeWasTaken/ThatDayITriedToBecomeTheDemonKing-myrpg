@@ -73,5 +73,11 @@ void update_battle(game_t *game UNUSED, battlemanager_t *battlemanager)
 
 void destroy_battle(game_t *game UNUSED, battlemanager_t *battlemanager)
 {
+    game_state_t *state = game->state;
+    battle_opponent_t *player = &battlemanager->friends[0];
+
+    state->save.player_hp = player->health;
+    state->save.player_lv = player->level;
+    state->save.player_mana = player->mana;
     destroy_pausable_clock(battlemanager->attack_clock);
 }
