@@ -41,7 +41,8 @@ enum entity_type {
     VIEW,
     NPC,
     DIALOGBOX,
-    DEBUGMENU
+    DEBUGMENU,
+    INVENTORY
 };
 
 //----------------------------------------
@@ -107,6 +108,7 @@ void destroy_ath(game_t *game, entity_t *entity);
 void draw_ath(game_t *game UNUSED, entity_t *entity);
 bool handle_ath_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
+void update_button_handler(game_t *game UNUSED, entity_t *entity);
 
 typedef struct menu {
     entity_t *entity;
@@ -256,5 +258,36 @@ void update_debugmenu(game_t *game, entity_t *entity);
 void draw_debugmenu(game_t *game, entity_t *entity);
 void destroy_debugmenu(game_t *game, entity_t *entity);
 bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
+
+
+typedef struct inventory {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfTexture *over;
+    view_t *view;
+    bool is_visible;
+    sfCircleShape *box;
+} inventory_t;
+
+sfSprite *init_inventory(game_t *game, entity_t *entity);
+bool create_inventory(game_t *game, entity_t *entity);
+void update_inventory(game_t *game, entity_t *entity);
+void draw_inventory(game_t *game, entity_t *entity);
+void destroy_inventory(game_t *game, entity_t *entity);
+bool handle_inventory_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef const struct function {
+    bool (*func)(UNUSED game_t *game, UNUSED entity_t *entity);
+} function_t;
+
+void function_handler(UNUSED game_t *game, UNUSED entity_t *entity, int i);
+bool func_btn_jar(UNUSED game_t *game, UNUSED entity_t *entity);
+bool func_btn_inventory(UNUSED game_t *game, UNUSED entity_t *entity);
+bool func_btn_setting(UNUSED game_t *game, UNUSED entity_t *entity);
+bool func_btn_coin(UNUSED game_t *game, UNUSED entity_t *entity);
+bool func_btn_save(UNUSED game_t *game, UNUSED entity_t *entity);
+bool func_btn_quest(UNUSED game_t *game, UNUSED entity_t *entity);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

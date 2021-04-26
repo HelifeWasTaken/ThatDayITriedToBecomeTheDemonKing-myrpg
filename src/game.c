@@ -25,7 +25,7 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(MENU, &create_menu, &draw_menu,
         &destroy_menu, NULL, &handle_menu_events),
     ENTITY(ATH, &create_ath, &draw_ath,
-        &destroy_ath, NULL, &handle_ath_events),
+        &destroy_ath, &update_button_handler, &handle_ath_events),
     ENTITY(HERO, &create_hero, &draw_hero,
         &destroy_hero, &update_hero, NULL),
     ENTITY(VIEW, &create_view, NULL,
@@ -51,7 +51,9 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(TILESET_LAYER_MANAGER, &create_tileset_manager,
         NULL, &destroy_tileset_manager, NULL, NULL),
     ENTITY(TILESET_LAYER, &create_layer_tileset, &draw_layer_tileset,
-        &destroy_layer_tileset, NULL, NULL)
+        &destroy_layer_tileset, NULL, NULL),
+    ENTITY(INVENTORY, &create_inventory, &draw_inventory,
+            &destroy_inventory, &update_inventory, &handle_inventory_events)
 };
 
 static bool configure_window(game_t *game)

@@ -73,6 +73,10 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
     		src/entities/debugmenu/keybind.c \
 	    	src/entities/debugmenu/display.c \
 
+SRC_INVETORY	=	src/entities/inventory/create_inventory.c \
+					src/entities/inventory/inventory.c \
+
+
 SRC = 	src/game.c \
 		src/entities/player/player.c \
 	    src/entities/scroll_bar/scroll_bar.c    \
@@ -82,6 +86,8 @@ SRC = 	src/game.c \
 	    src/entities/settings/fonc_scroll_vfx.c	\
         src/entities/settings/set_size.c 	\
         src/entities/ath/ath.c \
+        src/entities/ath/button_handler.c \
+        src/entities/ath/func_btn.c \
         src/entities/view/view.c \
 		src/entities/dialogbox/dialogbox.c \
 		src/entities/dialogbox/create.c \
@@ -92,7 +98,8 @@ SRC = 	src/game.c \
         $(SRC_UTIL) \
         $(SRC_MAP) \
         $(SRC_HERO) \
-        $(SRC_LIFECYCLE)
+        $(SRC_LIFECYCLE)	\
+		$(SRC_INVETORY) \
 
 TESTS =	\
 

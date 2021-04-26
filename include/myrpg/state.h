@@ -22,12 +22,20 @@
         bool voice_muted;
     } parameters_t;
 
+    typedef struct item {
+        int nb;
+    } item_t;
+
     typedef struct game_save {
         ///
         /// Map to load when loading save
         ///
         int map_id;
 
+        ///
+        /// inventory
+        ///
+        item_t item;
         ///
         /// Position where to spawn player in map
         ///

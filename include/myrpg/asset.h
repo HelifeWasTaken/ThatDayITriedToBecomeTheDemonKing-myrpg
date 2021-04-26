@@ -86,4 +86,11 @@
         VOX
     } sound_types_t;
 
+    ///
+    /// INVVENTORY DEFINE
+    ///
+
+    #define INV_TEX "asset/hero/menu_hero/inventory.png"
+    #define INV_TEX_OVER "asset/hero/menu_hero/inventory_cliqued.png"
+
 #endif

@@ -18,6 +18,7 @@
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
     VIEW, DIALOGBOX, ATH,
     LAYER_MANAGER, VIEW, ATH, HERO,
+    INVENTORY,
 #if ENABLE_DEBUG_MENU
     DEBUGMENU
 #endif
@@ -67,9 +68,9 @@ int play_lifecycle(game_t *game)
             else
                 transmit_event_to_scene(game, &event);
         update_scene(game);
-        sfRenderWindow_clear(game->window, sfBlack);
         draw_scene(game);
         sfRenderWindow_display(game->window);
+        sfRenderWindow_clear(game->window, sfBlack);
     }
     destroy_scene(game, true);
     return (0);
