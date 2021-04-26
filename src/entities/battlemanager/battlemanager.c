@@ -64,9 +64,8 @@ void update_battlemanager(game_t *game UNUSED, entity_t *entity)
         animate_battlemanager_sprites(battlemanager);
         battlemanager->clock->time = 0;
     }
-    if (battlemanager->bard_talking_clock->time > 2.0f) {
-        sfText_setString(battlemanager->bard_talking,
-            get_battle_random_bard_dialog());
+    if (battlemanager->bard_talking_clock->time > 3.0f) {
+        set_battle_bard_text(battlemanager, get_battle_random_bard_dialog());
         battlemanager->bard_talking_clock->time = 0;
     }
     update_battle(game, battlemanager);

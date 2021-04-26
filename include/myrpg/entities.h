@@ -323,6 +323,7 @@ void update_battle(game_t *game, battlemanager_t *battlemanager);
 void destroy_battle(game_t *game UNUSED, battlemanager_t *battlemanager);
 int attack_opponent(game_t *game, battle_opponent_t *source,
     battle_opponent_t *target, battle_spell_t *spell);
+void set_battle_bard_text(battlemanager_t *battlemanager, const char *text);
 const char *get_battle_random_bard_dialog(void);
 
 typedef struct battlehud {

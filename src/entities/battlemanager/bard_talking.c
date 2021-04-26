@@ -43,10 +43,30 @@ static const char *BARD_DIALOGS[] = {
     "do not resist, just desist"
 };
 
+static void build_text(battlemanager_t *battlemanager, sfFont *font)
+{
+
+    sfText_setFont(battlemanager->bard_talking, font);
+    sfText_setColor(battlemanager->bard_talking, sfWhite);
+    sfText_setCharacterSize(battlemanager->bard_talking, 20);
+    sfText_scale(battlemanager->bard_talking, VEC2F(0.25, 0.25));
+    set_battle_bard_text(battlemanager, get_battle_random_bard_dialog());
+}
+
+void set_battle_bard_text(battlemanager_t *battlemanager, const char *text)
+{
+    sfFloatRect sprite_rect = sfSprite_getGlobalBounds(
+        battlemanager->friends[0].animable_info.sprite);
+    sfFloatRect text_rect = sfText_getGlobalBounds(battlemanager->bard_talking);
+    sfText_setPosition(battlemanager->bard_talking,
+        VEC2F(sprite_rect.left + sprite_rect.width / 2 - text_rect.width / 2,
+            sprite_rect.top - 20));
+    sfText_setString(battlemanager->bard_talking, text);
+}
+
 int create_battle_bard_talking(game_t *game, battlemanager_t *battlemanager)
 {
     sfFont *font;
-    sfFloatRect rect;
 
     battlemanager->bard_talking = sfText_create();
     D_ASSERT(battlemanager->bard_talking, NULL,
@@ -56,13 +76,7 @@ int create_battle_bard_talking(game_t *game, battlemanager_t *battlemanager)
         "Could not create battle manager bard clock", -1)
     font = create_font(game, FONT);
     D_ASSERT(font, NULL, "Could not create battle manager bard font", -1)
-    sfText_setFont(battlemanager->bard_talking, font);
-    sfText_setString(battlemanager->bard_talking,
-        get_battle_random_bard_dialog());
-    rect = sfSprite_getGlobalBounds(
-        battlemanager->friends[0].animable_info.sprite);
-    sfText_setPosition(battlemanager->bard_talking,
-        VEC2F(rect.top - 100, rect.left));
+    build_text(battlemanager, font);
     return (0);
 }
 
