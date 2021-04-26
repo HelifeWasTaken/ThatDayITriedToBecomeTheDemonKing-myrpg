@@ -313,6 +313,33 @@
                  "width":11.5,
                  "x":1.16666666666667,
                  "y":396.833333333333
+                }, 
+                {
+                 "height":32.5,
+                 "id":52,
+                 "name":"castle entry",
+                 "properties":[
+                        {
+                         "name":"spawnx",
+                         "type":"int",
+                         "value":1159
+                        }, 
+                        {
+                         "name":"spawny",
+                         "type":"int",
+                         "value":2162
+                        }, 
+                        {
+                         "name":"world",
+                         "type":"string",
+                         "value":"asset\/map_asset\/map_files\/cattle.json"
+                        }],
+                 "rotation":0,
+                 "type":"warpzone",
+                 "visible":true,
+                 "width":40,
+                 "x":1650.25,
+                 "y":106.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -442,7 +469,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":52,
+ "nextobjectid":53,
  "orientation":"orthogonal",
  "properties":[
         {

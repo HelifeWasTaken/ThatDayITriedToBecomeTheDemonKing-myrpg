@@ -28,7 +28,7 @@
          "name":"tower",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":114,
          "x":0,
          "y":0
@@ -100,6 +100,33 @@
                  "width":257,
                  "x":1044,
                  "y":2192.83333333333
+                }, 
+                {
+                 "height":47.5,
+                 "id":5,
+                 "name":"entry_castle",
+                 "properties":[
+                        {
+                         "name":"spawnx",
+                         "type":"int",
+                         "value":176
+                        }, 
+                        {
+                         "name":"spawny",
+                         "type":"int",
+                         "value":640
+                        }, 
+                        {
+                         "name":"world",
+                         "type":"string",
+                         "value":"asset\/map_asset\/map_files\/inside_castle.json"
+                        }],
+                 "rotation":0,
+                 "type":"warpzone",
+                 "visible":true,
+                 "width":257,
+                 "x":681.5,
+                 "y":1019.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -108,7 +135,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -120,6 +147,11 @@
          "name":"song",
          "type":"string",
          "value":"asset\/song\/castle_cut.ogg"
+        }, 
+        {
+         "name":"z",
+         "type":"int",
+         "value":3
         }],
  "renderorder":"right-down",
  "tiledversion":"1.3.3",

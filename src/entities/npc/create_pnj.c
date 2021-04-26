@@ -91,7 +91,7 @@ void draw_pnj(game_t *game UNUSED, entity_t *entity)
     for (usize_t i = 0; i < pnj->pnj_vector->size; i++)
         sfRenderWindow_drawSprite(game->window,
             pnj->pnj_vector->data[i].sprite, NULL);
-    if (pnj->clock->time > 0.5) {
+    if (pnj->clock->time > 0.4) {
         for (usize_t i = 0; i < pnj->pnj_vector->size; i++) {
             rect = sfSprite_getTextureRect(pnj->pnj_vector->data[i].sprite);
             rect.left += pnj->pnj_vector->data[i].rect_size.x;

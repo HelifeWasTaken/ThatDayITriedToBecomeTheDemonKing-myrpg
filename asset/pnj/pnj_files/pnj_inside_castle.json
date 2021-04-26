@@ -1,0 +1,197 @@
+[
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/knight.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 129, "y": 618},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/knight.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 203, "y": 619},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/maid_clean.png",
+        "frame": 6,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 635, "y": 538},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/princess.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 342, "y": 462},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/knight_right.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 120, "y": 439},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/knight_left.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 204, "y": 439},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/knight_left.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 204, "y": 306},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/knight_right.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 125, "y": 306},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/maid_clean.png",
+        "frame": 6,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 62, "y": 180},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/sebas_move.png",
+        "frame": 6,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 266, "y": 172},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/cooking.png",
+        "frame": 12,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 545, "y": 100},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/maid_carry.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 456, "y": 100},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/knight_floag.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 209, "y": 85},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/knight_floag.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 108, "y": 85},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/pnj_inside_castle/princess_guard.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 501, "y": 526},
+        "message": "bonjour"
+    }
+]
