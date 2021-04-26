@@ -66,7 +66,6 @@ int play_lifecycle(game_t *game)
 {
     sfEvent event;
 
-    eprintf("LOADED GAME SCENE\n");
     if (init_play_lifecycle(game) == 84)
         return (84);
     while (is_scene_updated(game)) {

@@ -8,6 +8,8 @@
 #include "distract/debug.h"
 #include "distract/graphics.h"
 #include "distract/resources.h"
+#include "erty/estdlib.h"
+#include "erty/string/ecstring.h"
 #include "myrpg/asset.h"
 #include "myrpg/entities.h"
 #include "myrpg/state.h"
@@ -15,12 +17,37 @@
 
 static const animable_info_t PLAYER_ANIMABLE_INFO = {
     .animations = {
-        { 0, 3 },
-        { 11, 13 },
-        { 5, 7 }
+        { 11, 13 }, // BAT_ANIM_IDLE
+        { 0, 3 },   // BAT_ANIM_ATTACK
+        { 8, 8 },   // BAT_ANIM_DEATH
+        { 9, 9 },   // BAT_ANIM_ITEM
+        {},         // placeholder
+        {},         // placeholder
+        {},         // placeholder
+        {},         // placeholder
+        { 5, 7 },   // BAT_ANIM_SPELL_1
+        {},         // BAT_ANIM_SPELL_2
+        {}          // BAT_ANIM_SPELL_3
     },
     .frame_size = { 90, 83 },
     .frames_per_line = 5
+};
+
+static const battle_spell_t PLAYER_SPELLS[] = {
+    {
+        .name = "Attack",
+        .mana = 0,
+        .efficiency = 1,
+        .type = BST_NOT_A_SPELL,
+        .anim = BAT_ANIM_ATTACK,
+    },
+    {
+        .name = "Charm",
+        .mana = 10,
+        .efficiency = 1,
+        .type = BST_AIR,
+        .anim = BAT_ANIM_SPELL_1,
+    }
 };
 
 static void fill_player_state(game_t *game, battlemanager_t *manager)
@@ -35,6 +62,7 @@ static void fill_player_state(game_t *game, battlemanager_t *manager)
     manager->friends[0].level = state->save.player_lv;
     manager->friends[0].mana = state->save.player_mana;
     manager->friends[0].max_mana = 100;
+    ememcpy(manager->friends[0].spells, PLAYER_SPELLS, sizeof(PLAYER_SPELLS));
 }
 
 static int create_friend(game_t *game, battle_opponent_t *friend)

@@ -23,39 +23,81 @@ static const battle_opponent_t ENEMIES[] = {
     {
         .name = "Bard but it's the bad one",
         .asset_file = "asset/hero/bard_combat.png",
+        .asset_rect = { 0 ,0, 450, 166 },
         .level = 1,
-        .attack = 5,
         .health = 10,
         .mana = 10,
         .max_mana = 10,
-        .scale = HERO_SCALE,
+        .scale = { 0.5, 0.5 },
         .animable_info = {
             .animations = {
-                { 0, 3 },
-                { 11, 13 },
-                { 5, 7 }
+                { 11, 13 }, // BAT_ANIM_IDLE
+                { 0, 3 },   // BAT_ANIM_ATTACK
+                { 8, 8 },   // BAT_ANIM_DEATH
+                { 9, 9 },   // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                { 5, 7 },   // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
             },
             .frame_size = { 90, 83 },
             .frames_per_line = 5
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 1,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            },
+            {
+                .name = "Charm",
+                .mana = 10,
+                .efficiency = 1,
+                .type = BST_AIR,
+                .anim = BAT_ANIM_SPELL_1,
+            }
         }
     },
     {
-        .name = "The other bard",
-        .asset_file = "asset/hero/bard_movement.png",
+        .name = "Skeleton",
+        .asset_file = "asset/enemies/skeleton.png",
+        .asset_rect = { 0, 0, 1144, 452 },
         .level = 1,
-        .attack = 5,
         .health = 10,
         .mana = 10,
         .max_mana = 10,
-        .scale = HERO_SCALE,
+        .scale = { 1, 1 },
         .animable_info = {
             .animations = {
-                { 0, 3 },
-                { 11, 13 },
-                { 5, 7 }
+                { 0, 3 },   // BAT_ANIM_IDLE
+                { 7, 13 },  // BAT_ANIM_ATTACK
+                { 14, 17 }, // BAT_ANIM_DEATH,
+                {},         // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
+                
             },
-            .frame_size = { 45, 83 },
-            .frames_per_line = 5
+            .frame_size = { 150, 150 },
+            .frames_per_line = 7
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 1,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            }
         }
     }
 };
@@ -98,7 +140,7 @@ int create_battlemanager_enemies(game_t *game, battlemanager_t *manager)
 {
     game_state_t *state = game->state;
     int entity_count = 1 + (rand() % 3);
-    state->save.player_lv = 10;
+    state->save.player_lv = 20;
     int level = state->save.player_lv / entity_count;
 
     if (level < 3) {

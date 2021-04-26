@@ -8,25 +8,26 @@
 #include "distract/animable.h"
 #include "myrpg/entities.h"
 
+static void update_animation(battle_opponent_t *opponent)
+{
+    animable_t *anim = &opponent->animable;
+
+    if (is_animation_done(anim)) {
+        if (opponent->health > 0)
+            set_animable_animation(anim, BAT_ANIM_IDLE);
+        else
+            set_animable_animation(anim, BAT_ANIM_DEATH);
+    } else {
+        set_animable_frame(anim, get_animable_frame(anim) + 1);
+    }
+}
 
 void animate_battlemanager_sprites(battlemanager_t *battlemanager)
 {
-    animable_t *anim;
-
     for (int i = 0; i < battlemanager->enemies_count; i++) {
-        anim = &battlemanager->enemies[i].animable;
-        if (is_animation_done(anim)) {
-            set_animable_animation(anim, 2);
-        } else {
-            set_animable_frame(anim, get_animable_frame(anim) + 1);
-        }
+        update_animation(&battlemanager->enemies[i]);
     }
     for (int i = 0; i < battlemanager->friends_count; i++) {
-        anim = &battlemanager->friends[i].animable;
-        if (is_animation_done(anim)) {
-            set_animable_animation(anim, 2);
-        } else {
-            set_animable_frame(anim, get_animable_frame(anim) + 1);
-        }
+        update_animation(&battlemanager->friends[i]);
     }
 }

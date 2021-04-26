@@ -14,6 +14,7 @@
 #include "myrpg/map/map.h"
 #include "define.h"
 #include "myrpg/map/map.h"
+#include "myrpg/battle.h"
 #include "erty/tuple.h"
 #include <SFML/Graphics/Rect.h>
 #include <SFML/System/Vector2.h>
@@ -276,27 +277,15 @@ void draw_debugmenu(game_t *game, entity_t *entity);
 void destroy_debugmenu(game_t *game, entity_t *entity);
 bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 
-typedef struct battle_opponent {
-    sfVector2f scale;
-    animable_t animable;
-    animable_info_t animable_info;
-    char *name;
-    char *asset_file;
-    sfIntRect asset_rect;
-    int level;
-    int health;
-    int attack;
-    int max_mana;
-    int mana;
-} battle_opponent_t;
-
 typedef struct battlemanager {
+    struct battlehud *hud;
     entity_t *entity;
     pausable_clock_t *clock;
     battle_opponent_t enemies[10];
     battle_opponent_t friends[10];
     int enemies_count;
     int friends_count;
+    int exit_code;
 } battlemanager_t;
 
 bool create_battlemanager(game_t *game, entity_t *entity);
@@ -313,6 +302,8 @@ typedef struct battlehud {
     entity_t *entity;
     pausable_clock_t *clock;
     sfSprite *sprite;
+    gui_button_t *attack;
+    gui_button_t *run;
     gui_label_t *hp_label;
     gui_label_t *lv_label;
     gui_label_t *mana_label;
