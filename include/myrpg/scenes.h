@@ -17,11 +17,13 @@ enum scene_id {
     MENU_SCENE,
     KEY_CONFIG,
     SETTING_SCENE,
+    BATTLE_SCENE
 };
 
 typedef struct play_state {} play_state_t;
 
 int play_lifecycle(game_t *game);
+int battle_lifecycle(game_t *game);
 int menu_lifecycle(game_t *game);
 int key_lifecycle(game_t *game);
 int setting_lifecycle(game_t *game);

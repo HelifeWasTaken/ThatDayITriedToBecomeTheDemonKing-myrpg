@@ -67,12 +67,10 @@ void draw_dialogbox(game_t *game UNUSED, entity_t *entity)
 
     if (!dialogbox->is_visible)
         return;
-    set_view_type(game, dialogbox->view, HUD_VIEW);
     sfRenderWindow_drawRectangleShape(game->window, dialogbox->background,
         NULL);
     sfRenderWindow_drawText(game->window, dialogbox->name_text, NULL);
     sfRenderWindow_drawText(game->window, dialogbox->content_text, NULL);
-    set_view_type(game, dialogbox->view, WORLD_VIEW);
 }
 
 bool handle_dialogbox_events(game_t *game UNUSED,

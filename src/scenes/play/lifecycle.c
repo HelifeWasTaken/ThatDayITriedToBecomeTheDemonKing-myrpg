@@ -39,6 +39,8 @@ int init_play_lifecycle(game_t *game)
 {
     game_state_t *state = game->state;
 
+    set_game_view(game, sfView_createFromRect((sfFloatRect){0, 0,
+        game->mode.width / 3.f, game->mode.height / 3.f}));
     D_ASSERT(load_map_from_file(game, &state->map), false,
             "Could not init map", 84)
     for (unsigned int i = 0; i < ARRAY_SIZE(ENTITY_INITTER_PLAY); i++)
@@ -58,7 +60,6 @@ int play_lifecycle(game_t *game)
 {
     sfEvent event;
 
-    eprintf("LOADED GAME SCENE\n");
     if (init_play_lifecycle(game) == 84)
         return (84);
     reset_game_events(game);

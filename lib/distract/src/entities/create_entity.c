@@ -9,11 +9,13 @@
 #include "distract/debug.h"
 #include "distract/game.h"
 #include "distract/entity.h"
+#include "distract/util.h"
 #include "stdlib.h"
 
 static void set_defaults(int type, entity_t *entity,
     entity_info_t *info)
 {
+    entity->draw_on_gui = false;
     entity->use_multithreading = false;
     entity->threadinfo = NULL;
     entity->prev = NULL;
@@ -50,7 +52,7 @@ static void setup_multithreading(game_t *game, entity_t *entity)
 
 entity_t *create_entity(game_t *game, int type)
 {
-    entity_t *entity = malloc(sizeof(entity_t));
+    entity_t *entity = dcalloc(1, sizeof(entity_t));
     entity_info_t *info = get_entity_info(game, type);
 
     D_ASSERT(info, NULL, "Entity is not registered", false);

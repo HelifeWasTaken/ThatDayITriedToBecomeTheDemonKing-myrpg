@@ -78,19 +78,17 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
     entity->instance = ath;
     ath->entity = entity;
     ath->entity->z = 10000;
+    entity->draw_on_gui = true;
     return (true);
 }
 
 void draw_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
-    view_t *view = ath->view;
 
-    set_view_type(game, view, HUD_VIEW);
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
     for (int i = 0; i < 6; i++)
         DRAW_SPRITE(game->window, ath->button_sprite[i], NULL);
-    set_view_type(game, view, WORLD_VIEW);
 }
 
 void destroy_ath(game_t *game UNUSED, entity_t *entity)
