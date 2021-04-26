@@ -89,6 +89,7 @@
 
     #define MATCH_TILESET(id, tilesetinfo) \
         (((i64_t)(id) >= (i64_t)((tilesetinfo).firstgid)) && \
-            ((i64_t)(id) <= (i64_t)((tilesetinfo).firstgid + (tilesetinfo).tilecount)))
+            ((i64_t)(id) <= (i64_t)((tilesetinfo).firstgid + \
+            (tilesetinfo).tilecount)))
 
 #endif

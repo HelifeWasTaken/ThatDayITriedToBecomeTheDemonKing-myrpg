@@ -37,8 +37,8 @@ static const entity_info_t ENTITIES[] = {
         &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
     ENTITY(DIALOGBOX, &create_dialogbox, &draw_dialogbox,
         &destroy_dialogbox, &update_dialogbox, &handle_dialogbox_events),
-    ENTITY(NPC, &create_npc, &draw_npc,
-        &destroy_npc, &update_npc, &handle_npc_events),
+    ENTITY(DIALOG, &create_dialog, &draw_dialog,
+        &destroy_dialog, &update_dialog, &handle_dialog_events),
     ENTITY(WARP, &create_warpzone, &update_warpzone,
         &destroy_warpzone, NULL, NULL),
     ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
@@ -61,7 +61,9 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(GUI_BUTTON, &create_button, &draw_button,
             &destroy_button, &update_button, &handle_button_events),
     ENTITY(GUI_LABEL, &create_label, &draw_label,
-            &destroy_label, &update_label, NULL)
+            &destroy_label, &update_label, NULL),
+    ENTITY(PNJ, &create_pnj, &draw_pnj,
+            &destroy_pnj, NULL, NULL)
 };
 
 static bool configure_window(game_t *game)
@@ -128,9 +130,8 @@ int load_game(void)
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
     game->scene->world_file = "asset/map_asset/map_files/map_village.json";
-    get_game_state(game)->save.player_pos = VEC2F(100, 100);
+    get_game_state(game)->save.player_pos = VEC2F(1535, 42);
     do {
-        ememset(game->input.keys, 0, sizeof(struct keyboard_input) * sfKeyCount);
         code = load_pending_scene(game);
         if (code != 0)
             return (code);

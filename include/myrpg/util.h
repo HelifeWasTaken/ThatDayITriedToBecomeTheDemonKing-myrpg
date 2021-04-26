@@ -29,6 +29,13 @@ enum corner_type {
     CORNER_RECT
 };
 
+bool load_property_int(VECTOR(ig_prop) *prop, int64_t *value,
+    char *search, char *error);
+bool load_property_string(VECTOR(ig_prop) *prop, char **buffer,
+    char *search, char *error);
+bool load_property_uint(VECTOR(ig_prop) *prop, usize_t *value,
+    char *search, char *error);
+
 // Returns each corner of instance in the world
 // If r is a rect it should be passed as a pointer
 static inline corner_t get_corners(void *r, enum corner_type type)

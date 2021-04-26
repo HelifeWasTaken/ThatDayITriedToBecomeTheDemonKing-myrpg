@@ -41,7 +41,7 @@ static void load_collision_layer_vtx(ig_layer_t *layer,
                 (j + 1) * TILESIZE_COLLSION);
             vao[3].position = VEC2F(i * TILESIZE_COLLSION,
                 (j + 1) * TILESIZE_COLLSION);
-            set_vao_collision_color(vao, data->map[i]);
+            set_vao_collision_color(vao, data->map[i + j * layer->width]);
         }
     }
 }

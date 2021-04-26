@@ -1,8 +1,8 @@
 /*
-** epitech project, 2021
-** iron
-** file description:
-** goat
+** EPITECH PROJECT, 2020
+** MY_RPG_PUBLIC
+** File description:
+** map.h
 */
 
 #ifndef __IRON_GOAT__MAP__H__
