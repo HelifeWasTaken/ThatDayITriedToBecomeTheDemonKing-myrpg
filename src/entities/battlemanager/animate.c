@@ -6,6 +6,7 @@
 */
 
 #include "distract/animable.h"
+#include "myrpg/battle.h"
 #include "myrpg/entities.h"
 
 static void update_animation(battle_opponent_t *opponent)
@@ -13,6 +14,8 @@ static void update_animation(battle_opponent_t *opponent)
     animable_t *anim = &opponent->animable;
 
     if (is_animation_done(anim)) {
+        if (get_animable_animation(anim) == BAT_ANIM_DEATH)
+            return;
         if (opponent->health > 0)
             set_animable_animation(anim, BAT_ANIM_IDLE);
         else

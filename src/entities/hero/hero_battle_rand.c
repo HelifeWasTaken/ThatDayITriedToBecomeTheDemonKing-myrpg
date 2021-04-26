@@ -18,7 +18,7 @@ void start_battle(game_t *game, hero_t *hero UNUSED)
 
     exit_code = await_scene(game, BATTLE_SCENE);
     set_game_view(game, view);
-    eprintf("%s", exit_code == 1 ? "You won!" : "You lose!");
+    eprintf("%s", exit_code == 1 ? "You won!\n" : "You lose!\n");
 }
 
 void trigger_battle_rand(game_t *game, hero_t *hero)

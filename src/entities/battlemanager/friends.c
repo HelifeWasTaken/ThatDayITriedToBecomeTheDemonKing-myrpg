@@ -17,27 +17,27 @@
 
 static const animable_info_t PLAYER_ANIMABLE_INFO = {
     .animations = {
-        { 11, 13 }, // BAT_ANIM_IDLE
+        { 4, 6 },   // BAT_ANIM_IDLE
         { 0, 3 },   // BAT_ANIM_ATTACK
-        { 8, 8 },   // BAT_ANIM_DEATH
-        { 9, 9 },   // BAT_ANIM_ITEM
+        { 11, 11 }, // BAT_ANIM_DEATH
+        { 12, 12 }, // BAT_ANIM_ITEM
         {},         // placeholder
         {},         // placeholder
         {},         // placeholder
         {},         // placeholder
-        { 5, 7 },   // BAT_ANIM_SPELL_1
+        { 7, 9 },   // BAT_ANIM_SPELL_1
         {},         // BAT_ANIM_SPELL_2
         {}          // BAT_ANIM_SPELL_3
     },
     .frame_size = { 90, 83 },
-    .frames_per_line = 5
+    .frames_per_line = 7
 };
 
 static const battle_spell_t PLAYER_SPELLS[] = {
     {
         .name = "Attack",
         .mana = 0,
-        .efficiency = 1,
+        .efficiency = 12,
         .type = BST_NOT_A_SPELL,
         .anim = BAT_ANIM_ATTACK,
     },
@@ -56,6 +56,7 @@ static void fill_player_state(game_t *game, battlemanager_t *manager)
 
     manager->friends[0].name = "Bard";
     manager->friends[0].asset_file = HERO_FIGHT_PATH;
+    manager->friends[0].asset_rect = FULL_HERO_FIGHT_RECT;
     manager->friends[0].scale = HERO_SCALE;
     manager->friends[0].animable_info = PLAYER_ANIMABLE_INFO;
     manager->friends[0].health = state->save.player_hp;

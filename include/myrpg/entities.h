@@ -281,10 +281,14 @@ typedef struct battlemanager {
     struct battlehud *hud;
     entity_t *entity;
     pausable_clock_t *clock;
+    pausable_clock_t *attack_clock;
     battle_opponent_t enemies[10];
     battle_opponent_t friends[10];
+    sfText *bard_talking;
+    pausable_clock_t *bard_talking_clock;
     int enemies_count;
     int friends_count;
+    bool is_player_turn;
     int exit_code;
 } battlemanager_t;
 
@@ -296,7 +300,14 @@ bool handle_battlemanager_events(game_t *game, entity_t *entity,
     sfEvent *event);
 int create_battlemanager_enemies(game_t *game, battlemanager_t *manager);
 int create_battlemanager_friends(game_t *game, battlemanager_t *manager);
+int create_battle_bard_talking(game_t *game, battlemanager_t *battlemanager);
+int create_battle(game_t *game, battlemanager_t *battlemanager);
 void animate_battlemanager_sprites(battlemanager_t *battlemanager);
+void update_battle(game_t *game, battlemanager_t *battlemanager);
+void destroy_battle(game_t *game UNUSED, battlemanager_t *battlemanager);
+int attack_opponent(game_t *game, battle_opponent_t *source,
+    battle_opponent_t *target, battle_spell_t *spell);
+const char *get_battle_random_bard_dialog(void);
 
 typedef struct battlehud {
     entity_t *entity;
@@ -308,6 +319,7 @@ typedef struct battlehud {
     gui_label_t *lv_label;
     gui_label_t *mana_label;
     battlemanager_t *manager;
+    int selected_spell_id;
 } battlehud_t;
 
 bool create_battlehud(game_t *game, entity_t *entity);
