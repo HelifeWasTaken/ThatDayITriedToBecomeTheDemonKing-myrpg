@@ -55,14 +55,14 @@ static bool load_pnj_name(struct layer_object_data *data,
 static bool load_pnj_entity(game_t *game, struct layer_object_data *data)
 {
     entity_t *entity = NULL;
-    npc_t *npc = NULL;
+    dialog_t *dialog = NULL;
 
-    if ((entity = create_entity(game, NPC)) == NULL)
+    if ((entity = create_entity(game, DIALOG)) == NULL)
         return (false);
-    npc = entity->instance;
-    npc->messages = data->object.pnj.message;
-    npc->name = data->object.pnj.name;
-    npc->entity->pos = VEC2F(data->rect.left, data->rect.top);
+    dialog = entity->instance;
+    dialog->messages = data->object.pnj.message;
+    dialog->name = data->object.pnj.name;
+    dialog->entity->pos = VEC2F(data->rect.left, data->rect.top);
     return (true);
 }
 
