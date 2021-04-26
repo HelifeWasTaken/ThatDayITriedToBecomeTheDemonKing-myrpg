@@ -37,7 +37,7 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
     hero->entity->pos = get_game_state(game)->save.player_pos;
     entity->instance = hero;
-    hero->entity->z = 4;
+    hero->entity->z = map->manager.z;
     hero->speed = 1.5;
     sfSprite_setScale(hero->sprite, VEC2F(0.35, 0.35));
     return (true);
@@ -53,7 +53,6 @@ void destroy_hero(game_t *game UNUSED, entity_t *entity)
     free(hero);
 }
 
-// warps handling is prone to change
 void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     hero_t *hero = entity->instance;

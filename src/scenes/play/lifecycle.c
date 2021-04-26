@@ -18,7 +18,7 @@
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
     VIEW, DIALOGBOX, ATH,
-    LAYER_MANAGER, VIEW, ATH, HERO, PNJ,
+    LAYER_MANAGER, HERO, PNJ,
 #if ENABLE_DEBUG_MENU
     DEBUGMENU
 #endif

@@ -15,6 +15,7 @@
 #include "SFML/Graphics.h"
 #include "myrpg/entities.h"
 #include "stdlib.h"
+#include "distract/util.h"
 
 static bool create_background(game_t *game UNUSED,
     menu_t *menu)
@@ -44,7 +45,7 @@ static bool create_background(game_t *game UNUSED,
 
 bool create_menu(game_t *game UNUSED, entity_t *entity)
 {
-    menu_t *menu = malloc(sizeof(menu_t));
+    menu_t *menu = dcalloc(sizeof(menu_t), 1);
 
     if (menu == false)
         return (false);

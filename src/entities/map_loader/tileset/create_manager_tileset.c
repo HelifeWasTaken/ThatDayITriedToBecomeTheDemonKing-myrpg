@@ -29,6 +29,7 @@ bool create_tileset_manager(game_t *game UNUSED, entity_t *entity)
         return (false);
     tileset_manager->entity = entity;
     entity->instance = tileset_manager;
+    entity->z = 9999;
     return (true);
 }
 

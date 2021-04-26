@@ -17,6 +17,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/define.h"
 #include "stdlib.h"
+#include "distract/util.h"
 
 bool handle_ath_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
@@ -59,7 +60,7 @@ static bool create_ath_second_part(ath_t *ath, game_t *game,
 
 bool create_ath(game_t *game UNUSED, entity_t *entity)
 {
-    ath_t *ath = malloc(sizeof(ath_t));
+    ath_t *ath = dcalloc(sizeof(ath_t), 1);
     sfTexture *icon_texture = NULL;
     sfTexture *player_ath_texture = create_texture(game, PLAYER_ATH,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));

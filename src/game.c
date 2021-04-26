@@ -17,6 +17,7 @@
 #include "stdlib.h"
 #include "myrpg/scenes.h"
 #include "myrpg/util.h"
+#include "distract/util.h"
 
 static const entity_info_t ENTITIES[] = {
     ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
@@ -26,7 +27,7 @@ static const entity_info_t ENTITIES[] = {
         &destroy_menu, NULL, &handle_menu_events),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, NULL, &handle_ath_events),
-    ENTITY(HERO, &create_hero, &draw_hero,
+    ENTITY(HERO, &create_hero, NULL,
         &destroy_hero, &update_hero, NULL),
     ENTITY(VIEW, &create_view, NULL,
         &destroy_view, &update_view, NULL),
@@ -82,7 +83,7 @@ static bool configure_entities(game_t *game UNUSED)
 
 void configure_state(game_t *game)
 {
-    game_state_t *state = malloc(sizeof(game_state_t) * 1);
+    game_state_t *state = dcalloc(sizeof(game_state_t), 1);
 
     state->params.music_vol = 1;
     state->params.vfx_vol = 1;

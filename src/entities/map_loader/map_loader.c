@@ -37,15 +37,30 @@ bool load_map_from_file(game_t *game, ig_map_t *map_conf)
     return (true);
 }
 
+static bool load_reference_layer(game_t *game UNUSED, layer_manager_t *manager)
+{
+    game_state_t *state = game->state;
+    bool ret = load_property_uint(state->map.properties, &manager->z, "z",
+        "Could not load z property for npc and player in map_loader.c");
+
+    if (ret)
+        state->z = manager->z;
+    return (ret);
+}
+
 static bool generate_entities_layer(game_t *game UNUSED,
-    layer_manager_t *manager)
+        layer_manager_t *manager)
 {
     entity_t *entity_stock = NULL;
 
+    if (load_reference_layer(game, manager) == false)
+        return (false);
     if ((entity_stock = create_entity(game, TILESET_LAYER_MANAGER)) == NULL)
         return (false);
     manager->tilesets = entity_stock->instance;
     for (usize_t i = 0; i < manager->tilesets->tileset->size; i++) {
+        printf("entity count: %ld\n", i);
+        fflush(stdout);
         if (create_entity(game, TILESET_LAYER) == NULL)
             return (false);
     }
@@ -64,7 +79,7 @@ bool create_map_loader(game_t *game UNUSED, entity_t *entity)
     game_state_t *state = game->state;
     ig_map_t map = state->map;
 
-    D_ASSERT(map_loader, NULL, "", false)
+    D_ASSERT(map_loader, NULL, "", false);
     D_ASSERT(generate_entities_layer(game, &manager), false,
         "Could not generate layers", false);
     manager.mapsize = (sfVector2u){map.width, map.height};

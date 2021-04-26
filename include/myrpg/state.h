@@ -39,6 +39,7 @@
         parameters_t params;
         game_save_t save;
         ig_map_t map;
+        usize_t z;
     } game_state_t;
 
 #endif /* !PARAMETERS_H_ */

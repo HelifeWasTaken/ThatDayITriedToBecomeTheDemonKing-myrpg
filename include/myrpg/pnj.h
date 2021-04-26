@@ -18,6 +18,7 @@
     #include <stdio.h>
     #include <SFML/Graphics.h>
     #include <iron_goat/deser.h>
+    #include "myrpg/entities.h"
     #include "myrpg/util.h"
 
     typedef struct pnj_data {
@@ -41,6 +42,7 @@
         entity_t *entity;
         pausable_clock_t *clock;
         VECTOR(pnj_vector) *pnj_vector;
+        struct hero *hero;
     } pnj_t;
 
     bool create_pnj(game_t *game, entity_t *entity);

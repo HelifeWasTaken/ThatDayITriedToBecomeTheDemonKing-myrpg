@@ -9,6 +9,7 @@
 #include "distract/debug.h"
 #include "distract/game.h"
 #include "distract/entity.h"
+#include "distract/util.h"
 #include "stdlib.h"
 
 static void set_defaults(int type, entity_t *entity,
@@ -50,7 +51,7 @@ static void setup_multithreading(game_t *game, entity_t *entity)
 
 entity_t *create_entity(game_t *game, int type)
 {
-    entity_t *entity = malloc(sizeof(entity_t));
+    entity_t *entity = dcalloc(sizeof(entity_t), 1);
     entity_info_t *info = get_entity_info(game, type);
 
     D_ASSERT(info, NULL, "Entity is not registered", false);

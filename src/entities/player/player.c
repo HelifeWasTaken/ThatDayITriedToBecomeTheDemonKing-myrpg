@@ -15,10 +15,11 @@
 #include "myrpg/asset.h"
 #include "stdlib.h"
 #include "distract/debug.h"
+#include "distract/util.h"
 
 bool create_player(game_t *game UNUSED, entity_t *entity)
 {
-    player_t *player = malloc(sizeof(player_t));
+    player_t *player = dcalloc(sizeof(player_t), 1);
     sfIntRect rect = IRECT(0, 0, 9133, 379);
     sfTexture *texture = create_texture(game, "assets/sprite.png", &rect);
 
