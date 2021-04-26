@@ -94,6 +94,11 @@ void destroy_game(game_t *game);
 void close_game(game_t *game);
 
 ///
+/// Reset the game events.
+///
+void reset_game_events(game_t *game);
+
+///
 /// Basically an sfClock that can be paused
 ///
 typedef struct pausable_clock {
