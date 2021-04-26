@@ -25,6 +25,7 @@ bool create_battlehud(game_t *game UNUSED, entity_t *entity)
     sfIntRect rect = IRECT(0, 0, 608, 192);
     sfTexture *texture = create_texture(game, "asset/battlehud.png", &rect);
 
+    battlehud->selected_spell_id = -1;
     D_ASSERT(battlehud, NULL, "Cannot load battlehud", false);
     battlehud->entity = entity;
     battlehud->clock = create_pausable_clock(game);

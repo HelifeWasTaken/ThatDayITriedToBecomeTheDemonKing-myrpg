@@ -7,6 +7,8 @@
 
 #include "distract/animable.h"
 #include "distract/debug.h"
+#include "distract/math.h"
+#undef ABS
 #include "distract/graphics.h"
 #include "distract/resources.h"
 #include "erty/estdlib.h"
@@ -14,55 +16,13 @@
 #include "myrpg/asset.h"
 #include "myrpg/entities.h"
 #include "myrpg/state.h"
+#include <SFML/Graphics/Rect.h>
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Types.h>
 #include <SFML/System/Vector2.h>
 #include <stdlib.h>
 
 static const battle_opponent_t ENEMIES[] = {
-    {
-        .name = "Bard but it's the bad one",
-        .asset_file = "asset/hero/bard_combat.png",
-        .asset_rect = { 0 ,0, 450, 166 },
-        .level = 1,
-        .health = 10,
-        .mana = 10,
-        .max_mana = 10,
-        .scale = { 0.5, 0.5 },
-        .animable_info = {
-            .animations = {
-                { 11, 13 }, // BAT_ANIM_IDLE
-                { 0, 3 },   // BAT_ANIM_ATTACK
-                { 8, 8 },   // BAT_ANIM_DEATH
-                { 9, 9 },   // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                { 5, 7 },   // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
-            },
-            .frame_size = { 90, 83 },
-            .frames_per_line = 5
-        },
-        .spells = {
-            {
-                .name = "Attack",
-                .mana = 0,
-                .efficiency = 1,
-                .type = BST_NOT_A_SPELL,
-                .anim = BAT_ANIM_ATTACK,
-            },
-            {
-                .name = "Charm",
-                .mana = 10,
-                .efficiency = 1,
-                .type = BST_AIR,
-                .anim = BAT_ANIM_SPELL_1,
-            }
-        }
-    },
     {
         .name = "Skeleton",
         .asset_file = "asset/enemies/skeleton.png",
@@ -94,7 +54,116 @@ static const battle_opponent_t ENEMIES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 1,
+                .efficiency = 18,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            }
+        }
+    },
+    {
+        .name = "Goblin",
+        .asset_file = "asset/enemies/goblin.png",
+        .asset_rect = { 0, 0, 1200, 450 },
+        .level = 1,
+        .health = 10,
+        .mana = 10,
+        .max_mana = 10,
+        .scale = { 1, 1 },
+        .animable_info = {
+            .animations = {
+                { 8, 11 },  // BAT_ANIM_IDLE
+                { 0, 7 },   // BAT_ANIM_ATTACK
+                { 14, 17 }, // BAT_ANIM_DEATH,
+                {},         // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
+            },
+            .frame_size = { 150, 150 },
+            .frames_per_line = 8
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 15,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            }
+        }
+    },
+    {
+        .name = "Devil Eye",
+        .asset_file = "asset/enemies/devil_eye.png",
+        .asset_rect = { 0, 0, 1200, 450 },
+        .level = 1,
+        .health = 10,
+        .mana = 10,
+        .max_mana = 10,
+        .scale = { 1, 1 },
+        .animable_info = {
+            .animations = {
+                { 8, 13 },  // BAT_ANIM_IDLE
+                { 0, 7 },   // BAT_ANIM_ATTACK
+                { 14, 17 }, // BAT_ANIM_DEATH,
+                {},         // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
+                
+            },
+            .frame_size = { 150, 150 },
+            .frames_per_line = 8
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 8,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            }
+        }
+    },
+    {
+        .name = "Mushroo",
+        .asset_file = "asset/enemies/mushroo.png",
+        .asset_rect = { 0, 0, 1200, 450 },
+        .level = 1,
+        .health = 10,
+        .mana = 10,
+        .max_mana = 10,
+        .scale = { 1, 1 },
+        .animable_info = {
+            .animations = {
+                { 8, 11 },  // BAT_ANIM_IDLE
+                { 0, 7 },   // BAT_ANIM_ATTACK
+                { 14, 17 }, // BAT_ANIM_DEATH,
+                {},         // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
+            },
+            .frame_size = { 150, 150 },
+            .frames_per_line = 8
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 10,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
             }
@@ -103,9 +172,9 @@ static const battle_opponent_t ENEMIES[] = {
 };
 
 static const sfVector2f ENEMIES_POSITIONS[][3] = {
-    { {150, 100} },
-    { {150, 70}, {170, 120} },
-    { {150, 70}, {170, 100}, {150, 120} }
+    { {150, 120} },
+    { {150, 80}, {170, 150} },
+    { {150, 70}, {170, 120}, {150, 160} }
 };
 
 static const battle_opponent_t *select_rand_enemy(int level)
@@ -136,6 +205,21 @@ static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
     return (0);
 }
 
+static void place_enemies(battlemanager_t *manager, int entity_count)
+{
+    sfVector2f pos;
+    sfFloatRect bounds;
+    sfSprite *sprite;
+
+    for (int i = 0; i < entity_count; i++) {
+        sprite = manager->enemies[i].animable_info.sprite;
+        pos =  ENEMIES_POSITIONS[entity_count - 1][i];
+        bounds = sfSprite_getGlobalBounds(sprite);
+        sfSprite_setPosition(sprite,
+            v2fsub(pos, VEC2F(bounds.width / 2, bounds.height / 2)));
+    }
+}
+
 int create_battlemanager_enemies(game_t *game, battlemanager_t *manager)
 {
     game_state_t *state = game->state;
@@ -155,8 +239,6 @@ int create_battlemanager_enemies(game_t *game, battlemanager_t *manager)
             return (-1);
         manager->enemies_count++;
     }
-    for (int i = 0; i < entity_count; i++)
-        sfSprite_setPosition(manager->enemies[i].animable_info.sprite,
-            ENEMIES_POSITIONS[entity_count - 1][i]);
+    place_enemies(manager, entity_count);
     return (0);
 }

@@ -10,6 +10,7 @@
 #include "erty/eprintf.h"
 #include "erty/estdlib.h"
 #include "erty/string/ecstring.h"
+#include "myrpg/battle.h"
 #include "myrpg/entities.h"
 #include "myrpg/state.h"
 #include <SFML/Graphics/Text.h>
@@ -68,13 +69,14 @@ void update_battlehub_labels(game_t *game UNUSED, battlehud_t *hud UNUSED)
     int offset_lv = 6 + (3 - count_digits(state->save.player_lv, 3));
     int offset_hp = 6 + (3 - count_digits(state->save.player_hp, 3));
     int offset_mana = 6 + (3 - count_digits(state->save.player_mana, 3));
+    battle_opponent_t *opponent = &hud->manager->friends[0];
 
     ememset(hud->lv_label->title + 6, ' ', 3);
     ememset(hud->hp_label->title + 6, ' ', 3);
     ememset(hud->mana_label->title + 6, ' ', 3);
-    eitoa(state->save.player_lv, hud->lv_label->title + offset_lv, base);
-    eitoa(state->save.player_hp, hud->hp_label->title + offset_hp, base);
-    eitoa(state->save.player_mana, hud->mana_label->title + offset_mana, base);
+    eitoa(opponent->level, hud->lv_label->title + offset_lv, base);
+    eitoa(opponent->health, hud->hp_label->title + offset_hp, base);
+    eitoa(opponent->mana, hud->mana_label->title + offset_mana, base);
 }
 
 void destroy_battlehud_labels(game_t *game UNUSED, battlehud_t *hud)
