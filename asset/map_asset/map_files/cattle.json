@@ -127,6 +127,114 @@
                  "width":257,
                  "x":681.5,
                  "y":1019.25
+                }, 
+                {
+                 "height":28.5,
+                 "id":6,
+                 "name":"entry_castle",
+                 "properties":[
+                        {
+                         "name":"spawnx",
+                         "type":"int",
+                         "value":92
+                        }, 
+                        {
+                         "name":"spawny",
+                         "type":"int",
+                         "value":703
+                        }, 
+                        {
+                         "name":"world",
+                         "type":"string",
+                         "value":"asset\/map_asset\/map_files\/castle_house.json"
+                        }],
+                 "rotation":0,
+                 "type":"warpzone",
+                 "visible":true,
+                 "width":95,
+                 "x":370,
+                 "y":1277.75
+                }, 
+                {
+                 "height":28.5,
+                 "id":7,
+                 "name":"entry_castle",
+                 "properties":[
+                        {
+                         "name":"spawnx",
+                         "type":"int",
+                         "value":669
+                        }, 
+                        {
+                         "name":"spawny",
+                         "type":"int",
+                         "value":689
+                        }, 
+                        {
+                         "name":"world",
+                         "type":"string",
+                         "value":"asset\/map_asset\/map_files\/castle_house.json"
+                        }],
+                 "rotation":0,
+                 "type":"warpzone",
+                 "visible":true,
+                 "width":47.5,
+                 "x":952.333333333333,
+                 "y":1432.08333333333
+                }, 
+                {
+                 "height":33.5,
+                 "id":8,
+                 "name":"entry_castle",
+                 "properties":[
+                        {
+                         "name":"spawnx",
+                         "type":"int",
+                         "value":689
+                        }, 
+                        {
+                         "name":"spawny",
+                         "type":"int",
+                         "value":140
+                        }, 
+                        {
+                         "name":"world",
+                         "type":"string",
+                         "value":"asset\/map_asset\/map_files\/castle_house.json"
+                        }],
+                 "rotation":0,
+                 "type":"warpzone",
+                 "visible":true,
+                 "width":39.5,
+                 "x":572.5,
+                 "y":1648.41666666667
+                }, 
+                {
+                 "height":28.5,
+                 "id":9,
+                 "name":"entry_castle",
+                 "properties":[
+                        {
+                         "name":"spawnx",
+                         "type":"int",
+                         "value":95
+                        }, 
+                        {
+                         "name":"spawny",
+                         "type":"int",
+                         "value":139
+                        }, 
+                        {
+                         "name":"world",
+                         "type":"string",
+                         "value":"asset\/map_asset\/map_files\/castle_house.json"
+                        }],
+                 "rotation":0,
+                 "type":"warpzone",
+                 "visible":true,
+                 "width":41,
+                 "x":1177.5,
+                 "y":1945.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -135,7 +243,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":6,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "properties":[
         {
