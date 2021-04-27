@@ -93,4 +93,9 @@
     #define INV_TEX "asset/hero/menu_hero/inventory.png"
     #define INV_TEX_OVER "asset/hero/menu_hero/inventory_cliqued.png"
 
+    typedef struct item_inv {
+        char *path;
+        int type;
+    } inventory_item_t;
+
 #endif

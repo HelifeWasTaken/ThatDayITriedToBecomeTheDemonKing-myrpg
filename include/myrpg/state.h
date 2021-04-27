@@ -13,6 +13,16 @@
 #include "define.h"
 #include <stdint.h>
 
+    enum item_type {
+        EMPTY,
+        CHESTPLATE,
+        HELMET,
+        RING,
+        SHIELD,
+        WEAPON,
+        ITEM
+    };
+
     typedef struct parameters {
         float music_vol;
         float vfx_vol;
@@ -24,6 +34,8 @@
 
     typedef struct item {
         int nb;
+        int type;
+        int id;
     } item_t;
 
     typedef struct game_save {
@@ -35,7 +47,7 @@
         ///
         /// inventory
         ///
-        item_t item;
+        item_t item[15];
         ///
         /// Position where to spawn player in map
         ///

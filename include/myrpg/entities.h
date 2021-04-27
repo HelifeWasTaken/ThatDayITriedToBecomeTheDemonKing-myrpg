@@ -13,6 +13,8 @@
 #include "myrpg/map/map.h"
 #include "define.h"
 #include "myrpg/map/map.h"
+#include "SFML/Graphics.h"
+#include "SFML/Window.h"
 
 enum arrow_keys {
     KEY_DOWN,
@@ -269,6 +271,11 @@ typedef struct inventory {
     view_t *view;
     bool is_visible;
     sfCircleShape *box;
+    sfSprite **inventory;
+    sfSprite *cursor_item;
+    int mouse_state;
+    bool is_deplacement;
+    int item_id;
 } inventory_t;
 
 sfSprite *init_inventory(game_t *game, entity_t *entity);
@@ -277,11 +284,15 @@ void update_inventory(game_t *game, entity_t *entity);
 void draw_inventory(game_t *game, entity_t *entity);
 void destroy_inventory(game_t *game, entity_t *entity);
 bool handle_inventory_events(game_t *game, entity_t *entity, sfEvent *event);
+bool init_inventory_item(game_t *game, entity_t *entity);
+void inventory_management(game_t *game, entity_t *entity);
 
 typedef const struct function {
     bool (*func)(UNUSED game_t *game, UNUSED entity_t *entity);
 } function_t;
 
+
+bool update_item(game_t *game, entity_t *entity);
 void function_handler(UNUSED game_t *game, UNUSED entity_t *entity, int i);
 bool func_btn_jar(UNUSED game_t *game, UNUSED entity_t *entity);
 bool func_btn_inventory(UNUSED game_t *game, UNUSED entity_t *entity);
@@ -289,5 +300,6 @@ bool func_btn_setting(UNUSED game_t *game, UNUSED entity_t *entity);
 bool func_btn_coin(UNUSED game_t *game, UNUSED entity_t *entity);
 bool func_btn_save(UNUSED game_t *game, UNUSED entity_t *entity);
 bool func_btn_quest(UNUSED game_t *game, UNUSED entity_t *entity);
+bool update_cursor(game_t *game, entity_t *entity);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

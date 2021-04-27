@@ -75,6 +75,7 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 
 SRC_INVETORY	=	src/entities/inventory/create_inventory.c \
 					src/entities/inventory/inventory.c \
+					src/entities/inventory/inventory_ges.c	\
 
 
 SRC = 	src/game.c \
