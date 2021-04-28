@@ -89,7 +89,8 @@ bool handle_mute_button_events(game_t *game UNUSED,
     else
         sfSprite_setScale(mute->sprite, VEC2F(3, 3));
     if (sfFloatRect_contains(&rect, mouse.x, mouse.y)
-        && sfMouse_isButtonPressed(sfMouseLeft)) {
+        && sfMouse_isButtonPressed(sfMouseLeft) && mute->clock->time >= 0.2) {
+            mute->clock->time = 0;
             if (mute->mute == true) {
                 mute->mute =  false;
                 mute->fonc(game, false);

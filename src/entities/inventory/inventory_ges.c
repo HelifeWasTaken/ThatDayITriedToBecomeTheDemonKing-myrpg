@@ -77,7 +77,9 @@ void inventory_management(game_t *game, entity_t *entity)
     for (int index = 0; index != 15; index++) {
         rect = sfSprite_getGlobalBounds(inventory->inventory[index]);
         if (sfMouse_isButtonPressed(sfMouseLeft)
-            && sfFloatRect_contains(&rect, pos.x, pos.y)) {
+            && sfFloatRect_contains(&rect, pos.x, pos.y)
+            && inventory->clock->time >= 0.5) {
+                inventory->clock->time = 0;
                 deplacement(game, entity, index);
         }
     }
