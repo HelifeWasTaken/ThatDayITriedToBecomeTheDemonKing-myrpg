@@ -33,6 +33,7 @@ enum entity_type {
     SETTING,
     VFX_SC,
     ATH,
+    LAYER,
     LAYER_MANAGER,
     TILESET_LAYER_MANAGER,
     TILESET_LAYER,
@@ -44,7 +45,8 @@ enum entity_type {
     NPC,
     DIALOGBOX,
     DEBUGMENU,
-    INVENTORY
+    INVENTORY,
+    SELECT
 };
 
 //----------------------------------------
@@ -127,12 +129,6 @@ bool handle_menu_events(game_t *game UNUSED,
 typedef struct player {
     entity_t *entity;
     pausable_clock_t *clock;
-    //parsed_args_t args = my_parse_args(argc, argv);
-
-    //if (my_char_in(args.flags, 'h')) {
-    //       print_help();
-    //    return (0);
-    //}
     sfSprite *sprite;
 } player_t;
 
@@ -157,7 +153,9 @@ typedef struct settings {
     pausable_clock_t *clock;
     sfSprite *background;
     sfSprite *ground;
-    sfSprite *sprite_button[4];
+    sfSprite *sprite_button;
+    sfText *txt;
+    void (*fonc)(game_t *game, int i);
 } settings_t;
 
 bool create_settings(game_t *game, entity_t *entity);
@@ -165,6 +163,7 @@ void update_settings(game_t *game, entity_t *entity);
 void draw_settings(game_t *game, entity_t *entity);
 void destroy_settings(game_t *game, entity_t *entity);
 bool handle_settings_events(game_t *game, entity_t *entity, sfEvent *event);
+bool check_loading_btn(game_t *game, entity_t *entity);
 
 bool create_scroll_bar(game_t *game, entity_t *entity);
 void update_scroll_bar(game_t *game, entity_t *entity);
@@ -182,6 +181,9 @@ typedef struct vfx_scroll {
     sfText *text;
 } vfx_scroll_t;
 
+sfText *init_text(game_t *game, entity_t *entity);
+sfSprite *init_scrolin(game_t *game);
+sfSprite *init_scroll(game_t *game, entity_t *entity);
 bool fonc_scroll_vfx(game_t *game, entity_t *entity);
 bool create_vfx_scroll(game_t *game, entity_t *entity);
 void update_vfx_scroll(game_t *game, entity_t *entity);
@@ -261,7 +263,6 @@ void draw_debugmenu(game_t *game, entity_t *entity);
 void destroy_debugmenu(game_t *game, entity_t *entity);
 bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 
-
 typedef struct inventory {
     entity_t *entity;
     pausable_clock_t *clock;
@@ -291,7 +292,6 @@ typedef const struct function {
     bool (*func)(UNUSED game_t *game, UNUSED entity_t *entity);
 } function_t;
 
-
 bool update_item(game_t *game, entity_t *entity);
 void function_handler(UNUSED game_t *game, UNUSED entity_t *entity, int i);
 bool func_btn_jar(UNUSED game_t *game, UNUSED entity_t *entity);
@@ -301,5 +301,26 @@ bool func_btn_coin(UNUSED game_t *game, UNUSED entity_t *entity);
 bool func_btn_save(UNUSED game_t *game, UNUSED entity_t *entity);
 bool func_btn_quest(UNUSED game_t *game, UNUSED entity_t *entity);
 bool update_cursor(game_t *game, entity_t *entity);
+
+typedef struct mute_button {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    void (*fonc)(game_t *game, bool vol);
+    bool mute;
+    sfText *str;
+    char *text;
+} mute_button_t;
+
+sfSprite *init_background(game_t *game, UNUSED entity_t *entity);
+sfText *init_text_btn(UNUSED game_t *game, UNUSED entity_t *entity);
+sfSprite *init_ground(game_t *game, UNUSED entity_t *entity);
+void set_size_sett(settings_t * setting);
+void init_select_btn(game_t *game);
+bool create_mute_button(game_t *game, entity_t *entity);
+void update_mute_button(game_t *game, entity_t *entity);
+void draw_mute_button(game_t *game, entity_t *entity);
+void destroy_mute_button(game_t *game, entity_t *entity);
+bool handle_mute_button_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

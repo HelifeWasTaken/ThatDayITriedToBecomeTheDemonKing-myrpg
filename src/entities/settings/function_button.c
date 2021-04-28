@@ -9,6 +9,7 @@
 #include "distract/entity.h"
 #include "distract/resources.h"
 #include "distract/graphics.h"
+#include "distract/debug.h"
 #include "SFML/Window.h"
 #include "SFML/Graphics.h"
 #include "myrpg/entities.h"
@@ -18,7 +19,6 @@
 #include "myrpg/state.h"
 #include "stdlib.h"
 #include <stdio.h>
-
 
 void vfx_scrolin(game_t *game UNUSED,
     parameters_t *parm UNUSED, entity_t *entity UNUSED)
@@ -35,20 +35,22 @@ void vfx_scrolin(game_t *game UNUSED,
     return;
 }
 
-
-void load_button(game_t *game, sfTexture *texture, settings_t *setting_button)
+bool load_button(game_t *game, settings_t *setting_button)
 {
-    for (int i = 0; i <= 3; i++) {
-        texture = create_texture(game, ASSET_SETTING_PATH[i], NULL);
-        setting_button->sprite_button[i] = create_sprite(texture, NULL);
-        sfSprite_setScale(setting_button->sprite_button[i], VEC2F(2, 2));
-    }
+    sfTexture *texture = create_texture(game, BACK_BUTTON, NULL);
+
+    D_ASSERT(texture, NULL, "error back button", false);
+    setting_button->sprite_button = create_sprite(texture, false);
+    D_ASSERT(setting_button->sprite_button, NULL, "error spr bk_button", false);
+    return (true);
 }
 
 bool function_button_settings(game_t *game, int i,
     parameters_t *param UNUSED, entity_t *entity UNUSED)
 {
-    if (i == 0 && sfMouse_isButtonPressed(sfMouseLeft)) {
+    (void)i;
+
+    if (sfMouse_isButtonPressed(sfMouseLeft)) {
         switch_to_scene(game, MENU_SCENE);
         return (true);
     }
