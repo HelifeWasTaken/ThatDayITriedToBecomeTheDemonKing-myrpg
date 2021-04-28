@@ -27,7 +27,7 @@
 
 static bool init_dialogbox(game_t *game, dialogbox_t *dialogbox)
 {
-    sfFont *font = create_font(game, "asset/title.ttf");
+    sfFont *font = create_font(game, FONT);
 
     D_ASSERT(font, NULL, "Can't get font", false)
     sfText_setColor(dialogbox->name_text, sfBlack);
@@ -63,5 +63,6 @@ bool create_dialogbox(game_t *game UNUSED, entity_t *entity)
         "Can't initialize dialog box", false)
     entity->instance = dialogbox;
     entity->z = 1000000000;
+    entity->draw_on_gui = true;
     return (true);
 }

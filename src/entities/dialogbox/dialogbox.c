@@ -45,9 +45,9 @@ void update_dialogbox(game_t *game UNUSED, entity_t *entity)
 
     if (!dialogbox->is_visible)
         return;
-    D_ASSERT(dialogbox->npc, NULL, "npc linked to dialog not found", (void)0)
+    D_ASSERT(dialogbox->dialog, NULL, "npc linked to dialog not found", (void)0)
     tick_pausable_clock(dialogbox->clock);
-    tmp = dialogbox->npc->messages[dialogbox->chunk_id];
+    tmp = dialogbox->dialog->messages[dialogbox->chunk_id];
     if (dialogbox->clock->time > 0.5) {
         D_ASSERT(tmp, NULL, "Invalid state, unexpected null", (void)0);
         len = estrlen(dialogbox->pending_buffer);
@@ -57,7 +57,7 @@ void update_dialogbox(game_t *game UNUSED, entity_t *entity)
             wrap_dialog_text(dialogbox);
         }
     }
-    sfText_setString(dialogbox->name_text, dialogbox->npc->name);
+    sfText_setString(dialogbox->name_text, dialogbox->dialog->name);
     sfText_setString(dialogbox->content_text, dialogbox->pending_buffer);
 }
 
@@ -67,12 +67,10 @@ void draw_dialogbox(game_t *game UNUSED, entity_t *entity)
 
     if (!dialogbox->is_visible)
         return;
-    set_view_type(game, dialogbox->view, HUD_VIEW);
     sfRenderWindow_drawRectangleShape(game->window, dialogbox->background,
         NULL);
     sfRenderWindow_drawText(game->window, dialogbox->name_text, NULL);
     sfRenderWindow_drawText(game->window, dialogbox->content_text, NULL);
-    set_view_type(game, dialogbox->view, WORLD_VIEW);
 }
 
 bool handle_dialogbox_events(game_t *game UNUSED,
@@ -84,10 +82,10 @@ bool handle_dialogbox_events(game_t *game UNUSED,
 
     if (!dialogbox->is_visible)
         return (false);
-    D_ASSERT(dialogbox->npc, NULL, "npc linked to dialogbox not found", false)
+    D_ASSERT(dialogbox->dialog, NULL, "dialog linked to box not found", false)
     if (event->type == sfEvtKeyPressed && event->key.code == sfKeySpace) {
         len = estrlen(dialogbox->pending_buffer);
-        current_msg = dialogbox->npc->messages[dialogbox->chunk_id];
+        current_msg = dialogbox->dialog->messages[dialogbox->chunk_id];
         if (len < estrlen(current_msg)) {
             ememcpy(dialogbox->pending_buffer, current_msg,
                 estrlen(current_msg) + 1);

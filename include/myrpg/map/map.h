@@ -23,6 +23,7 @@
         struct layer_collision *collision;
         sfVector2u mapsize;
         unsigned int tilesize;
+        usize_t z;
     } layer_manager_t;
 
     #define GET_REAL_POSITION_XY(v, xoff, yoff, tsize) \

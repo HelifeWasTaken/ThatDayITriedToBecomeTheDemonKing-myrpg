@@ -18,17 +18,17 @@
 #include "myrpg/define.h"
 #include "myrpg/map/map.h"
 #include "distract/util.h"
+#include "myrpg/state.h"
 
 bool create_layer_object_manager(game_t *game UNUSED, entity_t *entity)
 {
     layer_object_manager_t *layer_object_manager = dcalloc(
         sizeof(layer_object_manager_t), 1);
-    ig_map_t map = {0};
+    game_state_t *state = game->state;
 
-    D_ASSERT(load_map_from_file(game, &map), false, "", false);
     D_ASSERT(layer_object_manager, NULL, "Could not init layer"
         " object manager", false);
-    if (load_layers_object(game, &layer_object_manager, &map) == false) {
+    if (load_layers_object(game, &layer_object_manager, &state->map) == false) {
         print_error("Failed to load layer object manager");
         return (false);
     }

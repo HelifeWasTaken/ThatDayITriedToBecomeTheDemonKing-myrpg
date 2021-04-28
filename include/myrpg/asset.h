@@ -37,7 +37,7 @@
     /// SETTINGS_MENU_DEFINE
     ///
 
-    #define FONT "asset/title.ttf"
+    #define FONT "asset/homespun.ttf"
     #define ASSET_BAR "asset/setting/golden_rod.png"
     #define ASSET_SC "asset/setting/cursor.png"
 
@@ -77,7 +77,7 @@
     #define HERO_SCALE VEC2F(0.5, 0.5)
 
     #define HERO_FIGHT_PATH "asset/hero/bard_combat.png"
-    #define FULL_HERO_FIGHT_RECT IRECT(0 ,0, 450, 166)
+    #define FULL_HERO_FIGHT_RECT IRECT(0 ,0, 630, 166)
     #define ONE_HERO_FIGHT_RECT IRECT(0, 0, 90, 83)
 
     typedef enum sound_types {

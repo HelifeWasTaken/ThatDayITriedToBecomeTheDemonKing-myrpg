@@ -18,6 +18,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/define.h"
 #include "stdlib.h"
+#include "distract/util.h"
 
 bool handle_ath_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
@@ -63,7 +64,7 @@ static bool create_ath_second_part(ath_t *ath, game_t *game,
 
 bool create_ath(game_t *game UNUSED, entity_t *entity)
 {
-    ath_t *ath = malloc(sizeof(ath_t));
+    ath_t *ath = dcalloc(sizeof(ath_t), 1);
     sfTexture *icon_texture = NULL;
     sfTexture *player_ath_texture = create_texture(game, PLAYER_ATH,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
@@ -82,15 +83,14 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
     entity->instance = ath;
     ath->entity = entity;
     ath->entity->z = 10000;
+    entity->draw_on_gui = true;
     return (true);
 }
 
 void draw_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
-    view_t *view = ath->view;
 
-    set_view_type(game, view, HUD_VIEW);
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
     for (int i = 0; i < 6; i++)
         sfRenderWindow_drawSprite(game->window, ath->button_sprite[i], NULL);

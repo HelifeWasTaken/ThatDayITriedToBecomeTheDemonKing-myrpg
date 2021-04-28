@@ -6,6 +6,7 @@
 */
 
 #include "distract/game.h"
+#include "distract/util.h"
 #include "distract/window.h"
 #include "distract/scene.h"
 #include "myrpg/asset.h"
@@ -17,6 +18,7 @@
 #include "stdlib.h"
 #include "myrpg/scenes.h"
 #include "myrpg/util.h"
+#include "distract/util.h"
 
 static const entity_info_t ENTITIES[] = {
     ENTITY(PLAYER, &create_player, &draw_player,
@@ -40,8 +42,8 @@ static const entity_info_t ENTITIES[] = {
         &destroy_vfx_scroll, &update_vfx_scroll, &handle_vfx_scroll_events),
     ENTITY(DIALOGBOX, &create_dialogbox, &draw_dialogbox,
         &destroy_dialogbox, &update_dialogbox, &handle_dialogbox_events),
-    ENTITY(NPC, &create_npc, &draw_npc,
-        &destroy_npc, &update_npc, &handle_npc_events),
+    ENTITY(DIALOG, &create_dialog, &draw_dialog,
+        &destroy_dialog, &update_dialog, &handle_dialog_events),
     ENTITY(WARP, &create_warpzone, &update_warpzone,
         &destroy_warpzone, NULL, NULL),
     ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
@@ -60,14 +62,28 @@ static const entity_info_t ENTITIES[] = {
             &destroy_inventory, &update_inventory, &handle_inventory_events),
     ENTITY(SELECT, &create_mute_button, &draw_mute_button,
         &destroy_mute_button, &update_mute_button, &handle_mute_button_events)
+
+    ENTITY(BATTLEHUD, &create_battlehud, &draw_battlehud,
+            &destroy_battlehud, &update_battlehud, &handle_battlehud_events),
+    ENTITY(BATTLEMANAGER, &create_battlemanager, &draw_battlemanager,
+            &destroy_battlemanager, &update_battlemanager,
+            &handle_battlemanager_events),
+    ENTITY(GUI_BUTTON, &create_button, &draw_button,
+            &destroy_button, &update_button, &handle_button_events),
+    ENTITY(GUI_LABEL, &create_label, &draw_label,
+            &destroy_label, &update_label, NULL),
+    ENTITY(PNJ, &create_pnj, &draw_pnj,
+            &destroy_pnj, NULL, NULL)
 };
 
 static bool configure_window(game_t *game)
 {
     game->mode = MODE(WINDOW_W, WINDOW_H, 32);
     game->window = create_standard_window(game->mode, "My RPG");
+    game->view = sfView_create();
+    game->gui_view = sfView_createFromRect(FRECT(0, 0, WINDOW_W, WINDOW_H));
     game->renderer = DEFAULT_RENDERSTATE(NULL);
-    if (!game->window) {
+    if (!game->window || !game->view || !game->gui_view) {
         print_error("Could not init window");
         return (false);
     }
@@ -88,7 +104,7 @@ static bool configure_entities(game_t *game UNUSED)
 
 void configure_state(game_t *game)
 {
-    game_state_t *state = malloc(sizeof(game_state_t) * 1);
+    game_state_t *state = dcalloc(sizeof(game_state_t), 1);
 
     state->params.music_vol = 1;
     state->params.vfx_vol = 1;
@@ -104,7 +120,9 @@ void configure_state(game_t *game)
     state->save.item[0].type = ITEM;
     state->save.item[0].id = 1;
     state->save.item[0].type = 1;
-
+    state->save.player_hp = 100;
+    state->save.player_lv = 1;
+    state->save.player_mana = 30;
     game->state = state;
 }
 
@@ -115,6 +133,7 @@ void configure_game(game_t *game)
     register_scene(game, MENU_SCENE, &menu_lifecycle);
     register_scene(game, KEY_CONFIG, &key_lifecycle);
     register_scene(game, SETTING_SCENE, &setting_lifecycle);
+    register_scene(game, BATTLE_SCENE, &battle_lifecycle);
     configure_state(game);
     configure_entities(game);
 }
@@ -129,7 +148,7 @@ int load_game(void)
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
     game->scene->world_file = "asset/map_asset/map_files/map_village.json";
-    get_game_state(game)->save.player_pos = VEC2F(100, 100);
+    get_game_state(game)->save.player_pos = VEC2F(1535, 42);
     do {
         code = load_pending_scene(game);
         if (code != 0)

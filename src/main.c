@@ -16,6 +16,7 @@
 #include <SFML/Graphics.h>
 #include <iron_goat/deser.h>
 #include "myrpg/util.h"
+#include "myrpg/pnj.h"
 
 int main(void)
 {

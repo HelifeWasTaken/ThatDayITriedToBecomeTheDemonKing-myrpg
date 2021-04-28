@@ -72,7 +72,8 @@ static bool load_one_object_group(game_t *game UNUSED,
     return (true);
 }
 
-bool load_layers_object(game_t *game UNUSED, layer_object_manager_t **manager, ig_map_t *map)
+bool load_layers_object(game_t *game UNUSED,
+    layer_object_manager_t **manager, ig_map_t *map)
 {
     (*manager)->layer = VECTOR_CREATE(lobject_info);
     D_ASSERT((*manager)->layer, NULL, "Could not init layer data"
@@ -80,7 +81,8 @@ bool load_layers_object(game_t *game UNUSED, layer_object_manager_t **manager, i
     for (usize_t i = 0; i < map->layers->size; i++) {
         DEBUG_PRINTF("object: %d", map->layers->data[i].type);
         if (map->layers->data[i].type == LAYER_OBJECTGROUP) {
-            if (load_one_object_group(game, manager, &map->layers->data[i], i) == false)
+            if (load_one_object_group(game, manager,
+                &map->layers->data[i], i) == false)
                 return (false);
         }
     }

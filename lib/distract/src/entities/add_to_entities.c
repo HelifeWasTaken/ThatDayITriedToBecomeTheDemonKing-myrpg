@@ -13,7 +13,6 @@
 #include "unistd.h"
 #include "stdarg.h"
 
-
 static void add_between(entity_t *prev, entity_t *next, entity_t *entity)
 {
     entity->next = next;

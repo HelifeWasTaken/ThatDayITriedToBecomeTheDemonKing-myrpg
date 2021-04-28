@@ -73,6 +73,8 @@ typedef struct entity {
     ///
     struct thread_info *threadinfo;
 
+    bool draw_on_gui;
+
 } entity_t;
 
 ///

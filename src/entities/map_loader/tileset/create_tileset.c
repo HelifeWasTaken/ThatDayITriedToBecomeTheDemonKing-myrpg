@@ -21,6 +21,7 @@
 bool create_layer_tileset(game_t *game UNUSED, entity_t *entity)
 {
     layer_tileset_t *layer_tileset = dcalloc(sizeof(layer_tileset_t), 1);
+    game_state_t *state = game->state;
     layer_tileset_manager_t *manager =
         get_instance(game, TILESET_LAYER_MANAGER);
 
@@ -32,6 +33,9 @@ bool create_layer_tileset(game_t *game UNUSED, entity_t *entity)
         manager->tileset->data[manager->actual_layer].texture;
     layer_tileset->layer.vtx =
         manager->tileset->data[manager->actual_layer].vtx;
+    if (manager->actual_layer == state->z)
+        for (size_t i = manager->actual_layer; i < manager->tileset->size; i++)
+            manager->tileset->data[manager->actual_layer].z++;
     entity->z = manager->tileset->data[manager->actual_layer].z;
     manager->actual_layer++;
     return (true);

@@ -21,9 +21,14 @@ ifeq ($(EPIDEBUG), 1)
 	CFLAGS += -Wno-error=array-bounds -Warray-bounds
 	CFLAGS += -Wno-error=alloc-zero -Walloc-zero
 	CFLAGS += -Wno-error=cast-qual -Wcast-qual
-	CFLAGS += -Wno-error=extra -Wextra
+	CFLAGS += -Wno-error=extra -Wextra -Wnonnull
 	CFLAGS += -fno-builtin
 	CFLAGS += -ftrapv -ggdb -g3
+endif
+
+ifeq ($(SAN), 1)
+	CFLAGS += -fsanitize=undefined,bounds-strict,address -fsanitize-recover=address -O1
+	ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1
 endif
 
 LFLAGS = -ldistract -ltgoat -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm # -lmy
@@ -54,17 +59,26 @@ SRC_MAP =	src/entities/map_loader/map_loader.c \
 		src/entities/map_loader/tileset/tileid_and_rotation.c \
 
 SRC_HERO = src/entities/hero/hero.c \
-	   src/entities/hero/hero_collision.c \
-	   src/entities/hero/player_move.c
+    		src/entities/hero/hero_collision.c \
+			src/entities/hero/player_move.c \
+			src/entities/hero/hero_battle_rand.c
 
+SRC_BUTTON = src/entities/gui_button/button.c \
+			src/entities/gui_button/button_on_click.c
+
+SRC_LABEL = src/entities/gui_label/label.c
 
 SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
-		src/scenes/menu/lifecycle.c     \
-		src/scenes/key_config/lifecycle.c \
-		src/scenes/settings_menu/lifecycle.c  \
+        src/scenes/menu/lifecycle.c     \
+        src/scenes/key_config/lifecycle.c \
+        src/scenes/settings_menu/lifecycle.c  \
+		src/scenes/battle/lifecycle.c \
 
 SRC_UTIL = src/util/sfml_deser.c \
-	   src/util/get_save_state.c
+		   src/util/get_save_state.c \
+		   src/util/not_implemented.c \
+		   src/util/property_loader.c
+
 
 SRC_MENU = src/entities/menu/menu.c \
 	   src/entities/menu/create_menu.c \
@@ -73,38 +87,53 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 		src/entities/debugmenu/keybind.c \
 		src/entities/debugmenu/display.c \
 
-SRC_INVETORY	=	src/entities/inventory/create_inventory.c \
+SRC_INVENTORY	=	src/entities/inventory/create_inventory.c \
 			src/entities/inventory/inventory.c \
 			src/entities/inventory/inventory_ges.c	\
 
 
+SRC_BATTLE = src/entities/battlehud/battlehud.c \
+			src/entities/battlehud/buttons.c \
+			src/entities/battlehud/labels.c \
+			src/entities/battlemanager/animate.c \
+			src/entities/battlemanager/battlemanager.c \
+			src/entities/battlemanager/enemies.c \
+			src/entities/battlemanager/friends.c \
+			src/entities/battlemanager/attack.c \
+			src/entities/battlemanager/bard_talking.c \
+			src/entities/battlemanager/battle.c
+
 SRC = 	src/game.c \
-	src/entities/player/player.c \
-	src/entities/scroll_bar/scroll_bar.c    \
-	src/entities/settings/setting_button.c	\
-	src/entities/settings/function_button.c	\
-	src/entities/settings/vfx_scroll.c	\
-	src/entities/settings/fonc_scroll_vfx.c	\
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
-	src/entities/settings/set_size.c 	\
-	src/entities/ath/ath.c \
 	src/entities/ath/button_handler.c \
 	src/entities/ath/func_btn.c \
-	src/entities/view/view.c \
-	src/entities/dialogbox/dialogbox.c \
-	src/entities/dialogbox/create.c \
-	src/entities/dialogbox/show_text.c \
-	src/entities/npc/npc.c \
-	$(SRC_DEBUGMENU) \
-	$(SRC_MENU) \
-	$(SRC_UTIL) \
-	$(SRC_MAP) \
-	$(SRC_HERO) \
-	$(SRC_LIFECYCLE)	\
-	$(SRC_INVETORY) \
+	$(SRC_INVENTORY) \
 	src/entities/settings/mute_button.c	\
 	src/entities/settings/init_select_button.c	\
+	    src/entities/scroll_bar/scroll_bar.c    \
+        src/entities/settings/setting_button.c	\
+	    src/entities/settings/function_button.c	\
+	    src/entities/settings/vfx_scroll.c	\
+	    src/entities/settings/fonc_scroll_vfx.c	\
+        src/entities/settings/set_size.c 	\
+        src/entities/ath/ath.c \
+        src/entities/view/view.c \
+		src/entities/dialogbox/dialogbox.c \
+		src/entities/dialogbox/create.c \
+		src/entities/dialogbox/show_text.c \
+		src/entities/dialog/dialog.c \
+		src/entities/npc/pnj_loader.c \
+		src/entities/npc/create_pnj.c \
+        $(SRC_DEBUGMENU) \
+        $(SRC_MENU) \
+        $(SRC_UTIL) \
+        $(SRC_MAP) \
+        $(SRC_HERO) \
+        $(SRC_LIFECYCLE) \
+		$(SRC_BATTLE) \
+		$(SRC_BUTTON) \
+		$(SRC_LABEL)
 
 TESTS =	\
 
@@ -143,7 +172,6 @@ clean:
 	rm -f ${TARGET}
 	${MAKE} clean -j -C ./lib/distract/
 	${MAKE} clean -j -C ./lib/iron_goat/
-
 
 fclean: clean
 	rm -f ${LIB} *.gc* unit_tests

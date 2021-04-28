@@ -1,0 +1,244 @@
+/*
+** EPITECH PROJECT, 2021
+** entities
+** File description:
+** Source code
+*/
+
+#include "distract/animable.h"
+#include "distract/debug.h"
+#include "distract/math.h"
+#undef ABS
+#include "distract/graphics.h"
+#include "distract/resources.h"
+#include "erty/estdlib.h"
+#include "erty/string/ecstring.h"
+#include "myrpg/asset.h"
+#include "myrpg/entities.h"
+#include "myrpg/state.h"
+#include <SFML/Graphics/Rect.h>
+#include <SFML/Graphics/Sprite.h>
+#include <SFML/Graphics/Types.h>
+#include <SFML/System/Vector2.h>
+#include <stdlib.h>
+
+static const battle_opponent_t ENEMIES[] = {
+    {
+        .name = "Skeleton",
+        .asset_file = "asset/enemies/skeleton.png",
+        .asset_rect = { 0, 0, 1144, 452 },
+        .level = 1,
+        .health = 10,
+        .mana = 10,
+        .max_mana = 10,
+        .scale = { 1, 1 },
+        .animable_info = {
+            .animations = {
+                { 0, 3 },   // BAT_ANIM_IDLE
+                { 7, 13 },  // BAT_ANIM_ATTACK
+                { 14, 17 }, // BAT_ANIM_DEATH,
+                {},         // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
+                
+            },
+            .frame_size = { 150, 150 },
+            .frames_per_line = 7
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 18,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            }
+        }
+    },
+    {
+        .name = "Goblin",
+        .asset_file = "asset/enemies/goblin.png",
+        .asset_rect = { 0, 0, 1200, 450 },
+        .level = 1,
+        .health = 10,
+        .mana = 10,
+        .max_mana = 10,
+        .scale = { 1, 1 },
+        .animable_info = {
+            .animations = {
+                { 8, 11 },  // BAT_ANIM_IDLE
+                { 0, 7 },   // BAT_ANIM_ATTACK
+                { 14, 17 }, // BAT_ANIM_DEATH,
+                {},         // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
+            },
+            .frame_size = { 150, 150 },
+            .frames_per_line = 8
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 15,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            }
+        }
+    },
+    {
+        .name = "Devil Eye",
+        .asset_file = "asset/enemies/devil_eye.png",
+        .asset_rect = { 0, 0, 1200, 450 },
+        .level = 1,
+        .health = 10,
+        .mana = 10,
+        .max_mana = 10,
+        .scale = { 1, 1 },
+        .animable_info = {
+            .animations = {
+                { 8, 13 },  // BAT_ANIM_IDLE
+                { 0, 7 },   // BAT_ANIM_ATTACK
+                { 14, 17 }, // BAT_ANIM_DEATH,
+                {},         // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
+                
+            },
+            .frame_size = { 150, 150 },
+            .frames_per_line = 8
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 8,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            }
+        }
+    },
+    {
+        .name = "Mushroo",
+        .asset_file = "asset/enemies/mushroo.png",
+        .asset_rect = { 0, 0, 1200, 450 },
+        .level = 1,
+        .health = 10,
+        .mana = 10,
+        .max_mana = 10,
+        .scale = { 1, 1 },
+        .animable_info = {
+            .animations = {
+                { 8, 11 },  // BAT_ANIM_IDLE
+                { 0, 7 },   // BAT_ANIM_ATTACK
+                { 14, 17 }, // BAT_ANIM_DEATH,
+                {},         // BAT_ANIM_ITEM
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // placeholder
+                {},         // BAT_ANIM_SPELL_1
+                {},         // BAT_ANIM_SPELL_2
+                {}          // BAT_ANIM_SPELL_3
+            },
+            .frame_size = { 150, 150 },
+            .frames_per_line = 8
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 10,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+            }
+        }
+    }
+};
+
+static const sfVector2f ENEMIES_POSITIONS[][3] = {
+    { {150, 120} },
+    { {150, 80}, {170, 150} },
+    { {150, 70}, {170, 120}, {150, 160} }
+};
+
+static const battle_opponent_t *select_rand_enemy(int level)
+{
+    const battle_opponent_t *rand_opponent;
+
+    do {
+        rand_opponent = &ENEMIES[rand() % (ARRAY_SIZE(ENEMIES))];
+    } while ((rand_opponent->level / 10) > (level / 10));
+    return (rand_opponent);
+}
+
+static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
+{
+    sfTexture *texture;
+    const battle_opponent_t *rand_enemy
+        = select_rand_enemy(level);
+    
+    ememcpy(enemy, rand_enemy, sizeof(battle_opponent_t));
+    texture = create_texture(game, enemy->asset_file, &enemy->asset_rect);
+    D_ASSERT(texture, NULL, "Cannot create texture", -1)
+    enemy->animable_info.sprite = create_sprite(texture, NULL);
+    D_ASSERT(enemy->animable_info.sprite, NULL, "Cannot create sprite", -1)
+    enemy->animable = (animable_t) {0};
+    set_animable_info(&enemy->animable, &enemy->animable_info);
+    set_animable_animation(&enemy->animable, 0);
+    sfSprite_scale(enemy->animable_info.sprite, enemy->scale);
+    return (0);
+}
+
+static void place_enemies(battlemanager_t *manager, int entity_count)
+{
+    sfVector2f pos;
+    sfFloatRect bounds;
+    sfSprite *sprite;
+
+    for (int i = 0; i < entity_count; i++) {
+        sprite = manager->enemies[i].animable_info.sprite;
+        pos =  ENEMIES_POSITIONS[entity_count - 1][i];
+        bounds = sfSprite_getGlobalBounds(sprite);
+        sfSprite_setPosition(sprite,
+            v2fsub(pos, VEC2F(bounds.width / 2, bounds.height / 2)));
+    }
+}
+
+int create_battlemanager_enemies(game_t *game, battlemanager_t *manager)
+{
+    game_state_t *state = game->state;
+    int entity_count = 1 + (rand() % 3);
+    state->save.player_lv = 20;
+    int level = state->save.player_lv / entity_count;
+
+    if (level < 3) {
+        level = 5;
+        entity_count = 1;
+    } else if (level < 10) {
+        level = 5;
+        entity_count = entity_count > 2 ? 2 : entity_count;
+    }
+    for (int i = 0; i < entity_count; i++) {
+        if (create_enemy(game, &manager->enemies[i], level) == -1)
+            return (-1);
+        manager->enemies_count++;
+    }
+    place_enemies(manager, entity_count);
+    return (0);
+}
