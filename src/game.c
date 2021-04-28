@@ -91,10 +91,14 @@ void configure_state(game_t *game)
     state->params.vfx_muted = false;
     state->params.voice_muted = false;
     for (int index = 0; index != 15; index++) {
-        state->save.item[index].type = WEAPON;
-        state->save.item[index].id = 1;
-        state->save.item[index].nb = 1;
+        state->save.item[index].type = EMPTY;
+        state->save.item[index].id = 0;
+        state->save.item[index].nb = 0;
     }
+    state->save.item[0].type = ITEM;
+    state->save.item[0].id = 1;
+    state->save.item[0].type = 1;
+
     game->state = state;
 }
 

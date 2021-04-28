@@ -39,13 +39,12 @@ bool init_cursor(game_t *game, entity_t *entity)
     return (true);
 }
 
-sfSprite *init_inventory(game_t *game, entity_t *entity)
+sfSprite *init_inventory(UNUSED game_t *game, UNUSED entity_t *entity)
 {
     inventory_t *inventory = entity->instance;
-    inventory->texture = create_texture(game, INV_TEX, NULL);
     sfSprite *sprite = NULL;
 
-    (void)entity;
+    inventory->texture = create_texture(game, INV_TEX, NULL);
     D_ASSERT(init_cursor(game, entity), false, "error", false);
     inventory->over = create_texture(game, INV_TEX_OVER, NULL);
     D_ASSERT(inventory->texture, NULL, "error texture inventory", NULL);

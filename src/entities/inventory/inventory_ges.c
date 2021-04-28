@@ -94,6 +94,8 @@ bool update_cursor(game_t *game, entity_t *entity)
         D_ASSERT(texture, NULL, "error quit texture", false);
         sfSprite_setTexture(inventory->cursor_item, texture, sfFalse);
         state->save.item[inventory->mouse_state].id = inventory->item_id;
+        state->save.item[inventory->mouse_state].type
+            = item_id[inventory->item_id].type;
         inventory->is_deplacement = false;
         return (true);
     }
