@@ -23,15 +23,15 @@ bool create_vfx_scroll(game_t *game UNUSED, entity_t *entity)
     vfx_scroll_t *vfx_scroll = malloc(sizeof(vfx_scroll_t) * 1);
 
     D_ASSERT(vfx_scroll, NULL, "err malloc", false);
-    vfx_scroll->text = init_text(game);
-    vfx_scroll->sprite_bar = init_scroll(game);
+    vfx_scroll->text = init_text(game, entity);
+    vfx_scroll->sprite_bar = init_scroll(game, entity);
     vfx_scroll->scrolin =  init_scrolin(game);
     D_ASSERT(vfx_scroll->text, NULL, "error txt", false);
     D_ASSERT(vfx_scroll->sprite_bar, NULL, "error sprite_bar", false);
     D_ASSERT(vfx_scroll->scrolin, NULL, "error scrollin", false);
     vfx_scroll->entity = entity;
     vfx_scroll->clock = create_pausable_clock(game);
-    D_ASSERT(vfx_scroll, NULL, "clock scroll", false);
+    D_ASSERT(vfx_scroll->clock, NULL, "error clock", false);
     vfx_scroll->on_scroll = NULL;
     entity->instance = vfx_scroll;
     return (true);

@@ -19,7 +19,7 @@
 #include "stdlib.h"
 #include <stdio.h>
 
-sfSprite *init_scroll(game_t *game)
+sfSprite *init_scroll(game_t *game, UNUSED entity_t *entity)
 {
     sfTexture *texture = create_texture(game, ASSET_BAR, NULL);
     sfSprite *sprite = NULL;
@@ -45,12 +45,11 @@ sfSprite *init_scrolin(game_t *game)
     return (sprite);
 }
 
-sfText *init_text(game_t *game)
+sfText *init_text(UNUSED game_t *game, UNUSED entity_t *entity)
 {
     sfFont *font = sfFont_createFromFile(FONT);
     sfText *text = sfText_create();
 
-    (void)game;
     D_ASSERT(text, NULL, "fail text", false);
     D_ASSERT(font, NULL, "fail font", false);
     sfText_setFont(text, font);

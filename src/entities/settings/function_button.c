@@ -42,6 +42,7 @@ bool load_button(game_t *game, settings_t *setting_button)
     D_ASSERT(texture, NULL, "error back button", false);
     setting_button->sprite_button = create_sprite(texture, false);
     D_ASSERT(setting_button->sprite_button, NULL, "error spr bk_button", false);
+    return (true);
 }
 
 bool function_button_settings(game_t *game, int i,

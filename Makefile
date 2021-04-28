@@ -50,7 +50,8 @@ SRC = 	src/game.c \
 		  src/entities/settings/init_scroll.c	\
 	      src/entities/settings/vfx_scroll.c	\
 	      src/entities/settings/fonc_scroll_vfx.c	\
-        src/entities/settings/set_size.c 	\
+		src/entities/settings/set_size.c 	\
+		src/entities/settings/init_settings.c 	\
         src/scenes/play/lifecycle.c \
         src/scenes/menu/lifecycle.c     \
         src/scenes/key_config/lifecycle.c \

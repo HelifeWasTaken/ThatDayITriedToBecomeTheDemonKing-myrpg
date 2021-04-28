@@ -92,12 +92,6 @@ bool handle_menu_events(game_t *game UNUSED,
 typedef struct player {
     entity_t *entity;
     pausable_clock_t *clock;
-    //parsed_args_t args = my_parse_args(argc, argv);
-
-    //if (my_char_in(args.flags, 'h')) {
-    //       print_help();
-    //    return (0);
-    //}
     sfSprite *sprite;
 } player_t;
 
@@ -152,7 +146,7 @@ typedef struct vfx_scroll {
 
 sfText *init_text(game_t *game, entity_t *entity);
 sfSprite *init_scrolin(game_t *game);
-sfSprite *init_scroll(game_t *game);
+sfSprite *init_scroll(game_t *game, entity_t *entity);
 bool fonc_scroll_vfx(game_t *game, entity_t *entity);
 bool create_vfx_scroll(game_t *game, entity_t *entity);
 void update_vfx_scroll(game_t *game, entity_t *entity);
@@ -182,6 +176,9 @@ typedef struct mute_button {
     char *text;
 } mute_button_t;
 
+void set_size_sett(settings_t * setting);
+sfText *init_text_btn(UNUSED game_t *game, UNUSED entity_t *entity);
+sfSprite *init_ground(game_t *game, entity_t *entity);
 sfSprite *init_background(game_t *game, entity_t *entity);
 void init_select_btn(game_t *game);
 bool create_mute_button(game_t *game, entity_t *entity);

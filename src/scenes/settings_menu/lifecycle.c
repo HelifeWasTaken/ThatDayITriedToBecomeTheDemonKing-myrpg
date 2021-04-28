@@ -45,11 +45,13 @@ void init_scroll_bar(game_t *game)
     scroll->on_scroll = &vfx_on_scroll;
     sfText_setString(scroll->text, "vfx:");
     set_size_vfx(game, scroll);
-    sfSprite_setPosition(scroll_vox->sprite_bar, VEC2F(WINDOW_W / 4 * 2.2, 500));
+    sfSprite_setPosition(scroll_vox->sprite_bar,
+        VEC2F(WINDOW_W / 4 * 2.2, 500));
     scroll_vox->on_scroll = &vox_on_scroll;
     sfText_setString(scroll_vox->text, "voice:");
     set_size_vox(game, scroll_vox);
-    sfSprite_setPosition(scroll_mus->sprite_bar, VEC2F(WINDOW_W / 4 * 2.2, 300));
+    sfSprite_setPosition(scroll_mus->sprite_bar,
+        VEC2F(WINDOW_W / 4 * 2.2, 300));
     scroll_mus->on_scroll = &music_on_scroll;
     sfText_setString(scroll_mus->text, "music:");
     set_size_mus(game, scroll_mus);

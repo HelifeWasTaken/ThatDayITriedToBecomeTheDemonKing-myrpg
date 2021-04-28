@@ -20,7 +20,7 @@
 #include "stdlib.h"
 #include <stdio.h>
 
-sfSprite *init_bkbtn(game_t *game, entity_t * entity)
+sfSprite *init_bkbtn(game_t *game, UNUSED entity_t * entity)
 {
     sfTexture *texture = create_texture(game, BACK_BUTTON, NULL);
     sfSprite *sprite = NULL;
@@ -31,7 +31,7 @@ sfSprite *init_bkbtn(game_t *game, entity_t * entity)
     return (sprite);
 }
 
-sfSprite *init_background(game_t *game, entity_t *entity)
+sfSprite *init_background(game_t *game, UNUSED entity_t *entity)
 {
     sfTexture *texture = create_texture(game, MAIN_MENU_BG, NULL);
     sfSprite *sprite = NULL;
@@ -42,7 +42,7 @@ sfSprite *init_background(game_t *game, entity_t *entity)
     return (sprite);
 }
 
-sfText *init_text(game_t *game, entity_t *entity)
+sfText *init_text_btn(UNUSED game_t *game, UNUSED entity_t *entity)
 {
     sfText *text = sfText_create();
     sfFont *font = sfFont_createFromFile(FONT);
@@ -55,7 +55,7 @@ sfText *init_text(game_t *game, entity_t *entity)
     return (text);
 }
 
-sfSprite *init_ground(game_t *game, entity_t *entity)
+sfSprite *init_ground(game_t *game, UNUSED entity_t *entity)
 {
     sfTexture *texture = create_texture(game, SET_BACK, NULL);
     sfSprite *sprite = NULL;
@@ -63,5 +63,5 @@ sfSprite *init_ground(game_t *game, entity_t *entity)
     D_ASSERT(texture, NULL, "error background setting", NULL);
     sprite = create_sprite(texture, NULL);
     D_ASSERT(sprite, NULL, "error sprite background sett", NULL);
-
+    return (sprite);
 }

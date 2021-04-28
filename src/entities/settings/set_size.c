@@ -57,3 +57,14 @@ void set_size_mus(game_t *game, vfx_scroll_t *scroll)
             bar.top - (pos.height / 2) + bar.height / 2));
 }
 
+void set_size_sett(settings_t * setting)
+{
+    sfFloatRect pos;
+
+    pos = sfSprite_getGlobalBounds(setting->ground);
+    sfSprite_setScale(setting->ground, VEC2F(WINDOW_W / pos.width,
+        WINDOW_H / pos.height));
+    pos = sfSprite_getGlobalBounds(setting->sprite_button);
+    sfSprite_setTextureRect(setting->sprite_button, (sfIntRect)
+        { 0, 0, pos.width, pos.height / 2});
+}
