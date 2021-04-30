@@ -21,8 +21,6 @@
 #include "distract/util.h"
 
 static const entity_info_t ENTITIES[] = {
-    ENTITY(PLAYER, &create_player, &draw_player,
-        &destroy_player, &update_player, &handle_player_events),
     ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
         &destroy_scroll_bar, &update_scroll_bar,
         &handle_scroll_bar_events),
@@ -61,7 +59,7 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(INVENTORY, &create_inventory, &draw_inventory,
             &destroy_inventory, &update_inventory, &handle_inventory_events),
     ENTITY(SELECT, &create_mute_button, &draw_mute_button,
-        &destroy_mute_button, &update_mute_button, &handle_mute_button_events)
+        &destroy_mute_button, &update_mute_button, &handle_mute_button_events),
 
     ENTITY(BATTLEHUD, &create_battlehud, &draw_battlehud,
             &destroy_battlehud, &update_battlehud, &handle_battlehud_events),

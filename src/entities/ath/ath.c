@@ -94,7 +94,7 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
     for (int i = 0; i < 6; i++)
         sfRenderWindow_drawSprite(game->window, ath->button_sprite[i], NULL);
-    set_view_type(game, view, WORLD_VIEW);
+    //set_view_type(game, view, WORLD_VIEW);
 }
 
 void destroy_ath(game_t *game UNUSED, entity_t *entity)

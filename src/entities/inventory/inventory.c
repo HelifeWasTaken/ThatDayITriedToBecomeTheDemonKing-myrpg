@@ -24,7 +24,6 @@ bool create_inventory(game_t *game UNUSED, entity_t *entity)
 
     D_ASSERT(inventory, NULL, "error malloc inventory", false);
     inventory->entity = entity;
-    inventory->view = get_entity(game, VIEW)->instance;
     inventory->entity->pos = VEC2F(WINDOW_W / 2.5, WINDOW_H / 6);
     D_ASSERT(inventory->entity, NULL, "error:", false);
     inventory->clock = create_pausable_clock(game);
@@ -38,6 +37,7 @@ bool create_inventory(game_t *game UNUSED, entity_t *entity)
     entity->instance = inventory;
     init_inventory_item(game, entity);
     inventory->sprite = init_inventory(game, entity);
+    entity->draw_on_gui = true;
     return (true);
 }
 
@@ -70,7 +70,6 @@ void draw_inventory(game_t *game UNUSED, entity_t *entity)
     inventory_t *inventory = entity->instance;
 
     if (inventory->is_visible == true) {
-        set_view_type(game, inventory->view, HUD_VIEW);
         game->is_paused = true;
         sfRenderWindow_drawSprite(game->window, inventory->sprite, NULL);
         for (int i = 0; i != 15; i++) {
