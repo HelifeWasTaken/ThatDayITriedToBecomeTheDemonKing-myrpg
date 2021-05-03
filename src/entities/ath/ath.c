@@ -29,7 +29,7 @@ bool handle_ath_events(game_t *game UNUSED,
     sfFloatRect buton_pos;
 
     D_ASSERT(inventory, NULL, "err inventory", false);
-    for (int i = 0; i < 6; i++) {
+    for (unsigned int i = 0; i < 6; i++) {
         buton_pos = sfSprite_getGlobalBounds(ath->button_sprite[i]);
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x,
             mouse_pos.y) == sfTrue) {
@@ -47,7 +47,7 @@ static bool create_ath_second_part(ath_t *ath, game_t *game,
 {
     int pos_y = 150;
 
-    for (int i = 0; i < 6; i++) {
+    for (unsigned int i = 0; i < 6; i++) {
         icon_texture  = create_texture(game, ATH_ICON[i],
             &IRECT(0, 0, ICON_RECT, ICON_RECT));
         if (icon_texture == NULL)
@@ -92,9 +92,8 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
     ath_t *ath = entity->instance;
 
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
-    for (int i = 0; i < 6; i++)
+    for (unsigned int i = 0; i < 6; i++)
         sfRenderWindow_drawSprite(game->window, ath->button_sprite[i], NULL);
-    //set_view_type(game, view, WORLD_VIEW);
 }
 
 void destroy_ath(game_t *game UNUSED, entity_t *entity)
