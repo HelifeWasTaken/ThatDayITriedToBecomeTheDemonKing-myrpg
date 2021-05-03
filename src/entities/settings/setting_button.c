@@ -89,7 +89,7 @@ bool handle_settings_events(game_t *game UNUSED,
         sfSprite_setScale(button->sprite_button, VEC2F(4, 4));
         sfText_setScale(button->txt, VEC2F(1.5, 1.5));
         sfText_setColor(button->txt, sfColor_fromRGB(255, 0, 0));
-        return (function_button_settings(game, 0, state->params,  entity));
+        return (function_button_settings(game, 0, &state->params,  entity));
     } else {
         sfText_setScale(button->txt, VEC2F(1, 1));
         sfSprite_setScale(button->sprite_button, VEC2F(3, 3));
