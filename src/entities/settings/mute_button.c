@@ -11,6 +11,7 @@
 #include "distract/resources.h"
 #include "distract/graphics.h"
 #include "distract/debug.h"
+#include "distract/sound.h"
 #include "SFML/Window.h"
 #include "SFML/Graphics.h"
 #include "myrpg/entities.h"
@@ -58,6 +59,7 @@ void update_mute_button(game_t *game UNUSED, entity_t *entity)
     if (mute_button->mute == true) {
         rect.top = rect.height;
         sfSprite_setTextureRect(mute_button->sprite, rect);
+        set_sound_volume(game, mute_button->type, 0);
     } else {
         rect.top = 0;
         sfSprite_setTextureRect(mute_button->sprite, rect);

@@ -331,7 +331,7 @@ void inventory_management(game_t *game, entity_t *entity);
 
 typedef const struct function {
     bool (*func)(UNUSED game_t *game, UNUSED entity_t *entity);
-} function_t;
+} function_ath_btn_t;
 
 bool update_item(game_t *game, entity_t *entity);
 void function_handler(UNUSED game_t *game, UNUSED entity_t *entity, int i);
@@ -351,13 +351,14 @@ typedef struct mute_button {
     bool mute;
     sfText *str;
     char *text;
+    int type;
 } mute_button_t;
 
 sfSprite *init_background(game_t *game, UNUSED entity_t *entity);
 sfText *init_text_btn(UNUSED game_t *game, UNUSED entity_t *entity);
 sfSprite *init_ground(game_t *game, UNUSED entity_t *entity);
 void set_size_sett(settings_t * setting);
-void init_select_btn(game_t *game);
+bool init_select_btn(game_t *game);
 bool create_mute_button(game_t *game, entity_t *entity);
 void update_mute_button(game_t *game, entity_t *entity);
 void draw_mute_button(game_t *game, entity_t *entity);

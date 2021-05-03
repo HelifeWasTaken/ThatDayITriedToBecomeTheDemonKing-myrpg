@@ -24,7 +24,7 @@ bool func_btn_coin(UNUSED game_t *game, UNUSED entity_t *entity)
 
 void function_handler(game_t *game, UNUSED entity_t *entity, int i)
 {
-    function_t tab[6] = {
+    function_ath_btn_t tab[6] = {
         {&func_btn_quest},
         {&func_btn_inventory},
         {&func_btn_jar},

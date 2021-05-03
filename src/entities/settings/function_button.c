@@ -45,8 +45,7 @@ bool load_button(game_t *game, settings_t *setting_button)
     return (true);
 }
 
-bool function_button_settings(game_t *game, int i,
-    parameters_t *param UNUSED, entity_t *entity UNUSED)
+bool function_button_settings(game_t *game, int i, entity_t *entity UNUSED)
 {
     (void)i;
 
