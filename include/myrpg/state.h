@@ -14,6 +14,16 @@
 #include <stdint.h>
 #include "iron_goat/deser.h"
 
+    enum item_type {
+        EMPTY,
+        CHESTPLATE,
+        HELMET,
+        RING,
+        SHIELD,
+        WEAPON,
+        ITEM
+    };
+
     typedef struct parameters {
         float music_vol;
         float vfx_vol;
@@ -23,12 +33,22 @@
         bool voice_muted;
     } parameters_t;
 
+    typedef struct item {
+        int nb;
+        int type;
+        int id;
+    } item_t;
+
     typedef struct game_save {
         ///
         /// Map to load when loading save
         ///
         int map_id;
 
+        ///
+        /// inventory
+        ///
+        item_t item[15];
         ///
         /// Position where to spawn player in map
         ///

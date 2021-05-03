@@ -11,6 +11,7 @@
 #include "distract/resources.h"
 #include "distract/graphics.h"
 #include "distract/window.h"
+#include "distract/debug.h"
 #include "SFML/Window.h"
 #include "myrpg/asset.h"
 #include "SFML/Graphics.h"
@@ -23,17 +24,20 @@ bool handle_ath_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     ath_t *ath = entity->instance;
+    inventory_t *inventory = get_entity(game, INVENTORY)->instance;
     sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(game->window);
     sfFloatRect buton_pos;
 
-    for (int i = 0; i < 6; i++) {
+    D_ASSERT(inventory, NULL, "err inventory", false);
+    for (unsigned int i = 0; i < 6; i++) {
         buton_pos = sfSprite_getGlobalBounds(ath->button_sprite[i]);
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x,
             mouse_pos.y) == sfTrue) {
-            sfSprite_setScale(ath->button_sprite[i], VEC2F(1.2, 1.2));
-            return (true);
-        } else
-            sfSprite_setScale(ath->button_sprite[i], VEC2F(1, 1));
+            if (sfMouse_isButtonPressed(sfMouseLeft)) {
+                function_handler(game, entity, i);
+                return (true);
+            }
+        }
     }
     return (false);
 }
@@ -43,7 +47,7 @@ static bool create_ath_second_part(ath_t *ath, game_t *game,
 {
     int pos_y = 150;
 
-    for (int i = 0; i < 6; i++) {
+    for (unsigned int i = 0; i < 6; i++) {
         icon_texture  = create_texture(game, ATH_ICON[i],
             &IRECT(0, 0, ICON_RECT, ICON_RECT));
         if (icon_texture == NULL)
@@ -88,8 +92,8 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
     ath_t *ath = entity->instance;
 
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
-    for (int i = 0; i < 6; i++)
-        DRAW_SPRITE(game->window, ath->button_sprite[i], NULL);
+    for (unsigned int i = 0; i < 6; i++)
+        sfRenderWindow_drawSprite(game->window, ath->button_sprite[i], NULL);
 }
 
 void destroy_ath(game_t *game UNUSED, entity_t *entity)

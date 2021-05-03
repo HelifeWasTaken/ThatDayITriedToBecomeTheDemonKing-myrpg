@@ -50,7 +50,7 @@ void update_hero_move(game_t *game, hero_t *hero)
     sfIntRect rect = sfSprite_getTextureRect(hero->sprite);
 
     for (sfKeyCode code = START_ARROW_KEY; code <= END_ARROW_KEY; code++) {
-        if (IS_KEY_DOWN(code)) {
+        if (IS_KEY_DOWN(code) && game->is_paused == false) {
             player_move(hero, &rect, code - START_ARROW_KEY);
             trigger_battle_rand(game, hero);
             return;

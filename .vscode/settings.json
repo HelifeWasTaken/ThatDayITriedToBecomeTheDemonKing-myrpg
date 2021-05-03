@@ -24,6 +24,13 @@
         "string_view": "c",
         "ranges": "c",
         "scenes.h": "c",
-        "state.h": "c"
+        "state.h": "c",
+        "optional": "c",
+        "functional": "c",
+        "random": "c",
+        "istream": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "streambuf": "c"
     }
 }

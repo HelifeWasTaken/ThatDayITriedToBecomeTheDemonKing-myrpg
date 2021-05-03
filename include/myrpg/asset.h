@@ -24,7 +24,7 @@
     #define MENU_BUTTON_RECT IRECT(0, 0, MENU_BUTTON_SPT_W, MENU_BUTTON_SPT_H)
 
     #define BUTTON_MENU_POS (int[]) {WINDOW_H / 4,\
-        WINDOW_H / 3,  WINDOW_H / 2}
+        WINDOW_H / 3,  WINDOW_H / 2.4}
 
     #define QUIT_BUTTON_SPT "asset/menu/quit_button.png"
     #define PLAY_BUTTON_SPT "asset/menu/play_button.png"
@@ -85,5 +85,17 @@
         SFX,
         VOX
     } sound_types_t;
+
+    ///
+    /// INVVENTORY DEFINE
+    ///
+
+    #define INV_TEX "asset/hero/menu_hero/inventory.png"
+    #define INV_TEX_OVER "asset/hero/menu_hero/inventory_cliqued.png"
+
+    typedef struct item_inv {
+        char *path;
+        int type;
+    } inventory_item_t;
 
 #endif

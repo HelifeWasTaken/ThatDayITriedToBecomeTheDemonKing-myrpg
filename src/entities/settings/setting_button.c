@@ -9,6 +9,7 @@
 #include "distract/entity.h"
 #include "distract/resources.h"
 #include "distract/graphics.h"
+#include "distract/debug.h"
 #include "SFML/Window.h"
 #include "SFML/Graphics.h"
 #include "myrpg/entities.h"
@@ -22,19 +23,20 @@
 bool create_settings(game_t *game UNUSED, entity_t *entity)
 {
     settings_t *setting_button = malloc(sizeof(settings_t));
-    sfTexture *texture =
-        create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT(window));
-    sfFloatRect size;
 
-    setting_button->background = create_sprite(texture, NULL);
-    texture = create_texture(game, SET_BACK, NULL);
-    setting_button->ground = create_sprite(texture, NULL);
-    size = sfSprite_getGlobalBounds(setting_button->ground);
-    sfSprite_setScale(setting_button->ground, VEC2F(WINDOW_W / size.width,
-        WINDOW_H / size.height));
+    D_ASSERT(setting_button, NULL, "error malloc setting btn", false);
+    setting_button->background = init_background(game, entity);
+    D_ASSERT(setting_button->background, NULL, "error", false);
+    setting_button->ground = init_ground(game, entity);
+    D_ASSERT(setting_button->ground, NULL, "error ground", false);
+    setting_button->txt = init_text_btn(game, entity);
+    D_ASSERT(setting_button->txt, NULL, "err", false);
     setting_button->entity = entity;
     setting_button->clock = create_pausable_clock(game);
-    load_button(game, texture, setting_button);
+    D_ASSERT(setting_button->clock, NULL, "erro clock setting", false);
+    load_button(game, setting_button);
+    D_ASSERT(setting_button->sprite_button, NULL, "error spr bt back", false);
+    set_size_sett(setting_button);
     entity->instance = setting_button;
     return (true);
 }
@@ -45,6 +47,8 @@ void destroy_settings(game_t *game UNUSED, entity_t *entity)
 
     sfSprite_destroy(setting_button->background);
     sfSprite_destroy(setting_button->ground);
+    sfSprite_destroy(setting_button->sprite_button);
+    sfText_destroy(setting_button->txt);
     destroy_pausable_clock(setting_button->clock);
     free(setting_button);
 }
@@ -52,10 +56,12 @@ void destroy_settings(game_t *game UNUSED, entity_t *entity)
 void update_settings(game_t *game UNUSED, entity_t *entity)
 {
     settings_t *setting_button = entity->instance;
-    game_state_t *param = game->state;
+    sfFloatRect pos = sfSprite_getGlobalBounds(setting_button->sprite_button);
 
-    (void)param;
-    sfSprite_setPosition(setting_button->sprite_button[1], VEC2F(300, 300));
+    sfSprite_setPosition(setting_button->sprite_button, VEC2F(300, 300));
+    sfText_setPosition(setting_button->txt,
+        VEC2F(pos.left + (pos.width / 4) + 10,
+            pos.top + (pos.height / 4) - 10));
     tick_pausable_clock(setting_button->clock);
 }
 
@@ -65,10 +71,9 @@ void draw_settings(game_t *game UNUSED, entity_t *entity)
 
     sfRenderWindow_drawSprite(game->window, setting_button->background, NULL);
     sfRenderWindow_drawSprite(game->window, setting_button->ground, NULL);
-    for (int i = 0; i <= 1; i++) {
-        sfRenderWindow_drawSprite(game->window,
-                setting_button->sprite_button[i], NULL);
-    }
+    sfRenderWindow_drawSprite(game->window,
+                setting_button->sprite_button, NULL);
+    sfRenderWindow_drawText(game->window, setting_button->txt, NULL);
 }
 
 bool handle_settings_events(game_t *game UNUSED,
@@ -77,18 +82,17 @@ bool handle_settings_events(game_t *game UNUSED,
     settings_t *button = entity->instance;
     sfFloatRect pos;
     sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
-    game_state_t *state = game->state;
 
-    for (int i = 0; i <= 2; i++) {
-        pos = sfSprite_getGlobalBounds(button->sprite_button[i]);
-        if (sfFloatRect_contains(&pos, mouse.x, mouse.y)) {
-            sfSprite_setScale(button->sprite_button[i], VEC2F(4, 4));
-            sfSprite_setScale(button->sprite_button[2], VEC2F(2, 2));
-            return (function_button_settings(game, i, &state->params,  entity));
-        } else {
-            sfSprite_setScale(button->sprite_button[i], VEC2F(3, 3));
-            sfSprite_setScale(button->sprite_button[2], VEC2F(2, 2));
-        }
+    pos = sfSprite_getGlobalBounds(button->sprite_button);
+    if (sfFloatRect_contains(&pos, mouse.x, mouse.y)) {
+        sfSprite_setScale(button->sprite_button, VEC2F(4, 4));
+        sfText_setScale(button->txt, VEC2F(1.5, 1.5));
+        sfText_setColor(button->txt, sfColor_fromRGB(255, 0, 0));
+        return (function_button_settings(game, 0, entity));
+    } else {
+        sfText_setScale(button->txt, VEC2F(1, 1));
+        sfSprite_setScale(button->sprite_button, VEC2F(3, 3));
+        sfText_setColor(button->txt, sfColor_fromRGB(255, 255, 255));
     }
     return (false);
 }
