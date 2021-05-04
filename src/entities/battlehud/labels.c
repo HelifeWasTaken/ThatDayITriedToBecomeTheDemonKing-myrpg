@@ -49,7 +49,7 @@ static int count_digits(int nb, int max)
 bool create_battlehud_labels(game_t *game, battlehud_t *hud)
 {
     entity_t *tmp;
-    
+
     tmp = create_entity(game, GUI_LABEL);
     D_ASSERT(tmp, NULL, "Cannot create battlehud labels", false);
     hud->hp_label = tmp->instance;

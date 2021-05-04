@@ -45,7 +45,6 @@ static const char *BARD_DIALOGS[] = {
 
 static void build_text(battlemanager_t *battlemanager, sfFont *font)
 {
-
     sfText_setFont(battlemanager->bard_talking, font);
     sfText_setColor(battlemanager->bard_talking, sfWhite);
     sfText_setCharacterSize(battlemanager->bard_talking, 20);

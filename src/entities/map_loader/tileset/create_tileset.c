@@ -35,7 +35,7 @@ bool create_layer_tileset(game_t *game UNUSED, entity_t *entity)
         manager->tileset->data[manager->actual_layer].vtx;
     if (manager->actual_layer == state->z)
         for (size_t i = manager->actual_layer; i < manager->tileset->size; i++)
-            manager->tileset->data[manager->actual_layer].z++;
+            manager->tileset->data[i].z++;
     entity->z = manager->tileset->data[manager->actual_layer].z;
     manager->actual_layer++;
     return (true);

@@ -95,7 +95,7 @@ bool init_inventory_item(game_t *game, entity_t *entity)
     return (true);
 }
 
-bool update_item(game_t *game, entity_t *entity)
+bool update_item(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     inventory_t *inventory = entity->instance;
     game_state_t *state = game->state;
