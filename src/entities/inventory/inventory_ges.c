@@ -28,7 +28,7 @@ bool place(game_t *game, entity_t *entity, int i)
         && inv->is_deplacement == true) {
             inv->is_deplacement = false;
             state->save.item[i].id = inv->item_id;
-            state->save.item[i].type = inv->inventory[inv->item_id].type;
+            state->save.item[i].type = game->item_loaded[inv->item_id].type;
             inv->mouse_state = 0;
             sfSprite_setTexture(inv->cursor_item, game->texture[0], sfFalse);
             inv->item_id = 0;
@@ -81,6 +81,7 @@ bool update_cursor(game_t *game, entity_t *entity)
         state->save.item[inventory->mouse_state].type
             = game->item_loaded[inventory->item_id].type;
         inventory->is_deplacement = false;
+        inventory->item_id = 0;
         return (true);
     }
     return (false);

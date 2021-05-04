@@ -20,7 +20,7 @@
 
 bool create_texture_item(game_t *game)
 {
-    for (int index = 0; index != 4; index++) {
+    for (int index = 0; index != MAX_ITEM; index++) {
         game->texture[index] = create_texture(game,
             game->item_loaded[index].path, NULL);
         D_ASSERT(game->texture[index], NULL, "error", false);
@@ -42,7 +42,7 @@ void place_equipment_slot(game_t *game UNUSED, inventory_t *inv)
 bool init_equiment_slot(game_t *game, inventory_t *inventory)
 {
     for (int index = 0; index != 5; index++) {
-        inventory->equipment[index].sprite = create_sprite(game->texture[1], NULL);
+        inventory->equipment[index].sprite = create_sprite(game->texture[0], NULL);
         D_ASSERT(inventory->equipment[index].sprite, NULL,
             "error sprite item", false);
         sfSprite_setScale(inventory->equipment[index].sprite, VEC2F(5, 5));

@@ -81,7 +81,7 @@ static const struct json_deser_data ITEM_JSON[] = {
 
 void destroy_item(item_t *item)
 {
-    for (int index; index != 4; index++) {
+    for (int index; index != MAX_ITEM; index++) {
         free(item[index].path);
     }
     free(item);
