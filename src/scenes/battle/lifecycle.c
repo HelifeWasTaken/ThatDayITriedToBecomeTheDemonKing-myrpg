@@ -40,7 +40,10 @@ int battle_lifecycle(game_t *game)
     sfEvent event;
     battlemanager_t *manager = initialize_manager(game);
     int exit_code;
+    sfMusic *music = sfMusic_createFromFile("asset/song/battle_theme.ogg");
 
+    sfMusic_setLoop(music, sfTrue);
+    sfMusic_play(music);
     D_ASSERT(manager, NULL, "Cannot create battle", 84);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
@@ -53,6 +56,7 @@ int battle_lifecycle(game_t *game)
         draw_scene(game);
         sfRenderWindow_display(game->window);
     }
+    sfMusic_destroy(music);
     exit_code = manager->exit_code;
     destroy_scene(game, true);
     return (exit_code);

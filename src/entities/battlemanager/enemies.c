@@ -45,7 +45,6 @@ static const battle_opponent_t ENEMIES[] = {
                 {},         // BAT_ANIM_SPELL_1
                 {},         // BAT_ANIM_SPELL_2
                 {}          // BAT_ANIM_SPELL_3
-                
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 7
@@ -118,7 +117,6 @@ static const battle_opponent_t ENEMIES[] = {
                 {},         // BAT_ANIM_SPELL_1
                 {},         // BAT_ANIM_SPELL_2
                 {}          // BAT_ANIM_SPELL_3
-                
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -192,7 +190,7 @@ static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
     sfTexture *texture;
     const battle_opponent_t *rand_enemy
         = select_rand_enemy(level);
-    
+
     ememcpy(enemy, rand_enemy, sizeof(battle_opponent_t));
     texture = create_texture(game, enemy->asset_file, &enemy->asset_rect);
     D_ASSERT(texture, NULL, "Cannot create texture", -1)
