@@ -26,8 +26,6 @@ static const entity_info_t ENTITIES[] = {
         &handle_scroll_bar_events),
     ENTITY(MENU, &create_menu, &draw_menu,
         &destroy_menu, NULL, &handle_menu_events),
-    //ENTITY(LAYER, &create_layer, &draw_layer,
-    //    &destroy_layer, NULL, NULL),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, &update_button_handler, &handle_ath_events),
     ENTITY(HERO, &create_hero, &draw_hero,
@@ -60,7 +58,6 @@ static const entity_info_t ENTITIES[] = {
             &destroy_inventory, &update_inventory, &handle_inventory_events),
     ENTITY(SELECT, &create_mute_button, &draw_mute_button,
         &destroy_mute_button, &update_mute_button, &handle_mute_button_events),
-
     ENTITY(BATTLEHUD, &create_battlehud, &draw_battlehud,
             &destroy_battlehud, &update_battlehud, &handle_battlehud_events),
     ENTITY(BATTLEMANAGER, &create_battlemanager, &draw_battlemanager,
@@ -111,13 +108,10 @@ void configure_state(game_t *game)
     state->params.vfx_muted = false;
     state->params.voice_muted = false;
     for (int index = 0; index != 15; index++) {
-        state->save.item[index].type = EMPTY;
+        state->save.item[index].type = ITEM;
         state->save.item[index].id = 0;
         state->save.item[index].nb = 0;
     }
-    state->save.item[0].type = ITEM;
-    state->save.item[0].id = 1;
-    state->save.item[0].type = 1;
     state->save.player_hp = 100;
     state->save.player_lv = 1;
     state->save.player_mana = 30;
@@ -134,6 +128,7 @@ void configure_game(game_t *game)
     register_scene(game, BATTLE_SCENE, &battle_lifecycle);
     configure_state(game);
     configure_entities(game);
+    load_items(game);
 }
 
 int load_game(void)

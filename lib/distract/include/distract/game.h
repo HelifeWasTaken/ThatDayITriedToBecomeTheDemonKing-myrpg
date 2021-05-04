@@ -11,6 +11,14 @@
 #include "SFML/Graphics.h"
 #include "distract/input.h"
 
+typedef struct item {
+        char *path;
+        unsigned int type;
+        unsigned int speed;
+        unsigned int shield;
+        unsigned int atk;
+    } item_t;
+
 typedef struct game {
 
     ///
@@ -84,6 +92,9 @@ typedef struct game {
     /// global game parameters
     ///
     ///
+    sfTexture *texture[4];
+
+    item_t *item_loaded;
 } game_t;
 
 #include "distract/scene.h"

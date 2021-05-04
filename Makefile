@@ -77,7 +77,8 @@ SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
 SRC_UTIL = src/util/sfml_deser.c \
 		   src/util/get_save_state.c \
 		   src/util/not_implemented.c \
-		   src/util/property_loader.c
+		   src/util/property_loader.c	\
+		   src/util/load_item.c
 
 
 SRC_MENU = src/entities/menu/menu.c \
@@ -90,6 +91,7 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 SRC_INVENTORY	=	src/entities/inventory/create_inventory.c \
 			src/entities/inventory/inventory.c \
 			src/entities/inventory/inventory_ges.c	\
+			src/entities/inventory/create_equipment_slot.c
 
 
 SRC_BATTLE = src/entities/battlehud/battlehud.c \
@@ -111,29 +113,29 @@ SRC = 	src/game.c \
 	$(SRC_INVENTORY) \
 	src/entities/settings/mute_button.c	\
 	src/entities/settings/init_select_button.c	\
-	    src/entities/scroll_bar/scroll_bar.c    \
-        src/entities/settings/setting_button.c	\
-	    src/entities/settings/function_button.c	\
-	    src/entities/settings/vfx_scroll.c	\
-	    src/entities/settings/fonc_scroll_vfx.c	\
-        src/entities/settings/set_size.c 	\
-        src/entities/ath/ath.c \
-        src/entities/view/view.c \
-		src/entities/dialogbox/dialogbox.c \
-		src/entities/dialogbox/create.c \
-		src/entities/dialogbox/show_text.c \
-		src/entities/dialog/dialog.c \
-		src/entities/npc/pnj_loader.c \
-		src/entities/npc/create_pnj.c \
-        $(SRC_DEBUGMENU) \
-        $(SRC_MENU) \
-        $(SRC_UTIL) \
-        $(SRC_MAP) \
-        $(SRC_HERO) \
-        $(SRC_LIFECYCLE) \
-		$(SRC_BATTLE) \
-		$(SRC_BUTTON) \
-		$(SRC_LABEL)
+	src/entities/scroll_bar/scroll_bar.c    \
+    src/entities/settings/setting_button.c	\
+	src/entities/settings/function_button.c	\
+	src/entities/settings/vfx_scroll.c	\
+	src/entities/settings/fonc_scroll_vfx.c	\
+    src/entities/settings/set_size.c 	\
+    src/entities/ath/ath.c \
+    src/entities/view/view.c \
+	src/entities/dialogbox/dialogbox.c \
+	src/entities/dialogbox/create.c \
+	src/entities/dialogbox/show_text.c \
+	src/entities/dialog/dialog.c \
+	src/entities/npc/pnj_loader.c \
+	src/entities/npc/create_pnj.c \
+    $(SRC_DEBUGMENU) \
+    $(SRC_MENU) \
+    $(SRC_UTIL) \
+    $(SRC_MAP) \
+    $(SRC_HERO) \
+    $(SRC_LIFECYCLE) \
+	$(SRC_BATTLE) \
+	$(SRC_BUTTON) \
+	$(SRC_LABEL)
 
 TESTS =	\
 

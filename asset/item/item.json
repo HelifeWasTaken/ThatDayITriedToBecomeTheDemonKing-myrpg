@@ -1,0 +1,30 @@
+[
+    {
+        "path": "asset/item/empty.png",
+        "type": 0,
+        "speed": 0,
+        "shield": 0,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/banane.png",
+        "type": 1,
+        "speed": 0,
+        "shield": 0,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/sword.png",
+        "type": 1,
+        "speed": 0,
+        "shield": 0,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/woodshield.png",
+        "type": 1,
+        "speed": 0,
+        "shield": 0,
+        "atk": 0
+    }
+]

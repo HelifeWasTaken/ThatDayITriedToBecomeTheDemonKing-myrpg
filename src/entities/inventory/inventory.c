@@ -54,11 +54,18 @@ void update_inventory(game_t *game UNUSED, entity_t *entity)
 {
     inventory_t *inventory = entity->instance;
     sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
+    game_state_t *state = game->state;
 
     sfSprite_setPosition(inventory->cursor_item, VEC2F(pos.x, pos.y));
+    for (int index = 0; index != 15; index++) {
+        inventory->inventory[index].id = state->save.item[index].id;
+        inventory->inventory[index].type = state->save.item[index].nb;
+    }
     if (update_item(game, entity) == false) {
         return;
     }
+    sfSprite_setTexture(inventory->cursor_item,
+        game->texture[inventory->item_id], sfFalse);
     sfSprite_setPosition(inventory->sprite, entity->pos);
     sfCircleShape_setPosition(inventory->box,
         VEC2F(WINDOW_W / 2.5 + 470, WINDOW_H / 6 + 20));
@@ -74,8 +81,11 @@ void draw_inventory(game_t *game UNUSED, entity_t *entity)
         sfRenderWindow_drawSprite(game->window, inventory->sprite, NULL);
         for (int i = 0; i != 15; i++) {
             sfRenderWindow_drawSprite(game->window,
-                inventory->inventory[i], NULL);
+                inventory->inventory[i].sprite, NULL);
         }
+        for (int index = 0; index != 5; index++)
+            sfRenderWindow_drawSprite(game->window,
+                inventory->equipment[index].sprite, NULL);
         sfRenderWindow_drawSprite(game->window, inventory->cursor_item, NULL);
     } else {
         game->is_paused = false;
