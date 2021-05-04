@@ -87,7 +87,6 @@ void destroy_item(item_t *item)
     free(item);
 }
 
-
 bool init_item(struct json *conf, item_t *item)
 {
     DESER_LOOP(conf, item, ITEM_JSON);
@@ -103,7 +102,6 @@ bool load_n_item(game_t *game, usize_t n, json_t *json)
         return (false);
     }
     for (usize_t index = 0; index != n; index++) {
-        printf("%ld", index);
         item = (item_t){0};
         if (init_item(&item_arr->data[index],
             &item) == false) {
