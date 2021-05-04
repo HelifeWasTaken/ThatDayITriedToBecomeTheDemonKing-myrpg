@@ -26,8 +26,6 @@ static const entity_info_t ENTITIES[] = {
         &handle_scroll_bar_events),
     ENTITY(MENU, &create_menu, &draw_menu,
         &destroy_menu, NULL, &handle_menu_events),
-    //ENTITY(LAYER, &create_layer, &draw_layer,
-    //    &destroy_layer, NULL, NULL),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, &update_button_handler, &handle_ath_events),
     ENTITY(HERO, &create_hero, &draw_hero,
