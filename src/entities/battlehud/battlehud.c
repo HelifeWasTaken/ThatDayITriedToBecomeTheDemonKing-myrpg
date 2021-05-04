@@ -25,8 +25,8 @@ bool create_battlehud(game_t *game UNUSED, entity_t *entity)
     sfIntRect rect = IRECT(0, 0, 608, 192);
     sfTexture *texture = create_texture(game, "asset/battlehud.png", &rect);
 
-    battlehud->selected_spell_id = -1;
     D_ASSERT(battlehud, NULL, "Cannot load battlehud", false);
+    battlehud->selected_spell_id = -1;
     battlehud->entity = entity;
     battlehud->clock = create_pausable_clock(game);
     D_ASSERT(battlehud->clock, NULL, "Cannot load battle hud clock", false);
@@ -57,6 +57,14 @@ void update_battlehud(game_t *game, entity_t *entity)
     battlehud_t *battlehud = entity->instance;
 
     update_battlehub_labels(game, battlehud);
+    if (battlehud->manager->is_player_turn
+    && !is_attack_anim_in_progress(battlehud->manager)) {
+        battlehud->attack->is_enabled = true;
+        battlehud->run->is_enabled = true;
+    } else {
+        battlehud->attack->is_enabled = false;
+        battlehud->run->is_enabled = false;
+    }
     tick_pausable_clock(battlehud->clock);
 }
 

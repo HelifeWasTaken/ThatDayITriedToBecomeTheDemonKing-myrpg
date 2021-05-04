@@ -5,6 +5,7 @@
 ** Source code
 */
 
+#include "distract/game.h"
 #include "distract/resources.h"
 #include "distract/scene.h"
 #include <stdio.h>
@@ -53,8 +54,10 @@ int await_scene(game_t *game, int scene_id)
     if (game->scene == NULL)
         return (-1);
     set_pending_scene(game, scene_id);
+    reset_game_events(game);
     code = load_pending_scene(game);
     deallocate_scene(game->scene);
+    reset_game_events(game);
     game->scene = parent_scene;
     resume_music(parent_scene);
     return (code);

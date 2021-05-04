@@ -100,6 +100,7 @@ SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlemanager/enemies.c \
 			src/entities/battlemanager/friends.c \
 			src/entities/battlemanager/attack.c \
+			src/entities/battlemanager/attack_fx.c \
 			src/entities/battlemanager/bard_talking.c \
 			src/entities/battlemanager/battle.c
 

@@ -59,7 +59,7 @@ void set_battle_bard_text(battlemanager_t *battlemanager, const char *text)
     sfFloatRect text_rect = sfText_getGlobalBounds(battlemanager->bard_talking);
     sfText_setPosition(battlemanager->bard_talking,
         VEC2F(sprite_rect.left + sprite_rect.width / 2 - text_rect.width / 2,
-            sprite_rect.top - 20));
+            sprite_rect.top - 10));
     sfText_setString(battlemanager->bard_talking, text);
 }
 

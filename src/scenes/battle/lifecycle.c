@@ -24,12 +24,12 @@ static battlemanager_t *initialize_manager(game_t *game)
 
     set_game_view(game, sfView_createFromRect((sfFloatRect){0, 0,
         game->mode.width / 3.f, game->mode.height / 3.f}));
-    tmp = create_entity(game, BATTLEMANAGER);
-    D_ASSERT(tmp, NULL, "Cannot create battle manager", NULL);
-    manager = tmp->instance;
     tmp = create_entity(game, BATTLEHUD);
     D_ASSERT(tmp, NULL, "Cannot create battle hud", NULL);
     hud = tmp->instance;
+    tmp = create_entity(game, BATTLEMANAGER);
+    D_ASSERT(tmp, NULL, "Cannot create battle manager", NULL);
+    manager = tmp->instance;
     hud->manager = manager;
     manager->hud = hud;
     return (manager);

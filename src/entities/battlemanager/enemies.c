@@ -28,7 +28,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/skeleton.png",
         .asset_rect = { 0, 0, 1144, 452 },
         .level = 1,
-        .health = 10,
+        .health = 70,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -64,7 +64,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/goblin.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 10,
+        .health = 40,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -100,7 +100,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/devil_eye.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 10,
+        .health = 20,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -136,7 +136,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/mushroo.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 10,
+        .health = 50,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -170,9 +170,9 @@ static const battle_opponent_t ENEMIES[] = {
 };
 
 static const sfVector2f ENEMIES_POSITIONS[][3] = {
-    { {150, 120} },
-    { {150, 80}, {170, 150} },
-    { {150, 70}, {170, 120}, {150, 160} }
+    { {150, 120 + 30} },
+    { {150, 80 + 30}, {170, 150 + 30} },
+    { {150, 70 + 30}, {170, 120 + 30}, {150, 160 + 30} }
 };
 
 static const battle_opponent_t *select_rand_enemy(int level)
@@ -211,8 +211,9 @@ static void place_enemies(battlemanager_t *manager, int entity_count)
 
     for (int i = 0; i < entity_count; i++) {
         sprite = manager->enemies[i].animable_info.sprite;
-        pos =  ENEMIES_POSITIONS[entity_count - 1][i];
+        pos = ENEMIES_POSITIONS[entity_count - 1][i];
         bounds = sfSprite_getGlobalBounds(sprite);
+        manager->enemies[i].pos = pos;
         sfSprite_setPosition(sprite,
             v2fsub(pos, VEC2F(bounds.width / 2, bounds.height / 2)));
     }

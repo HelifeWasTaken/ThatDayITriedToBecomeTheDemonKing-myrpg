@@ -21,11 +21,11 @@ static bool fill_labels(game_t *game UNUSED, battlehud_t *hud)
 {
     sfVector2f pos = hud->entity->pos;
 
-    hud->hp_label->entity->pos = VEC2F(pos.x + 750, pos.y + 50);
-    hud->hp_label->title = estrdup("HP:   XXX");
-    hud->lv_label->entity->pos = VEC2F(pos.x + 750, pos.y + 100);
+    hud->lv_label->entity->pos = VEC2F(pos.x + 900, pos.y + 125);
     hud->lv_label->title = estrdup("Lv.   XXX");
-    hud->mana_label->entity->pos = VEC2F(pos.x + 750, pos.y + 150);
+    hud->hp_label->entity->pos = VEC2F(pos.x + 900, pos.y + 175);
+    hud->hp_label->title = estrdup("HP:   XXX");
+    hud->mana_label->entity->pos = VEC2F(pos.x + 900, pos.y + 225);
     hud->mana_label->title = estrdup("Mana: XXX");
     D_ASSERT(hud->lv_label->title, NULL, "Cannot stralloc battlehud", false);
     D_ASSERT(hud->mana_label->title, NULL, "Cannot stralloc battlehud", false);
