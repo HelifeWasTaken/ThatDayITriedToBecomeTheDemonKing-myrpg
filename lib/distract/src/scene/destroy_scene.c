@@ -1,53 +1,65 @@
 /*
-** EPITECH PROJECT, 2020
-** destroy_scene
+** EPITECH PROJECT, 2021
+** push_scene
 ** File description:
 ** Source code
 */
 
-#include "distract/game.h"
-#include "distract/entity.h"
-#include "distract/hashmap.h"
 #include "distract/resources.h"
-#include "distract/debug.h"
-#include "stdlib.h"
+#include "distract/scene.h"
+#include <stdio.h>
 
-static void destroy_scene_entities(game_t *game)
+static void pause_music(scene_t *parent_scene)
 {
-    entity_t *entity = game->scene->entities;
-    entity_t *next = NULL;
+    hashmap_t *hashmap = parent_scene->resources;
+    struct hashmap_list *list = NULL;
+    resource_t *resource = NULL;
 
-    while (entity != NULL) {
-        next = entity->next;
-        destroy_entity(game, entity);
-        entity = next;
-    }
-    game->scene->entities = NULL;
-}
-
-static void destroy_scene_resources(game_t *game)
-{
-    hashmap_t *map = game->scene->resources;
-
-    if (map == NULL)
-        return;
-    for (size_t i = 0; i < map->capacity; i++) {
-        if (map->values[i] != NULL) {
-            destroy_resource(game, map->values[i]);
+    for (size_t i = 0; i < hashmap->capacity; i++) {
+        list = hashmap->bucket[i].data;
+        for (; list; list = list->next) {
+            resource = list->value;
+            if (resource == NULL)
+                continue;
+            if (resource->type == R_MUSIC)
+                sfMusic_pause(resource->music);
+            else if (resource->type == R_SOUND)
+                sfSound_pause(resource->sound);
         }
     }
-    game->scene->resources = hashmap_create(map->capacity / 2, map->hasher);
-    if (game->scene->resources == NULL) {
-        print_error("Hashmap create failed in destroy scene ressources");
-    }
-    hashmap_destroy(map);
 }
 
-void destroy_scene(game_t *game, bool destroy_resources)
+static void resume_music(scene_t *parent_scene)
 {
-    if (game->scene)
-        destroy_scene_entities(game);
-    if (destroy_resources) {
-        destroy_scene_resources(game);
+    hashmap_t *hashmap = parent_scene->resources;
+    struct hashmap_list *list = NULL;
+    resource_t *resource = NULL;
+
+    for (size_t i = 0; i < hashmap->capacity; i++) {
+        list = hashmap->bucket[i].data;
+        for (; list; list = list->next) {
+            resource = list->value;
+            if (resource == NULL)
+                continue;
+            else if (resource->type == R_MUSIC)
+                sfMusic_play(resource->music);
+        }
     }
+}
+
+int await_scene(game_t *game, int scene_id)
+{
+    int code;
+    scene_t *parent_scene = game->scene;
+
+    pause_music(parent_scene);
+    game->scene = allocate_scene();
+    if (game->scene == NULL)
+        return (-1);
+    set_pending_scene(game, scene_id);
+    code = load_pending_scene(game);
+    deallocate_scene(game->scene);
+    game->scene = parent_scene;
+    resume_music(parent_scene);
+    return (code);
 }
