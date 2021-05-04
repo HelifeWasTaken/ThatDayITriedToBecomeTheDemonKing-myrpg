@@ -87,7 +87,8 @@ int create_battlemanager_friends(game_t *game, battlemanager_t *manager)
     if (create_friend(game, &manager->friends[0]) < 0)
         return (-1);
     manager->friends_count++;
+    manager->friends[0].pos = VEC2F(470, 150);
     sfSprite_setPosition(manager->friends[0].animable_info.sprite,
-        VEC2F(450, 100));
+        VEC2F(450, 130));
     return (0);
 }
