@@ -1,0 +1,15 @@
+[
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_battle/troll_king.png",
+        "frame": 5,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 200,
+            "height": 134
+        },
+        "pos": {"x": 125, "y": 10},
+        "message": "bonjour"
+    }
+]

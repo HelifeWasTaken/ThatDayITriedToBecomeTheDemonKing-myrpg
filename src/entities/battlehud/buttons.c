@@ -31,10 +31,10 @@ static bool fill_buttons(game_t *game UNUSED, entity_t *entity,
     gui_button_t *attack, gui_button_t *run)
 {
     attack->title = "Attack";
-    attack->entity->pos = VEC2F(entity->pos.x + 50, entity->pos.y + 50);
+    attack->entity->pos = VEC2F(entity->pos.x + 100, entity->pos.y + 100);
     attack->on_click = on_attack_click;
     run->title = "Run";
-    run->entity->pos = VEC2F(entity->pos.x + 50, entity->pos.y + 200);
+    run->entity->pos = VEC2F(entity->pos.x + 100, entity->pos.y + 250);
     run->on_click = on_run_click;
     return (true);
 }
@@ -44,12 +44,14 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *hud)
     entity_t *tmp;
     gui_button_t *attack;
     gui_button_t *run;
-    
+
     tmp = create_entity(game, GUI_BUTTON);
     D_ASSERT(tmp, NULL, "Cannot create battlehud buttons", false);
     attack = tmp->instance;
     tmp = create_entity(game, GUI_BUTTON);
     D_ASSERT(tmp, NULL, "Cannot create battlehud buttons", false);
     run = tmp->instance;
+    hud->attack = attack;
+    hud->run = run;
     return (fill_buttons(game, hud->entity, attack, run));
 }

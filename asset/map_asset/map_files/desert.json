@@ -334,9 +334,372 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"pnj",
+         "objects":[
+                {
+                 "height":0,
+                 "id":12,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"are you serious i just finished to clean that place and you walking here"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":577.666666666667,
+                 "y":541.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":13,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"don't you dare touch my teddy bear"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":718.666666666667,
+                 "y":598.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":14,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"water is super effective agains ground. OH s*** wrong game"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1363.66666666667,
+                 "y":10.3333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"if i find that little green boy his name was zelda or something"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1520.33333333333,
+                 "y":109.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":16,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"don't try to break some crack on the wall\ni don't want  you to destroy my house"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":227,
+                 "y":312.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"hmmm, yeah that's should be ok.. \nmaybe that way is better i think ? \noh please don't disturbe me young man"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":149.666666666667,
+                 "y":265.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":18,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"mommy working in the castle with come back only at night"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1396.66666666667,
+                 "y":515
+                }, 
+                {
+                 "height":0,
+                 "id":19,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"i'm waiting for my wife"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1510.33333333333,
+                 "y":571.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":20,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"THAT WAS JUST A EMPY MESSAGE"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":590.666666666667,
+                 "y":236.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":21,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"yoooooooooo"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":496.666666666667,
+                 "y":236.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":22,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"one question one awnser \n-one piece or naruto ?!!"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":457,
+                 "y":76
+                }, 
+                {
+                 "height":0,
+                 "id":23,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"follow the path to the forest and fight the gardien for the stone but don't kill it ....\nyou gonna kill him anyway don't you ?\n"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":1246.33333333333,
+                 "y":1181.66666666667
+                }, 
+                {
+                 "height":0,
+                 "id":24,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"there is a scientist in the village he can guide you to a demon stone"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":291.75,
+                 "y":1204.75
+                }, 
+                {
+                 "height":0,
+                 "id":25,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"don't you dare break one vase in here,\ni already had problem with a little boy with a green hat few days ago"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":334,
+                 "y":1266
+                }, 
+                {
+                 "height":0,
+                 "id":26,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"wait you can't speak ... i guess some pieces are missing"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":336.25,
+                 "y":1385.25
+                }, 
+                {
+                 "height":0,
+                 "id":27,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":402.5,
+                 "y":1340.25
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":11,
+ "nextlayerid":10,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -352,7 +715,7 @@
         {
          "name":"z",
          "type":"int",
-         "value":3
+         "value":4
         }],
  "renderorder":"right-down",
  "tiledversion":"1.3.3",

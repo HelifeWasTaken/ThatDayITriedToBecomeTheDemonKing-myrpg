@@ -78,6 +78,7 @@ SRC =	src/debug/print_error.c \
 		src/hashmap/set.c \
 		src/hashmap/unset.c \
 		src/hashmap/get.c \
+		src/hashmap/list.c \
 		src/input/input.c \
 		src/input/keyboard.c \
 		src/animable/get_animable_frame.c \

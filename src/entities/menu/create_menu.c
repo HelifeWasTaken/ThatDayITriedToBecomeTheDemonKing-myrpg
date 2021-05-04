@@ -36,8 +36,9 @@ static bool create_background(game_t *game UNUSED,
         menu->button_sprite[i] = create_sprite(button_texture, NULL);
         if (menu->button_sprite[i] == NULL)
             return (false);
-        SET_SPRITE_POS(menu->button_sprite[i], VEC2F(WINDOW_W/2,
-            BUTTON_MENU_POS[i]));
+        sfSprite_setScale(menu->button_sprite[i], VEC2F(2, 2));
+        SET_SPRITE_POS(menu->button_sprite[i], VEC2F(BUTTON_MENU_POS[i],
+            WINDOW_H / 1.5));
         pos_y--;
     }
     return (true);

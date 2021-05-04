@@ -38,6 +38,7 @@ typedef struct battle_opponent {
     sfVector2f scale;
     animable_t animable;
     animable_info_t animable_info;
+    sfVector2f pos;
     char *name;
     char *asset_file;
     sfIntRect asset_rect;
@@ -47,5 +48,12 @@ typedef struct battle_opponent {
     int mana;
     battle_spell_t spells[20];
 } battle_opponent_t;
+
+struct battle_background_pair {
+    char *world_id;
+    char *file;
+    sfIntRect rect;
+    sfVector2f size;
+};
 
 #endif /* A61D752A_1EA4_4883_A475_8379C585E529 */
