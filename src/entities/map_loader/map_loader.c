@@ -58,12 +58,9 @@ static bool generate_entities_layer(game_t *game UNUSED,
     if ((entity_stock = create_entity(game, TILESET_LAYER_MANAGER)) == NULL)
         return (false);
     manager->tilesets = entity_stock->instance;
-    for (usize_t i = 0; i < manager->tilesets->tileset->size; i++) {
-        printf("entity count: %ld\n", i);
-        fflush(stdout);
+    for (usize_t i = 0; i < manager->tilesets->tileset->size; i++)
         if (create_entity(game, TILESET_LAYER) == NULL)
             return (false);
-    }
     if ((entity_stock = create_entity(game, COLLISION_LAYER)) == NULL)
         return (false);
     manager->collision = entity_stock->instance;

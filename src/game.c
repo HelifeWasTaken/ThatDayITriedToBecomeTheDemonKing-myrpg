@@ -26,9 +26,11 @@ static const entity_info_t ENTITIES[] = {
         &handle_scroll_bar_events),
     ENTITY(MENU, &create_menu, &draw_menu,
         &destroy_menu, NULL, &handle_menu_events),
+    //ENTITY(LAYER, &create_layer, &draw_layer,
+    //    &destroy_layer, NULL, NULL),
     ENTITY(ATH, &create_ath, &draw_ath,
-        &destroy_ath, NULL, &handle_ath_events),
-    ENTITY(HERO, &create_hero, NULL,
+        &destroy_ath, &update_button_handler, &handle_ath_events),
+    ENTITY(HERO, &create_hero, &draw_hero,
         &destroy_hero, &update_hero, NULL),
     ENTITY(VIEW, &create_view, NULL,
         &destroy_view, &update_view, NULL),
@@ -45,7 +47,7 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(DEBUGMENU, &create_debugmenu, &draw_debugmenu,
         &destroy_debugmenu, &update_debugmenu, &handle_debugmenu_events),
     ENTITY(LAYER_MANAGER, &create_map_loader, NULL,
-            &destroy_map_loader, NULL, NULL),
+        &destroy_map_loader, NULL, NULL),
     ENTITY(COLLISION_LAYER, &create_layer_collision,
         &draw_layer_collision, &destroy_layer_collision, NULL, NULL),
     ENTITY(OBJECT_LAYER_MANAGER, &create_layer_object_manager,
@@ -54,6 +56,11 @@ static const entity_info_t ENTITIES[] = {
         NULL, &destroy_tileset_manager, NULL, NULL),
     ENTITY(TILESET_LAYER, &create_layer_tileset, &draw_layer_tileset,
         &destroy_layer_tileset, NULL, NULL),
+    ENTITY(INVENTORY, &create_inventory, &draw_inventory,
+            &destroy_inventory, &update_inventory, &handle_inventory_events),
+    ENTITY(SELECT, &create_mute_button, &draw_mute_button,
+        &destroy_mute_button, &update_mute_button, &handle_mute_button_events),
+
     ENTITY(BATTLEHUD, &create_battlehud, &draw_battlehud,
             &destroy_battlehud, &update_battlehud, &handle_battlehud_events),
     ENTITY(BATTLEMANAGER, &create_battlemanager, &draw_battlemanager,
@@ -103,6 +110,14 @@ void configure_state(game_t *game)
     state->params.music_muted = false;
     state->params.vfx_muted = false;
     state->params.voice_muted = false;
+    for (int index = 0; index != 15; index++) {
+        state->save.item[index].type = EMPTY;
+        state->save.item[index].id = 0;
+        state->save.item[index].nb = 0;
+    }
+    state->save.item[0].type = ITEM;
+    state->save.item[0].id = 1;
+    state->save.item[0].type = 1;
     state->save.player_hp = 100;
     state->save.player_lv = 1;
     state->save.player_mana = 30;

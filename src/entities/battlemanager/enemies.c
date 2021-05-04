@@ -45,7 +45,6 @@ static const battle_opponent_t ENEMIES[] = {
                 {},         // BAT_ANIM_SPELL_1
                 {},         // BAT_ANIM_SPELL_2
                 {}          // BAT_ANIM_SPELL_3
-
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 7
@@ -118,7 +117,6 @@ static const battle_opponent_t ENEMIES[] = {
                 {},         // BAT_ANIM_SPELL_1
                 {},         // BAT_ANIM_SPELL_2
                 {}          // BAT_ANIM_SPELL_3
-
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8

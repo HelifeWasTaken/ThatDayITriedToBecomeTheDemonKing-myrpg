@@ -88,7 +88,7 @@
          "name":"collision",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":119,
          "x":0,
          "y":0
@@ -355,7 +355,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"i'm working for miss jam"
+                         "value":"it's been 30 years that I beenworking for mister JAM"
                         }, 
                         {
                          "name":"name",
@@ -377,7 +377,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"i'm mister JAM the village chief."
+                         "value":"I learned that a demon stone was in a temple in the desert"
                         }, 
                         {
                          "name":"name",
@@ -399,7 +399,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"what a ugly boy, please leave."
+                         "value":"SILENCE !!!!!!! you gonna wake up the kid ... oh right you can't speak"
                         }, 
                         {
                          "name":"name",
@@ -434,6 +434,380 @@
                  "width":0,
                  "x":1501.875,
                  "y":42.125
+                }, 
+                {
+                 "height":0,
+                 "id":54,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"one two tree ..."
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":384.5,
+                 "y":29.5
+                }, 
+                {
+                 "height":0,
+                 "id":55,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"i realy love flower"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":594.25,
+                 "y":124.25
+                }, 
+                {
+                 "height":0,
+                 "id":56,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Final Fantasy is the best rpg"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":95.25,
+                 "y":370.75
+                }, 
+                {
+                 "height":0,
+                 "id":57,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Dragon Quest is way better"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":128,
+                 "y":371.5
+                }, 
+                {
+                 "height":0,
+                 "id":58,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Your house"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":382.75,
+                 "y":535.5
+                }, 
+                {
+                 "height":0,
+                 "id":59,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"i don't know where the F i need to put that box"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":143,
+                 "y":696
+                }, 
+                {
+                 "height":0,
+                 "id":60,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"did you saw my kid, i lost him .... again"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":446,
+                 "y":615.75
+                }, 
+                {
+                 "height":0,
+                 "id":61,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"ISATSU pellu kiku"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":286.5,
+                 "y":747
+                }, 
+                {
+                 "height":0,
+                 "id":62,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"nothing better than working on a sunny day"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":190.5,
+                 "y":789.5
+                }, 
+                {
+                 "height":0,
+                 "id":63,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"how sasha can eat so many potato"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":144.5,
+                 "y":845.25
+                }, 
+                {
+                 "height":0,
+                 "id":64,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"???"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":287.25,
+                 "y":890.75
+                }, 
+                {
+                 "height":0,
+                 "id":65,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"man... it's so hot"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":406.75,
+                 "y":951
+                }, 
+                {
+                 "height":0,
+                 "id":66,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"the dev actualy made me pull water out of no where. What a joke"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":671.25,
+                 "y":928.25
+                }, 
+                {
+                 "height":0,
+                 "id":67,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"did you heard what the elder said ?"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":707.5,
+                 "y":677.5
+                }, 
+                {
+                 "height":0,
+                 "id":68,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"hmm ?"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":752.25,
+                 "y":677.25
+                }, 
+                {
+                 "height":0,
+                 "id":69,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"look at the skillz, look at the move"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":566,
+                 "y":436
+                }, 
+                {
+                 "height":0,
+                 "id":70,
+                 "name":"pnj one",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"hello pnj n\u00b065"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":788.25,
+                 "y":256.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -442,7 +816,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":53,
+ "nextobjectid":71,
  "orientation":"orthogonal",
  "properties":[
         {

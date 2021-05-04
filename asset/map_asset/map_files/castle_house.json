@@ -187,9 +187,152 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":7,
+         "name":"pnj",
+         "objects":[
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"drinking some Coffee and doing nothing.. purrrfecttt"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":683.409090909091,
+                 "y":63.5909090909092
+                }, 
+                {
+                 "height":0,
+                 "id":6,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"my husband love walking outside\neven if the dev never made him come back"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":66.5454545454545,
+                 "y":630
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"i cleaning that house every day to hel that old lady"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":155.454545454545,
+                 "y":642.363636363636
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"i working every day to make the legenday ultima blade"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":657,
+                 "y":598
+                }, 
+                {
+                 "height":0,
+                 "id":9,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"my mother helping a old woman cleaning her house\n"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":52.75,
+                 "y":78.625
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"you have just to strcat in \/bin\/your string hmmm ?\ndon't worry i just noticed something i need to do"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":142.875,
+                 "y":97.625
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":5,
+ "nextlayerid":8,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "properties":[
         {

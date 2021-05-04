@@ -27,8 +27,7 @@ int battle_lifecycle(game_t *game);
 int menu_lifecycle(game_t *game);
 int key_lifecycle(game_t *game);
 int setting_lifecycle(game_t *game);
-bool function_button_settings(game_t *game, int i,
-    parameters_t *parm, entity_t *entity);
-void load_button(game_t *game, sfTexture *texture, settings_t *setting_button);
+bool function_button_settings(game_t *game, int i, entity_t *entity);
+bool load_button(game_t *game, settings_t *setting_button);
 
 #endif /* B43C2285_FD29_46B0_AD7D_F251E1C0B355 */
