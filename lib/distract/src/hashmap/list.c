@@ -5,6 +5,9 @@
 ** list
 */
 
+#include "distract/hashmap.h"
+#include <stdlib.h>
+
 struct hashmap_list *hashmap_create_node(struct hashmap_list *new)
 {
     struct hashmap_list *tmp = malloc(sizeof(struct hashmap_list));

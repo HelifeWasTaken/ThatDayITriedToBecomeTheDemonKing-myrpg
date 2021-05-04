@@ -15,6 +15,7 @@ bool check_need_resize_hashmap(hashmap_t **self)
     unsigned int count = 0;
 
     for (size_t i = 0; i < (*self)->capacity; i++) {
+        count = 0;
         current = (*self)->bucket[i].data;
         for (; current; current = current->next)
             count++;

@@ -5,61 +5,48 @@
 ** Source code
 */
 
+#include "distract/game.h"
+#include "distract/entity.h"
+#include "distract/hashmap.h"
 #include "distract/resources.h"
-#include "distract/scene.h"
-#include <stdio.h>
+#include "distract/debug.h"
+#include "stdlib.h"
 
-static void pause_music(scene_t *parent_scene)
+static void destroy_scene_entities(game_t *game)
 {
-    hashmap_t *hashmap = parent_scene->resources;
-    struct hashmap_list *list = NULL;
-    resource_t *resource = NULL;
+    entity_t *entity = game->scene->entities;
+    entity_t *next = NULL;
 
-    for (size_t i = 0; i < hashmap->capacity; i++) {
-        list = hashmap->bucket[i].data;
-        for (; list; list = list->next) {
-            resource = list->value;
-            if (resource == NULL)
-                continue;
-            if (resource->type == R_MUSIC)
-                sfMusic_pause(resource->music);
-            else if (resource->type == R_SOUND)
-                sfSound_pause(resource->sound);
-        }
+    while (entity != NULL) {
+        next = entity->next;
+        destroy_entity(game, entity);
+        entity = next;
     }
+    game->scene->entities = NULL;
 }
 
-static void resume_music(scene_t *parent_scene)
+static void destroy_scene_resources(game_t *game)
 {
-    hashmap_t *hashmap = parent_scene->resources;
+    hashmap_t *map = game->scene->resources;
     struct hashmap_list *list = NULL;
-    resource_t *resource = NULL;
 
-    for (size_t i = 0; i < hashmap->capacity; i++) {
-        list = hashmap->bucket[i].data;
-        for (; list; list = list->next) {
-            resource = list->value;
-            if (resource == NULL)
-                continue;
-            else if (resource->type == R_MUSIC)
-                sfMusic_play(resource->music);
-        }
+    if (map == NULL)
+        return;
+    for (size_t i = 0; i < map->capacity; i++) {
+        list = map->bucket[i].data;
+        for (; list; list = list->next)
+            destroy_resource(game, list->value);
     }
+    game->scene->resources = hashmap_create(map->capacity / 2, map->hasher);
+    if (game->scene->resources == NULL)
+        print_error("Hashmap create failed in destroy scene ressources");
+    hashmap_destroy(map);
 }
 
-int await_scene(game_t *game, int scene_id)
+void destroy_scene(game_t *game, bool destroy_resources)
 {
-    int code;
-    scene_t *parent_scene = game->scene;
-
-    pause_music(parent_scene);
-    game->scene = allocate_scene();
-    if (game->scene == NULL)
-        return (-1);
-    set_pending_scene(game, scene_id);
-    code = load_pending_scene(game);
-    deallocate_scene(game->scene);
-    game->scene = parent_scene;
-    resume_music(parent_scene);
-    return (code);
+    if (game->scene)
+        destroy_scene_entities(game);
+    if (destroy_resources)
+        destroy_scene_resources(game);
 }
