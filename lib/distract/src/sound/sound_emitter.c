@@ -62,8 +62,3 @@ bool play_music(game_t *game, int sound_type, char *file)
     sfMusic_play(music);
     return (true);
 }
-
-void destroy_sound_emitter(sound_emitter_t *emitter)
-{
-    free(emitter);
-}

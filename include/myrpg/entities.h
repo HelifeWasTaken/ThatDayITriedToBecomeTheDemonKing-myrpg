@@ -186,7 +186,7 @@ typedef struct scroll_bar {
 } scroll_bar_t;
 
 struct func_button {
-  void (*fonc)(game_t *game);
+    void (*fonc)(game_t *game);
 };
 
 typedef struct settings {
@@ -417,6 +417,7 @@ void update_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
 void draw_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
 void destroy_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
 void show_attack_fx(battlemanager_t *battlemanager);
+int count_spells(battle_opponent_t *enemy);
 
 typedef struct battlehud {
     entity_t *entity;

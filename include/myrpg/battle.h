@@ -32,6 +32,10 @@ typedef struct battle_spell {
     int efficiency;
     battle_spell_type_t type;
     battle_animation_type_t anim;
+    char *attack_fx_file;
+    int attack_fx_frames_per_line;
+    int attack_fx_frames_count;
+    sfTexture *attack_fx_texture;
 } battle_spell_t;
 
 typedef struct battle_opponent {

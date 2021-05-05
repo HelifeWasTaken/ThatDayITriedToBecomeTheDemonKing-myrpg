@@ -315,31 +315,31 @@
                  "y":396.833333333333
                 }, 
                 {
-                 "height":62.7556625273243,
-                 "id":53,
-                 "name":"forest ext est",
+                 "height":47.4031,
+                 "id":71,
+                 "name":"village desert",
                  "properties":[
                         {
                          "name":"spawnx",
                          "type":"int",
-                         "value":176
+                         "value":398
                         }, 
                         {
                          "name":"spawny",
                          "type":"int",
-                         "value":640
+                         "value":704
                         }, 
                         {
                          "name":"world",
                          "type":"string",
-                         "value":"asset\/map_asset\/map_files\/inside_castle.json"
+                         "value":"asset\/map_asset\/map_files\/volcano.json"
                         }],
                  "rotation":0,
                  "type":"warpzone",
                  "visible":true,
-                 "width":71.3811683177526,
-                 "x":1653.06807822892,
-                 "y":45.1302381284592
+                 "width":54.6444,
+                 "x":1653.4278,
+                 "y":56.04845
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -843,7 +843,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":71,
+ "nextobjectid":72,
  "orientation":"orthogonal",
  "properties":[
         {
