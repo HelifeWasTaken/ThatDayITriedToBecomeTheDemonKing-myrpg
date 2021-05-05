@@ -7,18 +7,21 @@
 
 #include "stdlib.h"
 #include "distract/hashmap.h"
+#include "distract/debug.h"
 
-int hashmap_set(hashmap_t **map_ptr, void *key, void *value)
+int hashmap_set(hashmap_t **self, void *key, void *value)
 {
-    hashmap_t *map = *map_ptr;
-    size_t index = hashmap_getindex(map, key);
+    size_t index = (*self)->hasher(*self, key) % (*self)->capacity;
 
-    map->keys[index] = key;
-    if (map->values[index] == NULL)
-        map->size++;
-    map->values[index] = value;
-    if (map->size * 4 >= map->capacity * 3)
-        if (hashmap_resize(map_ptr) < 0)
-            return (-1);
-    return (0);
+    if (hashmap_get(*self, key) != NULL) {
+        print_error("Called hashmap set with a key already existing");
+        return (-1);
+    }
+    if (insert_hashmap_bucket_front(&(*self)->bucket[index].data,
+                    &(struct hashmap_list){key, value, NULL}) == false) {
+        print_error("Could not insert in hashmap");
+        return (-1);
+    }
+    (*self)->size++;
+    return (check_need_resize_hashmap(self));
 }

@@ -374,14 +374,20 @@ void destroy_mute_button(game_t *game, entity_t *entity);
 bool handle_mute_button_events(game_t *game, entity_t *entity, sfEvent *event);
 
 typedef struct battlemanager {
+    sfSprite *background;
     struct battlehud *hud;
     entity_t *entity;
     pausable_clock_t *clock;
     pausable_clock_t *attack_clock;
-    battle_opponent_t enemies[10];
-    battle_opponent_t friends[10];
+    battle_opponent_t enemies[3];
+    battle_opponent_t friends[3];
+    battle_opponent_t *source;
+    battle_opponent_t *target;
+    battle_spell_t *spell;
     sfText *bard_talking;
     pausable_clock_t *bard_talking_clock;
+    pausable_clock_t *attack_fx_clock;
+    animable_t classic_hit_fx;
     int enemies_count;
     int friends_count;
     bool is_player_turn;
@@ -401,10 +407,16 @@ int create_battle(game_t *game, battlemanager_t *battlemanager);
 void animate_battlemanager_sprites(battlemanager_t *battlemanager);
 void update_battle(game_t *game, battlemanager_t *battlemanager);
 void destroy_battle(game_t *game UNUSED, battlemanager_t *battlemanager);
-int attack_opponent(game_t *game, battle_opponent_t *source,
-    battle_opponent_t *target, battle_spell_t *spell);
 void set_battle_bard_text(battlemanager_t *battlemanager, const char *text);
 const char *get_battle_random_bard_dialog(void);
+int end_attack(game_t *game UNUSED, battlemanager_t *manager);
+int start_attack(game_t *game UNUSED, battlemanager_t *manager);
+bool is_attack_anim_in_progress(battlemanager_t *manager);
+bool create_attack_fx(game_t *game, battlemanager_t *manager);
+void update_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
+void draw_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
+void destroy_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
+void show_attack_fx(battlemanager_t *battlemanager);
 
 typedef struct battlehud {
     entity_t *entity;

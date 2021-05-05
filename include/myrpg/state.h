@@ -43,7 +43,7 @@
         ///
         /// Map to load when loading save
         ///
-        int map_id;
+        char map_id[256];
 
         ///
         /// inventory

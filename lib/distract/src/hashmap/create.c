@@ -28,10 +28,9 @@ hashmap_t *hashmap_create(size_t capacity,
         capacity = 2;
     map->capacity = capacity;
     map->size = 0;
-    map->keys = dcalloc(capacity, sizeof(void *));
-    map->values = dcalloc(capacity, sizeof(void *));
-    if (map->keys == NULL || map->values == NULL) {
-        print_error("Key and/or values could not be initted");
+    map->bucket = dcalloc(capacity, sizeof(struct hashmap_bucket));
+    if (map->bucket == NULL) {
+        print_error("Buckets and could not be initted");
         return (NULL);
     }
     map->hasher = hasher != NULL ? hasher : &no_hashing_fnc;

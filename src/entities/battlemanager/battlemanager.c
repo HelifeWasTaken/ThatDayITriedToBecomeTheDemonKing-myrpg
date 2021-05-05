@@ -5,6 +5,7 @@
 ** Source code
 */
 
+#include "distract/animable.h"
 #include "distract/util.h"
 #include "myrpg/battle.h"
 #include "stdlib.h"
@@ -19,6 +20,7 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Graphics/Types.h>
 
 bool create_battlemanager(game_t *game UNUSED, entity_t *entity)
 {
@@ -37,6 +39,7 @@ bool create_battlemanager(game_t *game UNUSED, entity_t *entity)
         return (false);
     if (create_battle(game, battlemanager) < 0)
         return (false);
+    battlemanager->is_player_turn = true;
     entity->instance = battlemanager;
     return (true);
 }
@@ -60,7 +63,8 @@ void update_battlemanager(game_t *game UNUSED, entity_t *entity)
 {
     battlemanager_t *battlemanager = entity->instance;
 
-    if (battlemanager->clock->time > 0.2f) {
+    update_battle(game, battlemanager);
+    if (battlemanager->clock->time > 0.1f) {
         animate_battlemanager_sprites(battlemanager);
         battlemanager->clock->time = 0;
     }
@@ -68,7 +72,7 @@ void update_battlemanager(game_t *game UNUSED, entity_t *entity)
         set_battle_bard_text(battlemanager, get_battle_random_bard_dialog());
         battlemanager->bard_talking_clock->time = 0;
     }
-    update_battle(game, battlemanager);
+    update_attack_fx(game, battlemanager);
     tick_pausable_clock(battlemanager->clock);
     tick_pausable_clock(battlemanager->bard_talking_clock);
 }
@@ -77,16 +81,23 @@ void draw_battlemanager(game_t *game UNUSED, entity_t *entity)
 {
     battlemanager_t *battlemanager = entity->instance;
 
+    sfRenderWindow_drawSprite(game->window, battlemanager->background, NULL);
     if (get_animable_animation(&battlemanager->friends[0].animable)
         == BAT_ANIM_IDLE)
         sfRenderWindow_drawText(game->window,
             battlemanager->bard_talking, NULL);
-    for (int i = 0; i < battlemanager->enemies_count; i++)
+    for (int i = 0; i < battlemanager->enemies_count; i++) {
+        if (get_animable_animation(&battlemanager->enemies[i].animable) ==
+        BAT_ANIM_DEATH&& is_animation_done(&battlemanager->enemies[i].animable))
+            continue;
         sfRenderWindow_drawSprite(game->window,
             battlemanager->enemies[i].animable.info.sprite, NULL);
-    for (int i = 0; i < battlemanager->friends_count; i++)
+    }
+    for (int i = 0; i < battlemanager->friends_count; i++) {
         sfRenderWindow_drawSprite(game->window,
             battlemanager->friends[i].animable.info.sprite, NULL);
+    }
+    draw_attack_fx(game, battlemanager);
 }
 
 bool handle_battlemanager_events(game_t *game UNUSED,

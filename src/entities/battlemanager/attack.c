@@ -22,14 +22,47 @@
 #include "myrpg/define.h"
 #include <SFML/Graphics/RenderWindow.h>
 
-int attack_opponent(game_t *game UNUSED, battle_opponent_t *source,
-    battle_opponent_t *target, battle_spell_t *spell)
+bool is_attack_anim_in_progress(battlemanager_t *manager)
 {
-    if (source->mana < spell->mana)
+    int anim;
+
+    if (!is_animation_done(&manager->classic_hit_fx))
+        return (true);
+    for (int i = 0; i < manager->enemies_count; i++) {
+        anim = get_animable_animation(&manager->enemies[i].animable);
+        if (anim != BAT_ANIM_IDLE && anim != BAT_ANIM_DEATH)
+            return (true);
+    }
+    for (int i = 0; i < manager->friends_count; i++) {
+        anim = get_animable_animation(&manager->friends[i].animable);
+        if (anim != BAT_ANIM_IDLE && anim != BAT_ANIM_DEATH)
+            return (true);
+    }
+    return (false);
+}
+
+int end_attack(game_t *game UNUSED, battlemanager_t *manager)
+{
+    show_attack_fx(manager);
+    manager->target->health -= manager->spell->efficiency;
+    manager->source = NULL;
+    manager->spell = NULL;
+    manager->hud->selected_spell_id = -1;
+    manager->clock->time = 0;
+    return (0);
+}
+
+int start_attack(game_t *game UNUSED, battlemanager_t *manager)
+{
+    if (manager->source->mana < manager->spell->mana) {
+        manager->source = NULL;
+        manager->target = NULL;
+        manager->spell = NULL;
         return (-1);
-    source->mana -= spell->mana;
-    target->health -= spell->efficiency;
-    set_animable_animation(&source->animable, spell->anim);
-    eprintf("%s -> %s: %s\n", source->name, target->name, spell->name);
+    }
+    manager->source->mana -= manager->spell->mana;
+    set_animable_animation(&manager->source->animable, manager->spell->anim);
+    eprintf("%s -> %s: %s\n", manager->source->name, manager->target->name,
+        manager->spell->name);
     return (0);
 }
