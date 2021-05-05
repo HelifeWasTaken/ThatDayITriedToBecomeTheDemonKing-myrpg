@@ -68,7 +68,8 @@ bool load_warpzone(game_t *game,
             "file with a name world giving the next"
             " world to load for the warpzone", false);
     D_ASSERT(load_warpzone_coordinates_spawn(data, obj), false,
-            "Expected to have an x and y coordinates called spawnx, and spawny to"
+            "Expected to have an x and y coordinates called spawnx"
+            "and spawny to"
             " load the spawn for the \"afterwarp\"", false);
     if ((entity = create_entity(game, WARP)) == NULL)
         return (false);

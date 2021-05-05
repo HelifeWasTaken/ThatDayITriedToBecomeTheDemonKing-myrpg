@@ -185,7 +185,7 @@ typedef struct scroll_bar {
 } scroll_bar_t;
 
 struct func_button {
-  void (*fonc)(game_t *game);
+    void (*fonc)(game_t *game);
 };
 
 typedef struct settings {

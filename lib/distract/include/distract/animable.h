@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2020
+** MY_RPG_PUBLIC
+** File description:
+** animable.h
+*/
+
 #ifndef CAAC7402_55EF_480E_9385_40AE10D883F5
 #define CAAC7402_55EF_480E_9385_40AE10D883F5
 

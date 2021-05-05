@@ -37,6 +37,7 @@ void destroy_tileset_manager(game_t *game UNUSED, entity_t *entity)
 {
     tileset_manager_t *tileset_manager = entity->instance;
 
-    tileset_manager->tileset->clear(&tileset_manager->tileset);
+    if (tileset_manager->tileset != NULL)
+        tileset_manager->tileset->clear(&tileset_manager->tileset);
     free(tileset_manager);
 }
