@@ -5,7 +5,6 @@
 ** map
 */
 
-
 #ifndef __MY_RPG__MAP__H__
     #define __MY_RPG__MAP__H__
 
@@ -40,7 +39,6 @@
         sfVector2u map_size;
         sfVector2u tile_size;
         struct vector_collision v_collision;
-        sfRenderStates states;
     } vertex_map_t;
 
     typedef struct map_rect {
@@ -102,7 +100,7 @@
             map->tilesets->data[tilesetv].tileheight}
 
     bool load_vertex_array_map(game_t *game, ig_map_t *map,
-        struct vertex_array_map *self, char const *pathfolder);
+        struct vertex_array_map *self, char *pathfolder);
 
     // Integrity checks
     bool load_vertex_array_map_get_tileset(ig_map_t *map,
@@ -124,9 +122,9 @@
         struct vertex_array_map *self, size_t n);
 
     #define GET_REAL_POSITION_XY(v, xoff, yoff) \
-        (sfVector2u){(((v).x) + (xoff)) / 16, (((v).y) + (yoff)) / 16}
+        (sfVector2u){((v.x) + xoff) / 16, ((v.y) + yoff) / 16}
 
     #define GET_POS_MAP(v, mw, map) \
-        map[(i64_t)((v).x + (v).y * (mw))]
+        map[(i64_t)(v.x + v.y * mw)]
 
 #endif

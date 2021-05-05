@@ -1,0 +1,350 @@
+[
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 578, "y": 1200}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 607, "y": 1200}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 635, "y": 1200}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 663, "y": 1200}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 691, "y": 1200}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning_2.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 578, "y": 1257}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning_2.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 607, "y": 1257}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning_2.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 635, "y": 1257}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning_2.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 663, "y": 1257}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/traning_2.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 691, "y": 1257}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/comander.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 572, "y": 1136}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/knigh_chief.png",
+        "frame": 6,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 641, "y": 1152}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/reading_story.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 900, "y": 1784}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/kid_looking_up1.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 855, "y": 1830}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/kid_looking_up2.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 880, "y": 1830}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/kid_looking_up1.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 905, "y": 1830}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/kid_looking_up3.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 930, "y": 1830}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/pari.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 955, "y": 1566}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/false.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1232, "y": 1335}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/false.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1232, "y": 1544}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/taking_flower.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1345, "y": 1341}
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/taking_flower.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1355, "y": 1530}
+    },
+    {
+        "name": "david",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/little_shovel.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1454, "y": 1446}
+    },
+    {
+        "name": "david",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/little_shovel.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1570, "y": 1464}
+    },
+    {
+        "name": "jojo",
+        "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_shovel.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1570, "y": 1295}
+    },
+    {
+        "name": "jojo",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/kid_traning.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 649, "y": 1830}
+    },
+    {
+        "name": "jojo",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/looking_traning.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 592, "y": 1787}
+    },
+    {
+        "name": "jojo",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/elder_walking.png",
+        "frame": 6,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 229, "y": 1407}
+    },
+    {
+        "name": "jojo",
+        "file_path": "asset/pnj/pnj_asset/castle_pnj/strong_smith.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1021, "y": 1470}
+    }
+]

@@ -10,5 +10,6 @@
 bool has_pending_scene(game_t *game)
 {
     return (sfRenderWindow_isOpen(game->window)
-            && game->scene->pending_scene_id != -1);
+            && game->scene->pending_scene_id != -1
+            && !game->is_closing);
 }

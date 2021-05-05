@@ -7,32 +7,36 @@
 
 #include "distract/entity.h"
 #include "myrpg/entities.h"
-#include "myrpg/parameters.h"
+#include "myrpg/state.h"
 #include "myrpg/game.h"
 #include "myrpg/asset.h"
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"
+#include "distract/sound.h"
 
 void music_on_scroll(game_t *game, vfx_scroll_t *scroll)
 {
-    parameters_t *param = game->state;
+    game_state_t *state = game->state;
 
-    param->music_vol = scroll->percentage;
+    state->params.music_vol = scroll->percentage;
+    set_sound_volume(game, MUSIC, scroll->percentage * 100);
 }
 
 void vox_on_scroll(game_t *game, vfx_scroll_t *scroll)
 {
-    parameters_t *param = game->state;
+    game_state_t *state = game->state;
 
-    param->voice_vol = scroll->percentage;
+    state->params.voice_vol = scroll->percentage;
+    set_sound_volume(game, VOX, scroll->percentage * 100);
 }
 
 void vfx_on_scroll(game_t *game, vfx_scroll_t *scroll)
 {
-    parameters_t *param = game->state;
+    game_state_t *state = game->state;
 
-    param->vfx_vol = scroll->percentage;
+    state->params.vfx_vol = scroll->percentage;
+    set_sound_volume(game, SFX, scroll->percentage * 100);
 }
 
 void init_scroll_bar(game_t *game)
@@ -63,6 +67,7 @@ int setting_lifecycle(game_t *game)
     sfEvent event;
 
     init_scroll_bar(game);
+    init_select_btn(game);
     create_entity(game, SETTING);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))

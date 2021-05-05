@@ -10,5 +10,5 @@
 
 void close_game(game_t *game)
 {
-    switch_to_scene(game, -1);
+    game->is_closing = true;
 }

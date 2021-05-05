@@ -17,6 +17,16 @@
 #include "myrpg/scenes.h"
 #include "myrpg/asset.h"
 
+void button_fonc(game_t *game, int i)
+{
+    if (i == 0 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
+        switch_to_scene(game, PLAY_SCENE);
+    if (i == 1 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
+        switch_to_scene(game, SETTING_SCENE);
+    if (i == 2 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
+        close_game(game);
+}
+
 bool handle_menu_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
@@ -28,16 +38,11 @@ bool handle_menu_events(game_t *game UNUSED,
         buton_pos = sfSprite_getGlobalBounds(menu->button_sprite[i]);
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x,
                     mouse_pos.y) == sfTrue) {
-            sfSprite_setScale(menu->button_sprite[i], VEC2F(1.2, 1.2));
-            if (i == 0 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
-                switch_to_scene(game, PLAY_SCENE);
-            if (i == 1 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
-                switch_to_scene(game, SETTING_SCENE);
-            if (i == 2 && sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
-                close_game(game);
+            sfSprite_setScale(menu->button_sprite[i], VEC2F(2, 2));
+            button_fonc(game, i);
             return (true);
         } else
-            sfSprite_setScale(menu->button_sprite[i], VEC2F(1, 1));
+            sfSprite_setScale(menu->button_sprite[i], VEC2F(1.5, 1.5));
     }
     return (false);
 }

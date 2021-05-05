@@ -44,8 +44,12 @@ void update_entity_async(game_t *game, entity_t *entity)
 
 void draw_entity(game_t *game, entity_t *entity)
 {
+    if (entity->draw_on_gui)
+        sfRenderWindow_setView(game->window, game->gui_view);
     if (entity->info->draw != NULL)
         entity->info->draw(game, entity);
+    if (entity->draw_on_gui)
+        sfRenderWindow_setView(game->window, game->view);
 }
 
 void destroy_entity(game_t *game, entity_t *entity)

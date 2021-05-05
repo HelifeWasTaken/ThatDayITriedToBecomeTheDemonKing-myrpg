@@ -8,37 +8,30 @@
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/hashmap.h"
+#include "distract/sound.h"
 #include "stdlib.h"
 #include "distract/debug.h"
 #include "distract/util.h"
-
-static size_t hash_resource_key(hashmap_t *map, void *key)
-{
-    char *str = (void *)key;
-    size_t hash = 5381;
-    int c;
-
-    while ((c = *str++))
-        hash = ((hash << 5) + hash) + c;
-    return (hash % map->capacity);
-}
+#include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Graphics/View.h>
 
 game_t *create_game(void)
 {
     game_t *game = dcalloc(1, sizeof(game_t));
-    scene_t *scene = dcalloc(1, sizeof(scene_t));
 
-    if (game == NULL || scene == NULL) {
+    game->sound = create_sound_emitter(game);
+    game->scene = allocate_scene();
+    if (game == NULL || game->sound == NULL || game->scene == NULL) {
         print_error("Game initialisation failed");
         return (NULL);
     }
-    game->scene = scene;
-    game->scene->resources = hashmap_create(50, &hash_resource_key);
-    game->scene->id = -1;
-    game->scene->pending_scene_id = -1;
-    if (game->scene->resources == NULL)
-        print_error("Entity hashmap ressource could not be initted");
     return (game);
+}
+
+void set_game_view(game_t *game, sfView *view)
+{
+    game->view = view;
+    sfRenderWindow_setView(game->window, view);
 }
 
 static void destroy_entity_infos(game_t *game)
@@ -74,10 +67,8 @@ void destroy_game(game_t *game)
     if (game->window != NULL)
         sfRenderWindow_destroy(game->window);
     destroy_scene(game, true);
-    if (game->scene) {
-        hashmap_destroy(game->scene->resources);
-        free(game->scene);
-    }
+    deallocate_scene(game->scene);
+    destroy_sound_emitter(game->sound);
     destroy_entity_infos(game);
     destroy_scene_infos(game);
     free(game);

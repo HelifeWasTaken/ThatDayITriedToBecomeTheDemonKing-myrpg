@@ -15,7 +15,7 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "myrpg/scenes.h"
-#include "myrpg/parameters.h"
+#include "myrpg/state.h"
 #include "stdlib.h"
 #include <stdio.h>
 
@@ -33,19 +33,20 @@ static void change_vfx(vfx_scroll_t *vfx_scroll,
 bool fonc_scroll_vfx(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
-    vfx_scroll_t *vfx_scroll = entity->instance;
-    sfFloatRect bar = sfSprite_getGlobalBounds(vfx_scroll->sprite_bar);
-    sfFloatRect pos = sfSprite_getGlobalBounds(vfx_scroll->scrolin);
+    vfx_scroll_t *scrl = entity->instance;
+    sfFloatRect bar = sfSprite_getGlobalBounds(scrl->sprite_bar);
+    sfFloatRect pos = sfSprite_getGlobalBounds(scrl->scrolin);
 
     bar.left = bar.left + 100;
     bar.width = bar.width - 200;
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
-        change_vfx(vfx_scroll, bar, pos);
-        sfSprite_setPosition(vfx_scroll->scrolin,
-            VEC2F(mouse.x - (pos.width / 2), bar.top - (pos.height / 2) +
-                bar.height / 2));
-        if (vfx_scroll->on_scroll != NULL)
-            vfx_scroll->on_scroll(game, vfx_scroll);
+        if (scrl->on_scroll != NULL)
+            scrl->on_scroll(game, scrl);
+        change_vfx(scrl, bar, pos);
+        sfSprite_setPosition(scrl->scrolin, VEC2F(mouse.x - (pos.width / 2),
+                bar.top - (pos.height / 2) + bar.height / 2));
+        if (scrl->on_scroll != NULL)
+            scrl->on_scroll(game, scrl);
         return (true);
     }
     return false;

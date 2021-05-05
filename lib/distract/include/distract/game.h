@@ -19,6 +19,11 @@ typedef struct game {
     sfRenderWindow *window;
 
     ///
+    /// State renderer to draw
+    ///
+    sfRenderStates renderer;
+
+    ///
     /// Scenes registry
     ///
     struct scene_info *scenes;
@@ -32,6 +37,11 @@ typedef struct game {
     /// Current scene
     ///
     struct scene *scene;
+
+    ///
+    /// Sound emitter
+    ///
+    struct sound_emitter *sound;
 
     ///
     /// Screen video mode
@@ -51,9 +61,24 @@ typedef struct game {
     void *state;
 
     ///
+    /// GUI view
+    ///
+    sfView *gui_view;
+
+    ///
+    /// World (non-GUI) view
+    ///
+    sfView *view;
+
+    ///
     /// Input manager
     ///
     input_t input;
+
+    ///
+    /// Is the game in a closing state?
+    ///
+    bool is_closing;
 
     ///
     /// global game parameters
@@ -77,6 +102,16 @@ void destroy_game(game_t *game);
 /// Close the game in a clean manner.
 ///
 void close_game(game_t *game);
+
+///
+/// Set game view
+///
+void set_game_view(game_t *game, sfView *view);
+
+///
+/// Reset the game events.
+///
+void reset_game_events(game_t *game);
 
 ///
 /// Basically an sfClock that can be paused

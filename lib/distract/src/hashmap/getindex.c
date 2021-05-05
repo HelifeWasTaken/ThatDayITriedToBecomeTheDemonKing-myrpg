@@ -8,12 +8,13 @@
 #include "stdlib.h"
 #include "distract/hashmap.h"
 
-size_t hashmap_getindex(hashmap_t *map, void *key)
+void *hashmap_getindex(hashmap_t *map, void *key)
 {
-    size_t index = map->hasher(map, key);
+    struct hashmap_list *list = map->bucket[
+        map->hasher(map, key) % map->capacity].data;
 
-    while (map->keys[index] != NULL && map->keys[index] != key) {
-        index = (index + 1) % map->capacity;
-    }
-    return (index);
+    for (; list; list = list->next)
+        if (dstrcmp(key, list->key) == 0)
+            return (list->value);
+    return (NULL);
 }

@@ -13,6 +13,7 @@
 #include "distract/def.h"
 #include "myrpg/matrix.h"
 #include "erty/eprintf.h"
+#include "myrpg/state.h"
 
 #define SIZE_COLLIDE_R 4
 
@@ -27,6 +28,13 @@ enum corner_type {
     CORNER_SPRITE,
     CORNER_RECT
 };
+
+bool load_property_int(VECTOR(ig_prop) *prop, int64_t *value,
+    char *search, char *error);
+bool load_property_string(VECTOR(ig_prop) *prop, char **buffer,
+    char *search, char *error);
+bool load_property_uint(VECTOR(ig_prop) *prop, usize_t *value,
+    char *search, char *error);
 
 // Returns each corner of instance in the world
 // If r is a rect it should be passed as a pointer
@@ -107,5 +115,7 @@ bool deser_frect(struct json *conf, size_t offset, void *data);
 
 #define CAST_R(cast, r) \
     (cast){ .top = r.top, .left = r.left, .width = r.width, .height = r.height }
+
+game_state_t *get_game_state(game_t *game);
 
 #endif

@@ -14,7 +14,8 @@
     ///
     /// MAIN_MENU_DEFINE
     ///
-    #define MAIN_MENU_BG "asset/menu/menu_background_test.png"
+    //#define MAIN_MENU_BG "asset/menu/menu_background_test.png"
+    #define MAIN_MENU_BG "asset/menu/main_menu_tittle.png"
     #define MAIN_MENU_BG_W 1920
     #define MAIN_MENU_BG_H 1080
     #define MENU_BG_RECT(window) IRECT(0, 0, WINDOW_W, WINDOW_H)
@@ -23,8 +24,8 @@
     #define MENU_BUTTON_SPT_H 64
     #define MENU_BUTTON_RECT IRECT(0, 0, MENU_BUTTON_SPT_W, MENU_BUTTON_SPT_H)
 
-    #define BUTTON_MENU_POS (int[]) {WINDOW_H / 4,\
-        WINDOW_H / 3,  WINDOW_H / 2}
+    #define BUTTON_MENU_POS (int[]) {WINDOW_W / 8,\
+        WINDOW_W / 2.55,  WINDOW_W / 1.5}
 
     #define QUIT_BUTTON_SPT "asset/menu/quit_button.png"
     #define PLAY_BUTTON_SPT "asset/menu/play_button.png"
@@ -37,7 +38,7 @@
     /// SETTINGS_MENU_DEFINE
     ///
 
-    #define FONT "asset/title.ttf"
+    #define FONT "asset/homespun.ttf"
     #define ASSET_BAR "asset/setting/golden_rod.png"
     #define ASSET_SC "asset/setting/cursor.png"
 
@@ -73,11 +74,29 @@
     ///
     #define HERO_PATH "asset/hero/bard_movement.png"
     #define FULL_HERO_RECT IRECT(0, 0, 270, 332)
-    #define ONE_HERO_RECT IRECT(0, 0 , 45, 83)
+    #define ONE_HERO_RECT IRECT(0, 0 , 45, 81)
     #define HERO_SCALE VEC2F(0.5, 0.5)
 
     #define HERO_FIGHT_PATH "asset/hero/bard_combat.png"
-    #define FULL_HERO_FIGHT_RECT IRECT(0 ,0, 450, 166)
+    #define FULL_HERO_FIGHT_RECT IRECT(0 ,0, 630, 166)
     #define ONE_HERO_FIGHT_RECT IRECT(0, 0, 90, 83)
+
+    typedef enum sound_types {
+        MUSIC,
+        SFX,
+        VOX
+    } sound_types_t;
+
+    ///
+    /// INVVENTORY DEFINE
+    ///
+
+    #define INV_TEX "asset/hero/menu_hero/inventory.png"
+    #define INV_TEX_OVER "asset/hero/menu_hero/inventory_cliqued.png"
+
+    typedef struct item_inv {
+        char *path;
+        int type;
+    } inventory_item_t;
 
 #endif

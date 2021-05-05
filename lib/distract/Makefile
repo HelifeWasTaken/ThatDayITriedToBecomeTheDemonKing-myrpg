@@ -35,6 +35,7 @@ SRC =	src/debug/print_error.c \
 		src/collision/screenbounds.c \
 		src/game/game.c \
 		src/game/close_game.c \
+		src/game/reset_game_events.c \
 		src/game/timer.c \
 		src/graphics/align_text_bottom.c \
 		src/graphics/align_text_right.c \
@@ -53,6 +54,9 @@ SRC =	src/debug/print_error.c \
 		src/resources/texture.c \
 		src/resources/font.c \
 		src/resources/sound.c \
+		src/scene/allocate_scene.c \
+		src/scene/await_scene.c \
+		src/resources/vertex.c \
 		src/scene/destroy_scene.c \
 		src/scene/draw_scene.c \
 		src/scene/update_scene.c \
@@ -66,6 +70,8 @@ SRC =	src/debug/print_error.c \
 		src/scene/load_pending_scene.c \
 		src/scene/transmit_event_to_scene.c \
 		src/window/create_standard_window.c \
+		src/sound/sound_emitter.c \
+		src/sound/destroy_sound_emitter.c \
 		src/hashmap/create.c \
 		src/hashmap/destroy.c \
 		src/hashmap/getindex.c \
@@ -73,8 +79,15 @@ SRC =	src/debug/print_error.c \
 		src/hashmap/set.c \
 		src/hashmap/unset.c \
 		src/hashmap/get.c \
+		src/hashmap/list.c \
 		src/input/input.c \
 		src/input/keyboard.c \
+		src/animable/get_animable_frame.c \
+		src/animable/set_animable_frame.c \
+		src/animable/get_animable_animation.c \
+		src/animable/set_animable_animation.c \
+		src/animable/is_animation_done.c \
+		src/animable/set_animable_info.c \
 		src/strutil.c \
 		src/allocutil.c
 

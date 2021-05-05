@@ -1,0 +1,210 @@
+[
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/woman_bottle.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1510, "y": 112.5},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/bottle_water.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1357, "y": 15},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/broom_man.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1492, "y": 571},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/little_kid.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1387, "y": 503},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/man_music.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 495, "y": 239},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/man_music.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 579, "y": 239},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/mage.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 1246, "y": 1183},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/man_writing.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 143, "y": 270},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/broom_man.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 324, "y": 1278},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/woman_kid.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 278, "y": 1208},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/elder_woman.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 331, "y": 1377},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/monkey.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 40,
+            "height": 41
+        },
+        "pos": {"x": 78, "y": 617},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/little_kid.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 710, "y": 597.5},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/rake_man.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 572, "y": 555},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/read_book.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 216, "y": 330},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/shaman.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 456, "y": 71},
+        "message": "bonjour"
+    }
+]

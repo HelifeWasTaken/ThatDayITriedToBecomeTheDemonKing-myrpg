@@ -19,30 +19,27 @@
 #include "distract/debug.h"
 #include "distract/util.h"
 #include "myrpg/util.h"
-#include "myrpg/mapdata.h"
 
 bool create_hero(game_t *game UNUSED, entity_t *entity)
 {
     hero_t *hero = dcalloc(sizeof(hero_t), 1);
     sfIntRect rect = IRECT(0, 0, 135, 332);
     sfTexture *texture = create_texture(game, HERO_PATH, &rect);
-    entity_t *map_entity = GET_ENTITY(game, LAYER_MANAGER);
-    layer_manager_t *layers = NULL;
+    map_loader_t *map = get_instance(game, LAYER_MANAGER);
 
     D_ASSERT(hero, NULL, "Hero could not be created", false);
     D_ASSERT(texture, NULL, "Tetxure could not be created", false);
-    D_ASSERT(map_entity, NULL, "Layer could not be found", false);
-    layers = map_entity->instance;
-    hero->collision = layers;
+    D_ASSERT(map, NULL, "Layer could not be found", false);
+    hero->layers = map;
     hero->entity = entity;
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
     hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
-    hero->entity->pos = MAP_FILES[game->scene->world_id].p_info.pos;
+    hero->entity->pos = get_game_state(game)->save.player_pos;
     entity->instance = hero;
-    hero->entity->z = MAP_FILES[game->scene->world_id].p_info.z_player;
-    hero->speed = 2;
-    sfSprite_setScale(hero->sprite, VEC2F(0.5, 0.5));
+    hero->entity->z = map->manager.z;
+    hero->speed = 1.5;
+    sfSprite_setScale(hero->sprite, VEC2F(0.35, 0.35));
     return (true);
 }
 
@@ -56,44 +53,38 @@ void destroy_hero(game_t *game UNUSED, entity_t *entity)
     free(hero);
 }
 
-// warps handling is prone to change
 void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     hero_t *hero = entity->instance;
-    sfIntRect warp = {0};
 
     update_hero_move(game, hero);
     sfSprite_setPosition(hero->sprite, entity->pos);
     tick_pausable_clock(hero->animation_clock);
     tick_pausable_clock(hero->movement_clock);
-    for (usize_t i = 0; i < hero->collision->warp_list->warp->size; i++) {
-        warp = hero->collision->warp_list->warp->data[i].warpzone;
-        if (sfIntRect_contains(&warp,
-                    hero->entity->pos.x, hero->entity->pos.y)) {
-            switch_to_world(game, get_matching_world(
-                hero->collision->warp_list->warp->data[i].warploader));
-            return;
-        }
-    }
 }
 
 static void draw_hero_collision_points(game_t *game, hero_t *hero)
 {
+    unsigned int tilesize = hero->layers->manager.tilesize;
     sfFloatRect rect = sfSprite_getGlobalBounds(hero->sprite);
     sfVector2f entitypos = hero->entity->pos;
     sfVector2u pos_l = GET_REAL_POSITION_XY(
-        entitypos, 0, (rect.height / 2) - 2);
+        entitypos, 0, (rect.height / 2) - 2, tilesize);
     sfVector2u pos_r = GET_REAL_POSITION_XY(
-        entitypos, (rect.width / 2) + 4, (rect.height / 2) - 2);
+        entitypos, (rect.width / 2) + 4, (rect.height / 2) - 2, tilesize);
     sfVector2u pos_d = GET_REAL_POSITION_XY(entitypos,
-        rect.width / 2, rect.height / 2);
+        rect.width / 2, rect.height / 2, tilesize);
     sfVector2u pos_u =  GET_REAL_POSITION_XY(
-        entitypos, rect.width / 2, rect.height / 3);
+        entitypos, rect.width / 2, rect.height / 3, tilesize);
 
-    draw_rectangle_at_point(game->window, &VEC2F(pos_r.x * 16, pos_r.y * 16));
-    draw_rectangle_at_point(game->window, &VEC2F(pos_l.x * 16, pos_l.y * 16));
-    draw_rectangle_at_point(game->window, &VEC2F(pos_d.x * 16, pos_d.y * 16));
-    draw_rectangle_at_point(game->window, &VEC2F(pos_u.x * 16, pos_u.y * 16));
+    draw_rectangle_at_point(game->window,
+        &VEC2F(pos_r.x * tilesize, pos_r.y * tilesize));
+    draw_rectangle_at_point(game->window,
+        &VEC2F(pos_l.x * tilesize, pos_l.y * tilesize));
+    draw_rectangle_at_point(game->window,
+        &VEC2F(pos_d.x * tilesize, pos_d.y * tilesize));
+    draw_rectangle_at_point(game->window,
+        &VEC2F(pos_u.x * tilesize, pos_u.y * tilesize));
 }
 
 void draw_hero(game_t *game UNUSED, entity_t *entity)
