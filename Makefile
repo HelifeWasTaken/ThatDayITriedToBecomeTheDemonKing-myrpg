@@ -130,6 +130,7 @@ SRC = 	src/game.c \
 		src/entities/dialog/dialog.c \
 		src/entities/npc/pnj_loader.c \
 		src/entities/npc/create_pnj.c \
+		src/entities/npc/pnj_drawing.c \
 		src/entities/boss/boss.c \
 		src/entities/boss/boss_update.c \
 		src/entities/boss/create_boss.c \
