@@ -7,7 +7,6 @@
 
 #include "distract/game.h"
 #include "distract/util.h"
-#include <stdlib.h>
 
 void switch_to_scene(game_t *game, int id)
 {
@@ -23,7 +22,5 @@ void switch_to_world(game_t *game, char const *file)
         game->scene->pending_scene_id = -1;
     else
         game->scene->pending_scene_id = game->scene->id;
-    if (game->scene->world_file != NULL)
-        free(game->scene->world_file);
     game->scene->world_file = dstrdup(file);
 }
