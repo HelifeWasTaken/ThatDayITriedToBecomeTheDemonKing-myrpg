@@ -31,7 +31,7 @@ void trigger_battle_rand(game_t *game, hero_t *hero)
         estrcmp(game->scene->world_file,
             "asset/map_asset/map_files/map_monde.json") == 0
         || estrcmp(game->scene->world_file,
-            "asset/map_asset/map_files/desert.json") == 0
+            "asset/map_asset/map_files/battle_desert.json") == 0
         || estrcmp(game->scene->world_file,
             "asset/map_asset/map_files/forest_map.json") == 0);
 

@@ -33,7 +33,7 @@ struct battle_background_pair BATTLE_BG[] = {
         .size = { 0.80, 0.89 }
     },
     {
-        .world_id = "asset/map_asset/map_files/desert.json",
+        .world_id = "asset/map_asset/map_files/battle_desert.json",
         .file = "asset/battlebg/desert_battle.png",
         .rect = { 0, 0, 1920, 1080 },
         .size = { 1, 1 }
@@ -68,11 +68,16 @@ int create_battle(game_t *game, battlemanager_t *battlemanager)
 
 static battle_opponent_t *get_first_enemy(battlemanager_t *battlemanager)
 {
+    battle_opponent_t *alive_opponents[10];
+    int j = 0;
+
     for (int i = 0; i < battlemanager->enemies_count; i++) {
         if (battlemanager->enemies[i].health > 0)
-            return &battlemanager->enemies[i];
+            alive_opponents[j++] = &battlemanager->enemies[i];
     }
-    return (NULL);
+    if (j == 0)
+        return (NULL);
+    return (alive_opponents[rand() % j]);
 }
 
 static void update_attack(game_t *game, battlemanager_t *battlemanager,
