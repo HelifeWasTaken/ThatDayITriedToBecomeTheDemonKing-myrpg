@@ -93,7 +93,7 @@ static void update_attack(game_t *game, battlemanager_t *battlemanager,
     } else {
         battlemanager->source = enemy;
         battlemanager->target = player;
-        battlemanager->spell = &enemy->spells[0];
+        battlemanager->spell = &enemy->spells[rand() % count_spells(enemy)];
         start_attack(game, battlemanager);
         battlemanager->attack_clock->time = 0;
         battlemanager->is_player_turn = true;
