@@ -40,6 +40,9 @@ static const battle_spell_t PLAYER_SPELLS[] = {
         .efficiency = 12,
         .type = BST_NOT_A_SPELL,
         .anim = BAT_ANIM_ATTACK,
+        .attack_fx_file = "asset/fx/classic_hit.png",
+        .attack_fx_frames_per_line = 5,
+        .attack_fx_frames_count = 10
     },
     {
         .name = "Charm",
@@ -47,6 +50,9 @@ static const battle_spell_t PLAYER_SPELLS[] = {
         .efficiency = 1,
         .type = BST_AIR,
         .anim = BAT_ANIM_SPELL_1,
+        .attack_fx_file = "asset/fx/classic_hit.png",
+        .attack_fx_frames_per_line = 5,
+        .attack_fx_frames_count = 10
     }
 };
 
@@ -78,6 +84,12 @@ static int create_friend(game_t *game, battle_opponent_t *friend)
     set_animable_info(&friend->animable, &friend->animable_info);
     set_animable_animation(&friend->animable, 0);
     sfSprite_scale(friend->animable_info.sprite, friend->scale);
+    for (int i = 0; friend->spells[i].attack_fx_file != NULL; i++) {
+        friend->spells[i].attack_fx_texture = create_texture(game,
+            friend->spells[i].attack_fx_file, NULL);
+        D_ASSERT(friend->spells[i].attack_fx_file, NULL, "Can't create attack"
+            " fx", false);
+    }
     return (0);
 }
 

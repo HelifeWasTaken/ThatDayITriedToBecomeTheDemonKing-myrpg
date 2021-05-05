@@ -8,6 +8,7 @@
 #include "distract/animable.h"
 #include "distract/debug.h"
 #include "distract/math.h"
+#include "myrpg/battle.h"
 #undef ABS
 #include "distract/graphics.h"
 #include "distract/resources.h"
@@ -56,6 +57,9 @@ static const battle_opponent_t ENEMIES[] = {
                 .efficiency = 18,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/classic_hit.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 10
             }
         }
     },
@@ -92,6 +96,9 @@ static const battle_opponent_t ENEMIES[] = {
                 .efficiency = 15,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/classic_hit.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 10
             }
         }
     },
@@ -128,6 +135,9 @@ static const battle_opponent_t ENEMIES[] = {
                 .efficiency = 8,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/fangs_attack.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 20
             }
         }
     },
@@ -164,6 +174,9 @@ static const battle_opponent_t ENEMIES[] = {
                 .efficiency = 10,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/mushroom_atk.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 20
             }
         }
     }
@@ -185,6 +198,15 @@ static const battle_opponent_t *select_rand_enemy(int level)
     return (rand_opponent);
 }
 
+int count_spells(battle_opponent_t *enemy)
+{
+    int spell_count = 0;
+
+    for (int i = 0; enemy->spells[i].name != NULL; i++)
+        spell_count++;
+    return (spell_count);
+}
+
 static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
 {
     sfTexture *texture;
@@ -196,6 +218,12 @@ static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
     D_ASSERT(texture, NULL, "Cannot create texture", -1)
     enemy->animable_info.sprite = create_sprite(texture, NULL);
     D_ASSERT(enemy->animable_info.sprite, NULL, "Cannot create sprite", -1)
+    for (int i = 0; enemy->spells[i].attack_fx_file != NULL; i++) {
+        enemy->spells[i].attack_fx_texture = create_texture(game,
+            enemy->spells[i].attack_fx_file, NULL);
+        D_ASSERT(enemy->spells[i].attack_fx_file, NULL, "Can't create attack"
+            " fx", false);
+    }
     enemy->animable = (animable_t) {0};
     set_animable_info(&enemy->animable, &enemy->animable_info);
     set_animable_animation(&enemy->animable, 0);
