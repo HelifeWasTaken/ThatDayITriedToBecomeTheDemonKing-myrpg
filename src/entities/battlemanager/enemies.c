@@ -37,15 +37,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 0, 3 },
                 { 7, 13 },
-                { 14, 17 },
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 7
@@ -86,15 +78,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 8, 11 },
                 { 0, 7 },
-                { 14, 17 },
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -125,15 +109,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 8, 13 },
                 { 0, 7 },
-                { 14, 17 },
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -164,15 +140,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 8, 11 },
                 { 0, 7 },
-                { 14, 17 },
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
