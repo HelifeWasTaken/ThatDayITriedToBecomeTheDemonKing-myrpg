@@ -58,7 +58,6 @@ static const entity_info_t ENTITIES[] = {
             &destroy_inventory, &update_inventory, &handle_inventory_events),
     ENTITY(SELECT, &create_mute_button, &draw_mute_button,
         &destroy_mute_button, &update_mute_button, &handle_mute_button_events),
-
     ENTITY(BATTLEHUD, &create_battlehud, &draw_battlehud,
             &destroy_battlehud, &update_battlehud, &handle_battlehud_events),
     ENTITY(BATTLEMANAGER, &create_battlemanager, &draw_battlemanager,
@@ -109,13 +108,15 @@ void configure_state(game_t *game)
     state->params.vfx_muted = false;
     state->params.voice_muted = false;
     for (int index = 0; index != 15; index++) {
-        state->save.item[index].type = EMPTY;
-        state->save.item[index].id = 0;
-        state->save.item[index].nb = 0;
+        state->save.item[index].type = game->item_loaded[index].type;
+        state->save.item[index].id = index;
+        state->save.item[index].nb = 1;
     }
-    state->save.item[0].type = ITEM;
-    state->save.item[0].id = 1;
-    state->save.item[0].type = 1;
+    for (int index = 0; index != 5; index++) {
+        state->save.equipment[index].type = EMPTY;
+        state->save.equipment[index].id = 0;
+        state->save.equipment[index].nb = 0;
+    }
     state->save.player_hp = 100;
     state->save.player_lv = 1;
     state->save.player_mana = 30;
@@ -130,6 +131,7 @@ void configure_game(game_t *game)
     register_scene(game, KEY_CONFIG, &key_lifecycle);
     register_scene(game, SETTING_SCENE, &setting_lifecycle);
     register_scene(game, BATTLE_SCENE, &battle_lifecycle);
+    load_items(game);
     configure_state(game);
     configure_entities(game);
 }
