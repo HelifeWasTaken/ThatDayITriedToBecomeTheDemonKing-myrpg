@@ -71,6 +71,7 @@ SRC =	src/debug/print_error.c \
 		src/scene/transmit_event_to_scene.c \
 		src/window/create_standard_window.c \
 		src/sound/sound_emitter.c \
+		src/sound/destroy_sound_emitter.c \
 		src/hashmap/create.c \
 		src/hashmap/destroy.c \
 		src/hashmap/getindex.c \

@@ -77,7 +77,8 @@ SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
 SRC_UTIL = src/util/sfml_deser.c \
 		   src/util/get_save_state.c \
 		   src/util/not_implemented.c \
-		   src/util/property_loader.c
+		   src/util/property_loader.c	\
+		   src/util/load_item.c
 
 
 SRC_MENU = src/entities/menu/menu.c \
@@ -90,6 +91,7 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 SRC_INVENTORY	=	src/entities/inventory/create_inventory.c \
 			src/entities/inventory/inventory.c \
 			src/entities/inventory/inventory_ges.c	\
+			src/entities/inventory/create_equipment_slot.c
 
 
 SRC_BATTLE = src/entities/battlehud/battlehud.c \

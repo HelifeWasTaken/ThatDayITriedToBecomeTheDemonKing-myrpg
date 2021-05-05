@@ -1,0 +1,107 @@
+[
+    {
+        "path": "asset/item/empty.png",
+        "type": 0,
+        "speed": 0,
+        "shield": 0,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/banane.png",
+        "type": 5,
+        "speed": 8,
+        "shield": 0,
+        "atk": 2
+    },
+    {
+        "path": "asset/item/sword.png",
+        "type": 5,
+        "speed": 2,
+        "shield": 0,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/woodshield.png",
+        "type": 4,
+        "speed": 0,
+        "shield": 2,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/axe.png",
+        "type": 5,
+        "speed": 0,
+        "shield": 0,
+        "atk":  5
+    },
+    {
+        "path": "asset/item/infinite_shield.png",
+        "type": 4,
+        "speed": 0,
+        "shield": 5,
+        "atk":  0
+    },
+    {
+        "path": "asset/item/iron_armor.png",
+        "type": 1,
+        "speed": 0,
+        "shield": 4,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/iron_hat.png",
+        "type": 2,
+        "speed": 0,
+        "shield": 4,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/iron_shield.png",
+        "type": 4,
+        "speed": 0,
+        "shield": 4,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/leather_hat.png",
+        "type": 2,
+        "speed": 3,
+        "shield": 1,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/link.png",
+        "type": 1,
+        "speed": 3,
+        "shield": 1,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/ring1.png",
+        "type": 3,
+        "speed": 3,
+        "shield": 1,
+        "atk": 0
+    },
+    {
+        "path": "asset/item/ring2.png",
+        "type": 3,
+        "speed": 1,
+        "shield": 3,
+        "atk": 2
+    },
+    {
+        "path": "asset/item/master_sword.png",
+        "type": 5,
+        "speed": 0,
+        "shield": 0,
+        "atk": 7
+    },
+    {
+        "path": "asset/item/guitard.png",
+        "type": 5,
+        "speed": 0,
+        "shield": 2,
+        "atk": 1
+    }
+]

@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2020
 ** MY_RPG_PUBLIC
 ** File description:
-** pnj.h
+** ennemies.h
 */
 
-#ifndef PNJ_H
-    #define PNJ_H
+#ifndef ENNEMIES_H
+    #define ENNEMIES_H
 
     #include <iron_goat/deser.h>
     #include "myrpg/game.h"
@@ -48,8 +48,5 @@
     bool create_pnj(game_t *game, entity_t *entity);
     void draw_pnj(game_t *game, entity_t *entity);
     void destroy_pnj(game_t *game, entity_t *entity);
-    void sort_pnj(pnj_t *pnj);
-    void update_pnj_foreach(pnj_t *pnj);
-    void draw_npc_and_hero(game_t *game, pnj_t *pnj);
 
 #endif
