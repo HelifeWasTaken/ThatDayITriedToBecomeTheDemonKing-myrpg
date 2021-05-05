@@ -34,7 +34,7 @@ struct battle_background_pair BATTLE_BG[] = {
     },
     {
         .world_id = "asset/map_asset/map_files/desert.json",
-        .file = "asset/battlebg/desert.jpg",
+        .file = "asset/battlebg/desert_battle.png",
         .rect = { 0, 0, 1920, 1080 },
         .size = { 1, 1 }
     },
