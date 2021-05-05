@@ -102,7 +102,9 @@ SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlemanager/attack.c \
 			src/entities/battlemanager/attack_fx.c \
 			src/entities/battlemanager/bard_talking.c \
-			src/entities/battlemanager/battle.c
+			src/entities/battlemanager/battle.c \
+			src/entities/battlemanager/start_battle.c \
+			src/entities/battlemanager/boss.c
 
 SRC = 	src/game.c \
 	src/entities/settings/init_settings.c \
@@ -126,6 +128,9 @@ SRC = 	src/game.c \
 		src/entities/dialog/dialog.c \
 		src/entities/npc/pnj_loader.c \
 		src/entities/npc/create_pnj.c \
+		src/entities/boss/boss.c \
+		src/entities/boss/boss_update.c \
+		src/entities/boss/create_boss.c \
         $(SRC_DEBUGMENU) \
         $(SRC_MENU) \
         $(SRC_UTIL) \

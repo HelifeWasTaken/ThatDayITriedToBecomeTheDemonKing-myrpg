@@ -43,6 +43,12 @@ struct battle_background_pair BATTLE_BG[] = {
         .file = "asset/battlebg/forest.png",
         .rect = { -20, 0, 1920, 1080 },
         .size = { 1.2, 1.2 }
+    },
+    {
+        .world_id = "asset/map_asset/map_files/volcano.json",
+        .file = "asset/battlebg/volcano.png",
+        .rect = { -20, 0, 1920, 1080 },
+        .size = { 1.2, 1.2 }
     }
 };
 

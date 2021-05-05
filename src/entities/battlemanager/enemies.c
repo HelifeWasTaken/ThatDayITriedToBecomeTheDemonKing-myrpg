@@ -35,17 +35,9 @@ static const battle_opponent_t ENEMIES[] = {
         .scale = { 1, 1 },
         .animable_info = {
             .animations = {
-                { 0, 3 },   // BAT_ANIM_IDLE
-                { 7, 13 },  // BAT_ANIM_ATTACK
-                { 14, 17 }, // BAT_ANIM_DEATH,
-                {},         // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
+                { 0, 3 },
+                { 7, 13 },
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 7
@@ -84,17 +76,9 @@ static const battle_opponent_t ENEMIES[] = {
         .scale = { 1, 1 },
         .animable_info = {
             .animations = {
-                { 8, 11 },  // BAT_ANIM_IDLE
-                { 0, 7 },   // BAT_ANIM_ATTACK
-                { 14, 17 }, // BAT_ANIM_DEATH,
-                {},         // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
+                { 8, 11 },
+                { 0, 7 },
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -108,7 +92,8 @@ static const battle_opponent_t ENEMIES[] = {
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/classic_hit.png",
                 .attack_fx_frames_per_line = 5,
-                .attack_fx_frames_count = 10
+                .attack_fx_frames_count = 10,
+                .attack_fx_size = { 1, 1 }
             }
         }
     },
@@ -125,15 +110,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 8, 13 },  // BAT_ANIM_IDLE
                 { 0, 7 },   // BAT_ANIM_ATTACK
-                { 14, 17 }, // BAT_ANIM_DEATH,
-                {},         // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
+                { 14, 17 }  // BAT_ANIM_DEATH
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -164,15 +141,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 8, 11 },  // BAT_ANIM_IDLE
                 { 0, 7 },   // BAT_ANIM_ATTACK
-                { 14, 17 }, // BAT_ANIM_DEATH,
-                {},         // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
+                { 14, 17 } // BAT_ANIM_DEATH
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -204,26 +173,16 @@ static const battle_opponent_t *select_rand_enemy(int level)
 
     do {
         rand_opponent = &ENEMIES[rand() % (ARRAY_SIZE(ENEMIES))];
-    } while ((rand_opponent->level / 10) > (level / 10));
+    } while ((rand_opponent->level / 3) > (level / 3));
     return (rand_opponent);
 }
 
-int count_spells(battle_opponent_t *enemy)
-{
-    int spell_count = 0;
-
-    for (int i = 0; enemy->spells[i].name != NULL; i++)
-        spell_count++;
-    return (spell_count);
-}
-
-static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
+int create_battle_enemy(game_t *game, battle_opponent_t *enemy,
+    const battle_opponent_t *source)
 {
     sfTexture *texture;
-    const battle_opponent_t *rand_enemy
-        = select_rand_enemy(level);
 
-    ememcpy(enemy, rand_enemy, sizeof(battle_opponent_t));
+    ememcpy(enemy, source, sizeof(battle_opponent_t));
     texture = create_texture(game, enemy->asset_file, &enemy->asset_rect);
     D_ASSERT(texture, NULL, "Cannot create texture", -1)
     enemy->animable_info.sprite = create_sprite(texture, NULL);
@@ -241,7 +200,14 @@ static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
     return (0);
 }
 
-static void place_enemies(battlemanager_t *manager, int entity_count)
+int create_battle_rand_enemy(game_t *game, battle_opponent_t *enemy, int level)
+{
+    const battle_opponent_t *rand_enemy = select_rand_enemy(level);
+
+    return (create_battle_enemy(game, enemy, rand_enemy));
+}
+
+void place_battle_enemies(battlemanager_t *manager, int entity_count)
 {
     sfVector2f pos;
     sfFloatRect bounds;
@@ -252,6 +218,7 @@ static void place_enemies(battlemanager_t *manager, int entity_count)
         pos = ENEMIES_POSITIONS[entity_count - 1][i];
         bounds = sfSprite_getGlobalBounds(sprite);
         manager->enemies[i].pos = pos;
+        pos = v2fadd(pos, manager->enemies[i].pos_offset);
         sfSprite_setPosition(sprite,
             v2fsub(pos, VEC2F(bounds.width / 2, bounds.height / 2)));
     }
@@ -261,7 +228,6 @@ int create_battlemanager_enemies(game_t *game, battlemanager_t *manager)
 {
     game_state_t *state = game->state;
     int entity_count = 1 + (rand() % 3);
-    state->save.player_lv = 20;
     int level = state->save.player_lv / entity_count;
 
     if (level < 3) {
@@ -272,10 +238,10 @@ int create_battlemanager_enemies(game_t *game, battlemanager_t *manager)
         entity_count = entity_count > 2 ? 2 : entity_count;
     }
     for (int i = 0; i < entity_count; i++) {
-        if (create_enemy(game, &manager->enemies[i], level) == -1)
+        if (create_battle_rand_enemy(game, &manager->enemies[i], level) == -1)
             return (-1);
         manager->enemies_count++;
     }
-    place_enemies(manager, entity_count);
+    place_battle_enemies(manager, entity_count);
     return (0);
 }

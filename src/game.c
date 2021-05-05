@@ -69,7 +69,9 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(GUI_LABEL, &create_label, &draw_label,
             &destroy_label, &update_label, NULL),
     ENTITY(PNJ, &create_pnj, &draw_pnj,
-            &destroy_pnj, NULL, NULL)
+            &destroy_pnj, NULL, NULL),
+    ENTITY(BOSS, &create_boss, &draw_boss,
+            &destroy_boss, &update_boss, NULL)
 };
 
 static bool configure_window(game_t *game)

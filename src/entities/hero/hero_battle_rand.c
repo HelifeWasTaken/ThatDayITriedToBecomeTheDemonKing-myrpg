@@ -13,18 +13,6 @@
 #include <SFML/Graphics/View.h>
 #include <stdlib.h>
 
-void start_battle(game_t *game, hero_t *hero UNUSED)
-{
-    int exit_code;
-    sfView *view = game->view;
-    game_state_t *state = game->state;
-
-    estrncpy(state->save.map_id, game->scene->world_file, 255);
-    exit_code = await_scene(game, BATTLE_SCENE);
-    set_game_view(game, view);
-    eprintf("%s", exit_code == 1 ? "You won!\n" : "You lose!\n");
-}
-
 void trigger_battle_rand(game_t *game, hero_t *hero)
 {
     bool is_scene_attackable = (
@@ -38,5 +26,5 @@ void trigger_battle_rand(game_t *game, hero_t *hero)
     if (hero->animation_clock->time > 0.01f
         && rand() % 250 == 0
         && is_scene_attackable)
-        start_battle(game, hero);
+        start_battle(game, -1);
 }
