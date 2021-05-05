@@ -104,6 +104,11 @@ SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlemanager/bard_talking.c \
 			src/entities/battlemanager/battle.c
 
+SRC_CINEMA = 	src/entities/cinema/cinema.c \
+				src/entities/cinema/list.c \
+				src/entities/cinema/parse_camera.c \
+				src/entities/cinema/parse.c \
+
 SRC = 	src/game.c \
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
@@ -135,7 +140,8 @@ SRC = 	src/game.c \
         $(SRC_LIFECYCLE) \
 		$(SRC_BATTLE) \
 		$(SRC_BUTTON) \
-		$(SRC_LABEL)
+		$(SRC_LABEL) \
+		$(SRC_CINEMA)
 
 TESTS =	\
 

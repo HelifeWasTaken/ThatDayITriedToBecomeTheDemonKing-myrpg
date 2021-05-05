@@ -19,6 +19,7 @@
 #include "myrpg/scenes.h"
 #include "myrpg/util.h"
 #include "distract/util.h"
+#include "myrpg/cinema.h"
 
 static const entity_info_t ENTITIES[] = {
     ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
@@ -69,7 +70,9 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(GUI_LABEL, &create_label, &draw_label,
             &destroy_label, &update_label, NULL),
     ENTITY(PNJ, &create_pnj, &draw_pnj,
-            &destroy_pnj, NULL, NULL)
+            &destroy_pnj, NULL, NULL),
+    ENTITY(CINEMA, &create_cinema, NULL,
+        &destroy_cinema, &update_cinema, NULL)
 };
 
 static bool configure_window(game_t *game)

@@ -50,7 +50,8 @@ enum entity_type {
     BATTLEMANAGER,
     GUI_BUTTON,
     GUI_LABEL,
-    PNJ
+    PNJ,
+    CINEMA
 };
 
 //----------------------------------------

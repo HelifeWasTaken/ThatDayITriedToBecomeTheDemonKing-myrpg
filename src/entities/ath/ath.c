@@ -19,6 +19,7 @@
 #include "myrpg/define.h"
 #include "stdlib.h"
 #include "distract/util.h"
+#include "myrpg/cinema.h"
 
 bool handle_ath_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
@@ -28,6 +29,8 @@ bool handle_ath_events(game_t *game UNUSED,
     sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(game->window);
     sfFloatRect buton_pos;
 
+    if (GBL_IS_IN_CINEMATIC == true)
+        return (false);
     D_ASSERT(inventory, NULL, "err inventory", false);
     for (unsigned int i = 0; i < 6; i++) {
         buton_pos = sfSprite_getGlobalBounds(ath->button_sprite[i]);
@@ -91,6 +94,8 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
 
+    if (GBL_IS_IN_CINEMATIC == true)
+        return;
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
     for (unsigned int i = 0; i < 6; i++)
         sfRenderWindow_drawSprite(game->window, ath->button_sprite[i], NULL);

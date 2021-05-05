@@ -40,34 +40,13 @@
     } item_t;
 
     typedef struct game_save {
-        ///
-        /// Map to load when loading save
-        ///
         char map_id[256];
-
-        ///
-        /// inventory
-        ///
         item_t item[15];
-        ///
-        /// Position where to spawn player in map
-        ///
         sfVector2f player_pos;
-
-        ///
-        /// Mana
-        ///
         int player_mana;
-
-        ///
-        /// Health points
-        ///
         int player_hp;
-
-        ///
-        /// Level
-        ///
         int player_lv;
+        uint8_t cinematics;
     } game_save_t;
 
     typedef struct game_state {
