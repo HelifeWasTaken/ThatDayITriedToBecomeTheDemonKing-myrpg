@@ -34,7 +34,7 @@ struct battle_background_pair BATTLE_BG[] = {
     },
     {
         .world_id = "asset/map_asset/map_files/desert.json",
-        .file = "asset/battlebg/desert.jpg",
+        .file = "asset/battlebg/desert_battle.png",
         .rect = { 0, 0, 1920, 1080 },
         .size = { 1, 1 }
     },
@@ -93,7 +93,7 @@ static void update_attack(game_t *game, battlemanager_t *battlemanager,
     } else {
         battlemanager->source = enemy;
         battlemanager->target = player;
-        battlemanager->spell = &enemy->spells[0];
+        battlemanager->spell = &enemy->spells[rand() % count_spells(enemy)];
         start_attack(game, battlemanager);
         battlemanager->attack_clock->time = 0;
         battlemanager->is_player_turn = true;
