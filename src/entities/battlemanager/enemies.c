@@ -60,6 +60,16 @@ static const battle_opponent_t ENEMIES[] = {
                 .attack_fx_file = "asset/fx/classic_hit.png",
                 .attack_fx_frames_per_line = 5,
                 .attack_fx_frames_count = 10
+            },
+            {
+                .name = "Dark Attack",
+                .mana = 0,
+                .efficiency = 28,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/dark_attack.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 10
             }
         }
     },
