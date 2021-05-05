@@ -306,7 +306,7 @@ bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 
 typedef struct equipment {
     sfSprite *sprite;
-    int type;
+    unsigned int type;
     int id;
 } equipment_t;
 
@@ -337,7 +337,7 @@ bool init_inventory_item(game_t *game, entity_t *entity);
 void inventory_management(game_t *game, entity_t *entity);
 bool init_equiment_slot(game_t *game, inventory_t *inventory);
 
-typedef const struct function {
+typedef const struct function_ath {
     bool (*func)(UNUSED game_t *game, UNUSED entity_t *entity);
 } function_ath_btn_t;
 
@@ -431,5 +431,7 @@ void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
 bool load_items(game_t *game);
 void destroy_item(item_t *item);
 bool create_texture_item(game_t *game);
+bool clic_equipment(game_t *game, inventory_t *inv, int index);
+bool deplacement_equip(game_t *game, entity_t *entity, int i);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

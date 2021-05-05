@@ -92,7 +92,7 @@ typedef struct game {
     /// global game parameters
     ///
     ///
-    sfTexture *texture[4];
+    sfTexture *texture[15];
 
     item_t *item_loaded;
 } game_t;

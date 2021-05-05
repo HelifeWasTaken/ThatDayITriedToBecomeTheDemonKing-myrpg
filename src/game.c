@@ -108,13 +108,15 @@ void configure_state(game_t *game)
     state->params.vfx_muted = false;
     state->params.voice_muted = false;
     for (int index = 0; index != 15; index++) {
-        state->save.item[index].type = EMPTY;
-        state->save.item[index].id = 0;
-        state->save.item[index].nb = 0;
+        state->save.item[index].type = game->item_loaded[index].type;
+        state->save.item[index].id = index;
+        state->save.item[index].nb = 1;
     }
-    state->save.item[0].type = ITEM;
-    state->save.item[0].id = 1;
-    state->save.item[0].nb = 1;
+    for (int index = 0; index != 5; index++) {
+        state->save.equipment[index].type = EMPTY;
+        state->save.equipment[index].id = 0;
+        state->save.equipment[index].nb = 0;
+    }
     state->save.player_hp = 100;
     state->save.player_lv = 1;
     state->save.player_mana = 30;
@@ -129,9 +131,9 @@ void configure_game(game_t *game)
     register_scene(game, KEY_CONFIG, &key_lifecycle);
     register_scene(game, SETTING_SCENE, &setting_lifecycle);
     register_scene(game, BATTLE_SCENE, &battle_lifecycle);
+    load_items(game);
     configure_state(game);
     configure_entities(game);
-    load_items(game);
 }
 
 int load_game(void)

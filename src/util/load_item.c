@@ -87,7 +87,6 @@ void destroy_item(item_t *item)
     free(item);
 }
 
-
 bool init_item(struct json *conf, item_t *item)
 {
     DESER_LOOP(conf, item, ITEM_JSON);
@@ -122,10 +121,12 @@ bool load_items(game_t *game)
         print_error("could not load item: json missing");
         return (false);
     }
-    game->item_loaded = malloc(sizeof(item_t) * 4);
-    if (load_n_item(game, 4, &conf) == false) {
+    game->item_loaded = malloc(sizeof(item_t) * MAX_ITEM);
+    D_ASSERT(game, NULL, "err", false);
+    if (load_n_item(game, MAX_ITEM, &conf) == false) {
         print_error("could not load item:");
         return (false);
     }
+    destroy_json(&conf);
     return (true);
 }

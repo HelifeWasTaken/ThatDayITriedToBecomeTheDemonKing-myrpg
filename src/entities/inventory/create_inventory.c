@@ -75,10 +75,11 @@ bool init_inventory_item(game_t *game, entity_t *entity)
     D_ASSERT(create_texture_item(game), false, "error texture", false);
     for (int i = 0; i != 15; i++) {
         inventory->inventory[i].sprite = create_sprite(game->texture[0], NULL);
-        D_ASSERT(inventory->inventory[i].sprite, NULL, "error sprite item", false);
+        D_ASSERT(inventory->inventory[i].sprite,
+            NULL, "error sprite item", false);
         sfSprite_setScale(inventory->inventory[i].sprite, VEC2F(5, 5));
     }
-    D_ASSERT(init_equiment_slot(game, inventory), false, "error menu", false);;
+    D_ASSERT(init_equiment_slot(game, inventory), false, "error menu", false);
     place_item(game, entity);
     return (true);
 }
@@ -93,6 +94,13 @@ bool update_item(game_t *game UNUSED, entity_t *entity)
         D_ASSERT(inventory->inventory[i].sprite, NULL,
             "error update inventory", false);
         sfSprite_setScale(inventory->inventory[i].sprite, VEC2F(5, 5));
+    }
+    for (int index = 0; index != 5; index++) {
+        sfSprite_setTexture(inventory->equipment[index].sprite,
+            game->texture[inventory->equipment[index].id], sfFalse);
+        D_ASSERT(inventory->equipment[index].sprite, NULL,
+            "error update inventory2", false);
+        sfSprite_setScale(inventory->equipment[index].sprite, VEC2F(5, 5));
     }
     return (true);
 }

@@ -61,9 +61,11 @@ void update_inventory(game_t *game UNUSED, entity_t *entity)
         inventory->inventory[index].id = state->save.item[index].id;
         inventory->inventory[index].type = state->save.item[index].nb;
     }
-    if (update_item(game, entity) == false) {
-        return;
+    for (int index = 0; index != 5; index++) {
+        inventory->equipment[index].id = state->save.equipment[index].id;
     }
+    if (update_item(game, entity) == false)
+        return;
     sfSprite_setTexture(inventory->cursor_item,
         game->texture[inventory->item_id], sfFalse);
     sfSprite_setPosition(inventory->sprite, entity->pos);
