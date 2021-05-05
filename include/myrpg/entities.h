@@ -138,7 +138,7 @@ typedef struct ath {
     entity_t *entity;
     sfSprite *player_ath_sprite;
     sfVector2f ath_pos;
-    sfSprite *button_sprite[6];
+    sfSprite *button_sprite[4];
     view_t *view;
 } ath_t;
 
@@ -447,5 +447,17 @@ void destroy_item(item_t *item);
 bool create_texture_item(game_t *game);
 bool clic_equipment(game_t *game, inventory_t *inv, int index);
 bool deplacement_equip(game_t *game, entity_t *entity, int i);
+
+typedef struct pause_menu {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+} pause_menu_t;
+
+bool create_pause_menu(game_t *game, entity_t *entity);
+void update_pause_menu(game_t *game, entity_t *entity);
+void draw_pause_menu(game_t *game, entity_t *entity);
+void destroy_pause_menu(game_t *game, entity_t *entity);
+bool handle_pause_menu_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

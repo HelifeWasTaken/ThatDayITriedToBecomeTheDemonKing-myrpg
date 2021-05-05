@@ -4,6 +4,7 @@
 ** File description:
 ** Source code
 */
+
 #include "distract/entity.h"
 #include "distract/sound.h"
 #include "erty/eprintf.h"
