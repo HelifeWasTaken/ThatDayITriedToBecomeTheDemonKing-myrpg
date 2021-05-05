@@ -7,6 +7,7 @@
 
 #include "distract/game.h"
 #include "distract/util.h"
+#include <stdlib.h>
 
 void switch_to_scene(game_t *game, int id)
 {
