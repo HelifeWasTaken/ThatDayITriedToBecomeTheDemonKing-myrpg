@@ -1,15 +1,1 @@
-[
-    {
-        "name": "bob",
-        "file_path": "asset/pnj/pnj_asset/volcano/demon.png",
-        "frame": 5,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 200,
-            "height": 133
-        },
-        "pos": {"x": 306, "y": 3},
-        "message": "bonjour"
-    }
-]
+[]

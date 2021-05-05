@@ -50,7 +50,8 @@ enum entity_type {
     BATTLEMANAGER,
     GUI_BUTTON,
     GUI_LABEL,
-    PNJ
+    PNJ,
+    BOSS
 
 };
 
@@ -401,6 +402,7 @@ void draw_battlemanager(game_t *game, entity_t *entity);
 void destroy_battlemanager(game_t *game, entity_t *entity);
 bool handle_battlemanager_events(game_t *game, entity_t *entity,
     sfEvent *event);
+int create_battlemanager_boss(game_t *game, battlemanager_t *manager);
 int create_battlemanager_enemies(game_t *game, battlemanager_t *manager);
 int create_battlemanager_friends(game_t *game, battlemanager_t *manager);
 int create_battle_bard_talking(game_t *game, battlemanager_t *battlemanager);
@@ -419,6 +421,9 @@ void draw_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
 void destroy_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
 void show_attack_fx(battlemanager_t *battlemanager);
 int count_spells(battle_opponent_t *enemy);
+int create_battle_enemy(game_t *game, battle_opponent_t *enemy,
+    const battle_opponent_t *source);
+void place_battle_enemies(battlemanager_t *manager, int entity_count);
 
 typedef struct battlehud {
     entity_t *entity;
@@ -447,5 +452,18 @@ void destroy_item(item_t *item);
 bool create_texture_item(game_t *game);
 bool clic_equipment(game_t *game, inventory_t *inv, int index);
 bool deplacement_equip(game_t *game, entity_t *entity, int i);
+
+typedef struct boss {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    VECTOR(boss_vector) *boss_vector;
+    struct hero *hero;
+} boss_t;
+
+bool create_boss(game_t *game, entity_t *entity);
+void update_boss(game_t *game, entity_t *entity);
+void draw_boss(game_t *game, entity_t *entity);
+void destroy_boss(game_t *game, entity_t *entity);
+bool handle_boss_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */
