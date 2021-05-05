@@ -35,26 +35,31 @@ static battlemanager_t *initialize_manager(game_t *game)
     return (manager);
 }
 
+static void update_battle_lifecycle(game_t *game, sfEvent *event)
+{
+    while (sfRenderWindow_pollEvent(game->window, event))
+        if (event->type == sfEvtClosed)
+            sfRenderWindow_close(game->window);
+        else
+            transmit_event_to_scene(game, event);
+    update_scene(game);
+    sfRenderWindow_clear(game->window, sfBlack);
+    draw_scene(game);
+    sfRenderWindow_display(game->window);
+}
+
 int battle_lifecycle(game_t *game)
 {
-    sfEvent event;
     battlemanager_t *manager = initialize_manager(game);
     int exit_code;
     sfMusic *music = sfMusic_createFromFile("asset/song/battle_theme.ogg");
+    sfEvent event;
 
     sfMusic_setLoop(music, sfTrue);
     sfMusic_play(music);
     D_ASSERT(manager, NULL, "Cannot create battle", 84);
     while (is_scene_updated(game)) {
-        while (sfRenderWindow_pollEvent(game->window, &event))
-            if (event.type == sfEvtClosed)
-                sfRenderWindow_close(game->window);
-            else
-                transmit_event_to_scene(game, &event);
-        update_scene(game);
-        sfRenderWindow_clear(game->window, sfBlack);
-        draw_scene(game);
-        sfRenderWindow_display(game->window);
+        update_battle_lifecycle(game, &event);
     }
     sfMusic_destroy(music);
     exit_code = manager->exit_code;

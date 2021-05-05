@@ -41,6 +41,23 @@ static bool init_dialogbox(game_t *game, dialogbox_t *dialogbox)
     return (true);
 }
 
+static bool create_dialog_component(game_t *game, dialogbox_t *dialogbox)
+{
+    dialogbox->clock = create_pausable_clock(game);
+    dialogbox->name_text = sfText_create();
+    dialogbox->content_text = sfText_create();
+    dialogbox->background = sfRectangleShape_create();
+    D_ASSERT(dialogbox->clock, NULL,
+        "Can't create dialog box clock", false);
+    D_ASSERT(dialogbox->name_text, NULL,
+        "Can't create dialog box name", false);
+    D_ASSERT(dialogbox->content_text, NULL,
+        "Can't create dialog content", false);
+    D_ASSERT(dialogbox->background, NULL,
+        "Can't create dialog box bg", false);
+    return (true);
+}
+
 bool create_dialogbox(game_t *game UNUSED, entity_t *entity)
 {
     dialogbox_t *dialogbox = dcalloc(sizeof(dialogbox_t), 1);
@@ -49,14 +66,8 @@ bool create_dialogbox(game_t *game UNUSED, entity_t *entity)
     D_ASSERT(viewentity, NULL, "Can't get view", false)
     D_ASSERT(dialogbox, NULL, "Can't create dialog box", false)
     dialogbox->entity = entity;
-    dialogbox->clock = create_pausable_clock(game);
-    dialogbox->name_text = sfText_create();
-    dialogbox->content_text = sfText_create();
-    dialogbox->background = sfRectangleShape_create();
-    D_ASSERT(dialogbox->clock, NULL, "Can't create dialog box clock", false)
-    D_ASSERT(dialogbox->name_text, NULL, "Can't create dialog box name", false)
-    D_ASSERT(dialogbox->content_text, NULL, "Can't create dialog content",false)
-    D_ASSERT(dialogbox->background, NULL, "Can't create dialog box bg", false)
+    if (create_dialog_component(game, dialogbox) == false)
+        return (false);
     dialogbox->is_visible = false;
     dialogbox->view = viewentity->instance;
     D_ASSERT(init_dialogbox(game, dialogbox), false,
