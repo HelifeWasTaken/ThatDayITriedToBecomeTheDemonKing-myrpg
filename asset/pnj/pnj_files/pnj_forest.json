@@ -50,5 +50,18 @@
         },
         "pos": {"x": 1295, "y": 199},
         "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/forest/ultime_master_blade_of_god.png",
+        "frame": 1,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 17,
+            "height": 38
+        },
+        "pos": {"x": 686, "y": 691},
+        "message": "bonjour"
     }
 ]
