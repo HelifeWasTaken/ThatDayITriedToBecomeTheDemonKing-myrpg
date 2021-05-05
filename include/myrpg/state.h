@@ -5,8 +5,8 @@
 ** parameters
 */
 
-#ifndef PARAMETERS_H_
-#define PARAMETERS_H_
+#ifndef STATE_H_
+#define STATE_H_
 
 #include "distract/entity.h"
 #include "myrpg/game.h"

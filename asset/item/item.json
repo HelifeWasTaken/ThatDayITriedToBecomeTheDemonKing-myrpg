@@ -8,10 +8,10 @@
     },
     {
         "path": "asset/item/banane.png",
-        "type": 6,
-        "speed": 0,
+        "type": 5,
+        "speed": 8,
         "shield": 0,
-        "atk": 0
+        "atk": 2
     },
     {
         "path": "asset/item/sword.png",

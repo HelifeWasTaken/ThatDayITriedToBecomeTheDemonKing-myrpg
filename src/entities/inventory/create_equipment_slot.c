@@ -63,7 +63,8 @@ bool clic_equipment(game_t *game, inventory_t *inv, int index)
 
     if (inv->is_deplacement == true
         && (game->item_loaded[inv->item_id].type
-        == inv->equipment[index].type)) {
+        == inv->equipment[index].type)
+        && inv->equipment[index].id == 0) {
         inv->is_deplacement = false;
         state->save.equipment[index].id = inv->item_id;
         inv->equipment[index].id = inv->item_id;
