@@ -35,17 +35,17 @@ static const battle_opponent_t ENEMIES[] = {
         .scale = { 1, 1 },
         .animable_info = {
             .animations = {
-                { 0, 3 },   // BAT_ANIM_IDLE
-                { 7, 13 },  // BAT_ANIM_ATTACK
-                { 14, 17 }, // BAT_ANIM_DEATH,
-                {},         // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
+                { 0, 3 },
+                { 7, 13 },
+                { 14, 17 },
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 7
@@ -84,17 +84,17 @@ static const battle_opponent_t ENEMIES[] = {
         .scale = { 1, 1 },
         .animable_info = {
             .animations = {
-                { 8, 11 },  // BAT_ANIM_IDLE
-                { 0, 7 },   // BAT_ANIM_ATTACK
-                { 14, 17 }, // BAT_ANIM_DEATH,
-                {},         // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
+                { 8, 11 },
+                { 0, 7 },
+                { 14, 17 },
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -123,17 +123,17 @@ static const battle_opponent_t ENEMIES[] = {
         .scale = { 1, 1 },
         .animable_info = {
             .animations = {
-                { 8, 13 },  // BAT_ANIM_IDLE
-                { 0, 7 },   // BAT_ANIM_ATTACK
-                { 14, 17 }, // BAT_ANIM_DEATH,
-                {},         // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
+                { 8, 13 },
+                { 0, 7 },
+                { 14, 17 },
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -162,17 +162,17 @@ static const battle_opponent_t ENEMIES[] = {
         .scale = { 1, 1 },
         .animable_info = {
             .animations = {
-                { 8, 11 },  // BAT_ANIM_IDLE
-                { 0, 7 },   // BAT_ANIM_ATTACK
-                { 14, 17 }, // BAT_ANIM_DEATH,
-                {},         // BAT_ANIM_ITEM
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // placeholder
-                {},         // BAT_ANIM_SPELL_1
-                {},         // BAT_ANIM_SPELL_2
-                {}          // BAT_ANIM_SPELL_3
+                { 8, 11 },
+                { 0, 7 },
+                { 14, 17 },
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
