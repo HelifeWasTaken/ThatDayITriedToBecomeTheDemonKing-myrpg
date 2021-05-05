@@ -1,0 +1,44 @@
+{
+        "name": "Skeleton",
+        "file_path": "asset/ennemies/skeleton.png",
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 1144,
+            "height": 452
+        },
+        "level": 1,
+        "healh": 0.7,
+        "scale": {"x": 1, "y": 1},
+        "animable_info": {
+            "animation": [
+                {"x": 0, "y": 3 },
+                {"x": 7, "y": 13 },
+                {"x": 14, "y": 17 }
+            ],
+            "frame_size": { "x": 150, "y": 150 },
+            "frames_per_line": 7
+        },
+        "spell": [
+            {
+                "name": "attack",
+                "mana": 0,
+                "damage": 18,
+                "type": 0,
+                "anim": 1,
+                "attack_fx_file": "asset/fx/classic_hit.png",
+                "attack_fx_frames_per_line": 5,
+                "attack_fx_frames_count": 10
+            },{
+                "name": "attack",
+                "mana": 0,
+                "damage": 18,
+                "type": 0,
+                "anim": 1,
+                "attack_fx_file": "asset/fx/classic_hit.png",
+                "attack_fx_frames_per_line": 5,
+                "attack_fx_frames_count": 10
+            }
+        ]
+
+}

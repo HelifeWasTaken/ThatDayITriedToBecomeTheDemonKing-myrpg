@@ -11,6 +11,19 @@
 #include <SFML/Graphics/Rect.h>
 #include <SFML/System/Vector2.h>
 
+#include <iron_goat/deser.h>
+#include "myrpg/game.h"
+#include "distract/window.h"
+#include "distract/graphics.h"
+#include "distract/resources.h"
+#include "distract/game.h"
+#include "myrpg/map/map.h"
+#include <stdio.h>
+#include <SFML/Graphics.h>
+#include <iron_goat/deser.h>
+#include "myrpg/entities.h"
+#include "myrpg/util.h"
+
 typedef enum battle_animation_type {
     BAT_ANIM_IDLE    = 0,
     BAT_ANIM_ATTACK  = 1,
@@ -52,6 +65,18 @@ typedef struct battle_opponent {
     int mana;
     battle_spell_t spells[20];
 } battle_opponent_t;
+
+INIT_VECTOR(ennemies_vector, struct battle_opponent, destroy_ennemies);
+
+bool load_pnj_data_loop(struct json *ennemi_conf,
+    VECTOR(pnj_vector) **ennemi_vector_tab);
+
+typedef struct pnj {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    VECTOR(pnj_vector) *pnj_vector;
+    struct hero *hero;
+} pnj_t;
 
 struct battle_background_pair {
     char *world_id;
