@@ -32,6 +32,7 @@
         "ostream": "c",
         "sstream": "c",
         "streambuf": "c",
-        "renderwindow.h": "c"
+        "renderwindow.h": "c",
+        "pnj.h": "c"
     }
 }

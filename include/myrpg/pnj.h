@@ -48,5 +48,9 @@
     bool create_pnj(game_t *game, entity_t *entity);
     void draw_pnj(game_t *game, entity_t *entity);
     void destroy_pnj(game_t *game, entity_t *entity);
+    void update_pnj_foreach(pnj_t *pnj);
+    void draw_npc_and_hero(game_t *game, pnj_t *pnj);
+
+
 
 #endif

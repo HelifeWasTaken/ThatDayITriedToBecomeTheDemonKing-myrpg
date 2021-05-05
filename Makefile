@@ -128,6 +128,7 @@ SRC = 	src/game.c \
 	src/entities/dialog/dialog.c \
 	src/entities/npc/pnj_loader.c \
 	src/entities/npc/create_pnj.c \
+	src/entities/npc/pnj_drawing.c \
     $(SRC_DEBUGMENU) \
     $(SRC_MENU) \
     $(SRC_UTIL) \
