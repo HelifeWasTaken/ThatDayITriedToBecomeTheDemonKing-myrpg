@@ -18,20 +18,11 @@
 #include "myrpg/define.h"
 #include "myrpg/state.h"
 
-static const inventory_item_t item_id[4] = {
-    {"asset/item/empty.png", EMPTY},
-    {"asset/item/banane.png", ITEM},
-    {"asset/item/sword.png", WEAPON},
-    {"asset/item/woodshield.png", SHIELD}
-};
-
 bool init_cursor(game_t *game, entity_t *entity)
 {
     inventory_t *inventory = entity->instance;
-    sfTexture *texture = create_texture(game, item_id[0].path, NULL);
 
-    D_ASSERT(texture, NULL, "error sprite mouse", false);
-    inventory->cursor_item = create_sprite(texture, NULL);
+    inventory->cursor_item = create_sprite(game->texture[0], NULL);
     D_ASSERT(inventory->cursor_item, NULL, "sprite", false);
     sfSprite_setScale(inventory->cursor_item, VEC2F(3, 3));
     inventory->mouse_state = 0;
@@ -71,7 +62,7 @@ void place_item(UNUSED game_t *game, entity_t *entity)
             width -= (85 * 5);
             height += 85;
         }
-        sfSprite_setPosition(inventory->inventory[z],
+        sfSprite_setPosition(inventory->inventory[z].sprite,
             VEC2F(width + (85 * z), height));
         z++;
     } while (z != 15);
@@ -80,35 +71,36 @@ void place_item(UNUSED game_t *game, entity_t *entity)
 bool init_inventory_item(game_t *game, entity_t *entity)
 {
     inventory_t *inventory = entity->instance;
-    sfTexture *texture = NULL;
 
-    inventory->inventory = ecalloc(sizeof(sfSprite *), 15);
-    D_ASSERT(inventory->inventory, NULL, "error sprite inventory", false);
+    D_ASSERT(create_texture_item(game), false, "error texture", false);
     for (int i = 0; i != 15; i++) {
-        texture = create_texture(game, item_id[0].path, NULL);
-        D_ASSERT(texture, NULL, "error text inventory item", false);
-        inventory->inventory[i] = create_sprite(texture, NULL);
-        D_ASSERT(inventory->inventory[i], NULL, "error sprite item", false);
-        sfSprite_setScale(inventory->inventory[i], VEC2F(5, 5));
+        inventory->inventory[i].sprite = create_sprite(game->texture[0], NULL);
+        D_ASSERT(inventory->inventory[i].sprite,
+            NULL, "error sprite item", false);
+        sfSprite_setScale(inventory->inventory[i].sprite, VEC2F(5, 5));
     }
+    D_ASSERT(init_equiment_slot(game, inventory), false, "error menu", false);
     place_item(game, entity);
     return (true);
 }
 
-bool update_item(game_t *game UNUSED, entity_t *entity UNUSED)
+bool update_item(game_t *game UNUSED, entity_t *entity)
 {
     inventory_t *inventory = entity->instance;
-    game_state_t *state = game->state;
-    sfTexture *texture = NULL;
 
     for (int i = 0; i != 15; i++) {
-        texture = create_texture(game,
-            item_id[state->save.item[i].id].path, NULL);
-        D_ASSERT(texture, NULL, "error update texture", false);
-        sfSprite_setTexture(inventory->inventory[i], texture, sfFalse);
-        sfSprite_setScale(inventory->inventory[i], VEC2F(5, 5));
-        D_ASSERT(inventory->inventory[i], NULL,
+        sfSprite_setTexture(inventory->inventory[i].sprite,
+            game->texture[inventory->inventory[i].id], sfFalse);
+        D_ASSERT(inventory->inventory[i].sprite, NULL,
             "error update inventory", false);
+        sfSprite_setScale(inventory->inventory[i].sprite, VEC2F(5, 5));
+    }
+    for (int index = 0; index != 5; index++) {
+        sfSprite_setTexture(inventory->equipment[index].sprite,
+            game->texture[inventory->equipment[index].id], sfFalse);
+        D_ASSERT(inventory->equipment[index].sprite, NULL,
+            "error update inventory2", false);
+        sfSprite_setScale(inventory->equipment[index].sprite, VEC2F(5, 5));
     }
     return (true);
 }

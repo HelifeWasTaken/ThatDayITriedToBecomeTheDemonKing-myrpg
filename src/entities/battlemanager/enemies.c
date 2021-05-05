@@ -261,7 +261,6 @@ int create_battlemanager_enemies(game_t *game, battlemanager_t *manager)
 {
     game_state_t *state = game->state;
     int entity_count = 1 + (rand() % 3);
-    state->save.player_lv = 20;
     int level = state->save.player_lv / entity_count;
 
     if (level < 3) {

@@ -304,6 +304,12 @@ void draw_debugmenu(game_t *game, entity_t *entity);
 void destroy_debugmenu(game_t *game, entity_t *entity);
 bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 
+typedef struct equipment {
+    sfSprite *sprite;
+    unsigned int type;
+    int id;
+} equipment_t;
+
 typedef struct inventory {
     entity_t *entity;
     pausable_clock_t *clock;
@@ -313,11 +319,12 @@ typedef struct inventory {
     view_t *view;
     bool is_visible;
     sfCircleShape *box;
-    sfSprite **inventory;
+    equipment_t inventory[15];
     sfSprite *cursor_item;
     int mouse_state;
     bool is_deplacement;
     int item_id;
+    equipment_t equipment[5];
 } inventory_t;
 
 sfSprite *init_inventory(game_t *game, entity_t *entity);
@@ -328,8 +335,9 @@ void destroy_inventory(game_t *game, entity_t *entity);
 bool handle_inventory_events(game_t *game, entity_t *entity, sfEvent *event);
 bool init_inventory_item(game_t *game, entity_t *entity);
 void inventory_management(game_t *game, entity_t *entity);
+bool init_equiment_slot(game_t *game, inventory_t *inventory);
 
-typedef const struct function {
+typedef const struct function_ath {
     bool (*func)(UNUSED game_t *game, UNUSED entity_t *entity);
 } function_ath_btn_t;
 
@@ -364,6 +372,7 @@ void update_mute_button(game_t *game, entity_t *entity);
 void draw_mute_button(game_t *game, entity_t *entity);
 void destroy_mute_button(game_t *game, entity_t *entity);
 bool handle_mute_button_events(game_t *game, entity_t *entity, sfEvent *event);
+void init_scroll_bar(game_t *game);
 
 typedef struct battlemanager {
     sfSprite *background;
@@ -433,5 +442,10 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *entity);
 bool create_battlehud_labels(game_t *game, battlehud_t *hud);
 void update_battlehub_labels(game_t *game, battlehud_t *hud);
 void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
+bool load_items(game_t *game);
+void destroy_item(item_t *item);
+bool create_texture_item(game_t *game);
+bool clic_equipment(game_t *game, inventory_t *inv, int index);
+bool deplacement_equip(game_t *game, entity_t *entity, int i);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

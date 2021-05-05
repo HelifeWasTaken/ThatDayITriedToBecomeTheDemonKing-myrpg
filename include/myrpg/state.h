@@ -5,8 +5,8 @@
 ** parameters
 */
 
-#ifndef PARAMETERS_H_
-#define PARAMETERS_H_
+#ifndef STATE_H_
+#define STATE_H_
 
 #include "distract/entity.h"
 #include "myrpg/game.h"
@@ -33,11 +33,11 @@
         bool voice_muted;
     } parameters_t;
 
-    typedef struct item {
+    typedef struct inventory_save {
         int nb;
         int type;
         int id;
-    } item_t;
+    } inventory_save_t;
 
     typedef struct game_save {
         ///
@@ -48,7 +48,9 @@
         ///
         /// inventory
         ///
-        item_t item[15];
+        inventory_save_t item[15];
+
+        inventory_save_t equipment[5];
         ///
         /// Position where to spawn player in map
         ///
