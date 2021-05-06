@@ -26,9 +26,8 @@ long long rpg_strtoll(char *str, char **endptr)
     while (eis_num(**endptr)) {
         result += (**endptr) - '0';
         (*endptr)++;
-        if (eis_num(**endptr)) {
+        if (eis_num(**endptr))
             result *= 10;
-        }
     }
     return (result * sign);
 }

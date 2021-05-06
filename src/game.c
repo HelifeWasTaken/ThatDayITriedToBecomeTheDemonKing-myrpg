@@ -71,7 +71,7 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(PNJ, &create_pnj, &draw_pnj,
             &destroy_pnj, NULL, NULL),
     ENTITY(CINEMA, &create_cinema, NULL,
-        &destroy_cinema, &update_cinema, NULL)
+        &destroy_cinema, &update_cinema, NULL),
     ENTITY(BOSS, &create_boss, &draw_boss,
             &destroy_boss, &update_boss, NULL)
 };
