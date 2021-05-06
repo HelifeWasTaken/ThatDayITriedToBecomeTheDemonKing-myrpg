@@ -25,6 +25,6 @@ void trigger_battle_rand(game_t *game, hero_t *hero)
 
     if (hero->animation_clock->time > 0.01f
         && rand() % 250 == 0
-        && is_scene_attackable)
+        && is_scene_attackable && hero->cannot_be_attacked == false)
         start_battle(game, -1);
 }

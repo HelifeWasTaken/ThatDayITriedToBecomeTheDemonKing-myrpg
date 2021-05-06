@@ -6,13 +6,14 @@
 */
 
 #ifndef STATE_H_
-#define STATE_H_
+    #define STATE_H_
 
-#include "distract/entity.h"
-#include "myrpg/game.h"
-#include "define.h"
-#include <stdint.h>
-#include "iron_goat/deser.h"
+    #include "distract/entity.h"
+    #include "myrpg/game.h"
+    #include "define.h"
+    #include <stdint.h>
+    #include "iron_goat/deser.h"
+    #include <SFML/Audio.h>
 
     enum item_type {
         EMPTY,
@@ -39,37 +40,37 @@
         int id;
     } inventory_save_t;
 
+    enum cinematics_id {
+        VILLAGE_CINEMATIC,
+        MAP_MONDE_CINEMATIC,
+        DESERT_VILLAGE_CINEMATIC,
+        DESERT_BATTLE_CINEMATIC,
+        VOLCANO_CINEMATIC,
+        FOREST_CINEMATIC,
+        CASTLE_CINEMATIC,
+        INSIDE_CASTLE_CINEMATIC,
+        LAST_CINEMATIC,
+        CINEMATIC_COUNT
+    };
+
+    #define IS_GAME_FINISHED(game) \
+        (get_game_state(game)->save.levels_done[0] && \
+        get_game_state(game)->save.levels_done[1] && \
+        get_game_state(game)->save.levels_done[2] && \
+        get_game_state(game)->save.levels_done[3])
+
     typedef struct game_save {
-        ///
-        /// Map to load when loading save
-        ///
         char map_id[256];
-
-        ///
-        /// inventory
-        ///
         inventory_save_t item[15];
-
         inventory_save_t equipment[5];
-        ///
-        /// Position where to spawn player in map
-        ///
         sfVector2f player_pos;
-
-        ///
-        /// Mana
-        ///
         int player_mana;
-
-        ///
-        /// Health points
-        ///
         int player_hp;
-
-        ///
-        /// Level
-        ///
         int player_lv;
+        uint16_t cinematics;
+        uint32_t cinematics_end_count;
+        sfMusic *music;
+        bool levels_done[4];
     } game_save_t;
 
     typedef struct game_state {

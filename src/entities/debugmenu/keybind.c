@@ -18,6 +18,8 @@ void handle_debug_keybind(game_t *game UNUSED,
         game->is_paused = !game->is_paused;
     if (key->code == sfKeyEqual)
         dbmenu->hero->speed += (key->control) ? 0.1F : -0.1F;
-    if (key->control && key->code == sfKeyC)
+    if (key->control && key->code == sfKeyC) {
         dbmenu->hero->disable_collision = !dbmenu->hero->disable_collision;
+        dbmenu->hero->cannot_be_attacked = !dbmenu->hero->cannot_be_attacked;
+    }
 }

@@ -10,14 +10,26 @@
 #include "distract/resources.h"
 #include "myrpg/entities.h"
 
+static bool init_menu(game_t *game)
+{
+    sfMusic *song = NULL;
+
+    if (create_entity(game, MENU) == NULL)
+        return (false);
+    song = create_music(game, "asset/song/main_menu_theme.ogg");
+    if (song == NULL)
+        return (false);
+    sfMusic_setLoop(song, true);
+    sfMusic_play(song);
+    return (true);
+}
+
 int menu_lifecycle(game_t *game)
 {
     sfEvent event;
-    create_entity(game, MENU);
-    sfMusic *song = sfMusic_createFromFile("asset/song/main_menu_theme.ogg");
 
-    sfMusic_setLoop(song, true);
-    sfMusic_play(song);
+    if (init_menu(game) == false)
+        return (84);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)
@@ -29,7 +41,6 @@ int menu_lifecycle(game_t *game)
         draw_scene(game);
         sfRenderWindow_display(game->window);
     }
-    sfMusic_destroy(song);
     destroy_scene(game, true);
     return (0);
 }
