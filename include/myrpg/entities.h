@@ -51,7 +51,7 @@ enum entity_type {
     GUI_BUTTON,
     GUI_LABEL,
     PNJ,
-    CINEMA
+    CINEMA,
     BOSS
 };
 
