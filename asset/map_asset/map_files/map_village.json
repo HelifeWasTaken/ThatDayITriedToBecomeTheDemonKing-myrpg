@@ -313,33 +313,6 @@
                  "width":11.5,
                  "x":1.16666666666667,
                  "y":396.833333333333
-                }, 
-                {
-                 "height":47.4031,
-                 "id":71,
-                 "name":"village desert",
-                 "properties":[
-                        {
-                         "name":"spawnx",
-                         "type":"int",
-                         "value":398
-                        }, 
-                        {
-                         "name":"spawny",
-                         "type":"int",
-                         "value":704
-                        }, 
-                        {
-                         "name":"world",
-                         "type":"string",
-                         "value":"asset\/map_asset\/map_files\/volcano.json"
-                        }],
-                 "rotation":0,
-                 "type":"warpzone",
-                 "visible":true,
-                 "width":54.6444,
-                 "x":1653.4278,
-                 "y":56.04845
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -690,7 +663,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"???"
+                         "value":"go talk to the elder"
                         }, 
                         {
                          "name":"name",

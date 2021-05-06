@@ -708,6 +708,33 @@
                  "width":41,
                  "x":1177.5,
                  "y":1945.75
+                }, 
+                {
+                 "height":51.1189711525873,
+                 "id":32,
+                 "name":"village desert",
+                 "properties":[
+                        {
+                         "name":"spawnx",
+                         "type":"int",
+                         "value":219
+                        }, 
+                        {
+                         "name":"spawny",
+                         "type":"int",
+                         "value":229
+                        }, 
+                        {
+                         "name":"world",
+                         "type":"string",
+                         "value":"asset\/map_asset\/map_files\/dev_room.json"
+                        }],
+                 "rotation":0.244684615787302,
+                 "type":"warpzone",
+                 "visible":true,
+                 "width":64.3953584383412,
+                 "x":46.9117671697602,
+                 "y":566.636579377674
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -716,7 +743,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":32,
+ "nextobjectid":33,
  "orientation":"orthogonal",
  "properties":[
         {

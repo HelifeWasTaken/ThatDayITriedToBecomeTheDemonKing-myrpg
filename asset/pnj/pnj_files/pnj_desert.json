@@ -206,5 +206,18 @@
         },
         "pos": {"x": 456, "y": 71},
         "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/desert_pnj/magic_book.png",
+        "frame": 12,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 16,
+            "height": 32
+        },
+        "pos": {"x": 1204, "y": 1173},
+        "message": "bonjour"
     }
 ]
