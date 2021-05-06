@@ -119,9 +119,9 @@ void configure_state(game_t *game)
         state->save.equipment[index].id = 0;
         state->save.equipment[index].nb = 0;
     }
-    state->save.player_hp = 100;
+    state->save.player_hp = 20;
     state->save.player_lv = 1;
-    state->save.player_mana = 30;
+    state->save.player_mana = 0;
     game->state = state;
 }
 

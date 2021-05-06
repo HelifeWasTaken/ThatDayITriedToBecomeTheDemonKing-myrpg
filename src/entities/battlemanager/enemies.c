@@ -29,7 +29,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/skeleton.png",
         .asset_rect = { 0, 0, 1144, 452 },
         .level = 1,
-        .health = 70,
+        .health = 10,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -44,19 +44,9 @@ static const battle_opponent_t ENEMIES[] = {
         },
         .spells = {
             {
-                .name = "Attack",
-                .mana = 0,
-                .efficiency = 18,
-                .type = BST_NOT_A_SPELL,
-                .anim = BAT_ANIM_ATTACK,
-                .attack_fx_file = "asset/fx/classic_hit.png",
-                .attack_fx_frames_per_line = 5,
-                .attack_fx_frames_count = 10
-            },
-            {
                 .name = "Dark Attack",
                 .mana = 0,
-                .efficiency = 28,
+                .efficiency = 3,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/dark_attack.png",
@@ -70,7 +60,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/goblin.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 40,
+        .health = 12,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -87,7 +77,7 @@ static const battle_opponent_t ENEMIES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 15,
+                .efficiency = 2,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/classic_hit.png",
@@ -102,7 +92,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/devil_eye.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 20,
+        .health = 9,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -119,7 +109,7 @@ static const battle_opponent_t ENEMIES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 8,
+                .efficiency = 3,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/fangs_attack.png",
@@ -133,7 +123,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/mushroo.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 50,
+        .health = 13,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -150,7 +140,7 @@ static const battle_opponent_t ENEMIES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 10,
+                .efficiency = 1,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/mushroom_atk.png",
@@ -177,12 +167,19 @@ static const battle_opponent_t *select_rand_enemy(int level)
     return (rand_opponent);
 }
 
+static void get_ennemi_true_power(battle_opponent_t *enemy, game_t *game)
+{
+    enemy->health += get_game_state(game)->save.player_hp;
+    enemy->spells[0].efficiency += (get_game_state(game)->save.player_lv + 3);
+}
+
 int create_battle_enemy(game_t *game, battle_opponent_t *enemy,
     const battle_opponent_t *source)
 {
     sfTexture *texture;
 
     ememcpy(enemy, source, sizeof(battle_opponent_t));
+    get_ennemi_true_power(enemy, game);
     texture = create_texture(game, enemy->asset_file, &enemy->asset_rect);
     D_ASSERT(texture, NULL, "Cannot create texture", -1)
     enemy->animable_info.sprite = create_sprite(texture, NULL);
