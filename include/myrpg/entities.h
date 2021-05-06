@@ -270,8 +270,8 @@ void draw_dialogbox(game_t *game, entity_t *entity);
 void destroy_dialogbox(game_t *game, entity_t *entity);
 bool handle_dialogbox_events(game_t *game, entity_t *entity, sfEvent *event);
 bool show_dialog(struct dialog *npc);
-void hide_dialog(dialogbox_t *dialog);
-void show_next_dialog(dialogbox_t *dialog);
+void hide_dialog(game_t *game, dialogbox_t *dialog);
+void show_next_dialog(game_t *game, dialogbox_t *dialog);
 void wrap_dialog_text(dialogbox_t *dialog);
 
 typedef struct dialog {
@@ -282,6 +282,7 @@ typedef struct dialog {
     dialogbox_t *box;
     char *name;
     char **messages;
+    int boss_id;
 } dialog_t;
 
 bool create_dialog(game_t *game, entity_t *entity);

@@ -116,6 +116,39 @@ static const battle_opponent_t BOSSES[] = {
                 .efficiency = 68,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/sand_boss.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 20,
+                .attack_fx_size = { 3, 3 }
+            }
+        },
+    },
+    {
+        .name = "Demon King",
+        .asset_file = "asset/enemies/boss/troll_king.png",
+        .asset_rect = { 0, 0, 3600, 7920 },
+        .level = 1,
+        .health = 300,
+        .mana = 10,
+        .max_mana = 10,
+        .scale = { 0.9, 0.9 },
+        .pos_offset = { 0, -100 },
+        .animable_info = {
+            .animations = {
+                { 0, 4 },
+                { 5, 50 },
+                { 0, 0 }
+            },
+            .frame_size = { 3600 / 5, 7920 / 11 },
+            .frames_per_line = 5
+        },
+        .spells = {
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 68,
+                .type = BST_NOT_A_SPELL,
+                .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/natural_spell_boss.png",
                 .attack_fx_frames_per_line = 5,
                 .attack_fx_frames_count = 20,

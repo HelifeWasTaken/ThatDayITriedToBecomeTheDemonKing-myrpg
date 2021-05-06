@@ -50,6 +50,7 @@
         struct {
             char **message;
             char *name;
+            int boss_id;
         } pnj;
         warpzone_data_t warp;
     } layer_object_value_t;

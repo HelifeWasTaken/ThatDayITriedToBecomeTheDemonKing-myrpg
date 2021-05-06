@@ -1,7 +1,7 @@
 [
     {
-        "name": "bob",
-        "file_path": "asset/pnj/pnj_asset/desert_battle/troll_king.png",
+        "name": "Demon Boss",
+        "file_path": "asset/pnj/pnj_asset/volcano/demon.png",
         "frame": 5,
         "rect": {
             "left": 0,
@@ -10,6 +10,30 @@
             "height": 134
         },
         "pos": {"x": 125, "y": 10},
-        "boss_id": 2
+        "boss_id": 2,
+        "hp": 500,
+        "mana": 50,
+        "scale": {"x": 1, "y": 1},
+        "pos_offset": {"x": 0, "y": -100},
+        "animeble_info": {
+            "animation": [
+                {"x": 0, "y": 4},
+                {"x": 5, "y": 14},
+                {"x": 0, "y": 0}
+            ],
+            "frame_size": {"x": 600, "y": 600},
+            "frames_per_line": 5
+        },
+        "spell": {
+            "name": "Attack",
+            "mana": 0,
+            "damage": 68,
+            "type": 0,
+            "anim": 1,
+            "attack_fx_file": "assetfx/fire_attack_boss.png",
+            "attack_fx_frames_per_line": 5,
+            "attack_fx_frames_count": 10,
+            "attack_fx_size": {"x": 3, "y": 3}
+        }
     }
 ]

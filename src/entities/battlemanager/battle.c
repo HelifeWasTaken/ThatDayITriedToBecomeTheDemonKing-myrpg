@@ -49,6 +49,12 @@ static const struct battle_background_pair BATTLE_BG[] = {
         .file = "asset/battlebg/volcano.png",
         .rect = { 0, 500, 1920, 1080 },
         .size = { 0.5, 0.5 }
+    },
+    {
+        .world_id = "asset/map_asset/map_files/inside_castle.json",
+        .file = "asset/battlebg/castle.png",
+        .rect = { 0, 20, 1920, 1080 },
+        .size = { 1, 1 }
     }
 };
 
