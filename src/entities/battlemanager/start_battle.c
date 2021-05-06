@@ -7,6 +7,7 @@
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"
+#include "distract/scene.h"
 #include "myrpg/scenes.h"
 
 static void trigger_battle_win(game_t *game, int boss_id)
@@ -19,6 +20,8 @@ static void trigger_battle_win(game_t *game, int boss_id)
     }
     state->save.player_xp += 24;
     state->save.levels_done[boss_id] = true;
+    if (boss_id == 3)
+        switch_to_scene(game, PLAY_SCENE);
 }
 
 static void trigger_battle_lose(game_t *game)

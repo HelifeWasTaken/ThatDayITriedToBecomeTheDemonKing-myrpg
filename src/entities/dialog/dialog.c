@@ -8,6 +8,7 @@
 #include <SFML/Window/Event.h>
 #include <SFML/Window/Keyboard.h>
 #include <stdio.h>
+#include "myrpg/util.h"
 #include "stdlib.h"
 #include "distract/game.h"
 #include "distract/entity.h"
@@ -74,7 +75,8 @@ void draw_dialog(game_t *game UNUSED, entity_t *entity)
         return;
     }
     pos = dialog->hero->entity->pos;
-    if (v2fdistance(&pos, &entity->pos) < 50)
+    if (v2fdistance(&pos, &entity->pos) < 50 && (dialog->boss_id == -1
+        || !get_game_state(game)->save.levels_done[dialog->boss_id]))
         sfRenderWindow_drawSprite(game->window, dialog->sprite, NULL);
 }
 
@@ -84,7 +86,8 @@ bool handle_dialog_events(game_t *game UNUSED,
     dialog_t *dialog = entity->instance;
     sfVector2f pos;
 
-    if (GBL_IS_IN_CINEMATIC)
+    if (GBL_IS_IN_CINEMATIC || (dialog->boss_id != -1
+        && get_game_state(game)->save.levels_done[dialog->boss_id]))
         return (false);
     if (dialog->hero == NULL) {
         dialog->hero = get_instance(game, HERO);

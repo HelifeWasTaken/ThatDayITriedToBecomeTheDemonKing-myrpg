@@ -128,7 +128,7 @@ static const battle_opponent_t BOSSES[] = {
         .asset_file = "asset/enemies/boss/final_boss.png",
         .asset_rect = { 0, 0, 2500, 4500 },
         .level = 1,
-        .health = 300,
+        .health = 1,
         .mana = 10,
         .max_mana = 10,
         .scale = { 0.5, 0.5 },
@@ -146,7 +146,7 @@ static const battle_opponent_t BOSSES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 68,
+                .efficiency = 20,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/classic_hit.png",

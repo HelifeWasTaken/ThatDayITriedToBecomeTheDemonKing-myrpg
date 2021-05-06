@@ -9,6 +9,7 @@
 #include "distract/debug.h"
 #include "distract/math.h"
 #include "myrpg/battle.h"
+#include "myrpg/util.h"
 #undef ABS
 #include "distract/graphics.h"
 #include "distract/resources.h"

@@ -44,13 +44,15 @@ void update_boss(game_t *game UNUSED, entity_t *entity)
     boss_t *boss = entity->instance;
     boss_data_t *data;
     sfVector2f pos;
+    game_state_t *state = game->state;
 
     for (usize_t i = 0; i < boss->boss_vector->size; i++) {
         data = &boss->boss_vector->data[i];
         pos = v2fadd(data->pos, VEC2F(
             data->rect_size.x / 2,
             data->rect_size.y / 2));
-        if (v2fdistance(&boss->hero->entity->pos, &pos) < 100) {
+        if (!state->save.levels_done[data->boss_id]
+            && v2fdistance(&boss->hero->entity->pos, &pos) < 100) {
             start_battle(game, data->boss_id);
         }
     }
@@ -65,9 +67,11 @@ void draw_boss(game_t *game UNUSED, entity_t *entity)
 {
     usize_t i = 0;
     boss_t *boss = entity->instance;
+    game_state_t *state = game->state;
 
     for (; i < boss->boss_vector->size; i++) {
-        sfRenderWindow_drawSprite(game->window,
+        if (!state->save.levels_done[i])
+            sfRenderWindow_drawSprite(game->window,
                 boss->boss_vector->data[i].sprite, NULL);
     }
 }
