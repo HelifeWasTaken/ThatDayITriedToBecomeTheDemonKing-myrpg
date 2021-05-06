@@ -48,6 +48,8 @@ static bool create_background(game_t *game UNUSED,
     menu->bg_sprite = create_sprite(menu_texture, NULL);
     if (menu_texture == NULL || menu->bg_sprite == NULL)
         return (false);
+
+    sfSprite_setPosition(menu->bg_sprite, VEC2F(0, 0));
     return (create_background_loop(game, menu, menu_texture, button_texture));
 }
 

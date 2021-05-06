@@ -121,6 +121,10 @@ SRC_ATH	=	src/entities/ath/button_handler.c \
 			src/entities/ath/func_btn.c \
 			src/entities/ath/init.c
 
+SRC_PAUSE	=	src/entities/pause_menu/pause_menu.c \
+				src/entities/pause_menu/create_button.c	\
+				src/entities/pause_menu/func.c
+
 SRC = 	src/game.c \
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
@@ -155,7 +159,8 @@ SRC = 	src/game.c \
 		$(SRC_LABEL) \
 		$(SRC_INVENTORY) \
 		$(SRC_CINEMA) \
-		$(SRC_ATH)
+		$(SRC_ATH)  \
+    $(SRC_PAUSE)
 
 OBJ 	=	$(SRC:.c=.o)
 

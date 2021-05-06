@@ -4,6 +4,7 @@
 ** File description:
 ** Source code
 */
+
 #include "distract/entity.h"
 #include "distract/sound.h"
 #include "erty/eprintf.h"
@@ -18,7 +19,7 @@
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
     VIEW, DIALOGBOX, ATH,
-    INVENTORY, LAYER_MANAGER, HERO, BOSS, PNJ, CINEMA,
+    INVENTORY, LAYER_MANAGER, HERO, BOSS, PNJ, CINEMA, PAUSE_MENU,
 #if ENABLE_DEBUG_MENU
     DEBUGMENU
 #endif

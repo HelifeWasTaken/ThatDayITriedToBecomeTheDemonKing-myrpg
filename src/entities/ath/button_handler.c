@@ -24,11 +24,9 @@ bool func_btn_coin(UNUSED game_t *game, UNUSED entity_t *entity)
 
 void function_handler(game_t *game, UNUSED entity_t *entity, int i)
 {
-    function_ath_btn_t tab[6] = {
+    function_ath_btn_t tab[4] = {
         {&func_btn_quest},
         {&func_btn_inventory},
-        {&func_btn_jar},
-        {&func_btn_coin},
         {&func_btn_save},
         {&func_btn_setting}
     };
@@ -41,7 +39,7 @@ void update_button_handler(game_t *game UNUSED, entity_t *entity)
     sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(game->window);
     sfFloatRect buton_pos;
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 4; i++) {
         buton_pos = sfSprite_getGlobalBounds(ath->button_sprite[i]);
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x,
             mouse_pos.y) == sfTrue) {

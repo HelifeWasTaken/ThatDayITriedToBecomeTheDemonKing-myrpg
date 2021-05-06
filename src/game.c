@@ -70,6 +70,8 @@ static const entity_info_t ENTITIES[] = {
             &destroy_label, &update_label, NULL),
     ENTITY(PNJ, &create_pnj, &draw_pnj,
             &destroy_pnj, NULL, NULL),
+    ENTITY(PAUSE_MENU, &create_pause_menu, &draw_pause_menu,
+            &destroy_pause_menu, &update_pause_menu, &handle_pause_menu_events),
     ENTITY(CINEMA, &create_cinema, NULL,
         &destroy_cinema, &update_cinema, NULL),
     ENTITY(BOSS, &create_boss, &draw_boss,
@@ -102,10 +104,11 @@ static bool configure_entities(game_t *game UNUSED)
     return (true);
 }
 
-void configure_state(game_t *game)
+bool configure_state(game_t *game)
 {
     game_state_t *state = dcalloc(sizeof(game_state_t), 1);
 
+    D_ASSERT(state, NULL, "", false);
     state->params.music_vol = 1;
     state->params.vfx_vol = 1;
     state->params.voice_vol = 1;
@@ -117,19 +120,26 @@ void configure_state(game_t *game)
     state->save.player_hp = 20;
     state->save.player_lv = 1;
     game->state = state;
+    return (true);
 }
 
-void configure_game(game_t *game)
+bool configure_game(game_t *game)
 {
     configure_window(game);
-    register_scene(game, PLAY_SCENE, &play_lifecycle);
-    register_scene(game, MENU_SCENE, &menu_lifecycle);
-    register_scene(game, KEY_CONFIG, &key_lifecycle);
-    register_scene(game, SETTING_SCENE, &setting_lifecycle);
-    register_scene(game, BATTLE_SCENE, &battle_lifecycle);
-    load_items(game);
+    D_ASSERT(register_scene(game, PLAY_SCENE, &play_lifecycle),
+        false, "", false);
+    D_ASSERT(register_scene(game, MENU_SCENE, &menu_lifecycle),
+        false, "", false);
+    D_ASSERT(register_scene(game, KEY_CONFIG, &key_lifecycle),
+        false, "", false);
+    D_ASSERT(register_scene(game, SETTING_SCENE, &setting_lifecycle),
+        false, "", false);
+    D_ASSERT(register_scene(game, BATTLE_SCENE, &battle_lifecycle),
+        false, "", false);
+    D_ASSERT(load_items(game), false, "", false);
     configure_state(game);
-    configure_entities(game);
+    D_ASSERT(configure_entities(game), false, "", false);
+    return (true);
 }
 
 int load_game(void)
@@ -137,9 +147,8 @@ int load_game(void)
     int code = 0;
     game_t *game = create_game();
 
-    if (game == NULL)
+    if (game == NULL || configure_game(game) == false)
         return (84);
-    configure_game(game);
     set_pending_scene(game, MENU_SCENE);
     game->scene->world_file = DEFAULT_WORLD_FILE;
     get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;

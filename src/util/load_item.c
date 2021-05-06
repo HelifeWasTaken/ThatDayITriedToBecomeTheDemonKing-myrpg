@@ -121,7 +121,7 @@ bool load_items(game_t *game)
         return (false);
     }
     game->item_loaded = malloc(sizeof(item_t) * MAX_ITEM);
-    D_ASSERT(game, NULL, "err", false);
+    D_ASSERT(game->item_loaded, NULL, "err", false);
     if (load_n_item(game, MAX_ITEM, &conf) == false) {
         print_error("could not load item:");
         return (false);

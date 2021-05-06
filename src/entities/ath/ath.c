@@ -32,7 +32,7 @@ bool handle_ath_events(game_t *game UNUSED,
     if (GBL_IS_IN_CINEMATIC == true)
         return (false);
     D_ASSERT(inventory, NULL, "err inventory", false);
-    for (unsigned int i = 0; i < 6; i++) {
+    for (unsigned int i = 0; i < 4; i++) {
         buton_pos = sfSprite_getGlobalBounds(ath->button_sprite[i]);
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x,
             mouse_pos.y) == sfTrue) {
@@ -56,15 +56,14 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
     ath->view = get_entity(game, VIEW)->instance;
     ath->player_ath_sprite = create_sprite(player_ath_texture,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
-    if (!ath->player_ath_sprite)
-        return (false);
+    D_ASSERT(ath->player_ath_sprite, NULL, "error sprite ath", false);
     ath->ath_pos = VEC2F(0, PLAYER_ATH_POS_Y);
     SET_SPRITE_POS(ath->player_ath_sprite, ath->ath_pos);
     if (create_ath_second_part(ath, game, NULL) == false)
         return (false);
     entity->instance = ath;
     ath->entity = entity;
-    ath->entity->z = 10000;
+    entity->z = 10000;
     entity->draw_on_gui = true;
     return (true);
 }
@@ -79,7 +78,7 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
     for (unsigned int i = 0; i < 3; i++)
         if (get_game_state(game)->save.levels_done[i])
             sfRenderWindow_drawSprite(game->window, ath->ath_stones[i], NULL);
-    for (unsigned int i = 0; i < 6; i++)
+    for (unsigned int i = 0; i < 4; i++)
         sfRenderWindow_drawSprite(game->window, ath->button_sprite[i], NULL);
 }
 
@@ -87,7 +86,7 @@ void destroy_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 4; i++)
         sfSprite_destroy(ath->button_sprite[i]);
     sfSprite_destroy(ath->player_ath_sprite);
     for (int i = 0; i < 3; i++)

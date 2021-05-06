@@ -51,6 +51,7 @@ enum entity_type {
     GUI_BUTTON,
     GUI_LABEL,
     PNJ,
+    PAUSE_MENU,
     CINEMA,
     BOSS
 };
@@ -140,7 +141,7 @@ typedef struct ath {
     entity_t *entity;
     sfSprite *player_ath_sprite;
     sfVector2f ath_pos;
-    sfSprite *button_sprite[6];
+    sfSprite *button_sprite[4];
     view_t *view;
     sfSprite *ath_stones[3];
 } ath_t;
@@ -457,6 +458,31 @@ void destroy_item(item_t *item);
 bool create_texture_item(game_t *game);
 bool clic_equipment(game_t *game, inventory_t *inv, int index);
 bool deplacement_equip(game_t *game, entity_t *entity, int i);
+
+typedef struct pause_menu {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    sfSprite *btn[3];
+    bool is_display;
+    sfText *str[3];
+    sfText *title;
+} pause_menu_t;
+
+enum {
+    CONTINUE_MENU_BTN,
+    MENU_BTN,
+    QUIT_BTN
+};
+
+bool create_pause_menu(game_t *game, entity_t *entity);
+void update_pause_menu(game_t *game, entity_t *entity);
+void draw_pause_menu(game_t *game, entity_t *entity);
+void destroy_pause_menu(game_t *game, entity_t *entity);
+bool handle_pause_menu_events(game_t *game, entity_t *entity, sfEvent *event);
+bool init_btn_pause(game_t *game, entity_t *entity);
+bool init_text_pause(game_t *game, entity_t *entity);
+void function_button_pause(game_t *game, entity_t *entity, int i);
 
 typedef struct boss {
     entity_t *entity;

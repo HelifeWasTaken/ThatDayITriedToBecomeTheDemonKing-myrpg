@@ -64,8 +64,8 @@
     #define OPTION_ICON     "asset/ath/option.png"
 
     #define ICON_RECT 100
-    #define ATH_ICON (char *[]) {CHAR_ICON, EQUIP_ICON, INVENTORY_ICON,\
-        QUEST_ICON, SKILL_ICON, OPTION_ICON}
+    #define ATH_ICON (char *[]) {CHAR_ICON, INVENTORY_ICON,\
+        SKILL_ICON, OPTION_ICON}
 
     #define PLAYER_ATH          "asset/ath/player_ath_test.png"
     #define PLAYER_ATH_W        400
@@ -113,6 +113,12 @@
         int type;
     } inventory_item_t;
 
+    ///
+    /// PAUSE MENU DEFINE
+    ///
+
+    #define BG_PAUSE "asset/setting/setting_background.png"
     #define DEFAULT_WORLD_FILE  "asset/map_asset/map_files/map_village.json"
     #define DEFAULT_PLAYER_POS  VEC2F(1535, 42)
+
 #endif
