@@ -69,10 +69,15 @@ typedef struct boss_data {
     char *name;
     char *file_path;
     int frame;
-    sfVector2u rect_size;
+    sfVector2f rect_size;
     sfIntRect rect;
     sfSprite *sprite;
     sfVector2f pos;
+    int hp;
+    int mana;
+    sfVector2f scale;
+    sfVector2f pos_offset;
+    animable_info_t animable_info;
     int boss_id;
 } boss_data_t;
 

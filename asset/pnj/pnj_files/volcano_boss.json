@@ -10,6 +10,29 @@
             "height": 133
         },
         "pos": {"x": 306, "y": 3},
-        "boss_id": 0
+        "boss_id": 0,
+        "hp": 500,
+        "mana": 50,
+        "scale": {"x": 1, "y": 1},
+        "pos_offset": {"x": 0, "y": -100},
+        "animable_info": {
+            "animation": [
+                {"x": 0, "y": 4},
+                {"x": 5, "y": 14},
+                {"x": 0, "y": 0}
+            ],
+            "frame_size": {"x": 600, "y": 600},
+            "frames_per_line": 5
+        },
+        "spell": {
+            "name": "attack",
+            "mana": 0,
+            "damage": 68,
+            "type": 0,
+            "anim": 1,
+            "attack_fx_file": "assetfx/fire_attack_boss.png",
+            "attack_fx_frames_count": 10,
+            "attack_fx_size": {"x": 3, "y": 3}
+        }
     }
 ]
