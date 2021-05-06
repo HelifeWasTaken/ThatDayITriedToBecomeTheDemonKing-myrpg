@@ -26,13 +26,13 @@ static const char *MUSIC_END = "";
 
 static bool play_end_music(game_t *game, cinema_entity_t *cinema UNUSED)
 {
-    if (get_game_state(game)->save.music == NULL) {
-        get_game_state(game)->save.music = sfMusic_createFromFile(MUSIC_END);
-        if (get_game_state(game)->save.music == NULL)
+    if (get_game_state(game)->end_music == NULL) {
+        get_game_state(game)->end_music = sfMusic_createFromFile(MUSIC_END);
+        if (get_game_state(game)->end_music == NULL)
             return (false);
     }
-    if (sfMusic_getStatus(get_game_state(game)->save.music) != sfPlaying)
-        sfMusic_play(get_game_state(game)->save.music);
+    if (sfMusic_getStatus(get_game_state(game)->end_music) != sfPlaying)
+        sfMusic_play(get_game_state(game)->end_music);
     return (true);
 }
 
@@ -60,8 +60,10 @@ bool create_cinema_end(game_t *game, cinema_entity_t *cinema)
         ememcpy(&get_game_state(game)->params, &params, sizeof(params));
         game->scene->world_file = DEFAULT_WORLD_FILE;
         get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
-        if (get_game_state(game)->save.music)
-            sfMusic_destroy(get_game_state(game)->save.music);
+        if (get_game_state(game)->end_music) {
+            sfMusic_destroy(get_game_state(game)->end_music);
+            get_game_state(game)->end_music = NULL;
+        }
         return (true);
     }
     return (read_end(game, cinema));

@@ -69,7 +69,6 @@
         int player_lv;
         uint16_t cinematics;
         uint32_t cinematics_end_count;
-        sfMusic *music;
         bool levels_done[4];
     } game_save_t;
 
@@ -79,6 +78,7 @@
         ig_map_t map;
         int last_boss_id;
         usize_t z;
+        sfMusic *end_music;
     } game_state_t;
 
 #endif /* !PARAMETERS_H_ */
