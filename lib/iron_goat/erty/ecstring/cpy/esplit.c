@@ -6,6 +6,7 @@
 */
 
 #include <erty/string/ecstring.h>
+#include <erty/string/esstring.h>
 
 void free_esplit(cstr_t *buf)
 {
@@ -16,54 +17,37 @@ void free_esplit(cstr_t *buf)
     efree(buf);
 }
 
-static void skip_char_copy(const_cstr_t str, char const c, size_t *i)
+static bool is_token(char const c, char const tokens)
 {
-    for (; str[*i] == c; (*i)++);
+    return (c == tokens);
 }
 
-static size_t count_array(const_cstr_t str, char const c)
+static void remove_token(const char **s, char const tokens)
 {
-    size_t count = 1;
-    size_t i = 0;
+    for (; is_token(**s, tokens); (*s)++);
+}
 
-    skip_char_copy(str, c, &i);
-    for (; str[i]; i++) {
-        if (str[i] == c) {
-            count++;
-            skip_char_copy(str, c, &i);
-        }
+static bool get_string(string_t *string, char const **str, char const tokens)
+{
+    for (; is_token(**str, tokens) == false && **str != '\0'; (*str)++)
+        if (string->append_n(string, (char *)(*str), 1) == -1)
+            return (false);
+    return (true);
+}
+
+cstr_t *esplit(const_cstr_t str, char const tokens)
+{
+    string_t string = init_string(NULL);
+    char **tab = NULL;
+
+    while (*str != '\0') {
+        string.free(&string);
+        remove_token(&str, tokens);
+        if (get_string(&string, &str, tokens) == false)
+            return (false);
+        if (string.str != NULL && string.str[0] != '\0')
+            tab = eappend_tab(&tab, string.str);
     }
-    return (count);
-}
-
-static cstr_t get_sub_string(const_cstr_t str, const char c, size_t *i)
-{
-    size_t index2 = *i;
-    char *new = NULL;
-
-    for (; str[index2]; index2++)
-        if (str[index2] == c)
-            break;
-    new = estrndup(str + *i, index2 - *i);
-    *i = index2;
-    return (new);
-}
-
-cstr_t *esplit(const_cstr_t str, const char c)
-{
-    size_t i = 0;
-    size_t j = 0;
-    cstr_t *new_buff = emalloc(sizeof(cstr_t) * (count_array(str, c) + 1));
-
-    if (new_buff == NULL)
-        return (NULL);
-    for (; str[i]; j++) {
-        skip_char_copy(str, c, &i);
-        if (!str[i])
-            break;
-        if ((new_buff[j] = get_sub_string(str, c, &i)) == NULL)
-            return (NULL);
-    }
-    new_buff[j] = NULL;
-    return (new_buff);
+    string.free(&string);
+    return (tab);
 }
