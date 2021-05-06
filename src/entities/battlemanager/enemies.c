@@ -167,19 +167,13 @@ static const battle_opponent_t *select_rand_enemy(int level)
     return (rand_opponent);
 }
 
-static void get_ennemi_true_power(battle_opponent_t *enemy, game_t *game)
-{
-    enemy->health += get_game_state(game)->save.player_hp;
-    enemy->spells[0].efficiency += (get_game_state(game)->save.player_lv + 3);
-}
-
 int create_battle_enemy(game_t *game, battle_opponent_t *enemy,
     const battle_opponent_t *source)
 {
     sfTexture *texture;
 
     ememcpy(enemy, source, sizeof(battle_opponent_t));
-    get_ennemi_true_power(enemy, game);
+    GET_ENNEMY_TRUE_POWER(enemy, game);
     texture = create_texture(game, enemy->asset_file, &enemy->asset_rect);
     D_ASSERT(texture, NULL, "Cannot create texture", -1)
     enemy->animable_info.sprite = create_sprite(texture, NULL);
