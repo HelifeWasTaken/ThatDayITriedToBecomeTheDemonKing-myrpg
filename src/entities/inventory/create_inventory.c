@@ -48,7 +48,7 @@ sfSprite *init_inventory(UNUSED game_t *game, UNUSED entity_t *entity)
 
 void place_item(UNUSED game_t *game, entity_t *entity)
 {
-    inventory_t * inventory = entity->instance;
+    inventory_t *inventory = entity->instance;
     int z = 0;
     int width = WINDOW_W / 2.5 + 50;
     int height = WINDOW_H / 2 - 150;

@@ -149,7 +149,6 @@ void destroy_battle(game_t *game UNUSED, battlemanager_t *battlemanager)
 
     state->save.player_hp = player->health;
     state->save.player_lv = player->level;
-    state->save.player_mana = player->mana;
     destroy_attack_fx(game, battlemanager);
     destroy_pausable_clock(battlemanager->attack_clock);
     sfSprite_destroy(battlemanager->background);
