@@ -66,10 +66,8 @@ bool create_pnj(game_t *game UNUSED, entity_t *entity)
     D_ASSERT(map, NULL, "Layer could not be found", false);
     D_ASSERT(pnj, NULL, "error on ecalloc on pnj", false);
     D_ASSERT(pnj->hero, NULL, "Could not load hero in create pnj", false);
-    printf("bonjour\n");
     if (!creat_loader_part(game, &pnj) || !set_pnj_loop(game, &pnj))
         return (false);
-    printf("la\n");
     pnj->clock = create_pausable_clock(game);
     D_ASSERT(pnj->clock, NULL, "could not create pnj clock", false);
     pnj->entity = entity;
