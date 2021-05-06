@@ -9,7 +9,7 @@ CC = gcc
 
 AR = ar rc
 
-CFLAGS = -W -Wall -Werror -I./include -I../my/include -L..
+CFLAGS = -W -Wall -Werror -I./include -I../my/include -I../../include -L..
 
 CFLAGS_TEST = ${CFLAGS} -Wno-stringop-truncation --coverage
 

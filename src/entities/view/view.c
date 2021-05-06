@@ -17,6 +17,7 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "distract/util.h"
+#include "myrpg/cinema.h"
 
 bool create_view(game_t *game UNUSED, entity_t *entity)
 {
@@ -44,5 +45,6 @@ void update_view(game_t *game UNUSED, entity_t *entity)
         view->hero = player_entity->instance;
         return;
     }
-    sfView_setCenter(game->view, view->hero->entity->pos);
+    if (GBL_IS_IN_CINEMATIC == false)
+        sfView_setCenter(game->view, view->hero->entity->pos);
 }
