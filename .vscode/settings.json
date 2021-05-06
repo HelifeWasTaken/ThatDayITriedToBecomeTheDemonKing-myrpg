@@ -33,5 +33,7 @@
         "sstream": "c",
         "streambuf": "c",
         "cinema.h": "c"
+        "renderwindow.h": "c",
+        "pnj.h": "c"
     }
 }

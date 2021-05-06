@@ -5,8 +5,8 @@
 ** parameters
 */
 
-#ifndef PARAMETERS_H_
-    #define PARAMETERS_H_
+#ifndef STATE_H_
+    #define STATE_H_
 
     #include "distract/entity.h"
     #include "myrpg/game.h"
@@ -34,11 +34,11 @@
         bool voice_muted;
     } parameters_t;
 
-    typedef struct item {
+    typedef struct inventory_save {
         int nb;
         int type;
         int id;
-    } item_t;
+    } inventory_save_t;
 
     enum cinematics_id {
         VILLAGE_CINEMATIC,
@@ -61,7 +61,8 @@
 
     typedef struct game_save {
         char map_id[256];
-        item_t item[15];
+        inventory_save_t item[15];
+        inventory_save_t equipment[5];
         sfVector2f player_pos;
         int player_mana;
         int player_hp;
@@ -76,6 +77,7 @@
         parameters_t params;
         game_save_t save;
         ig_map_t map;
+        int last_boss_id;
         usize_t z;
     } game_state_t;
 

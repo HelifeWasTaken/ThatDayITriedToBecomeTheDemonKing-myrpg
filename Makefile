@@ -77,7 +77,8 @@ SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
 SRC_UTIL = src/util/sfml_deser.c \
 		   src/util/get_save_state.c \
 		   src/util/not_implemented.c \
-		   src/util/property_loader.c
+		   src/util/property_loader.c	\
+		   src/util/load_item.c
 
 
 SRC_MENU = src/entities/menu/menu.c \
@@ -90,6 +91,7 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 SRC_INVENTORY	=	src/entities/inventory/create_inventory.c \
 			src/entities/inventory/inventory.c \
 			src/entities/inventory/inventory_ges.c	\
+			src/entities/inventory/create_equipment_slot.c
 
 
 SRC_BATTLE = src/entities/battlehud/battlehud.c \
@@ -102,7 +104,9 @@ SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlemanager/attack.c \
 			src/entities/battlemanager/attack_fx.c \
 			src/entities/battlemanager/bard_talking.c \
-			src/entities/battlemanager/battle.c
+			src/entities/battlemanager/battle.c \
+			src/entities/battlemanager/start_battle.c \
+			src/entities/battlemanager/boss.c
 
 SRC_CINEMA = 	src/entities/cinema/cinema.c \
 				src/entities/cinema/list.c \
@@ -136,6 +140,9 @@ SRC = 	src/game.c \
 		src/entities/npc/pnj_loader.c \
 		src/entities/npc/create_pnj.c \
 		src/entities/npc/pnj_drawing.c \
+		src/entities/boss/boss.c \
+		src/entities/boss/boss_update.c \
+		src/entities/boss/create_boss.c \
         $(SRC_DEBUGMENU) \
         $(SRC_MENU) \
         $(SRC_UTIL) \

@@ -1,15 +1,119 @@
 [
     {
         "name": "bob",
-        "file_path": "asset/pnj/pnj_asset/volcano/demon.png",
-        "frame": 5,
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
         "rect": {
             "left": 0,
             "top": 0,
-            "width": 200,
-            "height": 133
+            "width": 48,
+            "height": 20
         },
-        "pos": {"x": 306, "y": 3},
+        "pos": {"x": 528, "y": 626},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 48,
+            "height": 20
+        },
+        "pos": {"x": 629, "y": 587},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 48,
+            "height": 20
+        },
+        "pos": {"x": 549, "y": 297},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 48,
+            "height": 20
+        },
+        "pos": {"x": 432, "y": 212},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 48,
+            "height": 20
+        },
+        "pos": {"x": 179, "y": 104},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 48,
+            "height": 20
+        },
+        "pos": {"x": 14, "y": 171},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 48,
+            "height": 20
+        },
+        "pos": {"x": 57, "y": 647},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 48,
+            "height": 20
+        },
+        "pos": {"x": 336, "y": 626},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/volcano/newflames_1.png",
+        "frame": 4,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 48,
+            "height": 20
+        },
+        "pos": {"x": 288, "y": 726},
         "message": "bonjour"
     }
 ]

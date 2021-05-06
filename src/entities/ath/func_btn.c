@@ -16,6 +16,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
+#include "myrpg/scenes.h"
 
 bool func_btn_jar(UNUSED game_t *game, UNUSED entity_t *entity)
 {
@@ -24,6 +25,14 @@ bool func_btn_jar(UNUSED game_t *game, UNUSED entity_t *entity)
 
 bool func_btn_setting(UNUSED game_t *game, UNUSED entity_t *entity)
 {
+    sfView *view = game->view;
+
+    if (sfMouse_isButtonPressed(sfMouseLeft)) {
+        set_game_view(game, game->gui_view);
+        await_scene(game, SETTING_SCENE);
+        set_game_view(game, view);
+        return (true);
+    }
     return (false);
 }
 

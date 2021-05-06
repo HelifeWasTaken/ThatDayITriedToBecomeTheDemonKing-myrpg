@@ -52,6 +52,7 @@ enum entity_type {
     GUI_LABEL,
     PNJ,
     CINEMA
+    BOSS
 };
 
 //----------------------------------------
@@ -308,6 +309,12 @@ void draw_debugmenu(game_t *game, entity_t *entity);
 void destroy_debugmenu(game_t *game, entity_t *entity);
 bool handle_debugmenu_events(game_t *game, entity_t *entity, sfEvent *event);
 
+typedef struct equipment {
+    sfSprite *sprite;
+    unsigned int type;
+    int id;
+} equipment_t;
+
 typedef struct inventory {
     entity_t *entity;
     pausable_clock_t *clock;
@@ -317,11 +324,12 @@ typedef struct inventory {
     view_t *view;
     bool is_visible;
     sfCircleShape *box;
-    sfSprite **inventory;
+    equipment_t inventory[15];
     sfSprite *cursor_item;
     int mouse_state;
     bool is_deplacement;
     int item_id;
+    equipment_t equipment[5];
 } inventory_t;
 
 sfSprite *init_inventory(game_t *game, entity_t *entity);
@@ -332,8 +340,9 @@ void destroy_inventory(game_t *game, entity_t *entity);
 bool handle_inventory_events(game_t *game, entity_t *entity, sfEvent *event);
 bool init_inventory_item(game_t *game, entity_t *entity);
 void inventory_management(game_t *game, entity_t *entity);
+bool init_equiment_slot(game_t *game, inventory_t *inventory);
 
-typedef const struct function {
+typedef const struct function_ath {
     bool (*func)(UNUSED game_t *game, UNUSED entity_t *entity);
 } function_ath_btn_t;
 
@@ -368,6 +377,7 @@ void update_mute_button(game_t *game, entity_t *entity);
 void draw_mute_button(game_t *game, entity_t *entity);
 void destroy_mute_button(game_t *game, entity_t *entity);
 bool handle_mute_button_events(game_t *game, entity_t *entity, sfEvent *event);
+void init_scroll_bar(game_t *game);
 
 typedef struct battlemanager {
     sfSprite *background;
@@ -396,6 +406,7 @@ void draw_battlemanager(game_t *game, entity_t *entity);
 void destroy_battlemanager(game_t *game, entity_t *entity);
 bool handle_battlemanager_events(game_t *game, entity_t *entity,
     sfEvent *event);
+int create_battlemanager_boss(game_t *game, battlemanager_t *manager);
 int create_battlemanager_enemies(game_t *game, battlemanager_t *manager);
 int create_battlemanager_friends(game_t *game, battlemanager_t *manager);
 int create_battle_bard_talking(game_t *game, battlemanager_t *battlemanager);
@@ -414,6 +425,9 @@ void draw_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
 void destroy_attack_fx(game_t *game UNUSED, battlemanager_t *battlemanager);
 void show_attack_fx(battlemanager_t *battlemanager);
 int count_spells(battle_opponent_t *enemy);
+int create_battle_enemy(game_t *game, battle_opponent_t *enemy,
+    const battle_opponent_t *source);
+void place_battle_enemies(battlemanager_t *manager, int entity_count);
 
 typedef struct battlehud {
     entity_t *entity;
@@ -437,5 +451,23 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *entity);
 bool create_battlehud_labels(game_t *game, battlehud_t *hud);
 void update_battlehub_labels(game_t *game, battlehud_t *hud);
 void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
+bool load_items(game_t *game);
+void destroy_item(item_t *item);
+bool create_texture_item(game_t *game);
+bool clic_equipment(game_t *game, inventory_t *inv, int index);
+bool deplacement_equip(game_t *game, entity_t *entity, int i);
+
+typedef struct boss {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    VECTOR(boss_vector) *boss_vector;
+    struct hero *hero;
+} boss_t;
+
+bool create_boss(game_t *game, entity_t *entity);
+void update_boss(game_t *game, entity_t *entity);
+void draw_boss(game_t *game, entity_t *entity);
+void destroy_boss(game_t *game, entity_t *entity);
+bool handle_boss_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

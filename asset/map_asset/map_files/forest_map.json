@@ -270,6 +270,28 @@
                  "width":0,
                  "x":505.931818181818,
                  "y":691.477272727273
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"pnj two",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"you have in front of you the ultima master blade\nwhould you be proud of it\n- no the fuck way i'm playing zelda right now"
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":689.25,
+                 "y":693.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -278,7 +300,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":8,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "properties":[
         {

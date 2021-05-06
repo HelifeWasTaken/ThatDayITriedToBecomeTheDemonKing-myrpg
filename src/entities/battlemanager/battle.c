@@ -25,7 +25,7 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Sprite.h>
 
-struct battle_background_pair BATTLE_BG[] = {
+static const struct battle_background_pair BATTLE_BG[] = {
     {
         .world_id = "asset/map_asset/map_files/map_monde.json",
         .file = "asset/battlebg/world.png",
@@ -33,7 +33,7 @@ struct battle_background_pair BATTLE_BG[] = {
         .size = { 0.80, 0.89 }
     },
     {
-        .world_id = "asset/map_asset/map_files/desert.json",
+        .world_id = "asset/map_asset/map_files/battle_desert.json",
         .file = "asset/battlebg/desert_battle.png",
         .rect = { 0, 0, 1920, 1080 },
         .size = { 1, 1 }
@@ -43,6 +43,12 @@ struct battle_background_pair BATTLE_BG[] = {
         .file = "asset/battlebg/forest.png",
         .rect = { -20, 0, 1920, 1080 },
         .size = { 1.2, 1.2 }
+    },
+    {
+        .world_id = "asset/map_asset/map_files/volcano.json",
+        .file = "asset/battlebg/volcano.png",
+        .rect = { 0, 500, 1920, 1080 },
+        .size = { 0.5, 0.5 }
     }
 };
 
@@ -50,11 +56,13 @@ int create_battle(game_t *game, battlemanager_t *battlemanager)
 {
     game_state_t *state = game->state;
     sfTexture *texture;
+    sfIntRect rect;
 
     for (size_t i = 0; i < ARRAY_SIZE(BATTLE_BG); i++) {
+        rect = BATTLE_BG[i].rect;
         if (estrcmp(state->save.map_id, BATTLE_BG[i].world_id) != 0)
             continue;
-        texture = create_texture(game, BATTLE_BG[i].file, &BATTLE_BG[i].rect);
+        texture = create_texture(game, BATTLE_BG[i].file, &rect);
         battlemanager->background = create_sprite(texture, NULL);
         sfSprite_setScale(battlemanager->background, BATTLE_BG[i].size);
         break;
@@ -68,11 +76,16 @@ int create_battle(game_t *game, battlemanager_t *battlemanager)
 
 static battle_opponent_t *get_first_enemy(battlemanager_t *battlemanager)
 {
+    battle_opponent_t *alive_opponents[10];
+    int j = 0;
+
     for (int i = 0; i < battlemanager->enemies_count; i++) {
         if (battlemanager->enemies[i].health > 0)
-            return &battlemanager->enemies[i];
+            alive_opponents[j++] = &battlemanager->enemies[i];
     }
-    return (NULL);
+    if (j == 0)
+        return (NULL);
+    return (alive_opponents[rand() % j]);
 }
 
 static void update_attack(game_t *game, battlemanager_t *battlemanager,
