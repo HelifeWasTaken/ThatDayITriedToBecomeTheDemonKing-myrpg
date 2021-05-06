@@ -45,7 +45,6 @@
         sfVector2i spawn;
     } warpzone_data_t;
 
-
     typedef union {
         struct {
             char **message;

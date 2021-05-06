@@ -6,15 +6,17 @@
 */
 
 #ifndef  ASSET_H
-#define  ASSET_H
+    #define  ASSET_H
+
     #include "distract/def.h"
 
     #define WINDOW_W 1920
     #define WINDOW_H 1080
+
     ///
     /// MAIN_MENU_DEFINE
     ///
-    //#define MAIN_MENU_BG "asset/menu/menu_background_test.png"
+
     #define MAIN_MENU_BG "asset/menu/main_menu_tittle.png"
     #define MAIN_MENU_BG_W 1920
     #define MAIN_MENU_BG_H 1080
