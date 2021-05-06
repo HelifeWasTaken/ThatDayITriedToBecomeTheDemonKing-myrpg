@@ -47,8 +47,6 @@ bool func_btn_save(UNUSED game_t *game, UNUSED entity_t *entity)
         return (true);
     }
     return (false);
-
-    return (false);
 }
 
 bool func_btn_quest(UNUSED game_t *game, UNUSED entity_t *entity)
