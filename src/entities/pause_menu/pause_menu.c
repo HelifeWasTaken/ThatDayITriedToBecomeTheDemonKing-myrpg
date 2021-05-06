@@ -54,6 +54,8 @@ void update_pause_menu(game_t *game UNUSED, entity_t *entity)
 {
     pause_menu_t *pause = entity->instance;
 
+    if (pause->is_display == true)
+        game->is_paused = true;
     if (IS_KEY_PRESS_FRAME(sfKeyEscape))
         pause->is_display = (!pause->is_display);
     for (int index = 0; index != 3; index++)
@@ -86,7 +88,8 @@ bool handle_pause_menu_events(game_t *game UNUSED,
 
     for (int index = 0; index != 3; index++) {
         rect = sfSprite_getGlobalBounds(pause->btn[index]);
-        if (sfFloatRect_contains(&rect, mous.x, mous.y)) {
+        if (sfFloatRect_contains(&rect, mous.x, mous.y)
+            && pause->is_display == true) {
             sfText_setColor(pause->str[index], sfColor_fromRGB(255, 0, 0));
             function_button_pause(game, entity, index);
             return (true);

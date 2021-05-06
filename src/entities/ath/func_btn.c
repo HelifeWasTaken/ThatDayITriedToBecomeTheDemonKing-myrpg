@@ -38,10 +38,12 @@ bool func_btn_setting(UNUSED game_t *game, UNUSED entity_t *entity)
 
 bool func_btn_save(UNUSED game_t *game, UNUSED entity_t *entity)
 {
-    pause_menu_t *pause = get_entity(game, PAUSE_MENU)->instance;
+    pause_menu_t *pause = get_instance(game, PAUSE_MENU);
+    inventory_t *inv = get_instance(game, INVENTORY);
 
     D_ASSERT(pause, NULL, "ERROR func btn inv", false);
-    if (game->is_paused != true) {
+    D_ASSERT(inv, NULL, "error instance btn inv", false);
+    if (game->is_paused != true && inv->is_visible != true) {
         pause->is_display = true;
         game->is_paused = true;
         return (true);
@@ -56,7 +58,7 @@ bool func_btn_quest(UNUSED game_t *game, UNUSED entity_t *entity)
 
 bool func_btn_inventory(UNUSED game_t *game, UNUSED entity_t *entity)
 {
-    inventory_t *inventory = get_entity(game, INVENTORY)->instance;
+    inventory_t *inventory = get_instance(game, INVENTORY);
 
     D_ASSERT(inventory, NULL, "ERROR func btn inv", false);
     if (game->is_paused != true) {

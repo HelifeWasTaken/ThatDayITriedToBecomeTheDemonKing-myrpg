@@ -26,7 +26,7 @@ static bool create_ath_buttons(ath_t *ath, game_t *game,
 {
     int pos_y = 150;
 
-    for (unsigned int i = 0; i < 6; i++) {
+    for (unsigned int i = 0; i < 4; i++) {
         icon_texture  = create_texture(game, ATH_ICON[i],
             &IRECT(0, 0, ICON_RECT, ICON_RECT));
         if (icon_texture == NULL)
