@@ -109,22 +109,13 @@ void configure_state(game_t *game)
     state->params.music_vol = 1;
     state->params.vfx_vol = 1;
     state->params.voice_vol = 1;
-    state->params.music_muted = false;
-    state->params.vfx_muted = false;
-    state->params.voice_muted = false;
     for (int index = 0; index != 15; index++) {
         state->save.item[index].type = game->item_loaded[index].type;
         state->save.item[index].id = index;
         state->save.item[index].nb = 1;
     }
-    for (int index = 0; index != 5; index++) {
-        state->save.equipment[index].type = EMPTY;
-        state->save.equipment[index].id = 0;
-        state->save.equipment[index].nb = 0;
-    }
     state->save.player_hp = 20;
     state->save.player_lv = 1;
-    state->save.player_mana = 0;
     game->state = state;
 }
 
