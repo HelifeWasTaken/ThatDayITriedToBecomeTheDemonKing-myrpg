@@ -14,6 +14,7 @@ static bool init_menu(game_t *game)
 {
     sfMusic *song = NULL;
 
+    set_game_view(game, game->gui_view);
     if (create_entity(game, MENU) == NULL)
         return (false);
     song = create_music(game, "asset/song/main_menu_theme.ogg");

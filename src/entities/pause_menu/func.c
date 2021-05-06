@@ -24,16 +24,19 @@ void function_button_pause(game_t *game, entity_t *entity, int i)
 {
     pause_menu_t *pause = entity->instance;
 
-    if (sfMouse_isButtonPressed(sfMouseLeft)) {
+    if (sfMouse_isButtonPressed(sfMouseLeft) && pause->is_display == true) {
         switch (i) {
         case CONTINUE_MENU_BTN:
             pause->is_display = false;
+            game->is_paused = false;
             break;
         case MENU_BTN:
             switch_to_scene(game, MENU_SCENE);
+            game->is_paused = false;
             break;
         case QUIT_BTN:
             switch_to_scene(game, -1);
+            game->is_paused = false;
             break;
         }
     }

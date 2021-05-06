@@ -61,9 +61,8 @@ void update_inventory(game_t *game UNUSED, entity_t *entity)
         inventory->inventory[index].id = state->save.item[index].id;
         inventory->inventory[index].type = state->save.item[index].nb;
     }
-    for (int index = 0; index != 5; index++) {
+    for (int index = 0; index != 5; index++)
         inventory->equipment[index].id = state->save.equipment[index].id;
-    }
     if (update_item(game, entity) == false)
         return;
     sfSprite_setTexture(inventory->cursor_item,
@@ -79,7 +78,6 @@ void draw_inventory(game_t *game UNUSED, entity_t *entity)
     inventory_t *inventory = entity->instance;
 
     if (inventory->is_visible == true) {
-        game->is_paused = true;
         sfRenderWindow_drawSprite(game->window, inventory->sprite, NULL);
         for (int i = 0; i != 15; i++) {
             sfRenderWindow_drawSprite(game->window,
@@ -89,8 +87,6 @@ void draw_inventory(game_t *game UNUSED, entity_t *entity)
             sfRenderWindow_drawSprite(game->window,
                 inventory->equipment[index].sprite, NULL);
         sfRenderWindow_drawSprite(game->window, inventory->cursor_item, NULL);
-    } else {
-        game->is_paused = false;
     }
 }
 
@@ -110,6 +106,7 @@ bool handle_inventory_events(game_t *game UNUSED,
     if (sfMouse_isButtonPressed(sfMouseLeft)
         && sfFloatRect_contains(&rect, pos.x, pos.y)) {
         update_cursor(game, entity);
+        game->is_paused = false;
         inventory->is_visible = false;
         return (true);
     }
