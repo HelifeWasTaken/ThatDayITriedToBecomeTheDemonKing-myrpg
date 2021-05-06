@@ -85,6 +85,50 @@ static const struct json_deser_data BOSS_DESER[] = {
         },
         .type = JSON_NUM,
         .opt = false
+    },
+    {
+        .data = ".hp",
+        .size_data = sizeof(int),
+        .offset = offsetof(boss_data_t, hp),
+        .intern = {
+            .callback = NULL,
+            .woff = false
+        },
+        .type = JSON_NUM,
+        .opt = false
+    },
+    {
+        .data = ".mana",
+        .size_data = sizeof(int),
+        .offset = offsetof(boss_data_t, mana),
+        .intern = {
+            .callback = NULL,
+            .woff = false
+        },
+        .type = JSON_NUM,
+        .opt = false
+    },
+    {
+        .data = ".scale",
+        .size_data = sizeof(sfVector2f),
+        .offset = offsetof(boss_data_t, scale),
+        .intern = {
+            .callback = deser_vector2f,
+            .woff = true
+        },
+        .type = JSON_OBJ,
+        .opt = false
+    },
+    {
+        .data = ".pos_offset",
+        .size_data = sizeof(sfVector2f),
+        .offset = offsetof(boss_data_t, pos_offset),
+        .intern = {
+            .callback = deser_vector2f,
+            .woff = true
+        },
+        .type = JSON_OBJ,
+        .opt = false
     }
 };
 

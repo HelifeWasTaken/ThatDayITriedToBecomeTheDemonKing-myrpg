@@ -55,8 +55,6 @@ bool deser_vector2f(struct json *conf, size_t offset, void *data)
     return (true);
 }
 
-
-
 static const struct json_deser_data DESER_RI[] = {
     {
         .data = ".top",

@@ -50,7 +50,7 @@ bool set_boss_loop(game_t *game, boss_t **boss)
         texture = create_texture(game, (*boss)->boss_vector->data[i].file_path,
                 NULL);
         (*boss)->boss_vector->data[i].rect_size =
-            VEC2U((*boss)->boss_vector->data[i].rect.width,
+            VEC2F((*boss)->boss_vector->data[i].rect.width,
                     (*boss)->boss_vector->data[i].rect.height);
         D_ASSERT(texture, NULL, "could not load pnj texture", false);
         (*boss)->boss_vector->data[i].sprite = create_sprite(texture,
