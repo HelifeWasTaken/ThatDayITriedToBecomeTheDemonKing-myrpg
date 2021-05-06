@@ -8,6 +8,7 @@
 CC = gcc
 
 CFLAGS = -W -Wall -Werror -I./include -L./lib
+CFLAGS += -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -std=c99
 
 ifeq ($(EPIDEBUG), 1)
 	CFLAGS += -Wno-error=init-self -Winit-self
@@ -156,6 +157,8 @@ SRC = 	src/game.c \
 		$(SRC_CINEMA) \
 		$(SRC_ATH)
 
+OBJ 	=	$(SRC:.c=.o)
+
 TESTS =	\
 
 all:
@@ -186,8 +189,8 @@ coverage:
 clean_tests:
 	rm -rf ${TARGET_TEST}
 
-$(TARGET): ${SRC}
-	${CC} ${CFLAGS} -o ${TARGET} ${SRC} src/main.c ${LFLAGS}
+$(TARGET): ${OBJ}
+	${CC} ${CFLAGS} -o ${TARGET} ${OBJ} src/main.c ${LFLAGS}
 
 clean:
 	rm -f ${TARGET}
@@ -195,7 +198,7 @@ clean:
 	${MAKE} clean -j -C ./lib/iron_goat/
 
 fclean: clean
-	rm -f ${LIB} *.gc* unit_tests
+	rm -f ${LIB} *.gc* unit_tests ${OBJ}
 	${MAKE} fclean -C ./lib/iron_goat/
 	${MAKE} fclean -C ./lib/distract/
 

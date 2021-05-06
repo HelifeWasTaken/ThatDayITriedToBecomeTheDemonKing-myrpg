@@ -47,14 +47,14 @@ static void read_disp_text(struct cinema *tmp, char s[1000])
 bool parse_disp_text(struct cinema **head, char *buf)
 {
     struct cinema tmp = {0};
-    char *ptr = NULL;
+    char *ptr = estrchr(buf, '"') + 1;
     char s[1000] = {0};
 
     tmp.type = DISP_TEXT;
     parse_space(&buf);
-    ptr = estrchr(buf, '"') + 1;
     buf = estrchr(ptr, '"') + 1;
-    if (ptr == NULL || ptr == NULL + 1 || buf == NULL || buf == NULL + 1) {
+    if (ptr == NULL || ptr == (char *)1 ||
+        buf == NULL || buf == (char *)1) {
         print_error("Missing quotes on string parse_disp_text");
         return (false);
     }
@@ -71,13 +71,13 @@ bool parse_disp_text(struct cinema **head, char *buf)
 bool parse_new_scene(struct cinema **head, char *buf)
 {
     struct cinema tmp = {0};
-    char *ptr = NULL;
+    char *ptr = estrchr(buf, '"') + 1;
 
     tmp.type = SWITCH_SCENE_CINEMATIC;
     parse_space(&buf);
-    ptr = estrchr(buf, '"') + 1;
     buf = estrchr(ptr, '"') + 1;
-    if (ptr == NULL || ptr == NULL + 1 || buf == NULL || buf == NULL + 1) {
+    if (ptr == NULL || ptr == (char *)1 ||
+        buf == NULL || buf == (char *)1) {
         print_error("Missing quotes on string parse_new_scene");
         return (false);
     }
