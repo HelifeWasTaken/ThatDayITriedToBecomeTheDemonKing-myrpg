@@ -22,11 +22,11 @@ static bool fill_labels(game_t *game UNUSED, battlehud_t *hud)
     sfVector2f pos = hud->entity->pos;
 
     hud->lv_label->entity->pos = VEC2F(pos.x + 900, pos.y + 125);
-    hud->lv_label->title = estrdup("Lv.   XXX");
+    hud->lv_label->title = estrdup("Lv.   XXXX  ");
     hud->hp_label->entity->pos = VEC2F(pos.x + 900, pos.y + 175);
-    hud->hp_label->title = estrdup("HP:   XXX");
+    hud->hp_label->title = estrdup("HP:   XXXX  ");
     hud->xp_label->entity->pos = VEC2F(pos.x + 900, pos.y + 225);
-    hud->xp_label->title = estrdup("XP:   XXX");
+    hud->xp_label->title = estrdup("XP:   XXXX  ");
     D_ASSERT(hud->lv_label->title, NULL, "Cannot stralloc battlehud", false);
     D_ASSERT(hud->xp_label->title, NULL, "Cannot stralloc battlehud", false);
     D_ASSERT(hud->hp_label->title, NULL, "Cannot stralloc battlehud", false);
@@ -37,8 +37,10 @@ static int count_digits(int nb, int max)
 {
     int count = 1;
 
-    if (nb < 0)
+    if (nb < 0) {
         nb = -nb;
+        count++;
+    }
     while (nb >= 10) {
         nb /= 10;
         count++;
