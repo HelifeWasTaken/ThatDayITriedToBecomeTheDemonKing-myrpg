@@ -10,14 +10,20 @@
 #include "distract/resources.h"
 #include "myrpg/entities.h"
 
+void init_menu_scene(game_t *game, sfMusic *song)
+{
+    set_game_view(game, game->gui_view);
+    sfMusic_setLoop(song, true);
+    sfMusic_play(song);
+}
+
 int menu_lifecycle(game_t *game)
 {
     sfEvent event;
     create_entity(game, MENU);
     sfMusic *song = sfMusic_createFromFile("asset/song/main_menu_theme.ogg");
 
-    sfMusic_setLoop(song, true);
-    sfMusic_play(song);
+    init_menu_scene(game, song);
     while (is_scene_updated(game)) {
         while (sfRenderWindow_pollEvent(game->window, &event))
             if (event.type == sfEvtClosed)

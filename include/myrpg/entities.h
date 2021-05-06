@@ -50,8 +50,8 @@ enum entity_type {
     BATTLEMANAGER,
     GUI_BUTTON,
     GUI_LABEL,
-    PNJ
-
+    PNJ,
+    PAUSE_MENU
 };
 
 //----------------------------------------
@@ -452,12 +452,25 @@ typedef struct pause_menu {
     entity_t *entity;
     pausable_clock_t *clock;
     sfSprite *sprite;
+    sfSprite *btn[3];
+    bool is_display;
+    sfText *str[3];
+    sfText *title;
 } pause_menu_t;
+
+enum {
+    CONTINUE_MENU_BTN,
+    MENU_BTN,
+    QUIT_BTN
+};
 
 bool create_pause_menu(game_t *game, entity_t *entity);
 void update_pause_menu(game_t *game, entity_t *entity);
 void draw_pause_menu(game_t *game, entity_t *entity);
 void destroy_pause_menu(game_t *game, entity_t *entity);
 bool handle_pause_menu_events(game_t *game, entity_t *entity, sfEvent *event);
+bool init_btn_pause(game_t *game, entity_t *entity);
+bool init_text_pause(game_t *game, entity_t *entity);
+void function_button_pause(game_t *game, entity_t *entity, int i);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

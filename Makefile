@@ -106,6 +106,10 @@ SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlemanager/bard_talking.c \
 			src/entities/battlemanager/battle.c
 
+SRC_PAUSE	=	src/entities/pause_menu/pause_menu.c \
+				src/entities/pause_menu/create_button.c	\
+				src/entities/pause_menu/func.c
+
 SRC = 	src/game.c \
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
@@ -137,7 +141,8 @@ SRC = 	src/game.c \
     $(SRC_LIFECYCLE) \
 	$(SRC_BATTLE) \
 	$(SRC_BUTTON) \
-	$(SRC_LABEL)
+	$(SRC_LABEL)	\
+	$(SRC_PAUSE)
 
 TESTS =	\
 

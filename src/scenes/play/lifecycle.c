@@ -41,6 +41,7 @@ int init_play_lifecycle(game_t *game)
 {
     game_state_t *state = game->state;
 
+    create_entity(game, PAUSE_MENU);
     set_game_view(game, sfView_createFromRect((sfFloatRect){0, 0,
         game->mode.width / 3.f, game->mode.height / 3.f}));
     D_ASSERT(load_map_from_file(game, &state->map), false,

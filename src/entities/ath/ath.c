@@ -74,8 +74,7 @@ bool create_ath(game_t *game UNUSED, entity_t *entity)
     ath->view = get_entity(game, VIEW)->instance;
     ath->player_ath_sprite = create_sprite(player_ath_texture,
         &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
-    if (!ath->player_ath_sprite)
-        return (false);
+    D_ASSERT(ath->player_ath_sprite, NULL, "error sprite ath", false);
     ath->ath_pos = VEC2F(0, PLAYER_ATH_POS_Y);
     SET_SPRITE_POS(ath->player_ath_sprite, ath->ath_pos);
     if (create_ath_second_part(ath, game, icon_texture) == false)
