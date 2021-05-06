@@ -29,7 +29,7 @@ static const entity_info_t ENTITIES[] = {
         &destroy_menu, NULL, &handle_menu_events),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, &update_button_handler, &handle_ath_events),
-    ENTITY(HERO, &create_hero, &draw_hero,
+    ENTITY(HERO, &create_hero, NULL,
         &destroy_hero, &update_hero, NULL),
     ENTITY(VIEW, &create_view, NULL,
         &destroy_view, &update_view, NULL),
@@ -59,7 +59,6 @@ static const entity_info_t ENTITIES[] = {
             &destroy_inventory, &update_inventory, &handle_inventory_events),
     ENTITY(SELECT, &create_mute_button, &draw_mute_button,
         &destroy_mute_button, &update_mute_button, &handle_mute_button_events),
-
     ENTITY(BATTLEHUD, &create_battlehud, &draw_battlehud,
             &destroy_battlehud, &update_battlehud, &handle_battlehud_events),
     ENTITY(BATTLEMANAGER, &create_battlemanager, &draw_battlemanager,
@@ -146,8 +145,8 @@ int load_game(void)
         return (84);
     configure_game(game);
     set_pending_scene(game, MENU_SCENE);
-    game->scene->world_file = "asset/map_asset/map_files/map_village.json";
-    get_game_state(game)->save.player_pos = VEC2F(1535, 42);
+    game->scene->world_file = DEFAULT_WORLD_FILE;
+    get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
     do {
         code = load_pending_scene(game);
         if (code != 0)

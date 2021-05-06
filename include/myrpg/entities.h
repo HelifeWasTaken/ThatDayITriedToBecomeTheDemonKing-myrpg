@@ -116,6 +116,7 @@ typedef struct hero {
     double speed;
     const struct map_loader *layers;
     bool disable_collision;
+    bool cannot_be_attacked;
 } hero_t;
 
 bool create_hero(game_t *game, entity_t *entity);
@@ -140,6 +141,7 @@ typedef struct ath {
     sfVector2f ath_pos;
     sfSprite *button_sprite[6];
     view_t *view;
+    sfSprite *ath_stones[3];
 } ath_t;
 
 bool create_ath(game_t *game, entity_t *entity);
@@ -148,6 +150,8 @@ void draw_ath(game_t *game UNUSED, entity_t *entity);
 bool handle_ath_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED);
 void update_button_handler(game_t *game UNUSED, entity_t *entity);
+bool create_ath_second_part(ath_t *ath, game_t *game,
+    sfTexture *icon_texture);
 
 typedef struct menu {
     entity_t *entity;

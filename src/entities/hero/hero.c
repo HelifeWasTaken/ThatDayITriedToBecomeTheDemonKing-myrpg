@@ -58,10 +58,10 @@ void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     hero_t *hero = entity->instance;
 
+    sfSprite_setPosition(hero->sprite, entity->pos);
     if (GBL_IS_IN_CINEMATIC == true)
         return;
     update_hero_move(game, hero);
-    sfSprite_setPosition(hero->sprite, entity->pos);
     tick_pausable_clock(hero->animation_clock);
     tick_pausable_clock(hero->movement_clock);
 }

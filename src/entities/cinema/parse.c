@@ -50,6 +50,10 @@ static const struct cinema_parser CINEMA_PRSR[] = {
     {
         .match = "disp",
         .fun = parse_disp_text
+    },
+    {
+        .match = "new_scene",
+        .fun = parse_new_scene
     }
 };
 
@@ -60,7 +64,8 @@ static bool cinema_reader_command_internal(struct cinema **head, char *buf)
     parse_space(&buf);
     for (size_t i = 0; i < sizeof(CINEMA_PRSR) / sizeof(*CINEMA_PRSR); i++) {
         size = estrlen(CINEMA_PRSR[i].match);
-        if (estrncmp(buf, CINEMA_PRSR[i].match, size) == 0 && buf[size] == ' ') {
+        if (estrncmp(buf, CINEMA_PRSR[i].match, size) == 0 &&
+            buf[size] == ' ') {
             return (CINEMA_PRSR[i].fun(head, buf + size));
         }
     }
@@ -82,6 +87,7 @@ bool cinema_reader_command(struct cinema **head, char const *filepath)
         if (cinema_reader_command_internal(head, buf) == false) {
             FREE(buf);
             fclose(file);
+            efprintf(stderr, "Internal error in parser command\n");
             return (false);
         }
     }

@@ -6,13 +6,14 @@
 */
 
 #ifndef PARAMETERS_H_
-#define PARAMETERS_H_
+    #define PARAMETERS_H_
 
-#include "distract/entity.h"
-#include "myrpg/game.h"
-#include "define.h"
-#include <stdint.h>
-#include "iron_goat/deser.h"
+    #include "distract/entity.h"
+    #include "myrpg/game.h"
+    #include "define.h"
+    #include <stdint.h>
+    #include "iron_goat/deser.h"
+    #include <SFML/Audio.h>
 
     enum item_type {
         EMPTY,
@@ -39,6 +40,25 @@
         int id;
     } item_t;
 
+    enum cinematics_id {
+        VILLAGE_CINEMATIC,
+        MAP_MONDE_CINEMATIC,
+        DESERT_VILLAGE_CINEMATIC,
+        DESERT_BATTLE_CINEMATIC,
+        VOLCANO_CINEMATIC,
+        FOREST_CINEMATIC,
+        CASTLE_CINEMATIC,
+        INSIDE_CASTLE_CINEMATIC,
+        LAST_CINEMATIC,
+        CINEMATIC_COUNT
+    };
+
+    #define IS_GAME_FINISHED(game) \
+        (get_game_state(game)->save.levels_done[0] && \
+        get_game_state(game)->save.levels_done[1] && \
+        get_game_state(game)->save.levels_done[2] && \
+        get_game_state(game)->save.levels_done[3])
+
     typedef struct game_save {
         char map_id[256];
         item_t item[15];
@@ -46,7 +66,10 @@
         int player_mana;
         int player_hp;
         int player_lv;
-        uint8_t cinematics;
+        uint16_t cinematics;
+        uint32_t cinematics_end_count;
+        sfMusic *music;
+        bool levels_done[4];
     } game_save_t;
 
     typedef struct game_state {

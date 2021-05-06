@@ -108,13 +108,17 @@ SRC_CINEMA = 	src/entities/cinema/cinema.c \
 				src/entities/cinema/list.c \
 				src/entities/cinema/parse_camera.c \
 				src/entities/cinema/parse.c \
+				src/entities/cinema/command.c \
+				src/entities/cinema/load.c \
+				src/entities/cinema/end.c
+
+SRC_ATH	=	src/entities/ath/button_handler.c \
+			src/entities/ath/func_btn.c \
+			src/entities/ath/init.c
 
 SRC = 	src/game.c \
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
-	src/entities/ath/button_handler.c \
-	src/entities/ath/func_btn.c \
-	$(SRC_INVENTORY) \
 	src/entities/settings/mute_button.c	\
 	src/entities/settings/init_select_button.c	\
 	    src/entities/scroll_bar/scroll_bar.c    \
@@ -141,7 +145,9 @@ SRC = 	src/game.c \
 		$(SRC_BATTLE) \
 		$(SRC_BUTTON) \
 		$(SRC_LABEL) \
-		$(SRC_CINEMA)
+		$(SRC_INVENTORY) \
+		$(SRC_CINEMA) \
+		$(SRC_ATH)
 
 TESTS =	\
 

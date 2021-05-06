@@ -6,6 +6,7 @@
 */
 
 #include "myrpg/cinema.h"
+#include "distract/debug.h"
 
 bool parse_move_camera(struct cinema **head, char *buf)
 {
@@ -52,7 +53,11 @@ bool parse_disp_text(struct cinema **head, char *buf)
     tmp.type = DISP_TEXT;
     parse_space(&buf);
     ptr = estrchr(buf, '"') + 1;
-    buf = estrchr(ptr, buf - ptr) + 1;
+    buf = estrchr(ptr, '"') + 1;
+    if (ptr == NULL || ptr == NULL + 1 || buf == NULL || buf == NULL + 1) {
+        print_error("Missing quotes on string parse_disp_text");
+        return (false);
+    }
     tmp.u.disp = estrndup(ptr, buf - ptr - 1);
     if (tmp.u.disp == NULL)
         return (false);
@@ -60,5 +65,24 @@ bool parse_disp_text(struct cinema **head, char *buf)
     free(tmp.u.disp);
     tmp.u.disp = estrdup(s);
     tmp.cycle_count = rpg_strtoll(buf, &buf);
+    return (push_back_cinema(head, &tmp));
+}
+
+bool parse_new_scene(struct cinema **head, char *buf)
+{
+    struct cinema tmp = {0};
+    char *ptr = NULL;
+
+    tmp.type = SWITCH_SCENE_CINEMATIC;
+    parse_space(&buf);
+    ptr = estrchr(buf, '"') + 1;
+    buf = estrchr(ptr, '"') + 1;
+    if (ptr == NULL || ptr == NULL + 1 || buf == NULL || buf == NULL + 1) {
+        print_error("Missing quotes on string parse_new_scene");
+        return (false);
+    }
+    tmp.u.disp = estrndup(ptr, buf - ptr - 1);
+    if (tmp.u.disp == NULL)
+        return (false);
     return (push_back_cinema(head, &tmp));
 }

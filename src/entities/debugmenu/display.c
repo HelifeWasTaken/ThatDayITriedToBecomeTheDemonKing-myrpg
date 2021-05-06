@@ -28,8 +28,10 @@ char *get_debug_message(game_t *game UNUSED, debugmenu_t *debugmenu UNUSED)
     hero_t *hero = get_entity(game, HERO)->instance;
 
     count_entities(game);
-    return (eformat("position: %f, %f\n"
-        "map file: %s\n", hero->entity->pos.x, hero->entity->pos.y,
-        game->scene->world_file));
-    return (estrdup(""));
+    return (eformat(
+        "position: %f, %f\n"
+        "map file: %s\n"
+        "Battles and collisions: %s\n",
+        hero->entity->pos.x, hero->entity->pos.y,
+        game->scene->world_file, BOOL_TO_STR(hero->cannot_be_attacked)));
 }
