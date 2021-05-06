@@ -5,6 +5,7 @@
 ** msg
 */
 
+#include "myrpg/map/object.h"
 #include "stdlib.h"
 #include "distract/game.h"
 #include "distract/entity.h"
@@ -21,6 +22,7 @@
 static bool load_pnj_message(struct layer_object_data *data,
                             ig_object_t *obj)
 {
+    data->object.pnj.boss_id = -1;
     for (usize_t i = 0; i < obj->properties->size; i++) {
         if ((obj->properties->data[i].type == PROP_STRING ||
             obj->properties->data[i].type == PROP_FILE) &&
@@ -62,14 +64,30 @@ static bool load_pnj_entity(game_t *game, struct layer_object_data *data)
     dialog = entity->instance;
     dialog->messages = data->object.pnj.message;
     dialog->name = data->object.pnj.name;
+    dialog->boss_id = data->object.pnj.boss_id;
     dialog->entity->pos = VEC2F(data->rect.left, data->rect.top);
+    return (true);
+}
+
+static bool load_pnj_boss_id(struct layer_object_data *data,
+                            ig_object_t *obj)
+{
+    data->object.pnj.boss_id = -1;
+    for (usize_t i = 0; i < obj->properties->size; i++) {
+        if ((obj->properties->data[i].type == PROP_INT) &&
+            estrcmp(obj->properties->data[i].name, "boss_id") == 0) {
+            data->object.pnj.boss_id =
+                obj->properties->data[i].value.i;
+        }
+    }
     return (true);
 }
 
 bool load_pnj(game_t *game, struct layer_object_data *data, ig_object_t *obj)
 {
     if (load_pnj_name(data, obj) == false ||
-        load_pnj_message(data, obj) == false)
+        load_pnj_message(data, obj) == false ||
+        load_pnj_boss_id(data, obj) == false)
         return (false);
     if (load_pnj_entity(game, data) == false)
         return (false);

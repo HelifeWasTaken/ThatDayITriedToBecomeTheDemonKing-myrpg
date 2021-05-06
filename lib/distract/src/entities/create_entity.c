@@ -57,10 +57,6 @@ entity_t *create_entity(game_t *game, int type)
 
     D_ASSERT(info, NULL, "Entity is not registered", false);
     D_ASSERT(entity, NULL, "Entity creation failed", false);
-    if (entity == NULL || info == NULL) {
-        print_error("Entity creation failed");
-        return (NULL);
-    }
     set_defaults(type, entity, info);
     if (info->create != NULL) {
         D_ASSERT(info->create(game, entity), false,

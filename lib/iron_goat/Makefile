@@ -15,8 +15,6 @@ NAME 			=	libtgoat.a
 
 IFLAGS 			=	-I./erty/include -I./iron_goat/include
 
-DEBUG_FLAGS 	= 	-g3 -ggdb -O0 -O2
-
 TEST_FLAGS 		= 	--coverage -lcriterion
 
 WFLAGS 			=	-W -Wall -Wextra -Werror
@@ -30,7 +28,21 @@ CFLAGS 			?=	 $(WFLAGS) $(POSIX_FLAGS) $(STANDARD_FLAGS) $(IFLAGS)
 DEBUG 			?=	0
 
 ifeq ($(DEBUG),1)
-	CFLAGS 		+=	$(DEBUG_FLAGS)
+	CFLAGS += -g3 -ggdb
+	CFLAGS += -Wno-error=init-self -Winit-self
+	CFLAGS += -Wno-error=shadow -Wshadow
+	CFLAGS += -Wno-error=pointer-arith -Wpointer-arith
+	CFLAGS += -Wno-error=duplicated-cond -Wduplicated-cond
+	CFLAGS += -Wno-error=switch-enum -Wswitch-enum
+	CFLAGS += -Wno-error=declaration-after-statement -Wdeclaration-after-statement
+	CFLAGS += -Wno-error=float-equal -Wfloat-equal
+	CFLAGS += -Wno-error=tautological-compare -Wtautological-compare
+	CFLAGS += -Wno-error=array-bounds -Warray-bounds
+	CFLAGS += -Wno-error=alloc-zero -Walloc-zero
+	CFLAGS += -Wno-error=cast-qual -Wcast-qual
+	CFLAGS += -Wno-error=extra -Wextra -Wnonnull
+	CFLAGS += -fno-builtin
+	CFLAGS += -ftrapv -ggdb -g3
 endif
 
 SRC_CTYPE_IS	=	./erty/ectypes/is/eis_alpha.c 			\

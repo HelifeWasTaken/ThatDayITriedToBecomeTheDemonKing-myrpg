@@ -19,62 +19,17 @@
 typedef struct entity {
     struct entity *next;
     struct entity *prev;
-
-    ///
-    /// Pointer to the registry informations of the entity
-    ///
     struct entity_info *info;
-
-    ///
-    /// Position of the entity
-    ///
     sfVector2f pos;
-
-    ///
-    /// Type of the entity
-    ///
     int type;
-
-    ///
-    /// Z-order of the entity.
-    /// Highest value means that the entity will be updated/drawn last.
-    ///
     int z;
-
-    ///
-    /// Storage for the entity instance.
-    ///
-    /// If created with `create_entity(game, type)` or in the scope of a hook
-    /// function (except for the `create` hook), it is garanteed to be non-NULL.
-    ///
     void *instance;
-
-    ///
-    /// Function called to check if a position collides with a point
-    /// of the object
-    ///
     bool (*do_collide_point)(struct entity *entity, sfVector2f *pos);
-
-    ///
-    /// Function called to check if a rectangle collides with a point of the
-    /// object
-    ///
     bool (*do_collide_rect)(struct entity *entity, sfFloatRect *rect,
         sfFloatRect *overlap);
-
-    ///
-    /// If set to true, update loop will be run on another thread
-    ///
     bool use_multithreading;
-
-    ///
-    /// In the case where multithreading is enabled, it is
-    /// the informations about the corresponding thread
-    ///
     struct thread_info *threadinfo;
-
     bool draw_on_gui;
-
 } entity_t;
 
 ///
@@ -82,12 +37,7 @@ typedef struct entity {
 ///
 typedef struct entity_info {
     struct entity_info *next;
-
-    ///
-    /// Type of the entity
-    ///
     int type;
-
     bool (*create)(game_t *game, entity_t *entity);
     void (*draw)(game_t *game, entity_t *entity);
     void (*destroy)(game_t *game, entity_t *entity);

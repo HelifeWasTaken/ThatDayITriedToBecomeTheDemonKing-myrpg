@@ -29,7 +29,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/skeleton.png",
         .asset_rect = { 0, 0, 1144, 452 },
         .level = 1,
-        .health = 70,
+        .health = 10,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -37,34 +37,16 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 0, 3 },
                 { 7, 13 },
-                { 14, 17 },
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 7
         },
         .spells = {
             {
-                .name = "Attack",
-                .mana = 0,
-                .efficiency = 18,
-                .type = BST_NOT_A_SPELL,
-                .anim = BAT_ANIM_ATTACK,
-                .attack_fx_file = "asset/fx/classic_hit.png",
-                .attack_fx_frames_per_line = 5,
-                .attack_fx_frames_count = 10
-            },
-            {
                 .name = "Dark Attack",
                 .mana = 0,
-                .efficiency = 28,
+                .efficiency = 3,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/dark_attack.png",
@@ -78,7 +60,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/goblin.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 40,
+        .health = 12,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -86,15 +68,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 8, 11 },
                 { 0, 7 },
-                { 14, 17 },
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -103,12 +77,13 @@ static const battle_opponent_t ENEMIES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 15,
+                .efficiency = 2,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/classic_hit.png",
                 .attack_fx_frames_per_line = 5,
-                .attack_fx_frames_count = 10
+                .attack_fx_frames_count = 10,
+                .attack_fx_size = { 1, 1 }
             }
         }
     },
@@ -117,7 +92,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/devil_eye.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 20,
+        .health = 9,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -125,15 +100,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 8, 13 },
                 { 0, 7 },
-                { 14, 17 },
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -142,7 +109,7 @@ static const battle_opponent_t ENEMIES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 8,
+                .efficiency = 3,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/fangs_attack.png",
@@ -156,7 +123,7 @@ static const battle_opponent_t ENEMIES[] = {
         .asset_file = "asset/enemies/mushroo.png",
         .asset_rect = { 0, 0, 1200, 450 },
         .level = 1,
-        .health = 50,
+        .health = 13,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -164,15 +131,7 @@ static const battle_opponent_t ENEMIES[] = {
             .animations = {
                 { 8, 11 },
                 { 0, 7 },
-                { 14, 17 },
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                { 14, 17 }
             },
             .frame_size = { 150, 150 },
             .frames_per_line = 8
@@ -181,7 +140,7 @@ static const battle_opponent_t ENEMIES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 10,
+                .efficiency = 1,
                 .type = BST_NOT_A_SPELL,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/mushroom_atk.png",
@@ -204,26 +163,17 @@ static const battle_opponent_t *select_rand_enemy(int level)
 
     do {
         rand_opponent = &ENEMIES[rand() % (ARRAY_SIZE(ENEMIES))];
-    } while ((rand_opponent->level / 10) > (level / 10));
+    } while ((rand_opponent->level / 3) > (level / 3));
     return (rand_opponent);
 }
 
-int count_spells(battle_opponent_t *enemy)
-{
-    int spell_count = 0;
-
-    for (int i = 0; enemy->spells[i].name != NULL; i++)
-        spell_count++;
-    return (spell_count);
-}
-
-static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
+int create_battle_enemy(game_t *game, battle_opponent_t *enemy,
+    const battle_opponent_t *source)
 {
     sfTexture *texture;
-    const battle_opponent_t *rand_enemy
-        = select_rand_enemy(level);
 
-    ememcpy(enemy, rand_enemy, sizeof(battle_opponent_t));
+    ememcpy(enemy, source, sizeof(battle_opponent_t));
+    GET_ENNEMY_TRUE_POWER(enemy, game);
     texture = create_texture(game, enemy->asset_file, &enemy->asset_rect);
     D_ASSERT(texture, NULL, "Cannot create texture", -1)
     enemy->animable_info.sprite = create_sprite(texture, NULL);
@@ -241,7 +191,14 @@ static int create_enemy(game_t *game, battle_opponent_t *enemy, int level)
     return (0);
 }
 
-static void place_enemies(battlemanager_t *manager, int entity_count)
+int create_battle_rand_enemy(game_t *game, battle_opponent_t *enemy, int level)
+{
+    const battle_opponent_t *rand_enemy = select_rand_enemy(level);
+
+    return (create_battle_enemy(game, enemy, rand_enemy));
+}
+
+void place_battle_enemies(battlemanager_t *manager, int entity_count)
 {
     sfVector2f pos;
     sfFloatRect bounds;
@@ -252,6 +209,7 @@ static void place_enemies(battlemanager_t *manager, int entity_count)
         pos = ENEMIES_POSITIONS[entity_count - 1][i];
         bounds = sfSprite_getGlobalBounds(sprite);
         manager->enemies[i].pos = pos;
+        pos = v2fadd(pos, manager->enemies[i].pos_offset);
         sfSprite_setPosition(sprite,
             v2fsub(pos, VEC2F(bounds.width / 2, bounds.height / 2)));
     }
@@ -271,10 +229,10 @@ int create_battlemanager_enemies(game_t *game, battlemanager_t *manager)
         entity_count = entity_count > 2 ? 2 : entity_count;
     }
     for (int i = 0; i < entity_count; i++) {
-        if (create_enemy(game, &manager->enemies[i], level) == -1)
+        if (create_battle_rand_enemy(game, &manager->enemies[i], level) == -1)
             return (-1);
         manager->enemies_count++;
     }
-    place_enemies(manager, entity_count);
+    place_battle_enemies(manager, entity_count);
     return (0);
 }

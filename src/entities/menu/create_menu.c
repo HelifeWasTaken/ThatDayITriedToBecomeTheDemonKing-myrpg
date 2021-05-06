@@ -17,9 +17,10 @@
 #include "stdlib.h"
 #include "distract/util.h"
 
-static bool loop_buton_placement(game_t *game, menu_t *menu)
+static bool create_background_loop(game_t *game, menu_t *menu,
+    sfTexture *menu_texture UNUSED, sfTexture *button_texture)
 {
-    sfTexture *button_texture = NULL;
+    int pos_y = 3;
 
     for (int i = 0; i < 3; i++) {
         button_texture = create_texture(game, ASSET_MENU_PATH[i],
@@ -32,6 +33,7 @@ static bool loop_buton_placement(game_t *game, menu_t *menu)
         sfSprite_setScale(menu->button_sprite[i], VEC2F(2, 2));
         SET_SPRITE_POS(menu->button_sprite[i], VEC2F(BUTTON_MENU_POS[i],
             WINDOW_H / 1.5));
+        pos_y--;
     }
     return (true);
 }
@@ -41,12 +43,14 @@ static bool create_background(game_t *game UNUSED,
 {
     sfTexture *menu_texture =
         create_texture(game, MAIN_MENU_BG, &MENU_BG_RECT(window));
+    sfTexture *button_texture = NULL;
 
     menu->bg_sprite = create_sprite(menu_texture, NULL);
     if (menu_texture == NULL || menu->bg_sprite == NULL)
         return (false);
+
     sfSprite_setPosition(menu->bg_sprite, VEC2F(0, 0));
-    return (loop_buton_placement(game, menu));
+    return (create_background_loop(game, menu, menu_texture, button_texture));
 }
 
 bool create_menu(game_t *game UNUSED, entity_t *entity)

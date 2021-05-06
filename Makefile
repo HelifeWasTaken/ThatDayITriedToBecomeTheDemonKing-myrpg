@@ -8,6 +8,7 @@
 CC = gcc
 
 CFLAGS = -W -Wall -Werror -I./include -L./lib
+CFLAGS += -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -std=c99
 
 ifeq ($(EPIDEBUG), 1)
 	CFLAGS += -Wno-error=init-self -Winit-self
@@ -104,7 +105,21 @@ SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlemanager/attack.c \
 			src/entities/battlemanager/attack_fx.c \
 			src/entities/battlemanager/bard_talking.c \
-			src/entities/battlemanager/battle.c
+			src/entities/battlemanager/battle.c \
+			src/entities/battlemanager/start_battle.c \
+			src/entities/battlemanager/boss.c
+
+SRC_CINEMA = 	src/entities/cinema/cinema.c \
+				src/entities/cinema/list.c \
+				src/entities/cinema/parse_camera.c \
+				src/entities/cinema/parse.c \
+				src/entities/cinema/command.c \
+				src/entities/cinema/load.c \
+				src/entities/cinema/end.c
+
+SRC_ATH	=	src/entities/ath/button_handler.c \
+			src/entities/ath/func_btn.c \
+			src/entities/ath/init.c
 
 SRC_PAUSE	=	src/entities/pause_menu/pause_menu.c \
 				src/entities/pause_menu/create_button.c	\
@@ -113,36 +128,41 @@ SRC_PAUSE	=	src/entities/pause_menu/pause_menu.c \
 SRC = 	src/game.c \
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
-	src/entities/ath/button_handler.c \
-	src/entities/ath/func_btn.c \
-	$(SRC_INVENTORY) \
 	src/entities/settings/mute_button.c	\
 	src/entities/settings/init_select_button.c	\
-	src/entities/scroll_bar/scroll_bar.c    \
-    src/entities/settings/setting_button.c	\
-	src/entities/settings/function_button.c	\
-	src/entities/settings/vfx_scroll.c	\
-	src/entities/settings/fonc_scroll_vfx.c	\
-    src/entities/settings/set_size.c 	\
-    src/entities/ath/ath.c \
-    src/entities/view/view.c \
-	src/entities/dialogbox/dialogbox.c \
-	src/entities/dialogbox/create.c \
-	src/entities/dialogbox/show_text.c \
-	src/entities/dialog/dialog.c \
-	src/entities/npc/pnj_loader.c \
-	src/entities/npc/create_pnj.c \
-	src/entities/npc/pnj_drawing.c \
-    $(SRC_DEBUGMENU) \
-    $(SRC_MENU) \
-    $(SRC_UTIL) \
-    $(SRC_MAP) \
-    $(SRC_HERO) \
-    $(SRC_LIFECYCLE) \
-	$(SRC_BATTLE) \
-	$(SRC_BUTTON) \
-	$(SRC_LABEL)	\
-	$(SRC_PAUSE)
+	    src/entities/scroll_bar/scroll_bar.c    \
+        src/entities/settings/setting_button.c	\
+	    src/entities/settings/function_button.c	\
+	    src/entities/settings/vfx_scroll.c	\
+	    src/entities/settings/fonc_scroll_vfx.c	\
+        src/entities/settings/set_size.c 	\
+        src/entities/ath/ath.c \
+        src/entities/view/view.c \
+		src/entities/dialogbox/dialogbox.c \
+		src/entities/dialogbox/create.c \
+		src/entities/dialogbox/show_text.c \
+		src/entities/dialog/dialog.c \
+		src/entities/npc/pnj_loader.c \
+		src/entities/npc/create_pnj.c \
+		src/entities/npc/pnj_drawing.c \
+		src/entities/boss/boss.c \
+		src/entities/boss/boss_update.c \
+		src/entities/boss/create_boss.c \
+        $(SRC_DEBUGMENU) \
+        $(SRC_MENU) \
+        $(SRC_UTIL) \
+        $(SRC_MAP) \
+        $(SRC_HERO) \
+        $(SRC_LIFECYCLE) \
+		$(SRC_BATTLE) \
+		$(SRC_BUTTON) \
+		$(SRC_LABEL) \
+		$(SRC_INVENTORY) \
+		$(SRC_CINEMA) \
+		$(SRC_ATH)  \
+    $(SRC_PAUSE)
+
+OBJ 	=	$(SRC:.c=.o)
 
 TESTS =	\
 
@@ -174,8 +194,8 @@ coverage:
 clean_tests:
 	rm -rf ${TARGET_TEST}
 
-$(TARGET): ${SRC}
-	${CC} ${CFLAGS} -o ${TARGET} ${SRC} src/main.c ${LFLAGS}
+$(TARGET): ${OBJ}
+	${CC} ${CFLAGS} -o ${TARGET} ${OBJ} src/main.c ${LFLAGS}
 
 clean:
 	rm -f ${TARGET}
@@ -183,7 +203,7 @@ clean:
 	${MAKE} clean -j -C ./lib/iron_goat/
 
 fclean: clean
-	rm -f ${LIB} *.gc* unit_tests
+	rm -f ${LIB} *.gc* unit_tests ${OBJ}
 	${MAKE} fclean -C ./lib/iron_goat/
 	${MAKE} fclean -C ./lib/distract/
 

@@ -22,6 +22,15 @@
 #include "myrpg/define.h"
 #include <SFML/Graphics/RenderWindow.h>
 
+int count_spells(battle_opponent_t *enemy)
+{
+    int spell_count = 0;
+
+    for (int i = 0; enemy->spells[i].name != NULL; i++)
+        spell_count++;
+    return (spell_count);
+}
+
 bool is_attack_anim_in_progress(battlemanager_t *manager)
 {
     int anim;

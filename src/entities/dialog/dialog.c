@@ -23,6 +23,7 @@
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Types.h>
 #include "distract/math.h"
+#include "myrpg/cinema.h"
 
 bool create_dialog(game_t *game UNUSED, entity_t *entity)
 {
@@ -81,19 +82,19 @@ bool handle_dialog_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     dialog_t *dialog = entity->instance;
-    entity_t *heroentity = get_entity(game, HERO);
     sfVector2f pos;
 
+    if (GBL_IS_IN_CINEMATIC)
+        return (false);
     if (dialog->hero == NULL) {
-        dialog->hero = heroentity->instance;
+        dialog->hero = get_instance(game, HERO);
         return (false);
     }
     pos = dialog->hero->entity->pos;
     if (v2fdistance(&pos, &entity->pos) >= 50)
         return (false);
     if (event->type == sfEvtKeyPressed && event->key.code == sfKeySpace
-        && !dialog->box->is_visible
-        && dialog->clock->time > 0.02f) {
+        && !dialog->box->is_visible && dialog->clock->time > 0.02f) {
         show_dialog(dialog);
         dialog->clock->time = 0;
         return (true);

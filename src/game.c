@@ -19,6 +19,7 @@
 #include "myrpg/scenes.h"
 #include "myrpg/util.h"
 #include "distract/util.h"
+#include "myrpg/cinema.h"
 
 static const entity_info_t ENTITIES[] = {
     ENTITY(SCROLL, &create_scroll_bar, &draw_scroll_bar,
@@ -28,7 +29,7 @@ static const entity_info_t ENTITIES[] = {
         &destroy_menu, NULL, &handle_menu_events),
     ENTITY(ATH, &create_ath, &draw_ath,
         &destroy_ath, &update_button_handler, &handle_ath_events),
-    ENTITY(HERO, &create_hero, &draw_hero,
+    ENTITY(HERO, &create_hero, NULL,
         &destroy_hero, &update_hero, NULL),
     ENTITY(VIEW, &create_view, NULL,
         &destroy_view, &update_view, NULL),
@@ -70,7 +71,11 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(PNJ, &create_pnj, &draw_pnj,
             &destroy_pnj, NULL, NULL),
     ENTITY(PAUSE_MENU, &create_pause_menu, &draw_pause_menu,
-            &destroy_pause_menu, &update_pause_menu, &handle_pause_menu_events)
+            &destroy_pause_menu, &update_pause_menu, &handle_pause_menu_events),
+    ENTITY(CINEMA, &create_cinema, NULL,
+        &destroy_cinema, &update_cinema, NULL),
+    ENTITY(BOSS, &create_boss, &draw_boss,
+            &destroy_boss, &update_boss, NULL)
 };
 
 static bool configure_window(game_t *game)
@@ -107,22 +112,13 @@ bool configure_state(game_t *game)
     state->params.music_vol = 1;
     state->params.vfx_vol = 1;
     state->params.voice_vol = 1;
-    state->params.music_muted = false;
-    state->params.vfx_muted = false;
-    state->params.voice_muted = false;
     for (int index = 0; index != 15; index++) {
         state->save.item[index].type = game->item_loaded[index].type;
         state->save.item[index].id = index;
         state->save.item[index].nb = 1;
     }
-    for (int index = 0; index != 5; index++) {
-        state->save.equipment[index].type = EMPTY;
-        state->save.equipment[index].id = 0;
-        state->save.equipment[index].nb = 0;
-    }
-    state->save.player_hp = 100;
+    state->save.player_hp = 20;
     state->save.player_lv = 1;
-    state->save.player_mana = 30;
     game->state = state;
     return (true);
 }
@@ -154,8 +150,8 @@ int load_game(void)
     if (game == NULL || configure_game(game) == false)
         return (84);
     set_pending_scene(game, MENU_SCENE);
-    game->scene->world_file = "asset/map_asset/map_files/map_village.json";
-    get_game_state(game)->save.player_pos = VEC2F(1535, 42);
+    game->scene->world_file = DEFAULT_WORLD_FILE;
+    get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
     do {
         code = load_pending_scene(game);
         if (code != 0)
