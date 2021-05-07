@@ -15,6 +15,11 @@
 
 static void on_run_click(game_t *game, entity_t *entity UNUSED)
 {
+    battlemanager_t *manager = get_instance(game, BATTLEMANAGER);
+
+    if (manager == NULL)
+        return;
+    manager->exit_code = 2;
     switch_to_scene(game, -1);
 }
 

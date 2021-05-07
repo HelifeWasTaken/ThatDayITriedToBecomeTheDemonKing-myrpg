@@ -64,7 +64,7 @@
         inventory_save_t item[15];
         inventory_save_t equipment[5];
         sfVector2f player_pos;
-        int player_mana;
+        int player_xp;
         int player_hp;
         int player_lv;
         uint16_t cinematics;

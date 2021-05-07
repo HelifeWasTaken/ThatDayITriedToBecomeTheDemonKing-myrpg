@@ -68,7 +68,6 @@ static void fill_player_state(game_t *game, battlemanager_t *manager)
     manager->friends[0].health = state->save.player_hp +
         (5 + state->save.player_lv);
     manager->friends[0].level = state->save.player_lv;
-    manager->friends[0].mana = state->save.player_mana;
     manager->friends[0].max_mana = 100;
     ememcpy(manager->friends[0].spells, PLAYER_SPELLS, sizeof(PLAYER_SPELLS));
     manager->friends[0].spells[0].efficiency += (state->save.player_lv + 2);

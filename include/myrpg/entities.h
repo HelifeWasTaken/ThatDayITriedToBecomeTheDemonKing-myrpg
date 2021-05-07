@@ -439,7 +439,7 @@ typedef struct battlehud {
     gui_button_t *run;
     gui_label_t *hp_label;
     gui_label_t *lv_label;
-    gui_label_t *mana_label;
+    gui_label_t *xp_label;
     battlemanager_t *manager;
     int selected_spell_id;
 } battlehud_t;
