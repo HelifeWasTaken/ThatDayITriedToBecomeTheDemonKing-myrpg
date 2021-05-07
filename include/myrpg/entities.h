@@ -160,6 +160,7 @@ typedef struct menu {
     entity_t *entity;
     sfSprite *bg_sprite;
     sfSprite *button_sprite[3];
+    bool is_initialized;
 } menu_t;
 
 bool create_menu(game_t *game, entity_t *entity);
