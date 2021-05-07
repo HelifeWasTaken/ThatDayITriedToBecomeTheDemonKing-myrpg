@@ -31,10 +31,14 @@ bool create_attacks(game_t *game, battlehud_t *hud)
     sfTexture *scissor_texture = create_texture(game, "asset/icon/scissor.png",
         NULL);
 
+    D_ASSERT(rock_texture, NULL, "null rock texture", false)
+    D_ASSERT(paper_texture, NULL, "null rock texture", false)
+    D_ASSERT(scissor_texture, NULL, "null rock texture", false)
     hud->atk_btn[0].btn = create_sprite(rock_texture, NULL);
     hud->atk_btn[1].btn = create_sprite(paper_texture, NULL);
     hud->atk_btn[2].btn = create_sprite(scissor_texture, NULL);
     for (int i = 0; i < 3; i++) {
+        D_ASSERT(hud->atk_btn[i].btn, NULL, "null rock sprite", false)
         sfSprite_setScale(hud->atk_btn[i].btn, VEC2F(4, 4));
         sfSprite_setPosition(hud->atk_btn[i].btn, VEC2F(500 + i * 100, 850));
         hud->atk_btn[i].on_click = on_attack_click;
