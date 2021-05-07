@@ -7,7 +7,6 @@
 
 #include <SFML/Window/Event.h>
 #include <SFML/Window/Keyboard.h>
-#include <SFML/Keyboard.h>
 #include <distract/game.h>
 #include <stdio.h>
 #include "distract/input.h"
@@ -39,7 +38,7 @@ void update_keyboard_input(input_t *input)
 
     for (int i = 0; i < sfKeyCount; i++) {
         key = &input->keys[i];
-        key->is_pressed = sfKeyboard_isKeyPressed(key);
+        key->is_pressed = sfKeyboard_isKeyPressed(i);
         if (!key->was_pressed && key->is_pressed) {
             key->is_being_pressed = false;
             key->was_pressed = true;
