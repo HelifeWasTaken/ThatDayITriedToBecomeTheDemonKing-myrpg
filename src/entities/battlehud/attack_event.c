@@ -19,7 +19,7 @@ struct button_checker_battle {
     sfVector2f pos;
 };
 
-bool handle_attack_buttons_click_events_part2(
+bool handle_attack_button_click_events_part2(
         struct button_checker_battle *checker)
 {
     if (checker->event->type == sfEvtMouseButtonReleased)
@@ -52,18 +52,33 @@ bool handle_attack_button_click_events(game_t *game,
     sfVector2f pos = sfRenderWindow_mapPixelToCoords(game->window,
             mouse, game->gui_view);
 
-    return (handle_attack_buttons_click_events_part2(
+    return (handle_attack_button_click_events_part2(
         &(struct button_checker_battle){
             click, game, event, bounds, button, pos
         }));
 }
 
-bool handle_attack_buttons_click_events(game_t *game,
-        battlehud_t *battlehud, sfEvent *event)
+bool handle_attack_button_events(game_t *game,
+    battlehud_atk_button_t *button, sfEvent *event)
+{
+    sfFloatRect bounds = sfSprite_getGlobalBounds(button->btn);
+    sfMouseMoveEvent move;
+
+    if (handle_attack_button_click_events(game, button, event))
+        return (true);
+    if (event->type == sfEvtMouseMoved) {
+        move = event->mouseMove;
+        button->is_mouse_over = sfFloatRect_contains(&bounds, move.x, move.y);
+    }
+    return (false);
+}
+
+bool handle_attack_buttons_events(game_t *game,
+    battlehud_t *battlehud, sfEvent *event)
 {
     for (int i = 0; i < 3; i++) {
-        if (handle_attack_button_click_events(game,
-                    &battlehud->atk_btn[i], event))
+        if (handle_attack_button_events(game, &battlehud->atk_btn[i],
+            event))
             return (true);
     }
     return (false);

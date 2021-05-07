@@ -51,6 +51,10 @@ void draw_menu(game_t *game UNUSED, entity_t *entity)
 {
     menu_t *menu = entity->instance;
 
+    if (!menu->is_initialized) {
+        handle_menu_events(game, entity, NULL);
+        menu->is_initialized = false;
+    }
     DRAW_SPRITE(game->window, menu->bg_sprite, NULL);
     for (int i = 0; i < 3; i++)
         DRAW_SPRITE(game->window, menu->button_sprite[i], NULL);
