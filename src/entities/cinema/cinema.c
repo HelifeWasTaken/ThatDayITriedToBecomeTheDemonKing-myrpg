@@ -20,10 +20,23 @@
 
 bool GBL_IS_IN_CINEMATIC = false;
 
+static bool set_cinema(game_t *game, cinema_entity_t *cinema)
+{
+    u64_t id = 0;
+
+    if (IS_GAME_FINISHED(game))
+        return (create_cinema_end(game, cinema));
+    if (load_property_uint(get_game_state(game)->map.properties, &id,
+        "cinematic_id", "") == false)
+        return (true);
+    if (GET_BIT(get_game_state(game)->save.cinematics, id) == true)
+        return (true);
+    return (create_cinema_load(game, cinema, id));
+}
+
 bool create_cinema(game_t *game UNUSED, entity_t *entity)
 {
     cinema_entity_t *cinema = NULL;
-    u64_t id = 0;
 
     GBL_IS_IN_CINEMATIC = false;
     cinema = dcalloc(sizeof(cinema_t), 1);
@@ -36,14 +49,7 @@ bool create_cinema(game_t *game UNUSED, entity_t *entity)
     D_ASSERT(cinema->clock, NULL, "Could not allocate clock", NULL);
     D_ASSERT(cinema->box, NULL, "Could not get dialog box", NULL);
     D_ASSERT(cinema->hero, NULL, "Could not get hero", NULL);
-    if (IS_GAME_FINISHED(game))
-        return (create_cinema_end(game, cinema));
-    if (load_property_uint(get_game_state(game)->map.properties, &id,
-        "cinematic_id", "") == false)
-        return (true);
-    if (GET_BIT(get_game_state(game)->save.cinematics, id) == true)
-        return (true);
-    return (create_cinema_load(game, cinema, id));
+    return (set_cinema(game, cinema));
 }
 
 void destroy_cinema(game_t *game UNUSED, entity_t *entity)

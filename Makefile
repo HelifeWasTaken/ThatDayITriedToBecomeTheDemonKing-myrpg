@@ -116,7 +116,8 @@ SRC_CINEMA = 	src/entities/cinema/cinema.c \
 				src/entities/cinema/command.c \
 				src/entities/cinema/command2.c \
 				src/entities/cinema/load.c \
-				src/entities/cinema/end.c
+				src/entities/cinema/end.c \
+				src/entities/cinema/parse_camera_disp.c
 
 SRC_ATH	=	src/entities/ath/button_handler.c \
 			src/entities/ath/func_btn.c \
