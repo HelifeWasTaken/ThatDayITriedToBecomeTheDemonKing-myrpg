@@ -21,11 +21,11 @@
 static const char *CINEMA_FILES[CINEMATIC_COUNT] = {
     "asset/cinematic/village.cinematic",
     "asset/cinematic/map_monde.cinematic",
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
+    "asset/cinematic/desert_village.cinematic",
+    "asset/cinematic/desert_battle.cinematic",
+    "asset/cinematic/volcano.cinematic",
+    "asset/cinematic/forest.cinematic",
+    "asset/cinematic/castle.cinematic",
     NULL,
     NULL
 };
