@@ -90,5 +90,5 @@ bool handle_battlehud_events(game_t *game UNUSED,
 
     if (!hud->show_attacks)
         return (false);
-    return (handle_attack_buttons_click_events(game, hud, event));
+    return (handle_attack_buttons_events(game, hud, event));
 }

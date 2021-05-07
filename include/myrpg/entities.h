@@ -470,12 +470,12 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *entity);
 bool create_battlehud_labels(game_t *game, battlehud_t *hud);
 void update_battlehub_labels(game_t *game, battlehud_t *hud);
 void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
-bool handle_attack_button_click_events(game_t *game,
+bool handle_attack_button_events(game_t *game,
     battlehud_atk_button_t *button, sfEvent *event);
 void destroy_attacks(game_t *game UNUSED, battlehud_t *hud);
 void update_attacks(game_t *game UNUSED, battlehud_t *hud);
 void draw_attacks(game_t *game UNUSED, battlehud_t *hud);
-bool handle_attack_buttons_click_events(game_t *game,
+bool handle_attack_buttons_events(game_t *game,
     battlehud_t *battlehud, sfEvent *event);
 bool create_attacks(game_t *game, battlehud_t *hud);
 void destroy_attacks(game_t *game UNUSED, battlehud_t *hud);
