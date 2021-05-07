@@ -29,18 +29,19 @@ static void on_attack_click(game_t *game, entity_t *entity UNUSED)
 
     if (hud == NULL)
         return;
-    hud->selected_spell_id = 0;
+    hud->show_attacks = true;
 }
 
-static bool fill_buttons(game_t *game UNUSED, entity_t *entity,
-    gui_button_t *attack, gui_button_t *run)
+static bool fill_buttons(game_t *game UNUSED, battlehud_t *hud)
 {
-    attack->title = "Attack";
-    attack->entity->pos = VEC2F(entity->pos.x + 100, entity->pos.y + 100);
-    attack->on_click = on_attack_click;
-    run->title = "Run";
-    run->entity->pos = VEC2F(entity->pos.x + 100, entity->pos.y + 250);
-    run->on_click = on_run_click;
+    hud->attack->title = "Attack";
+    hud->attack->entity->pos = VEC2F(hud->entity->pos.x + 100,
+        hud->entity->pos.y + 100);
+    hud->attack->on_click = on_attack_click;
+    hud->run->title = "Run";
+    hud->run->entity->pos = VEC2F(hud->entity->pos.x + 100,
+        hud->entity->pos.y + 250);
+    hud->run->on_click = on_run_click;
     return (true);
 }
 
@@ -58,5 +59,5 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *hud)
     run = tmp->instance;
     hud->attack = attack;
     hud->run = run;
-    return (fill_buttons(game, hud->entity, attack, run));
+    return (fill_buttons(game, hud));
 }

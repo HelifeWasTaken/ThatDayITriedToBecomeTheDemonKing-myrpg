@@ -98,6 +98,8 @@ SRC_INVENTORY	=	src/entities/inventory/create_inventory.c \
 SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlehud/buttons.c \
 			src/entities/battlehud/labels.c \
+			src/entities/battlehud/attacks.c \
+			src/entities/battlehud/attack_event.c \
 			src/entities/battlemanager/animate.c \
 			src/entities/battlemanager/battlemanager.c \
 			src/entities/battlemanager/enemies.c \

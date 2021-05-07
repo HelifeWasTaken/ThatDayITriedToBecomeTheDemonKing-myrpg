@@ -11,6 +11,7 @@
 #include "erty/estdlib.h"
 #include "erty/string/ecstring.h"
 #include "myrpg/asset.h"
+#include "myrpg/battle.h"
 #include "myrpg/entities.h"
 #include "myrpg/state.h"
 #include <stdlib.h>
@@ -38,17 +39,27 @@ static const battle_spell_t PLAYER_SPELLS[] = {
         .name = "Attack",
         .mana = 0,
         .efficiency = 5,
-        .type = BST_NOT_A_SPELL,
+        .type = BST_ROCK,
         .anim = BAT_ANIM_ATTACK,
         .attack_fx_file = "asset/fx/classic_hit.png",
         .attack_fx_frames_per_line = 5,
         .attack_fx_frames_count = 10
     },
     {
-        .name = "Charm",
-        .mana = 1,
+        .name = "Defense",
+        .mana = 0,
         .efficiency = 30,
-        .type = BST_AIR,
+        .type = BST_PAPER,
+        .anim = BAT_ANIM_SPELL_1,
+        .attack_fx_file = "asset/fx/classic_hit.png",
+        .attack_fx_frames_per_line = 5,
+        .attack_fx_frames_count = 10
+    },
+    {
+        .name = "Charm",
+        .mana = 0,
+        .efficiency = 30,
+        .type = BST_SCISSOR,
         .anim = BAT_ANIM_SPELL_1,
         .attack_fx_file = "asset/fx/classic_hit.png",
         .attack_fx_frames_per_line = 5,
