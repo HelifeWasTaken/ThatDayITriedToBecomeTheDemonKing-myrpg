@@ -277,6 +277,11 @@
  "orientation":"orthogonal",
  "properties":[
         {
+         "name":"cinematic_id",
+         "type":"int",
+         "value":1
+        }, 
+        {
          "name":"pnj_files",
          "type":"string",
          "value":"asset\/pnj\/pnj_files\/world_pnj.json"

@@ -309,6 +309,11 @@
          "value":"asset\/pnj\/pnj_files\/boss_forest.json"
         }, 
         {
+         "name":"cinematic_id",
+         "type":"int",
+         "value":5
+        }, 
+        {
          "name":"pnj_files",
          "type":"string",
          "value":"asset\/pnj\/pnj_files\/pnj_forest.json"

@@ -820,6 +820,11 @@
  "orientation":"orthogonal",
  "properties":[
         {
+         "name":"cinematic_id",
+         "type":"int",
+         "value":0
+        }, 
+        {
          "name":"pnj_files",
          "type":"string",
          "value":"asset\/pnj\/pnj_files\/pnj_village.json"

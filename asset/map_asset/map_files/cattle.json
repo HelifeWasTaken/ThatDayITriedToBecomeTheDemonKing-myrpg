@@ -747,6 +747,11 @@
  "orientation":"orthogonal",
  "properties":[
         {
+         "name":"cinematic_id",
+         "type":"int",
+         "value":6
+        }, 
+        {
          "name":"pnj_files",
          "type":"string",
          "value":"asset\/pnj\/pnj_files\/pnj_castle.json"

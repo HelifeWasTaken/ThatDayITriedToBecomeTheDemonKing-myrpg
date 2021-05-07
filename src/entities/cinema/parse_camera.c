@@ -8,7 +8,7 @@
 #include "myrpg/cinema.h"
 #include "distract/debug.h"
 
-bool parse_move_camera(struct cinema **head, char *buf)
+bool parse_move_camera(game_t *game UNUSED, struct cinema **head, char *buf)
 {
     struct cinema tmp = {0};
 
@@ -19,7 +19,7 @@ bool parse_move_camera(struct cinema **head, char *buf)
     return (push_back_cinema(head, &tmp));
 }
 
-bool parse_set_camera(struct cinema **head, char *buf)
+bool parse_set_camera(game_t *game UNUSED, struct cinema **head, char *buf)
 {
     struct cinema tmp = {0};
 
@@ -29,46 +29,7 @@ bool parse_set_camera(struct cinema **head, char *buf)
     return (push_back_cinema(head, &tmp));
 }
 
-static void read_disp_text(struct cinema *tmp, char s[1000])
-{
-    unsigned int index_s = 0;
-    char c;
-
-    for (unsigned int i = 0; tmp->u.disp[i] &&  index_s < 999; i++) {
-        c = tmp->u.disp[i];
-        if (c == '\\' && tmp->u.disp[i + 1] == 'n') {
-            i++;
-            c = '\n';
-        }
-        s[index_s++] = c;
-    }
-}
-
-bool parse_disp_text(struct cinema **head, char *buf)
-{
-    struct cinema tmp = {0};
-    char *ptr = estrchr(buf, '"') + 1;
-    char s[1000] = {0};
-
-    tmp.type = DISP_TEXT;
-    parse_space(&buf);
-    buf = estrchr(ptr, '"') + 1;
-    if (ptr == NULL || ptr == (char *)1 ||
-        buf == NULL || buf == (char *)1) {
-        print_error("Missing quotes on string parse_disp_text");
-        return (false);
-    }
-    tmp.u.disp = estrndup(ptr, buf - ptr - 1);
-    if (tmp.u.disp == NULL)
-        return (false);
-    read_disp_text(&tmp, s);
-    free(tmp.u.disp);
-    tmp.u.disp = estrdup(s);
-    tmp.cycle_count = rpg_strtoll(buf, &buf);
-    return (push_back_cinema(head, &tmp));
-}
-
-bool parse_new_scene(struct cinema **head, char *buf)
+bool parse_new_scene(game_t *game UNUSED, struct cinema **head, char *buf)
 {
     struct cinema tmp = {0};
     char *ptr = estrchr(buf, '"') + 1;
@@ -81,8 +42,8 @@ bool parse_new_scene(struct cinema **head, char *buf)
         print_error("Missing quotes on string parse_new_scene");
         return (false);
     }
-    tmp.u.disp = estrndup(ptr, buf - ptr - 1);
-    if (tmp.u.disp == NULL)
+    tmp.u.scene = estrndup(ptr, buf - ptr - 1);
+    if (tmp.u.scene == NULL)
         return (false);
     return (push_back_cinema(head, &tmp));
 }
