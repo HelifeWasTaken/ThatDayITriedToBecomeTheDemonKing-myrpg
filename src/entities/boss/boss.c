@@ -129,6 +129,17 @@ static const struct json_deser_data BOSS_DESER[] = {
         },
         .type = JSON_OBJ,
         .opt = false
+    },
+    {
+        .data = ".trigger_battle",
+        .size_data = sizeof(bool),
+        .offset = offsetof(boss_data_t, trigger_battle),
+        .intern = {
+            .callback = NULL,
+            .woff = false
+        },
+        .type = JSON_BOOL,
+        .opt = false
     }
 };
 
