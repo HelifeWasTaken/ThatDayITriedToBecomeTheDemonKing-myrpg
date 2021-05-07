@@ -37,7 +37,8 @@ bool create_battlehud(game_t *game UNUSED, entity_t *entity)
     sfSprite_setPosition(battlehud->sprite, entity->pos);
     entity->instance = battlehud;
     entity->draw_on_gui = true;
-    if (!create_battlehud_labels(game, battlehud))
+    if (!create_battlehud_labels(game, battlehud)
+        || !create_attacks(game, battlehud))
         return (false);
     return (create_battlehud_buttons(game, battlehud));
 }
@@ -49,6 +50,7 @@ void destroy_battlehud(game_t *game UNUSED, entity_t *entity)
     sfSprite_destroy(battlehud->sprite);
     destroy_pausable_clock(battlehud->clock);
     destroy_battlehud_labels(game, battlehud);
+    destroy_attacks(game, battlehud);
     free(battlehud);
 }
 
@@ -57,14 +59,18 @@ void update_battlehud(game_t *game, entity_t *entity)
     battlehud_t *battlehud = entity->instance;
 
     update_battlehub_labels(game, battlehud);
+    if (is_attack_anim_in_progress(battlehud->manager))
+        battlehud->show_attacks = false;
     if (battlehud->manager->is_player_turn
-    && !is_attack_anim_in_progress(battlehud->manager)) {
+    && !is_attack_anim_in_progress(battlehud->manager)
+    && !battlehud->show_attacks) {
         battlehud->attack->is_enabled = true;
         battlehud->run->is_enabled = true;
     } else {
         battlehud->attack->is_enabled = false;
         battlehud->run->is_enabled = false;
     }
+    update_attacks(game, battlehud);
     tick_pausable_clock(battlehud->clock);
 }
 
@@ -73,10 +79,16 @@ void draw_battlehud(game_t *game UNUSED, entity_t *entity UNUSED)
     battlehud_t *battlehud = entity->instance;
 
     sfRenderWindow_drawSprite(game->window, battlehud->sprite, NULL);
+    if (battlehud->show_attacks)
+        draw_attacks(game, battlehud);
 }
 
 bool handle_battlehud_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
-    return (false);
+    battlehud_t *hud = entity->instance;
+
+    if (!hud->show_attacks)
+        return (false);
+    return (handle_attack_buttons_click_events(game, hud, event));
 }

@@ -16,6 +16,7 @@
 #include "myrpg/battle.h"
 #include "erty/tuple.h"
 #include <SFML/Graphics/Rect.h>
+#include <SFML/Graphics/Types.h>
 #include <SFML/System/Vector2.h>
 #include "myrpg/pnj.h"
 
@@ -391,6 +392,10 @@ typedef struct battlemanager {
     battle_opponent_t friends[3];
     battle_opponent_t *source;
     battle_opponent_t *target;
+    battle_opponent_t *enemy_attempter;
+    battle_opponent_t *friend_attempter;
+    battle_spell_t *friend_spell_attempt;
+    battle_spell_t *enemy_spell_attempt;
     battle_spell_t *spell;
     sfText *bard_talking;
     pausable_clock_t *bard_talking_clock;
@@ -399,6 +404,7 @@ typedef struct battlemanager {
     int enemies_count;
     int friends_count;
     bool is_player_turn;
+    bool is_mutual_attack;
     int exit_code;
 } battlemanager_t;
 
@@ -431,6 +437,14 @@ int create_battle_enemy(game_t *game, battle_opponent_t *enemy,
     const battle_opponent_t *source);
 void place_battle_enemies(battlemanager_t *manager, int entity_count);
 
+typedef struct battlehud_atk_button {
+    int id;
+    sfSprite *btn;
+    bool is_mouse_over;
+    bool clicked;
+    void (*on_click)(game_t *game, struct battlehud_atk_button *btn);
+} battlehud_atk_button_t;
+
 typedef struct battlehud {
     entity_t *entity;
     pausable_clock_t *clock;
@@ -440,7 +454,9 @@ typedef struct battlehud {
     gui_label_t *hp_label;
     gui_label_t *lv_label;
     gui_label_t *xp_label;
+    bool show_attacks;
     battlemanager_t *manager;
+    battlehud_atk_button_t atk_btn[3];
     int selected_spell_id;
 } battlehud_t;
 
@@ -453,6 +469,15 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *entity);
 bool create_battlehud_labels(game_t *game, battlehud_t *hud);
 void update_battlehub_labels(game_t *game, battlehud_t *hud);
 void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
+bool handle_attack_button_click_events(game_t *game,
+    battlehud_atk_button_t *button, sfEvent *event);
+void destroy_attacks(game_t *game UNUSED, battlehud_t *hud);
+void update_attacks(game_t *game UNUSED, battlehud_t *hud);
+void draw_attacks(game_t *game UNUSED, battlehud_t *hud);
+bool handle_attack_buttons_click_events(game_t *game,
+    battlehud_t *battlehud, sfEvent *event);
+bool create_attacks(game_t *game, battlehud_t *hud);
+void destroy_attacks(game_t *game UNUSED, battlehud_t *hud);
 bool load_items(game_t *game);
 void destroy_item(item_t *item);
 bool create_texture_item(game_t *game);

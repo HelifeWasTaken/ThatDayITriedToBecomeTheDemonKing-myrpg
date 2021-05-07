@@ -17,10 +17,11 @@ long long rpg_strtoll(char *str, char **endptr)
 {
     long long result = 0;
     size_t i = 0;
-    long long sign = eget_start_sign(str, &i);
+    long long sign = 1;
 
+    parse_space(&str);
+    sign = eget_start_sign(str, &i);
     *endptr = str;
-    parse_space(endptr);
     if (sign == -1)
         (*endptr)++;
     while (eis_num(**endptr)) {
@@ -34,7 +35,7 @@ long long rpg_strtoll(char *str, char **endptr)
 
 struct cinema_parser {
     const char *match;
-    bool (*fun)(struct cinema **head, char *buf);
+    bool (*fun)(game_t *game, struct cinema **head, char *buf);
 };
 
 static const struct cinema_parser CINEMA_PRSR[] = {
@@ -53,10 +54,15 @@ static const struct cinema_parser CINEMA_PRSR[] = {
     {
         .match = "new_scene",
         .fun = parse_new_scene
+    },
+    {
+        .match  = "set_hero",
+        .fun    = parse_hero_pos
     }
 };
 
-static bool cinema_reader_command_internal(struct cinema **head, char *buf)
+static bool cinema_reader_command_internal(game_t *game,
+    struct cinema **head, char *buf)
 {
     size_t size = 0;
 
@@ -65,14 +71,15 @@ static bool cinema_reader_command_internal(struct cinema **head, char *buf)
         size = estrlen(CINEMA_PRSR[i].match);
         if (estrncmp(buf, CINEMA_PRSR[i].match, size) == 0 &&
             buf[size] == ' ') {
-            return (CINEMA_PRSR[i].fun(head, buf + size));
+            return (CINEMA_PRSR[i].fun(game, head, buf + size));
         }
     }
     efprintf(stderr, "Failure: %s\n", buf);
     return (false);
 }
 
-bool cinema_reader_command(struct cinema **head, char const *filepath)
+bool cinema_reader_command(game_t *game, struct cinema **head,
+    char const *filepath)
 {
     FILE *file = fopen(filepath, "r");
     char *buf = NULL;
@@ -83,7 +90,7 @@ bool cinema_reader_command(struct cinema **head, char const *filepath)
         return (false);
     }
     while (getline(&buf, &size, file) > 0) {
-        if (cinema_reader_command_internal(head, buf) == false) {
+        if (cinema_reader_command_internal(game, head, buf) == false) {
             FREE(buf);
             fclose(file);
             efprintf(stderr, "Internal error in parser command\n");

@@ -18,6 +18,7 @@
 #include "myrpg/util.h"
 #include "myrpg/pnj.h"
 #include "erty/string/ecstring.h"
+#include "myrpg/cinema.h"
 
 int main(void)
 {

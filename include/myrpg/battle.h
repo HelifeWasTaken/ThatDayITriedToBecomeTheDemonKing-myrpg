@@ -25,8 +25,9 @@ typedef enum battle_animation_type {
 } battle_animation_type_t;
 
 typedef enum battle_spell_type {
-    BST_NOT_A_SPELL,
-    BST_AIR
+    BST_ROCK,
+    BST_PAPER,
+    BST_SCISSOR
 } battle_spell_type_t;
 
 typedef struct battle_spell {

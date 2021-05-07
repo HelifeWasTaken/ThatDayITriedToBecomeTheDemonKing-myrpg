@@ -42,7 +42,6 @@ bool create_battlemanager(game_t *game UNUSED, entity_t *entity)
         return (false);
     if (create_battle(game, battlemanager) < 0)
         return (false);
-    battlemanager->is_player_turn = true;
     entity->instance = battlemanager;
     return (true);
 }

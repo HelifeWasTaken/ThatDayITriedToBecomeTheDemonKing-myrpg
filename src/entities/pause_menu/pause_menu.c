@@ -56,8 +56,10 @@ void update_pause_menu(game_t *game UNUSED, entity_t *entity)
 
     if (pause->is_display == true)
         game->is_paused = true;
-    if (IS_KEY_PRESS_FRAME(sfKeyEscape))
+    if (IS_KEY_PRESS_FRAME(sfKeyEscape)) {
         pause->is_display = (!pause->is_display);
+        game->is_paused = !game->is_paused;
+    }
     for (int index = 0; index != 3; index++)
         sfSprite_setTextureRect(pause->btn[index], IRECT(0, 0, 64, 33));
     sfSprite_setPosition(pause->sprite, VEC2F(WINDOW_W / 3, WINDOW_H / 6));

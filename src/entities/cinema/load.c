@@ -19,13 +19,13 @@
 #include "myrpg/cinema.h"
 
 static const char *CINEMA_FILES[CINEMATIC_COUNT] = {
-    "asset/map_asset/village.cinematic",
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
+    "asset/cinematic/village.cinematic",
+    "asset/cinematic/map_monde.cinematic",
+    "asset/cinematic/desert_village.cinematic",
+    "asset/cinematic/desert_battle.cinematic",
+    "asset/cinematic/volcano.cinematic",
+    "asset/cinematic/forest.cinematic",
+    "asset/cinematic/castle.cinematic",
     NULL,
     NULL
 };
@@ -38,7 +38,7 @@ bool create_cinema_load(game_t *game, cinema_entity_t *cinema, u64_t id)
         print_error("No cinematic here");
         return (true);
     }
-    if (cinema_reader_command(&cinema->cine, CINEMA_FILES[id]) == false) {
+    if (cinema_reader_command(game, &cinema->cine, CINEMA_FILES[id]) == false) {
         print_error("Error trying to load cinema reader");
         return (false);
     }

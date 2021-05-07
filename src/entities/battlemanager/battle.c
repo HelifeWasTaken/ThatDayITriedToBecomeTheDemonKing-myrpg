@@ -97,24 +97,24 @@ static battle_opponent_t *get_first_enemy(battlemanager_t *battlemanager)
 static void update_attack(game_t *game, battlemanager_t *battlemanager,
     battle_opponent_t *player, battle_opponent_t *enemy)
 {
-    int spell_id = battlemanager->hud->selected_spell_id;
-
     if (battlemanager->is_player_turn) {
         if (battlemanager->hud->selected_spell_id != -1) {
-            battlemanager->source = player;
-            battlemanager->target = enemy;
-            battlemanager->spell = &player->spells[spell_id];
-            start_attack(game, battlemanager);
+            battlemanager->friend_attempter = player;
+            battlemanager->friend_spell_attempt = &player->spells[
+                battlemanager->hud->selected_spell_id];
             battlemanager->hud->selected_spell_id = -1;
             battlemanager->is_player_turn = false;
+            battlemanager->is_mutual_attack = false;
+            start_attack(game, battlemanager);
             battlemanager->attack_clock->time = 0;
         }
     } else {
-        battlemanager->source = enemy;
-        battlemanager->target = player;
-        battlemanager->spell = &enemy->spells[rand() % count_spells(enemy)];
-        start_attack(game, battlemanager);
+        battlemanager->enemy_attempter = enemy;
+        battlemanager->enemy_spell_attempt
+            = &enemy->spells[rand() % count_spells(enemy)];
         battlemanager->attack_clock->time = 0;
+        if (battlemanager->is_mutual_attack)
+            start_attack(game, battlemanager);
         battlemanager->is_player_turn = true;
     }
 }

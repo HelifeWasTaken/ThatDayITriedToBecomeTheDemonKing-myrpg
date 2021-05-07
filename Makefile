@@ -32,7 +32,7 @@ ifeq ($(SAN), 1)
 	ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1
 endif
 
-LFLAGS = -ldistract -ltgoat -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm # -lmy
+LFLAGS = -ldistract -ltgoat -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm
 
 TEST_FLAGS = $(LFLAGS) -lcriterion --coverage
 
@@ -98,6 +98,8 @@ SRC_INVENTORY	=	src/entities/inventory/create_inventory.c \
 SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlehud/buttons.c \
 			src/entities/battlehud/labels.c \
+			src/entities/battlehud/attacks.c \
+			src/entities/battlehud/attack_event.c \
 			src/entities/battlemanager/animate.c \
 			src/entities/battlemanager/battlemanager.c \
 			src/entities/battlemanager/enemies.c \
@@ -114,8 +116,10 @@ SRC_CINEMA = 	src/entities/cinema/cinema.c \
 				src/entities/cinema/parse_camera.c \
 				src/entities/cinema/parse.c \
 				src/entities/cinema/command.c \
+				src/entities/cinema/command2.c \
 				src/entities/cinema/load.c \
-				src/entities/cinema/end.c
+				src/entities/cinema/end.c \
+				src/entities/cinema/parse_camera_disp.c
 
 SRC_ATH	=	src/entities/ath/button_handler.c \
 			src/entities/ath/func_btn.c \
