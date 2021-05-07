@@ -1,3 +1,13 @@
 set         100 50
 move        50  70  90
-move        0   0   50
+disp        "The Beginning: Village" 30
+set         1535 42
+disp        "I'm tired to be a simple pnj" 30
+disp        "Fuck it I'm gonna kill the guardians kill the princess and become the demon king" 30
+disp        "Btw someone is talking in my head telling me you to tell you that the game" 30
+disp        " is not totally finished and has some minors bugs" 30
+disp        "If you are stuck in any way just reload the scene" 30
+disp        "by going back to the menu and then use the button play" 30
+disp        "He tells me to tell you also that you can move me with" 30
+disp        "arrow keys and interact with the world with space" 30
+disp        "But who the fuck am I talking to ????? And why do I hear voices ???" 30
