@@ -25,7 +25,7 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Sprite.h>
 
-struct battle_background_pair BATTLE_BG[] = {
+static const struct battle_background_pair BATTLE_BG[] = {
     {
         .world_id = "asset/map_asset/map_files/map_monde.json",
         .file = "asset/battlebg/world.png",
@@ -33,7 +33,7 @@ struct battle_background_pair BATTLE_BG[] = {
         .size = { 0.80, 0.89 }
     },
     {
-        .world_id = "asset/map_asset/map_files/desert.json",
+        .world_id = "asset/map_asset/map_files/battle_desert.json",
         .file = "asset/battlebg/desert_battle.png",
         .rect = { 0, 0, 1920, 1080 },
         .size = { 1, 1 }
@@ -43,6 +43,18 @@ struct battle_background_pair BATTLE_BG[] = {
         .file = "asset/battlebg/forest.png",
         .rect = { -20, 0, 1920, 1080 },
         .size = { 1.2, 1.2 }
+    },
+    {
+        .world_id = "asset/map_asset/map_files/volcano.json",
+        .file = "asset/battlebg/volcano.png",
+        .rect = { 0, 500, 1920, 1080 },
+        .size = { 0.5, 0.5 }
+    },
+    {
+        .world_id = "asset/map_asset/map_files/inside_castle.json",
+        .file = "asset/battlebg/castle.png",
+        .rect = { 0, 20, 1920, 1080 },
+        .size = { 1, 1 }
     }
 };
 
@@ -50,11 +62,13 @@ int create_battle(game_t *game, battlemanager_t *battlemanager)
 {
     game_state_t *state = game->state;
     sfTexture *texture;
+    sfIntRect rect;
 
     for (size_t i = 0; i < ARRAY_SIZE(BATTLE_BG); i++) {
+        rect = BATTLE_BG[i].rect;
         if (estrcmp(state->save.map_id, BATTLE_BG[i].world_id) != 0)
             continue;
-        texture = create_texture(game, BATTLE_BG[i].file, &BATTLE_BG[i].rect);
+        texture = create_texture(game, BATTLE_BG[i].file, &rect);
         battlemanager->background = create_sprite(texture, NULL);
         sfSprite_setScale(battlemanager->background, BATTLE_BG[i].size);
         break;
@@ -68,34 +82,39 @@ int create_battle(game_t *game, battlemanager_t *battlemanager)
 
 static battle_opponent_t *get_first_enemy(battlemanager_t *battlemanager)
 {
+    battle_opponent_t *alive_opponents[10];
+    int j = 0;
+
     for (int i = 0; i < battlemanager->enemies_count; i++) {
         if (battlemanager->enemies[i].health > 0)
-            return &battlemanager->enemies[i];
+            alive_opponents[j++] = &battlemanager->enemies[i];
     }
-    return (NULL);
+    if (j == 0)
+        return (NULL);
+    return (alive_opponents[rand() % j]);
 }
 
 static void update_attack(game_t *game, battlemanager_t *battlemanager,
     battle_opponent_t *player, battle_opponent_t *enemy)
 {
-    int spell_id = battlemanager->hud->selected_spell_id;
-
     if (battlemanager->is_player_turn) {
         if (battlemanager->hud->selected_spell_id != -1) {
-            battlemanager->source = player;
-            battlemanager->target = enemy;
-            battlemanager->spell = &player->spells[spell_id];
-            start_attack(game, battlemanager);
+            battlemanager->friend_attempter = player;
+            battlemanager->friend_spell_attempt = &player->spells[
+                battlemanager->hud->selected_spell_id];
             battlemanager->hud->selected_spell_id = -1;
             battlemanager->is_player_turn = false;
+            battlemanager->is_mutual_attack = false;
+            start_attack(game, battlemanager);
             battlemanager->attack_clock->time = 0;
         }
     } else {
-        battlemanager->source = enemy;
-        battlemanager->target = player;
-        battlemanager->spell = &enemy->spells[rand() % count_spells(enemy)];
-        start_attack(game, battlemanager);
+        battlemanager->enemy_attempter = enemy;
+        battlemanager->enemy_spell_attempt
+            = &enemy->spells[rand() % count_spells(enemy)];
         battlemanager->attack_clock->time = 0;
+        if (battlemanager->is_mutual_attack)
+            start_attack(game, battlemanager);
         battlemanager->is_player_turn = true;
     }
 }
@@ -130,7 +149,6 @@ void destroy_battle(game_t *game UNUSED, battlemanager_t *battlemanager)
 
     state->save.player_hp = player->health;
     state->save.player_lv = player->level;
-    state->save.player_mana = player->mana;
     destroy_attack_fx(game, battlemanager);
     destroy_pausable_clock(battlemanager->attack_clock);
     sfSprite_destroy(battlemanager->background);

@@ -6,15 +6,17 @@
 */
 
 #ifndef  ASSET_H
-#define  ASSET_H
+    #define  ASSET_H
+
     #include "distract/def.h"
 
     #define WINDOW_W 1920
     #define WINDOW_H 1080
+
     ///
     /// MAIN_MENU_DEFINE
     ///
-    //#define MAIN_MENU_BG "asset/menu/menu_background_test.png"
+
     #define MAIN_MENU_BG "asset/menu/main_menu_tittle.png"
     #define MAIN_MENU_BG_W 1920
     #define MAIN_MENU_BG_H 1080
@@ -25,14 +27,15 @@
     #define MENU_BUTTON_RECT IRECT(0, 0, MENU_BUTTON_SPT_W, MENU_BUTTON_SPT_H)
 
     #define BUTTON_MENU_POS (int[]) {WINDOW_W / 8,\
-        WINDOW_W / 2.55,  WINDOW_W / 1.5}
+        WINDOW_W / 2.55,  WINDOW_W / 1.5, WINDOW_W - 200}
 
     #define QUIT_BUTTON_SPT "asset/menu/quit_button.png"
     #define PLAY_BUTTON_SPT "asset/menu/play_button.png"
     #define SETTING_BUTTON_SPT "asset/menu/setting_button.png"
+    #define HOW_TO_PLAY "asset/menu/how_to_play.png"
 
     #define ASSET_MENU_PATH (char *[]) {PLAY_BUTTON_SPT,\
-        SETTING_BUTTON_SPT, QUIT_BUTTON_SPT}
+        SETTING_BUTTON_SPT, QUIT_BUTTON_SPT, HOW_TO_PLAY}
 
     ///
     /// SETTINGS_MENU_DEFINE
@@ -53,21 +56,31 @@
     ///
     /// ATH DEFINE
     ///
-    #define CHAR_ICON "asset/ath/character.png"
-    #define EQUIP_ICON "asset/ath/equipment.png"
-    #define INVENTORY_ICON "asset/ath/inventory.png"
-    #define QUEST_ICON "asset/ath/Quests-Icon.png"
-    #define SKILL_ICON "asset/ath/skills.png"
-    #define OPTION_ICON "asset/ath/option.png"
+    #define CHAR_ICON       "asset/ath/character.png"
+    #define EQUIP_ICON      "asset/ath/equipment.png"
+    #define INVENTORY_ICON  "asset/ath/inventory.png"
+    #define QUEST_ICON      "asset/ath/Quests-Icon.png"
+    #define SKILL_ICON      "asset/ath/skills.png"
+    #define OPTION_ICON     "asset/ath/option.png"
 
     #define ICON_RECT 100
-    #define ATH_ICON (char *[]) {CHAR_ICON, EQUIP_ICON, INVENTORY_ICON,\
-        QUEST_ICON, SKILL_ICON, OPTION_ICON}
+    #define ATH_ICON (char *[]) {CHAR_ICON, INVENTORY_ICON,\
+        SKILL_ICON, OPTION_ICON}
 
-    #define PLAYER_ATH "asset/ath/player_ath_test.png"
-    #define PLAYER_ATH_W 400
-    #define PLAYER_ATH_H 250
-    #define PLAYER_ATH_POS_Y 775
+    #define PLAYER_ATH          "asset/ath/player_ath_test.png"
+    #define PLAYER_ATH_W        400
+    #define PLAYER_ATH_H        250
+    #define PLAYER_ATH_POS_Y    775
+
+    #define STONE_DESERT    "asset/ath/magic_stone_desert.png"
+    #define STONE_FIRE      "asset/ath/magic_stone_fire.png"
+    #define STONE_NATURAL   "asset/ath/magic_stone_natural.png"
+    #define ATH_STONES      \
+        (char *[]) { STONE_DESERT, STONE_FIRE, STONE_NATURAL }
+    #define RECT_ATH_GAME   (sfIntRect[]) \
+        {   { 65,    PLAYER_ATH_POS_Y + 155, 126, 125 }, \
+            { 155,  PLAYER_ATH_POS_Y + 155, 126, 125 }, \
+            { 248,  PLAYER_ATH_POS_Y + 155, 126, 126 } }
 
     ///
     /// HERO DEFINE
@@ -90,13 +103,22 @@
     ///
     /// INVVENTORY DEFINE
     ///
+    #define INV_TEX      "asset/hero/menu_hero/inventory.png"
 
-    #define INV_TEX "asset/hero/menu_hero/inventory.png"
+    #define MAX_ITEM 15
     #define INV_TEX_OVER "asset/hero/menu_hero/inventory_cliqued.png"
 
     typedef struct item_inv {
         char *path;
         int type;
     } inventory_item_t;
+
+    ///
+    /// PAUSE MENU DEFINE
+    ///
+
+    #define BG_PAUSE "asset/setting/setting_background.png"
+    #define DEFAULT_WORLD_FILE  "asset/map_asset/map_files/map_village.json"
+    #define DEFAULT_PLAYER_POS  VEC2F(1535, 42)
 
 #endif

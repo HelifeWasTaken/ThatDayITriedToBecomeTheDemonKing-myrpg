@@ -116,6 +116,9 @@ bool deser_frect(struct json *conf, size_t offset, void *data);
 #define CAST_R(cast, r) \
     (cast){ .top = r.top, .left = r.left, .width = r.width, .height = r.height }
 
+#define BOOL_TO_STR(value) \
+    (value) ? "true" : "false"
+
 game_state_t *get_game_state(game_t *game);
 
 #endif

@@ -91,7 +91,7 @@ bool handle_dialogbox_events(game_t *game UNUSED,
                 estrlen(current_msg) + 1);
             wrap_dialog_text(dialogbox);
         } else {
-            show_next_dialog(dialogbox);
+            show_next_dialog(game, dialogbox);
         }
         return (true);
     }

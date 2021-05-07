@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":50,
  "infinite":false,
  "layers":[
@@ -92,6 +99,16 @@
  "nextobjectid":2,
  "orientation":"orthogonal",
  "properties":[
+        {
+         "name":"boss_files",
+         "type":"string",
+         "value":"asset\/pnj\/pnj_files\/volcano_boss.json"
+        }, 
+        {
+         "name":"cinematic_id",
+         "type":"int",
+         "value":4
+        }, 
         {
          "name":"pnj_files",
          "type":"string",

@@ -19,28 +19,19 @@
 #include "myrpg/state.h"
 #include <stdio.h>
 
-static const inventory_item_t item_id[4] = {
-    {"asset/item/empty.png", EMPTY},
-    {"asset/item/banane.png", ITEM},
-    {"asset/item/sword.png", WEAPON},
-    {"asset/item/woodshield.png", SHIELD}
-};
-
 bool place(game_t *game, entity_t *entity, int i)
 {
     inventory_t *inv = entity->instance;
     game_state_t *state = game->state;
-    sfTexture *texture = NULL;
 
     if (state->save.item[i].type == EMPTY
         && inv->is_deplacement == true) {
             inv->is_deplacement = false;
             state->save.item[i].id = inv->item_id;
-            state->save.item[i].type = item_id[inv->item_id].type;
+            state->save.item[i].type = game->item_loaded[inv->item_id].type;
             inv->mouse_state = 0;
-            texture = create_texture(game, item_id[0].path, NULL);
-            D_ASSERT(texture, NULL, "error texture", false);
-            sfSprite_setTexture(inv->cursor_item, texture, sfFalse);
+            sfSprite_setTexture(inv->cursor_item, game->texture[0], sfFalse);
+            inv->item_id = 0;
             return (true);
     }
     return (false);
@@ -50,22 +41,35 @@ bool deplacement(game_t *game, entity_t *entity, int i)
 {
     inventory_t *inventory = entity->instance;
     game_state_t *state = game->state;
-    sfTexture *texture = NULL;
 
     if (state->save.item[i].type != EMPTY
         && inventory->is_deplacement == false) {
-            texture = create_texture(game,
-                item_id[state->save.item[i].id].path, NULL);
-            D_ASSERT(texture, NULL, "error texture", false)
-            sfSprite_setTexture(inventory->cursor_item, texture, sfFalse);
             inventory->is_deplacement = true;
             inventory->item_id = state->save.item[i].id;
             state->save.item[i].id = 0;
             state->save.item[i].type = EMPTY;
-            inventory->mouse_state = i;
+            inventory->mouse_state = i + 1;
             return (true);
     }
     return (place(game, entity, i));
+}
+
+void equipment(game_t *game UNUSED, entity_t *entity UNUSED)
+{
+    inventory_t *inventory = entity->instance;
+    sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
+    sfFloatRect rect;
+
+    for (int index = 0; index != 5; index++) {
+        rect = sfSprite_getGlobalBounds(inventory->equipment[index].sprite);
+        if (sfMouse_isButtonPressed(sfMouseLeft)
+            && sfFloatRect_contains(&rect, pos.x, pos.y)
+            && inventory->clock->time >= 0.5) {
+                inventory->clock->time = 0;
+                deplacement_equip(game, entity, index);
+
+        }
+    }
 }
 
 void inventory_management(game_t *game, entity_t *entity)
@@ -75,7 +79,7 @@ void inventory_management(game_t *game, entity_t *entity)
     sfFloatRect rect;
 
     for (int index = 0; index != 15; index++) {
-        rect = sfSprite_getGlobalBounds(inventory->inventory[index]);
+        rect = sfSprite_getGlobalBounds(inventory->inventory[index].sprite);
         if (sfMouse_isButtonPressed(sfMouseLeft)
             && sfFloatRect_contains(&rect, pos.x, pos.y)
             && inventory->clock->time >= 0.5) {
@@ -83,22 +87,28 @@ void inventory_management(game_t *game, entity_t *entity)
                 deplacement(game, entity, index);
         }
     }
+    equipment(game, entity);
 }
 
 bool update_cursor(game_t *game, entity_t *entity)
 {
     inventory_t *inventory = entity->instance;
     game_state_t *state = game->state;
-    sfTexture *texture = NULL;
 
     if (inventory->is_deplacement == true) {
-        texture = create_texture(game, item_id[0].path, NULL);
-        D_ASSERT(texture, NULL, "error quit texture", false);
-        sfSprite_setTexture(inventory->cursor_item, texture, sfFalse);
-        state->save.item[inventory->mouse_state].id = inventory->item_id;
-        state->save.item[inventory->mouse_state].type
-            = item_id[inventory->item_id].type;
+        if (inventory->mouse_state < 0) {
+            state->save.equipment[(inventory->mouse_state * -1) - 1].id
+                = inventory->item_id;
+            state->save.equipment[(inventory->mouse_state * -1) - 1].type
+                = game->item_loaded[inventory->item_id].type;
+        } else {
+            state->save.item[inventory->mouse_state - 1].id
+                = inventory->item_id;
+            state->save.item[inventory->mouse_state - 1].type
+                = game->item_loaded[inventory->item_id].type;
+        }
         inventory->is_deplacement = false;
+        inventory->item_id = 0;
         return (true);
     }
     return (false);

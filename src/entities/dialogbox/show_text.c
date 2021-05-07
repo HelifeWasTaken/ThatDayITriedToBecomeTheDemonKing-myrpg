@@ -6,6 +6,7 @@
 */
 
 #include "distract/util.h"
+#include "myrpg/battle.h"
 #include "myrpg/entities.h"
 #include <SFML/Graphics/Text.h>
 
@@ -37,19 +38,22 @@ void wrap_dialog_text(dialogbox_t *dialog)
     }
 }
 
-void hide_dialog(dialogbox_t *dialog)
+void hide_dialog(game_t *game, dialogbox_t *dialog)
 {
+    if (dialog->dialog != NULL && dialog->dialog->boss_id != -1) {
+        start_battle(game, dialog->dialog->boss_id);
+    }
     dialog->dialog = NULL;
     dialog->chunk_id = 0;
     dialog->is_visible = false;
 }
 
-void show_next_dialog(dialogbox_t *dialogbox)
+void show_next_dialog(game_t *game, dialogbox_t *dialogbox)
 {
     dialogbox->chunk_id++;
     ememset(dialogbox->pending_buffer, 0, sizeof(dialogbox->pending_buffer));
     if (dialogbox->dialog->messages[dialogbox->chunk_id] == NULL)
-        hide_dialog(dialogbox);
+        hide_dialog(game, dialogbox);
 }
 
 bool show_dialog(dialog_t *dialog)

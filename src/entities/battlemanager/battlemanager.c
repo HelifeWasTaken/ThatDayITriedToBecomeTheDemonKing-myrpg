@@ -8,6 +8,7 @@
 #include "distract/animable.h"
 #include "distract/util.h"
 #include "myrpg/battle.h"
+#include "myrpg/util.h"
 #include "stdlib.h"
 #include "distract/game.h"
 #include "distract/entity.h"
@@ -29,9 +30,11 @@ bool create_battlemanager(game_t *game UNUSED, entity_t *entity)
     D_ASSERT(battlemanager, NULL, "Could not create battle manager", false)
     battlemanager->entity = entity;
     battlemanager->clock = create_pausable_clock(game);
-    D_ASSERT(battlemanager->clock, NULL,
-        "Could not create battle manager clock", false)
-    if (create_battlemanager_enemies(game, battlemanager) < 0)
+    D_ASSERT(battlemanager->clock, NULL, "battle manager clock", false)
+    if (get_game_state(game)->last_boss_id != -1) {
+        if (create_battlemanager_boss(game, battlemanager) < 0)
+            return (false);
+    } else if (create_battlemanager_enemies(game, battlemanager) < 0)
         return (false);
     if (create_battlemanager_friends(game, battlemanager) < 0)
         return (false);
@@ -39,7 +42,6 @@ bool create_battlemanager(game_t *game UNUSED, entity_t *entity)
         return (false);
     if (create_battle(game, battlemanager) < 0)
         return (false);
-    battlemanager->is_player_turn = true;
     entity->instance = battlemanager;
     return (true);
 }

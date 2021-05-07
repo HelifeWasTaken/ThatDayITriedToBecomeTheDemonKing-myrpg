@@ -18,6 +18,12 @@ void handle_debug_keybind(game_t *game UNUSED,
         game->is_paused = !game->is_paused;
     if (key->code == sfKeyEqual)
         dbmenu->hero->speed += (key->control) ? 0.1F : -0.1F;
-    if (key->control && key->code == sfKeyC)
+    if (key->control && key->code == sfKeyC) {
         dbmenu->hero->disable_collision = !dbmenu->hero->disable_collision;
+        dbmenu->hero->cannot_be_attacked = !dbmenu->hero->cannot_be_attacked;
+    }
+    if (key->control && key->code == sfKeyW) {
+        switch_to_world(game, "asset/map_asset/map_files/dev_room.json");
+        get_game_state(game)->save.player_pos = (sfVector2f) { 219, 229 };
+    }
 }

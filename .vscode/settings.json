@@ -31,6 +31,9 @@
         "istream": "c",
         "ostream": "c",
         "sstream": "c",
-        "streambuf": "c"
+        "streambuf": "c",
+        "cinema.h": "c"
+        "renderwindow.h": "c",
+        "pnj.h": "c"
     }
 }

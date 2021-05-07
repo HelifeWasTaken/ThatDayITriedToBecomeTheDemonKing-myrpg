@@ -11,6 +11,7 @@
 #include "erty/estdlib.h"
 #include "erty/string/ecstring.h"
 #include "myrpg/asset.h"
+#include "myrpg/battle.h"
 #include "myrpg/entities.h"
 #include "myrpg/state.h"
 #include <stdlib.h>
@@ -37,18 +38,28 @@ static const battle_spell_t PLAYER_SPELLS[] = {
     {
         .name = "Attack",
         .mana = 0,
-        .efficiency = 12,
-        .type = BST_NOT_A_SPELL,
+        .efficiency = 5,
+        .type = BST_ROCK,
         .anim = BAT_ANIM_ATTACK,
         .attack_fx_file = "asset/fx/classic_hit.png",
         .attack_fx_frames_per_line = 5,
         .attack_fx_frames_count = 10
     },
     {
+        .name = "Defense",
+        .mana = 0,
+        .efficiency = 30,
+        .type = BST_PAPER,
+        .anim = BAT_ANIM_SPELL_1,
+        .attack_fx_file = "asset/fx/classic_hit.png",
+        .attack_fx_frames_per_line = 5,
+        .attack_fx_frames_count = 10
+    },
+    {
         .name = "Charm",
-        .mana = 10,
-        .efficiency = 1,
-        .type = BST_AIR,
+        .mana = 0,
+        .efficiency = 30,
+        .type = BST_SCISSOR,
         .anim = BAT_ANIM_SPELL_1,
         .attack_fx_file = "asset/fx/classic_hit.png",
         .attack_fx_frames_per_line = 5,
@@ -65,11 +76,12 @@ static void fill_player_state(game_t *game, battlemanager_t *manager)
     manager->friends[0].asset_rect = FULL_HERO_FIGHT_RECT;
     manager->friends[0].scale = HERO_SCALE;
     manager->friends[0].animable_info = PLAYER_ANIMABLE_INFO;
-    manager->friends[0].health = state->save.player_hp;
+    manager->friends[0].health = state->save.player_hp +
+        (5 + state->save.player_lv);
     manager->friends[0].level = state->save.player_lv;
-    manager->friends[0].mana = state->save.player_mana;
     manager->friends[0].max_mana = 100;
     ememcpy(manager->friends[0].spells, PLAYER_SPELLS, sizeof(PLAYER_SPELLS));
+    manager->friends[0].spells[0].efficiency += (state->save.player_lv + 2);
 }
 
 static int create_friend(game_t *game, battle_opponent_t *friend)

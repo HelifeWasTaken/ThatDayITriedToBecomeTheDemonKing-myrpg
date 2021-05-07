@@ -4,6 +4,7 @@
 ** File description:
 ** Source code
 */
+
 #include "distract/entity.h"
 #include "distract/sound.h"
 #include "erty/eprintf.h"
@@ -18,8 +19,7 @@
 
 static const enum entity_type ENTITY_INITTER_PLAY[] = {
     VIEW, DIALOGBOX, ATH,
-    INVENTORY,
-    LAYER_MANAGER, HERO, PNJ,
+    INVENTORY, LAYER_MANAGER, HERO, BOSS, PNJ, CINEMA, PAUSE_MENU,
 #if ENABLE_DEBUG_MENU
     DEBUGMENU
 #endif
@@ -29,6 +29,8 @@ bool init_music(game_state_t *state, game_t *game)
 {
     char *file = NULL;
 
+    if (IS_GAME_FINISHED(game))
+        return (true);
     if (load_property_string(state->map.properties, &file, "song",
         "could not load music") == false)
         return (false);

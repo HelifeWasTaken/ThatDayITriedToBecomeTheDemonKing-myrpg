@@ -47,9 +47,12 @@ void update_warpzone(game_t *game UNUSED, entity_t *entity)
         return;
     }
     if (sfFloatRect_contains(&CAST_R(sfFloatRect, warpzone->rect),
-        warpzone->hero->entity->pos.x, warpzone->hero->entity->pos.y) == true) {
+        warpzone->hero->entity->pos.x,
+            warpzone->hero->entity->pos.y) == true) {
         switch_to_world(game, warpzone->warp.world);
         get_game_state(game)->save.player_pos = CAST_V2(sfVector2f,
+            warpzone->warp.spawn);
+        warpzone->hero->entity->pos = CAST_V2(sfVector2f,
             warpzone->warp.spawn);
     }
 }

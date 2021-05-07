@@ -22,6 +22,15 @@
 #include "myrpg/define.h"
 #include <SFML/Graphics/RenderWindow.h>
 
+int count_spells(battle_opponent_t *enemy)
+{
+    int spell_count = 0;
+
+    for (int i = 0; enemy->spells[i].name != NULL; i++)
+        spell_count++;
+    return (spell_count);
+}
+
 bool is_attack_anim_in_progress(battlemanager_t *manager)
 {
     int anim;
@@ -41,6 +50,19 @@ bool is_attack_anim_in_progress(battlemanager_t *manager)
     return (false);
 }
 
+int compare_spells(battle_spell_t *spell1, battle_spell_t *spell2)
+{
+    if (spell1->type == spell2->type)
+        return (0);
+    if (spell1->type == BST_SCISSOR && spell2->type == BST_PAPER)
+        return (-1);
+    if (spell1->type == BST_PAPER && spell2->type == BST_ROCK)
+        return (-1);
+    if (spell1->type == BST_ROCK && spell2->type == BST_SCISSOR)
+        return (-1);
+    return (1);
+}
+
 int end_attack(game_t *game UNUSED, battlemanager_t *manager)
 {
     show_attack_fx(manager);
@@ -54,12 +76,20 @@ int end_attack(game_t *game UNUSED, battlemanager_t *manager)
 
 int start_attack(game_t *game UNUSED, battlemanager_t *manager)
 {
-    if (manager->source->mana < manager->spell->mana) {
-        manager->source = NULL;
-        manager->target = NULL;
-        manager->spell = NULL;
-        return (-1);
+    int spell_cmp = compare_spells(manager->enemy_spell_attempt,
+        manager->friend_spell_attempt);
+
+    if (spell_cmp > 0 || spell_cmp == 0) {
+        manager->source = manager->friend_attempter;
+        manager->target = manager->enemy_attempter;
+        manager->spell = manager->friend_spell_attempt;
     }
+    if (spell_cmp < 0 || manager->is_mutual_attack) {
+        manager->source = manager->enemy_attempter;
+        manager->target = manager->friend_attempter;
+        manager->spell = manager->enemy_spell_attempt;
+    }
+    manager->is_mutual_attack = (spell_cmp == 0);
     manager->source->mana -= manager->spell->mana;
     set_animable_animation(&manager->source->animable, manager->spell->anim);
     eprintf("%s -> %s: %s\n", manager->source->name, manager->target->name,

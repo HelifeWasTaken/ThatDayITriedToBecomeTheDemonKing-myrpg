@@ -9,7 +9,25 @@ CC = gcc
 
 AR = ar rc
 
-CFLAGS = -W -Wall -Werror -I./include -I../my/include -L..
+CFLAGS = -W -Wall -Werror -I./include -I../my/include -I../../include -L..
+CFLAGS += -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -std=c99
+
+ifeq ($(EPIDEBUG), 1)
+	CFLAGS += -Wno-error=init-self -Winit-self
+	CFLAGS += -Wno-error=shadow -Wshadow
+	CFLAGS += -Wno-error=pointer-arith -Wpointer-arith
+	CFLAGS += -Wno-error=duplicated-cond -Wduplicated-cond
+	CFLAGS += -Wno-error=switch-enum -Wswitch-enum
+	CFLAGS += -Wno-error=declaration-after-statement -Wdeclaration-after-statement
+	CFLAGS += -Wno-error=float-equal -Wfloat-equal
+	CFLAGS += -Wno-error=tautological-compare -Wtautological-compare
+	CFLAGS += -Wno-error=array-bounds -Warray-bounds
+	CFLAGS += -Wno-error=alloc-zero -Walloc-zero
+	CFLAGS += -Wno-error=cast-qual -Wcast-qual
+	CFLAGS += -Wno-error=extra -Wextra -Wnonnull
+	CFLAGS += -fno-builtin
+	CFLAGS += -ftrapv -ggdb -g3
+endif
 
 CFLAGS_TEST = ${CFLAGS} -Wno-stringop-truncation --coverage
 

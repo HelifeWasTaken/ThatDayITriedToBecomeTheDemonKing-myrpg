@@ -6,7 +6,8 @@
 */
 
 #ifndef DEFINE_H
-#define DEFINE_H
+    #define DEFINE_H
+
     #include <SFML/Graphics.h>
 
     ///

@@ -8,6 +8,7 @@
 CC = gcc
 
 CFLAGS = -W -Wall -Werror -I./include -L./lib
+CFLAGS += -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -std=c99
 
 ifeq ($(EPIDEBUG), 1)
 	CFLAGS += -Wno-error=init-self -Winit-self
@@ -31,7 +32,7 @@ ifeq ($(SAN), 1)
 	ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1
 endif
 
-LFLAGS = -ldistract -ltgoat -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm # -lmy
+LFLAGS = -ldistract -ltgoat -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm
 
 TEST_FLAGS = $(LFLAGS) -lcriterion --coverage
 
@@ -77,7 +78,8 @@ SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
 SRC_UTIL = src/util/sfml_deser.c \
 		   src/util/get_save_state.c \
 		   src/util/not_implemented.c \
-		   src/util/property_loader.c
+		   src/util/property_loader.c	\
+		   src/util/load_item.c
 
 
 SRC_MENU = src/entities/menu/menu.c \
@@ -90,11 +92,14 @@ SRC_DEBUGMENU = src/entities/debugmenu/debugmenu.c \
 SRC_INVENTORY	=	src/entities/inventory/create_inventory.c \
 			src/entities/inventory/inventory.c \
 			src/entities/inventory/inventory_ges.c	\
+			src/entities/inventory/create_equipment_slot.c
 
 
 SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlehud/buttons.c \
 			src/entities/battlehud/labels.c \
+			src/entities/battlehud/attacks.c \
+			src/entities/battlehud/attack_event.c \
 			src/entities/battlemanager/animate.c \
 			src/entities/battlemanager/battlemanager.c \
 			src/entities/battlemanager/enemies.c \
@@ -102,14 +107,31 @@ SRC_BATTLE = src/entities/battlehud/battlehud.c \
 			src/entities/battlemanager/attack.c \
 			src/entities/battlemanager/attack_fx.c \
 			src/entities/battlemanager/bard_talking.c \
-			src/entities/battlemanager/battle.c
+			src/entities/battlemanager/battle.c \
+			src/entities/battlemanager/start_battle.c \
+			src/entities/battlemanager/boss.c
+
+SRC_CINEMA = 	src/entities/cinema/cinema.c \
+				src/entities/cinema/list.c \
+				src/entities/cinema/parse_camera.c \
+				src/entities/cinema/parse.c \
+				src/entities/cinema/command.c \
+				src/entities/cinema/command2.c \
+				src/entities/cinema/load.c \
+				src/entities/cinema/end.c \
+				src/entities/cinema/parse_camera_disp.c
+
+SRC_ATH	=	src/entities/ath/button_handler.c \
+			src/entities/ath/func_btn.c \
+			src/entities/ath/init.c
+
+SRC_PAUSE	=	src/entities/pause_menu/pause_menu.c \
+				src/entities/pause_menu/create_button.c	\
+				src/entities/pause_menu/func.c
 
 SRC = 	src/game.c \
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
-	src/entities/ath/button_handler.c \
-	src/entities/ath/func_btn.c \
-	$(SRC_INVENTORY) \
 	src/entities/settings/mute_button.c	\
 	src/entities/settings/init_select_button.c	\
 	    src/entities/scroll_bar/scroll_bar.c    \
@@ -127,6 +149,9 @@ SRC = 	src/game.c \
 		src/entities/npc/pnj_loader.c \
 		src/entities/npc/create_pnj.c \
 		src/entities/npc/pnj_drawing.c \
+		src/entities/boss/boss.c \
+		src/entities/boss/boss_update.c \
+		src/entities/boss/create_boss.c \
         $(SRC_DEBUGMENU) \
         $(SRC_MENU) \
         $(SRC_UTIL) \
@@ -135,7 +160,13 @@ SRC = 	src/game.c \
         $(SRC_LIFECYCLE) \
 		$(SRC_BATTLE) \
 		$(SRC_BUTTON) \
-		$(SRC_LABEL)
+		$(SRC_LABEL) \
+		$(SRC_INVENTORY) \
+		$(SRC_CINEMA) \
+		$(SRC_ATH)  \
+    $(SRC_PAUSE)
+
+OBJ 	=	$(SRC:.c=.o)
 
 TESTS =	\
 
@@ -167,8 +198,8 @@ coverage:
 clean_tests:
 	rm -rf ${TARGET_TEST}
 
-$(TARGET): ${SRC}
-	${CC} ${CFLAGS} -o ${TARGET} ${SRC} src/main.c ${LFLAGS}
+$(TARGET): ${OBJ}
+	${CC} ${CFLAGS} -o ${TARGET} ${OBJ} src/main.c ${LFLAGS}
 
 clean:
 	rm -f ${TARGET}
@@ -176,7 +207,7 @@ clean:
 	${MAKE} clean -j -C ./lib/iron_goat/
 
 fclean: clean
-	rm -f ${LIB} *.gc* unit_tests
+	rm -f ${LIB} *.gc* unit_tests ${OBJ}
 	${MAKE} fclean -C ./lib/iron_goat/
 	${MAKE} fclean -C ./lib/distract/
 

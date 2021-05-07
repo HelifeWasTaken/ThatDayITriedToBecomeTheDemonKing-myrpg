@@ -1,262 +1,275 @@
 [
     {
-        "name": "bob",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/eating_left.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 376, "y": 32},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/carry_box_farmer.png",
-        "frame": 6,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 134, "y": 707},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/little_shovel.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 182, "y": 787},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/rake_farmer.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 275, "y": 886},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/heat_farmer.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 398, "y": 955},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/green_girl_right.png",
-        "frame": 1,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 90, "y": 365},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/blu_boy_left.png",
-        "frame": 1,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 120, "y": 365},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 435, "y": 615},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/old_woman.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 1648, "y": 588},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/old_man.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 1764, "y": 510},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/making_food.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 1546, "y": 489},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife_right.png",
-        "frame": 1,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 699, "y": 685},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife_left.png",
-        "frame": 1,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 739, "y": 685},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/water_pull.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 658, "y": 925},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/maid.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 781, "y": 265},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/maid.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 1488, "y": 655},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/girl_dancing.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 551, "y": 438},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/flower_child.png",
-        "frame": 1,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 586, "y": 130},
-        "message": "bonjour"
-    },
-    {
-        "name": "jojo",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_shovel.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 278, "y": 748},
-        "message": "bonjour"
-    },
-    {
-        "name": "david",
-        "file_path": "asset/pnj/pnj_asset/pnj_village/little_shovel.png",
-        "frame": 3,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 38,
-            "height": 36
-        },
-        "pos": {"x": 136, "y": 842},
-        "message": "bonjour"
-    }
+       "name": "bob",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/eating_left.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 376, "y": 32},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/carry_box_farmer.png",
+       "frame": 6,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 134, "y": 707},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/little_shovel.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 182, "y": 787},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/rake_farmer.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 275, "y": 886},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/heat_farmer.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 398, "y": 955},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/green_girl_right.png",
+       "frame": 1,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 90, "y": 365},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/blu_boy_left.png",
+       "frame": 1,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 120, "y": 365},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 435, "y": 615},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/old_woman.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 1648, "y": 588},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/old_man.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 1764, "y": 510},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/making_food.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 1546, "y": 489},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife_right.png",
+       "frame": 1,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 699, "y": 685},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_wife_left.png",
+       "frame": 1,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 739, "y": 685},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/water_pull.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 658, "y": 925},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/maid.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 781, "y": 265},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/maid.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 1488, "y": 655},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/girl_dancing.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 551, "y": 438},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/flower_child.png",
+       "frame": 1,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 586, "y": 130},
+       "message": "bonjour"
+   },
+   {
+       "name": "jojo",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/farmer_shovel.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 278, "y": 748},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/little_shovel.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": 136, "y": 842},
+       "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/water_fall.png",
+       "frame": 6,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 30,
+           "height": 30
+       },
+       "pos": {"x": 230, "y": 229},
+       "message": "bonjour"
+   }
 ]
