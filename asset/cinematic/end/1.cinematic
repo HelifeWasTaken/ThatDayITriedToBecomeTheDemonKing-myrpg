@@ -1,0 +1,4 @@
+set_hero    99999 99999
+set         808  1128
+move        80  250    60
+new_scene   "asset/map_asset/map_files/map_monde.json"

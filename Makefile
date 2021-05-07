@@ -114,6 +114,7 @@ SRC_CINEMA = 	src/entities/cinema/cinema.c \
 				src/entities/cinema/parse_camera.c \
 				src/entities/cinema/parse.c \
 				src/entities/cinema/command.c \
+				src/entities/cinema/command2.c \
 				src/entities/cinema/load.c \
 				src/entities/cinema/end.c
 

@@ -152,6 +152,7 @@ int load_game(void)
     set_pending_scene(game, MENU_SCENE);
     game->scene->world_file = DEFAULT_WORLD_FILE;
     get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
+    ememset(get_game_state(game)->save.levels_done, 1, sizeof(bool) * 4);
     do {
         code = load_pending_scene(game);
         if (code != 0)
