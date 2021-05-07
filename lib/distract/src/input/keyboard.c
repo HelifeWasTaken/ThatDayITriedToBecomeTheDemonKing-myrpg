@@ -7,6 +7,7 @@
 
 #include <SFML/Window/Event.h>
 #include <SFML/Window/Keyboard.h>
+#include <SFML/Keyboard.h>
 #include <distract/game.h>
 #include <stdio.h>
 #include "distract/input.h"
