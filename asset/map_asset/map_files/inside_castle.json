@@ -114,28 +114,6 @@
          "objects":[
                 {
                  "height":0,
-                 "id":2,
-                 "name":"pnj two",
-                 "properties":[
-                        {
-                         "name":"message",
-                         "type":"string",
-                         "value":"how dare you talking to me"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"sign"
-                        }],
-                 "rotation":0,
-                 "type":"pnj",
-                 "visible":true,
-                 "width":0,
-                 "x":363,
-                 "y":452
-                }, 
-                {
-                 "height":0,
                  "id":3,
                  "name":"pnj two",
                  "properties":[
@@ -466,8 +444,8 @@
                  "type":"pnj",
                  "visible":true,
                  "width":0,
-                 "x":161,
-                 "y":68
+                 "x":365,
+                 "y":451
                 }],
          "opacity":1,
          "type":"objectgroup",
