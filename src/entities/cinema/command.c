@@ -18,16 +18,30 @@
 #include "myrpg/define.h"
 #include "myrpg/cinema.h"
 
-void cinema_set(game_t *game, cinema_t *cine)
+void cinema_disp_text(game_t *game UNUSED, cinema_entity_t *cine)
+{
+    if (!cine->cine->u.disp.box->is_visible)
+        show_dialog(&cine->cine->u.disp);
+}
+
+void cinema_hero_set(game_t *game UNUSED, cinema_entity_t *cine)
+{
+    if (cine->hero)
+        cine->hero->entity->pos = VEC2F(cine->cine->u.set.x,
+                cine->cine->u.set.y);
+}
+
+void cinema_set(game_t *game, cinema_entity_t *cine)
 {
     sfView_setCenter(game->view,
-        (sfVector2f){ cine->u.set.x, cine->u.set.y });
+            (sfVector2f){ cine->cine->u.set.x, cine->cine->u.set.y });
     set_game_view(game, game->view);
 }
 
-void cinema_move(game_t *game, cinema_t *cine)
+void cinema_move(game_t *game, cinema_entity_t *cine)
 {
-    sfVector2f move = VEC2F(cine->u.move.x, cine->u.move.y);
+    sfVector2f move = VEC2F(cine->cine->u.move.x,
+            cine->cine->u.move.y);
 
     move.x /= 100;
     move.y /= 100;
@@ -35,8 +49,8 @@ void cinema_move(game_t *game, cinema_t *cine)
     set_game_view(game, game->view);
 }
 
-void cinema_new_scene(game_t *game, cinema_t *cine)
+void cinema_new_scene(game_t *game, cinema_entity_t *cine)
 {
-    switch_to_world(game, cine->u.scene);
+    switch_to_world(game, cine->cine->u.scene);
     get_game_state(game)->save.player_pos = VEC2F(0, 0);
 }

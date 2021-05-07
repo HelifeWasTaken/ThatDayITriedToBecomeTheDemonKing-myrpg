@@ -33,14 +33,17 @@ bool push_back_cinema(struct cinema **head, struct cinema *data)
     return (tmp->next != NULL);
 }
 
-void pop_front_cinema(struct cinema **head)
+void pop_front_cinema(game_t *game, struct cinema **head)
 {
     struct cinema *ptr = *head;
 
     if (ptr == NULL)
         return;
     *head = (*head)->next;
-    if (ptr->type == DISP_TEXT && ptr->u.disp != NULL)
-        free(ptr->u.disp);
+    if (ptr->type == DISP_TEXT && ptr->u.disp.messages != NULL) {
+        free_esplit(ptr->u.disp.messages);
+        hide_dialog(game, ptr->u.disp.box);
+    } else if (ptr->type == SWITCH_SCENE_CINEMATIC)
+        free(ptr->u.scene);
     free(ptr);
 }

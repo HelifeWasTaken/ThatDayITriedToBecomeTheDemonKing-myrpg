@@ -1,0 +1,5 @@
+set_hero    999999 999999
+set     250 460
+move    61  5   85
+move    0   0   15
+new_scene  "asset/map_asset/map_files/map_village.json"
