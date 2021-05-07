@@ -10,36 +10,60 @@
 #include "myrpg/entities.h"
 #include <SFML/Window/Event.h>
 
-bool handle_attack_button_click_events(game_t *game,
-    battlehud_atk_button_t *button, sfEvent *event)
-{
-    sfFloatRect bounds = sfSprite_getGlobalBounds(button->btn);
+struct button_checker_battle {
     sfMouseButtonEvent click;
+    game_t *game;
+    sfEvent *event;
+    sfFloatRect bounds;
+    battlehud_atk_button_t *button;
+    sfVector2f pos;
+};
 
-    if (event->type == sfEvtMouseButtonReleased)
-        button->clicked = false;
-    if (event->type == sfEvtMouseButtonPressed
-        || event->type == sfEvtMouseButtonReleased) {
-            click = event->mouseButton;
-            if (click.button == sfMouseLeft
-                && sfFloatRect_contains(&bounds, click.x, click.y))
-                    button->clicked = (event->type == sfEvtMouseButtonPressed);
-            if (click.button == sfMouseLeft
-                && sfFloatRect_contains(&bounds, click.x, click.y)
-                && event->type == sfEvtMouseButtonReleased) {
-                    button->on_click(game, button);
-                    return (true);
-            }
+bool handle_attack_buttons_click_events_part2(
+        struct button_checker_battle *checker)
+{
+    if (checker->event->type == sfEvtMouseButtonReleased)
+        checker->button->clicked = false;
+    if (checker->event->type == sfEvtMouseButtonPressed
+            || checker->event->type == sfEvtMouseButtonReleased) {
+        checker->click = checker->event->mouseButton;
+        if (checker->click.button == sfMouseLeft
+                && sfFloatRect_contains(&checker->bounds,
+                    checker->pos.x, checker->pos.y))
+            checker->button->clicked =
+                (checker->event->type == sfEvtMouseButtonPressed);
+        if (checker->click.button == sfMouseLeft
+                && sfFloatRect_contains(&checker->bounds,
+                    checker->pos.x, checker->pos.y)
+                && checker->event->type == sfEvtMouseButtonReleased) {
+            checker->button->on_click(checker->game, checker->button);
+            return (true);
+        }
     }
     return (false);
 }
 
+bool handle_attack_button_click_events(game_t *game,
+        battlehud_atk_button_t *button, sfEvent *event)
+{
+    sfFloatRect bounds = sfSprite_getGlobalBounds(button->btn);
+    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfMouseButtonEvent click = {0};
+    sfVector2f pos = sfRenderWindow_mapPixelToCoords(game->window,
+            mouse, game->gui_view);
+
+    return (handle_attack_buttons_click_events_part2(
+        &(struct button_checker_battle){
+            click, game, event, bounds, button, pos
+        }));
+}
+
 bool handle_attack_buttons_click_events(game_t *game,
-    battlehud_t *battlehud, sfEvent *event)
+        battlehud_t *battlehud, sfEvent *event)
 {
     for (int i = 0; i < 3; i++) {
-        if (handle_attack_button_click_events(game, &battlehud->atk_btn[i],
-            event))
+        if (handle_attack_button_click_events(game,
+                    &battlehud->atk_btn[i], event))
             return (true);
     }
     return (false);

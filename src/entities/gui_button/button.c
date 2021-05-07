@@ -70,12 +70,13 @@ bool handle_button_events(game_t *game, entity_t *entity, sfEvent *event)
 {
     gui_button_t *button = entity->instance;
     sfFloatRect bounds = sfText_getGlobalBounds(button->text);
-    sfMouseMoveEvent move;
+    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f move = sfRenderWindow_mapPixelToCoords(game->window,
+            mouse, game->gui_view);
 
     if (handle_button_click_events(game, entity, event))
         return (button->is_enabled);
     if (event->type == sfEvtMouseMoved) {
-        move = event->mouseMove;
         button->mouse_entered = sfFloatRect_contains(&bounds, move.x, move.y);
     }
     return (false);
