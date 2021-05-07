@@ -64,7 +64,7 @@
          "name":"collision",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":50,
          "x":0,
          "y":0
@@ -128,7 +128,7 @@
                          "value":"sign"
                         }],
                  "rotation":0,
-                 "type":"pnj",
+                 "type":"finalpnj",
                  "visible":true,
                  "width":0,
                  "x":363,
@@ -475,7 +475,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
+ "nextlayerid":10,
  "nextobjectid":17,
  "orientation":"orthogonal",
  "properties":[

@@ -24,7 +24,7 @@ int start_battle(game_t *game, int boss_id)
         state->save.player_mana = 0;
         state->save.player_lv += 1;
     }
-    state->save.player_mana += 24;
+    state->save.player_mana += 35;
     state->save.player_hp = hp;
     if (exit_code == 84)
         return (-1);

@@ -261,15 +261,15 @@
    },
    {
        "name": "david",
-       "file_path": "asset/pnj/pnj_asset/pnj_village/water_fall.png",
-       "frame": 6,
+       "file_path": "asset/pnj/pnj_asset/pnj_village/thibault.png",
+       "frame": 3,
        "rect": {
            "left": 0,
            "top": 0,
-           "width": 30,
-           "height": 30
+           "width": 38,
+           "height": 36
        },
-       "pos": {"x": 230, "y": 229},
+       "pos": {"x": 925, "y": 172},
        "message": "bonjour"
    }
 ]

@@ -74,7 +74,7 @@ void draw_dialog(game_t *game UNUSED, entity_t *entity)
         return;
     }
     pos = dialog->hero->entity->pos;
-    if (v2fdistance(&pos, &entity->pos) < 50)
+    if (v2fdistance(&pos, &entity->pos) < 30)
         sfRenderWindow_drawSprite(game->window, dialog->sprite, NULL);
 }
 
@@ -91,7 +91,7 @@ bool handle_dialog_events(game_t *game UNUSED,
         return (false);
     }
     pos = dialog->hero->entity->pos;
-    if (v2fdistance(&pos, &entity->pos) >= 50)
+    if (v2fdistance(&pos, &entity->pos) >= 30)
         return (false);
     if (event->type == sfEvtKeyPressed && event->key.code == sfKeySpace
         && !dialog->box->is_visible && dialog->clock->time > 0.02f) {
