@@ -27,7 +27,7 @@
 #include "distract/math.h"
 #include "myrpg/cinema.h"
 
-static bool count_levels_done(game_save_t *save)
+static int count_levels_done(game_save_t *save)
 {
     int count = 0;
 
@@ -46,9 +46,11 @@ bool is_dialog_visible(game_t *game, dialog_t *dialog)
     if (dialog->npc_type == 0 && dialog->boss_id != -1
         && save->levels_done[dialog->boss_id])
         return (false);
-    if (dialog->npc_type != 0) {
-        is_near_visible = (count_levels_done(save) == dialog->npc_type
-            || count_levels_done(save) != -dialog->npc_type);
+    if (dialog->npc_type > 0) {
+        is_near_visible = (count_levels_done(save) == dialog->npc_type);
+    }
+    if (dialog->npc_type < 0) {
+        is_near_visible = (count_levels_done(save) != -dialog->npc_type);
     }
     if (is_near_visible)
         return (v2fdistance(&dialog->hero->entity->pos,
