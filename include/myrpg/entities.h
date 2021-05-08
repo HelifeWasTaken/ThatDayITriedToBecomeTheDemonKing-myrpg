@@ -147,8 +147,11 @@ typedef struct ath {
     sfSprite *button_sprite[4];
     view_t *view;
     sfSprite *ath_stones[3];
+    sfText *lv;
+    char lv_text[100];
 } ath_t;
 
+void update_ath(game_t *game, entity_t *entity);
 bool create_ath(game_t *game, entity_t *entity);
 void destroy_ath(game_t *game, entity_t *entity);
 void draw_ath(game_t *game UNUSED, entity_t *entity);
