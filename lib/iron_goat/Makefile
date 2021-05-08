@@ -349,9 +349,8 @@ SRC 	=	$(SRC_ERTY) \
 OBJ 	=	$(SRC:.c=.o)
 
 all:
-	rm -rf $(NAME) ../$(NAME)
 	make -j -C . $(NAME)
-	mv $(NAME) ../
+	cp $(NAME) ../
 	cp -r erty/include/erty/ iron_goat/include/iron_goat/ ../../include/
 
 $(NAME): ## Call build_lib

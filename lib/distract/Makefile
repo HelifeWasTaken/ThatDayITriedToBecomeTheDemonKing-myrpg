@@ -115,9 +115,9 @@ OBJ = ${SRC:.c=.o}
 
 TARGET = libdistract.a
 
-all: build_all clean
+all: ${TARGET} clean
 
-build_all: ${OBJ}
+${TARGET}: ${OBJ}
 	${AR} ${TARGET} ${OBJ}
 	cp ${TARGET} ../
 	mkdir -p ../../include

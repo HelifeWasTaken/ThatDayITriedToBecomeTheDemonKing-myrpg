@@ -180,7 +180,6 @@ TESTS =	\
 
 all:
 	${MAKE} -j build_all -C .
-	${MAKE} -j build_lib -C .
 
 build_lib:
 	${MAKE} -j -C ./lib/distract/
@@ -191,7 +190,6 @@ re_lib:
 	${MAKE} re -j -C ./lib/iron_goat/
 
 build_all:
-	rm -rf ${TARGET}
 	${MAKE} build_lib -j  -C .
 	${MAKE} ${TARGET} -j  -C .
 
