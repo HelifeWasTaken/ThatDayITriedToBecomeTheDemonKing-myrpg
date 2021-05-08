@@ -81,9 +81,9 @@ static void fill_player_state(game_t *game, battlemanager_t *manager)
     manager->friends[0].level = state->save.player_lv;
     manager->friends[0].max_mana = 100;
     ememcpy(manager->friends[0].spells, PLAYER_SPELLS, sizeof(PLAYER_SPELLS));
-    manager->friends[0].spells[0].efficiency += (state->save.player_lv + 3);
-    manager->friends[0].spells[1].efficiency += (state->save.player_lv + 3);
-    manager->friends[0].spells[2].efficiency += (state->save.player_lv + 3);
+    manager->friends[0].spells[0].efficiency += (state->save.player_lv + 2);
+    manager->friends[0].spells[1].efficiency += (state->save.player_lv + 2);
+    manager->friends[0].spells[2].efficiency += (state->save.player_lv + 2);
 }
 
 static int create_friend(game_t *game, battle_opponent_t *friend)

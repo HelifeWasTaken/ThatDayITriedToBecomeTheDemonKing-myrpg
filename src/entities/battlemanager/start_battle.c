@@ -16,6 +16,7 @@ static void trigger_battle_win(game_t *game, int boss_id)
 
     state->save.player_xp += 35;
     if (state->save.player_xp >= 100) {
+        state->save.player_hp += 3;
         state->save.player_xp = 0;
         state->save.player_lv += 1;
     }
