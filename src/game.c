@@ -75,7 +75,9 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(CINEMA, &create_cinema, NULL,
         &destroy_cinema, &update_cinema, NULL),
     ENTITY(BOSS, &create_boss, &draw_boss,
-            &destroy_boss, &update_boss, NULL)
+            &destroy_boss, &update_boss, NULL),
+    ENTITY(QUEST_MENU, &create_quest_menu, &draw_quest_menu,
+            &destroy_quest_menu, &update_quest_menu, &handle_quest_menu_events)
 };
 
 static bool configure_window(game_t *game)
