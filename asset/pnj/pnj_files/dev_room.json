@@ -1,3 +1,54 @@
 [
-    
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/dev_room/thibault.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 184, "y": 167},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/dev_room/ludo.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 274, "y": 175},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/dev_room/mattis.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 192, "y": 256},
+        "message": "bonjour"
+    },
+    {
+        "name": "bob",
+        "file_path": "asset/pnj/pnj_asset/dev_room/alexis.png",
+        "frame": 3,
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "width": 38,
+            "height": 36
+        },
+        "pos": {"x": 300, "y": 269},
+        "message": "bonjour"
+    }
 ]
