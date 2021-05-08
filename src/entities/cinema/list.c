@@ -40,9 +40,9 @@ void pop_front_cinema(game_t *game, struct cinema **head)
     if (ptr == NULL)
         return;
     *head = (*head)->next;
-    if (ptr->type == DISP_TEXT && ptr->u.disp.messages != NULL) {
-        free_esplit(ptr->u.disp.messages);
-        hide_dialog(game, ptr->u.disp.box);
+    if (ptr->type == DISP_TEXT && ptr->u.disp.dlg.messages != NULL) {
+        free_esplit(ptr->u.disp.dlg.messages);
+        hide_dialog(game, ptr->u.disp.dlg.box);
     } else if (ptr->type == SWITCH_SCENE_CINEMATIC)
         free(ptr->u.scene);
     free(ptr);

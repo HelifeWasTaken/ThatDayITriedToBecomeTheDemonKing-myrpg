@@ -20,8 +20,13 @@
 
 void cinema_disp_text(game_t *game UNUSED, cinema_entity_t *cine)
 {
-    if (!cine->cine->u.disp.box->is_visible)
-        show_dialog(&cine->cine->u.disp);
+    if (!cine->cine->u.disp.trigg && !cine->cine->u.disp.dlg.box->is_visible) {
+        show_dialog(&cine->cine->u.disp.dlg);
+        cine->cine->u.disp.trigg = true;
+        cine->cine->u.disp.wait = (cine->cine->cycle_count == 1);
+    }
+    if (cine->cine->u.disp.wait)
+        cine->cine->cycle_count = (cine->cine->u.disp.dlg.box->is_visible);
 }
 
 void cinema_hero_set(game_t *game UNUSED, cinema_entity_t *cine)
