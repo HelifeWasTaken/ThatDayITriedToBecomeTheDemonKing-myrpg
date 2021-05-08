@@ -292,6 +292,7 @@ typedef struct dialog {
     char *name;
     char **messages;
     int boss_id;
+    int npc_type;
 } dialog_t;
 
 bool create_dialog(game_t *game, entity_t *entity);
@@ -299,6 +300,7 @@ void update_dialog(game_t *game, entity_t *entity);
 void draw_dialog(game_t *game, entity_t *entity);
 void destroy_dialog(game_t *game, entity_t *entity);
 bool handle_dialog_events(game_t *game, entity_t *entity, sfEvent *event);
+bool is_dialog_visible(game_t *game, dialog_t *dialog);
 
 typedef struct debugmenu {
     entity_t *entity;

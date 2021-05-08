@@ -69,15 +69,12 @@ void draw_dialog(game_t *game UNUSED, entity_t *entity)
 {
     dialog_t *dialog = entity->instance;
     entity_t *heroentity = get_entity(game, HERO);
-    sfVector2f pos;
 
     if (dialog->hero == NULL) {
         dialog->hero = heroentity->instance;
         return;
     }
-    pos = dialog->hero->entity->pos;
-    if (v2fdistance(&pos, &entity->pos) < 30 && (dialog->boss_id == -1
-        || !get_game_state(game)->save.levels_done[dialog->boss_id]))
+    if (is_dialog_visible(game, dialog))
         sfRenderWindow_drawSprite(game->window, dialog->sprite, NULL);
 }
 
@@ -86,14 +83,11 @@ bool handle_dialog_events(game_t *game UNUSED,
 {
     dialog_t *dialog = entity->instance;
 
-    if (GBL_IS_IN_CINEMATIC || (dialog->boss_id != -1
-        && get_game_state(game)->save.levels_done[dialog->boss_id]))
-        return (false);
     if (dialog->hero == NULL) {
         dialog->hero = get_instance(game, HERO);
         return (false);
     }
-    if (v2fdistance(&dialog->hero->entity->pos, &entity->pos) >= 30)
+    if (GBL_IS_IN_CINEMATIC || !is_dialog_visible(game, dialog))
         return (false);
     if (event->type == sfEvtKeyPressed && (event->key.code == sfKeySpace
         || event->key.code == sfKeyReturn) && !dialog->box->is_visible

@@ -50,6 +50,7 @@
             char **message;
             char *name;
             int boss_id;
+            int npc_type;
         } pnj;
         warpzone_data_t warp;
     } layer_object_value_t;
@@ -95,5 +96,8 @@
     bool create_warpzone(game_t *game, entity_t *entity);
     void update_warpzone(game_t *game, entity_t *entity);
     void destroy_warpzone(game_t *game, entity_t *entity);
+
+    bool load_pnj_type(struct layer_object_data *data,
+                            ig_object_t *obj);
 
 #endif
