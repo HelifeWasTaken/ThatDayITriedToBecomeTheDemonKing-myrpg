@@ -38,6 +38,7 @@ bool create_dialog(game_t *game UNUSED, entity_t *entity)
     D_ASSERT(dialogbox, NULL, "Cannot get dialogbox entity for dialog", false);
     dialog->entity = entity;
     dialog->clock = create_pausable_clock(game);
+    dialog->clock->has_game_pause = false;
     dialog->sprite = create_sprite(texture, NULL);
     dialog->box = dialogbox->instance;
     D_ASSERT(dialog->clock, NULL, "Cannot create dialog clock", false);

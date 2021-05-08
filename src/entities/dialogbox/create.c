@@ -18,9 +18,11 @@
 #include "myrpg/entities.h"
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
+#include <SFML/Graphics/Color.h>
 #include <SFML/Graphics/RectangleShape.h>
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Text.h>
+#include <SFML/Graphics/Types.h>
 #include <SFML/Window/Event.h>
 #include <SFML/Window/Keyboard.h>
 #include <stdio.h>
@@ -30,14 +32,17 @@ static bool init_dialogbox(game_t *game, dialogbox_t *dialogbox)
     sfFont *font = create_font(game, FONT);
 
     D_ASSERT(font, NULL, "Can't get font", false)
-    sfText_setColor(dialogbox->name_text, sfBlack);
+    sfText_setColor(dialogbox->name_text, sfWhite);
     sfText_setFont(dialogbox->name_text, font);
-    sfText_setColor(dialogbox->content_text, sfBlack);
+    sfText_setColor(dialogbox->content_text, sfWhite);
     sfText_setFont(dialogbox->content_text, font);
     sfRectangleShape_setSize(dialogbox->background, VEC2F(1280, 200));
-    sfText_setPosition(dialogbox->name_text, VEC2F(120, 110));
-    sfText_setPosition(dialogbox->content_text, VEC2F(120, 170));
-    sfRectangleShape_setPosition(dialogbox->background, VEC2F(100, 100));
+    sfRectangleShape_setFillColor(dialogbox->background, sfBlack);
+    sfRectangleShape_setOutlineThickness(dialogbox->background, 4);
+    sfRectangleShape_setOutlineColor(dialogbox->background, sfWhite);
+    sfText_setPosition(dialogbox->name_text, VEC2F(340, 110));
+    sfText_setPosition(dialogbox->content_text, VEC2F(340, 170));
+    sfRectangleShape_setPosition(dialogbox->background, VEC2F(320, 100));
     return (true);
 }
 

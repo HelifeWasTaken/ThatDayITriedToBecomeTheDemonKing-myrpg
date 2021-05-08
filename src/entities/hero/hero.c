@@ -26,19 +26,20 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     hero_t *hero = dcalloc(sizeof(hero_t), 1);
     sfIntRect rect = IRECT(0, 0, 135, 332);
     sfTexture *texture = create_texture(game, HERO_PATH, &rect);
-    map_loader_t *map = get_instance(game, LAYER_MANAGER);
 
+    hero->layers = get_instance(game, LAYER_MANAGER);
+    hero->dialogbox = get_instance(game, DIALOGBOX);
     D_ASSERT(hero, NULL, "Hero could not be created", false);
     D_ASSERT(texture, NULL, "Tetxure could not be created", false);
-    D_ASSERT(map, NULL, "Layer could not be found", false);
-    hero->layers = map;
+    D_ASSERT(hero->layers, NULL, "Layer could not be found", false);
+    D_ASSERT(hero->dialogbox, NULL, "Dialogbox could not be found", false);
     hero->entity = entity;
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
     hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
     hero->entity->pos = get_game_state(game)->save.player_pos;
     entity->instance = hero;
-    hero->entity->z = map->manager.z;
+    hero->entity->z = hero->layers->manager.z;
     hero->speed = 1.5;
     sfSprite_setScale(hero->sprite, VEC2F(0.35, 0.35));
     return (true);
@@ -59,7 +60,7 @@ void update_hero(game_t *game UNUSED, entity_t *entity UNUSED)
     hero_t *hero = entity->instance;
 
     sfSprite_setPosition(hero->sprite, entity->pos);
-    if (GBL_IS_IN_CINEMATIC == true)
+    if (GBL_IS_IN_CINEMATIC == true || hero->dialogbox->is_visible)
         return;
     update_hero_move(game, hero);
     tick_pausable_clock(hero->animation_clock);

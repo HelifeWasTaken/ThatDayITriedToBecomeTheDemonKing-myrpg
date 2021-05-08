@@ -120,6 +120,7 @@ typedef struct hero {
     const struct map_loader *layers;
     bool disable_collision;
     bool cannot_be_attacked;
+    struct dialogbox *dialogbox;
 } hero_t;
 
 bool create_hero(game_t *game, entity_t *entity);
