@@ -59,7 +59,7 @@ static void read_save(game_t *game)
     close(fd);
     game->scene->world_file = estrdup(get_game_state(game)->save.map_id);
     if (game->scene->world_file == NULL)
-       return ((void)default_save(game, fd));
+        return ((void)default_save(game, fd));
 }
 
 void save_current(game_t *game)
