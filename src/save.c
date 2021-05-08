@@ -23,10 +23,11 @@
 
 static const int SAVE_MAGIC_NUMBER = 0xa1edcafe;
 
-static void default_save(game_t *game, int fd)
+void default_save(game_t *game, int fd)
 {
     if (fd != -1)
         close(fd);
+    ememset(&get_game_state(game)->save, 0, sizeof(game_save_t));
     for (int index = 0; index != 15; index++) {
         get_game_state(game)->save.item[index].type =
             game->item_loaded[index].type;
@@ -35,6 +36,8 @@ static void default_save(game_t *game, int fd)
     }
     game->scene->world_file = DEFAULT_WORLD_FILE;
     get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
+    get_game_state(game)->save.player_hp = 20;
+    get_game_state(game)->save.player_lv = 1;
 }
 
 static void read_save(game_t *game)
@@ -89,7 +92,5 @@ bool configure_state(game_t *game)
     state->params.vfx_vol = 1;
     state->params.voice_vol = 1;
     read_save(game);
-    state->save.player_hp = 20;
-    state->save.player_lv = 1;
     return (true);
 }
