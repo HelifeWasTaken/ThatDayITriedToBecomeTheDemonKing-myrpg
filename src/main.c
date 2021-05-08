@@ -20,7 +20,15 @@
 #include "erty/string/ecstring.h"
 #include "myrpg/cinema.h"
 
-int main(void)
+int usage(void)
 {
+    eprintf("%s", USAGE);
+    return (0);
+}
+
+int main(int ac, char **av UNUSED)
+{
+    if (ac >= 2)
+        return (usage());
     return (load_game());
 }

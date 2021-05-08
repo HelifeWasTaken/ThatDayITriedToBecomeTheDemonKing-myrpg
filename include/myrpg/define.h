@@ -27,4 +27,29 @@
         #define IN_DEBUG_MENU(...) ((void)0)
     #endif // ENABLE_DEBUG_MENU
 
+    #define USAGE \
+        " __       __            _______                      \n" \
+        "/  \\     /  |          /       \\                      \n" \
+        "$$  \\   /$$ | __    __ $$$$$$$  |  ______    ______   \n" \
+        "$$$  \\ /$$$ |/  |  /  |$$ |__$$ | /      \\  /      \\ \n" \
+        "$$$$  /$$$$ |$$ |  $$ |$$    $$< /$$$$$$  |/$$$$$$  |\n" \
+        "$$ $$ $$/$$ |$$ |  $$ |$$$$$$$  |$$ |  $$ |$$ |  $$ |\n" \
+        "$$ |$$$/ $$ |$$ \\__$$ |$$ |  $$ |$$ |__$$ |$$ \\__$$ |\n" \
+        "$$ | $/  $$ |$$    $$ |$$ |  $$ |$$    $$/ $$    $$ |\n" \
+        "$$/      $$/  $$$$$$$ |$$/   $$/ $$$$$$$/   $$$$$$$ |\n" \
+        "             /  \\__$$ |          $$ |      /  \\__$$ |\n" \
+        "              $$    $$/           $$ |      $$    $$/\n" \
+        "               $$$$$$/            $$/        $$$$$$/\n" \
+        "* Main Menu\n" \
+        "    * Use your mouse to select an option\n" \
+        "    * Left click to select it\n" \
+        "* Movement in game\n" \
+        "    * Use the Arrow keys to move\n" \
+        "    * Use Space or Enter to interact with objects or PNJ\n" \
+        "    * ESCAPE to open the pause menu and use" \
+        " your mouse to move in the menu\n" \
+        "* Fights\n" \
+        "    * Use the mouse to chose an action\n" \
+        "    * ENTER to select it\n"
+
 #endif
