@@ -49,7 +49,9 @@ static void read_save(game_t *game)
     if (magic != SAVE_MAGIC_NUMBER || size == -1)
         return ((void)default_save(game, fd));
     size = read(fd, &get_game_state(game)->save, sizeof(game_save_t));
-    if (size != sizeof(game_save_t))
+    if (size != sizeof(game_save_t) || size == -1)
+        return ((void)default_save(game, fd));
+    if (read(fd, &magic, 1) != 0)
         return ((void)default_save(game, fd));
     close(fd);
     game->scene->world_file = estrdup(get_game_state(game)->save.map_id);
