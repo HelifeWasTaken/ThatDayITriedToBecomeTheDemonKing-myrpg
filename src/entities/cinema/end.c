@@ -60,7 +60,7 @@ static bool read_end(game_t *game, cinema_entity_t *cinema)
 {
     if (cinema_reader_command(game, &cinema->cine,
         CINEMA_FILES_END[
-            get_game_state(game)->save.cinematics_end_count++]) == false) {
+            get_game_state(game)->cinematics_end_count++]) == false) {
         print_error("Error trying to load cinema reader");
         return (false);
     }
@@ -72,7 +72,7 @@ bool create_cinema_end(game_t *game, cinema_entity_t *cinema)
     if (play_end_music(game, cinema) == false)
         return (false);
     if (ARRAY_SIZE(CINEMA_FILES_END) <=
-            get_game_state(game)->save.cinematics_end_count)
+            get_game_state(game)->cinematics_end_count)
         return (stop_end_scene(game, cinema));
     return (read_end(game, cinema));
 }

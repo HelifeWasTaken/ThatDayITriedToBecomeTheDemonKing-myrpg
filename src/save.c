@@ -37,7 +37,7 @@ void default_save(game_t *game, int fd)
     game->scene->world_file = DEFAULT_WORLD_FILE;
     get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
     get_game_state(game)->save.player_hp = 20;
-    get_game_state(game)->save.player_lv = 1;
+    get_game_state(game)->save.player_lv = 99999999;
 }
 
 static void read_save(game_t *game)
@@ -64,8 +64,11 @@ static void read_save(game_t *game)
 
 void save_current(game_t *game)
 {
-    FILE *file = fopen("save", "w");
+    FILE *file = NULL;
 
+    if (IS_GAME_FINISHED(game))
+        return;
+    file = fopen("save", "w");
     if (file == NULL)
         return;
     estrncpy(get_game_state(game)->save.map_id, game->scene->world_file, 255);
