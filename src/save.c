@@ -37,7 +37,7 @@ void default_save(game_t *game, int fd)
     game->scene->world_file = DEFAULT_WORLD_FILE;
     get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
     get_game_state(game)->save.player_hp = 20;
-    get_game_state(game)->save.player_lv = 99999999;
+    get_game_state(game)->save.player_lv = 1;
 }
 
 static void read_save(game_t *game)
