@@ -17,4 +17,28 @@
     void default_save(game_t *game, int fd);
     void not_implemented(game_t *game, entity_t *entity);
 
+    enum {
+        DEFAULT_SEED = 0xa1edCafe
+    };
+
+    union time_u {
+        char s[sizeof(int64_t)];
+        int64_t value;
+    };
+
+    static inline void seed_generator(void)
+    {
+        union time_u ptr;
+        int fd = open("/dev/urandom", O_RDONLY);
+
+        if (fd == -1 || read(fd, ptr.s, 64) == -1) {
+            if (fd != -1)
+                close(fd);
+            srand(DEFAULT_SEED);
+            return;
+        }
+        close(fd);
+        srand(DEFAULT_SEED);
+    }
+
 #endif /* C2B24367_058C_4C72_ADEA_FD6702E90B19 */

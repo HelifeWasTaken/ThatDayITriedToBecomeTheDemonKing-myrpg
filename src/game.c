@@ -132,6 +132,7 @@ int load_game(void)
 
     if (game == NULL || configure_game(game) == false)
         return (84);
+    seed_generator();
     set_pending_scene(game, MENU_SCENE);
     do {
         save_current(game);
