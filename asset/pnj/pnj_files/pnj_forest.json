@@ -40,19 +40,6 @@
     },
     {
         "name": "bob",
-        "file_path": "asset/pnj/pnj_asset/forest/forest_lion.png",
-        "frame": 5,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 100,
-            "height": 50
-        },
-        "pos": {"x": 1295, "y": 199},
-        "message": "bonjour"
-    },
-    {
-        "name": "bob",
         "file_path": "asset/pnj/pnj_asset/forest/ultime_master_blade_of_god.png",
         "frame": 1,
         "rect": {
