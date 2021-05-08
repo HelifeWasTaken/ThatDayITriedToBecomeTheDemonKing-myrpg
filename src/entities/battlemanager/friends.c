@@ -38,7 +38,7 @@ static const battle_spell_t PLAYER_SPELLS[] = {
     {
         .name = "Attack",
         .mana = 0,
-        .efficiency = 5,
+        .efficiency = 1,
         .type = BST_ROCK,
         .anim = BAT_ANIM_ATTACK,
         .attack_fx_file = "asset/fx/classic_hit.png",
@@ -48,20 +48,20 @@ static const battle_spell_t PLAYER_SPELLS[] = {
     {
         .name = "Defense",
         .mana = 0,
-        .efficiency = 30,
+        .efficiency = 1,
         .type = BST_PAPER,
         .anim = BAT_ANIM_SPELL_1,
-        .attack_fx_file = "asset/fx/classic_hit.png",
+        .attack_fx_file = "asset/fx/classic_hit_second.png",
         .attack_fx_frames_per_line = 5,
         .attack_fx_frames_count = 10
     },
     {
         .name = "Charm",
         .mana = 0,
-        .efficiency = 30,
+        .efficiency = 1,
         .type = BST_SCISSOR,
         .anim = BAT_ANIM_SPELL_1,
-        .attack_fx_file = "asset/fx/classic_hit.png",
+        .attack_fx_file = "asset/fx/classic_hit_third.png",
         .attack_fx_frames_per_line = 5,
         .attack_fx_frames_count = 10
     }
@@ -81,7 +81,9 @@ static void fill_player_state(game_t *game, battlemanager_t *manager)
     manager->friends[0].level = state->save.player_lv;
     manager->friends[0].max_mana = 100;
     ememcpy(manager->friends[0].spells, PLAYER_SPELLS, sizeof(PLAYER_SPELLS));
-    manager->friends[0].spells[0].efficiency += (state->save.player_lv + 2);
+    manager->friends[0].spells[0].efficiency += (state->save.player_lv + 3);
+    manager->friends[0].spells[1].efficiency += (state->save.player_lv + 3);
+    manager->friends[0].spells[2].efficiency += (state->save.player_lv + 3);
 }
 
 static int create_friend(game_t *game, battle_opponent_t *friend)

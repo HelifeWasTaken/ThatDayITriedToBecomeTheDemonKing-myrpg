@@ -14,11 +14,11 @@ static void trigger_battle_win(game_t *game, int boss_id)
 {
     game_state_t *state = game->state;
 
+    state->save.player_xp += 35;
     if (state->save.player_xp >= 100) {
         state->save.player_xp = 0;
         state->save.player_lv += 1;
     }
-    state->save.player_xp += 24;
     state->save.levels_done[boss_id] = true;
     if (boss_id == 3) {
         for (int i = 0; i < 3; i++)

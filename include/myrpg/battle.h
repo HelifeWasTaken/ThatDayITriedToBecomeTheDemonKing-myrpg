@@ -94,9 +94,9 @@ bool load_boss_data_loop(struct json *pnj_conf,
 
 #define GET_ENNEMY_TRUE_POWER(enemy, game) \
     if (get_game_state(game)->last_boss_id == -1) { \
-        enemy->health += get_game_state(game)->save.player_hp; \
+        enemy->health += get_game_state(game)->save.player_lv + 2; \
         enemy->spells[0].efficiency += \
-            (get_game_state(game)->save.player_lv + 3); \
+            (get_game_state(game)->save.player_lv + 4); \
     }
 
 #endif /* A61D752A_1EA4_4883_A475_8379C585E529 */
