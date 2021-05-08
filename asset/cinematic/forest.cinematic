@@ -1,3 +1,8 @@
+set_hero 701 103
 set 668 676
 move 10 -139 70
-move 0  0 20
+set 701 103
+disp    "The forest: Bad herb and legends" 1
+disp "The guardian of the forest lay here" 1
+disp "Begone bad herb !!!" 1
+disp "I hope I am least level 5" 1

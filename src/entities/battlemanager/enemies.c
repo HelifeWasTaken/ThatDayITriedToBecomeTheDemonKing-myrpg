@@ -48,7 +48,7 @@ static const battle_opponent_t ENEMIES[] = {
                 .name = "Dark Attack",
                 .mana = 0,
                 .efficiency = 3,
-                .type = BST_ROCK,
+                .type = BST_PAPER,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/dark_attack.png",
                 .attack_fx_frames_per_line = 5,
@@ -79,7 +79,7 @@ static const battle_opponent_t ENEMIES[] = {
                 .name = "Attack",
                 .mana = 0,
                 .efficiency = 2,
-                .type = BST_ROCK,
+                .type = BST_SCISSOR,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/classic_hit.png",
                 .attack_fx_frames_per_line = 5,
@@ -114,6 +114,16 @@ static const battle_opponent_t ENEMIES[] = {
                 .type = BST_ROCK,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/fangs_attack.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 20
+            },
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 5,
+                .type = BST_PAPER,
+                .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/final_boss_second_atk.png",
                 .attack_fx_frames_per_line = 5,
                 .attack_fx_frames_count = 20
             }

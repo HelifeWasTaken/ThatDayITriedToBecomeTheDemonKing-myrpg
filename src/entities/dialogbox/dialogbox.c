@@ -72,28 +72,3 @@ void draw_dialogbox(game_t *game UNUSED, entity_t *entity)
     sfRenderWindow_drawText(game->window, dialogbox->name_text, NULL);
     sfRenderWindow_drawText(game->window, dialogbox->content_text, NULL);
 }
-
-bool handle_dialogbox_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED)
-{
-    dialogbox_t *dialogbox = entity->instance;
-    char *current_msg;
-    size_t len;
-
-    if (!dialogbox->is_visible)
-        return (false);
-    D_ASSERT(dialogbox->dialog, NULL, "dialog linked to box not found", false)
-    if (event->type == sfEvtKeyPressed && event->key.code == sfKeySpace) {
-        len = estrlen(dialogbox->pending_buffer);
-        current_msg = dialogbox->dialog->messages[dialogbox->chunk_id];
-        if (len < estrlen(current_msg)) {
-            ememcpy(dialogbox->pending_buffer, current_msg,
-                estrlen(current_msg) + 1);
-            wrap_dialog_text(dialogbox);
-        } else {
-            show_next_dialog(game, dialogbox);
-        }
-        return (true);
-    }
-    return (false);
-}

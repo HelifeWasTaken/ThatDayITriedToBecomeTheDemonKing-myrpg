@@ -1,6 +1,14 @@
+set_hero    593 416
 set         547 563
 move        10  -70  60
 move        -40 30  50
 move        -5 -30  50
 move        -10 40  50
 move        0   0   20
+set         593 416
+disp        "Overworld: Your adventure starts here!" 1
+disp        "Wow it seems dangerous here" 1
+disp        "I can be attacked at any moment!" 1
+disp        "I should remeber the basics of rock paper scissors" 1
+disp        "I heard it was strong agains monsters" 1
+disp        "Rock beats scissors, scissors beats paper, paper beats rocks" 1

@@ -76,7 +76,7 @@
     #define STONE_FIRE      "asset/ath/magic_stone_fire.png"
     #define STONE_NATURAL   "asset/ath/magic_stone_natural.png"
     #define ATH_STONES      \
-        (char *[]) { STONE_DESERT, STONE_FIRE, STONE_NATURAL }
+        (char *[]) { STONE_FIRE, STONE_NATURAL , STONE_DESERT}
     #define RECT_ATH_GAME   (sfIntRect[]) \
         {   { 65,    PLAYER_ATH_POS_Y + 155, 126, 125 }, \
             { 155,  PLAYER_ATH_POS_Y + 155, 126, 125 }, \
@@ -120,5 +120,7 @@
     #define BG_PAUSE "asset/setting/setting_background.png"
     #define DEFAULT_WORLD_FILE  "asset/map_asset/map_files/map_village.json"
     #define DEFAULT_PLAYER_POS  VEC2F(1535, 42)
+    #define TEXT "Quest:\n  become the demon king!\n" \
+        "  defeat the fours guardians"
 
 #endif

@@ -20,7 +20,6 @@
 #include "myrpg/scenes.h"
 
 static const char *CINEMA_FILES_END[] = {
-    "asset/cinematic/end/init.cinematic",
     "asset/cinematic/end/1.cinematic",
     "asset/cinematic/end/2.cinematic",
     "asset/cinematic/end/3.cinematic"
@@ -40,8 +39,7 @@ bool stop_end_scene(game_t *game, cinema_entity_t *cinema UNUSED)
     }
     ememset(game->state, 0, sizeof(game_state_t));
     ememcpy(&get_game_state(game)->params, &params, sizeof(params));
-    game->scene->world_file = DEFAULT_WORLD_FILE;
-    get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
+    default_save(game, -1);
     switch_to_scene(game, MENU_SCENE);
     return (true);
 }

@@ -1,0 +1,3 @@
+set_hero 167 650
+set 167 650
+disp "I should go see the princess" 1

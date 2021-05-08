@@ -1,4 +1,6 @@
 set_hero   356 653
 set 222 224
 move 30 90 70
-move 0 0 20
+set 356 653
+disp "The desert village: The ancient civilisation" 1
+disp "It's an ancient village and someone might be able to help me find the guardians" 1

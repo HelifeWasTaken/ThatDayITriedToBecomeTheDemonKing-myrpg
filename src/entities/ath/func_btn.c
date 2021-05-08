@@ -53,6 +53,11 @@ bool func_btn_save(UNUSED game_t *game, UNUSED entity_t *entity)
 
 bool func_btn_quest(UNUSED game_t *game, UNUSED entity_t *entity)
 {
+    quest_menu_t *quest = get_instance(game, QUEST_MENU);
+    if (game->is_paused != true && (quest->clock->time > 0.5)) {
+        quest->clock->time = 0;
+        quest->is_display = !(quest->is_display);
+    }
     return (false);
 }
 

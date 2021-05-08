@@ -54,7 +54,8 @@ enum entity_type {
     PNJ,
     PAUSE_MENU,
     CINEMA,
-    BOSS
+    BOSS,
+    QUEST_MENU
 };
 
 //----------------------------------------
@@ -120,6 +121,7 @@ typedef struct hero {
     const struct map_loader *layers;
     bool disable_collision;
     bool cannot_be_attacked;
+    struct dialogbox *dialogbox;
 } hero_t;
 
 bool create_hero(game_t *game, entity_t *entity);
@@ -160,6 +162,7 @@ typedef struct menu {
     entity_t *entity;
     sfSprite *bg_sprite;
     sfSprite *button_sprite[3];
+    bool is_initialized;
 } menu_t;
 
 bool create_menu(game_t *game, entity_t *entity);
@@ -469,12 +472,12 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *entity);
 bool create_battlehud_labels(game_t *game, battlehud_t *hud);
 void update_battlehub_labels(game_t *game, battlehud_t *hud);
 void destroy_battlehud_labels(game_t *game, battlehud_t *hud);
-bool handle_attack_button_click_events(game_t *game,
+bool handle_attack_button_events(game_t *game,
     battlehud_atk_button_t *button, sfEvent *event);
 void destroy_attacks(game_t *game UNUSED, battlehud_t *hud);
 void update_attacks(game_t *game UNUSED, battlehud_t *hud);
 void draw_attacks(game_t *game UNUSED, battlehud_t *hud);
-bool handle_attack_buttons_click_events(game_t *game,
+bool handle_attack_buttons_events(game_t *game,
     battlehud_t *battlehud, sfEvent *event);
 bool create_attacks(game_t *game, battlehud_t *hud);
 void destroy_attacks(game_t *game UNUSED, battlehud_t *hud);
@@ -521,5 +524,21 @@ void update_boss(game_t *game, entity_t *entity);
 void draw_boss(game_t *game, entity_t *entity);
 void destroy_boss(game_t *game, entity_t *entity);
 bool handle_boss_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct quest_menu {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    bool is_display;
+    sfText *back;
+    sfText *text;
+} quest_menu_t;
+
+bool create_text_quest(game_t *game, entity_t *entity);
+bool create_quest_menu(game_t *game, entity_t *entity);
+void update_quest_menu(game_t *game, entity_t *entity);
+void draw_quest_menu(game_t *game, entity_t *entity);
+void destroy_quest_menu(game_t *game, entity_t *entity);
+bool handle_quest_menu_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

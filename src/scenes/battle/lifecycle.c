@@ -10,11 +10,30 @@
 #include "distract/game.h"
 #include "distract/entity.h"
 #include "distract/resources.h"
+#include "distract/sound.h"
 #include "myrpg/entities.h"
 #include "myrpg/state.h"
 #include "myrpg/asset.h"
+#include "myrpg/util.h"
 #include <SFML/Graphics/Color.h>
 #include <SFML/Graphics/Sprite.h>
+
+static const char *BOSS_MUSIC[] = {
+    "asset/song/volcano_boss_theme.ogg",
+    "asset/song/forest_boss_theme.ogg",
+    "asset/song/sand_boss_theme.ogg",
+    "asset/song/final_boss_theme.ogg"
+};
+
+static char *select_music(game_t *game)
+{
+    int boss_id = get_game_state(game)->last_boss_id;
+    char **music = (void *)(char const **)BOSS_MUSIC;
+
+    if (boss_id == -1)
+        return ("asset/song/battle_theme.ogg");
+    return (music[boss_id]);
+}
 
 static battlemanager_t *initialize_manager(game_t *game)
 {
@@ -52,16 +71,14 @@ int battle_lifecycle(game_t *game)
 {
     battlemanager_t *manager = initialize_manager(game);
     int exit_code;
-    sfMusic *music = sfMusic_createFromFile("asset/song/battle_theme.ogg");
     sfEvent event;
 
-    sfMusic_setLoop(music, sfTrue);
-    sfMusic_play(music);
+    D_ASSERT(play_music(game, MUSIC, select_music(game)), false,
+        "Can't play music", 84);
     D_ASSERT(manager, NULL, "Cannot create battle", 84);
     while (is_scene_updated(game)) {
         update_battle_lifecycle(game, &event);
     }
-    sfMusic_destroy(music);
     exit_code = manager->exit_code;
     destroy_scene(game, true);
     return (exit_code);

@@ -1,16 +1,17 @@
 [
     {
         "name": "Demon Boss",
-        "file_path": "asset/pnj/pnj_asset/volcano/demon.png",
+        "file_path": "asset/pnj/pnj_asset/desert_battle/troll_king.png",
         "frame": 5,
         "rect": {
             "left": 0,
             "top": 0,
             "width": 200,
-            "height": 134
+            "height": 100
         },
         "pos": {"x": 125, "y": 10},
         "boss_id": 2,
+        "trigger_battle": true,
         "hp": 500,
         "mana": 50,
         "scale": {"x": 1, "y": 1},

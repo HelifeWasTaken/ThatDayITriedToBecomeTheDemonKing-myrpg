@@ -3,5 +3,5 @@ set         100 50
 move        50  70  90
 move        0   0   50
 set         1607    81
-disp        "This was all a dream..." 40
-disp        "After all a pnj cannot be a final boss" 40
+disp        "This was all a dream..." 1
+disp        "After all a pnj cannot be a final boss" 1

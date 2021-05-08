@@ -258,18 +258,5 @@
        },
        "pos": {"x": 136, "y": 842},
        "message": "bonjour"
-   },
-   {
-       "name": "david",
-       "file_path": "asset/pnj/pnj_asset/pnj_village/water_fall.png",
-       "frame": 6,
-       "rect": {
-           "left": 0,
-           "top": 0,
-           "width": 30,
-           "height": 30
-       },
-       "pos": {"x": 230, "y": 229},
-       "message": "bonjour"
    }
 ]

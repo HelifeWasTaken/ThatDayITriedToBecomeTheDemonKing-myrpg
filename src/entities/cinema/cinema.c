@@ -49,6 +49,7 @@ bool create_cinema(game_t *game UNUSED, entity_t *entity)
     D_ASSERT(cinema->clock, NULL, "Could not allocate clock", NULL);
     D_ASSERT(cinema->box, NULL, "Could not get dialog box", NULL);
     D_ASSERT(cinema->hero, NULL, "Could not get hero", NULL);
+    cinema->entity->z = -1;
     return (set_cinema(game, cinema));
 }
 

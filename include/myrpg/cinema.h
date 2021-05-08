@@ -37,7 +37,11 @@
                 int64_t x;
                 int64_t y;
             } move;
-            dialog_t disp;
+            struct {
+                dialog_t dlg;
+                bool trigg;
+                bool wait;
+            } disp;
             char *scene;
         } u;
         struct cinema *next;

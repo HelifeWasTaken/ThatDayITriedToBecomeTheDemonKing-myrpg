@@ -30,13 +30,13 @@ static bool disp_set_box(game_t *game, struct cinema **head UNUSED,
 {
     if (ptr == NULL)
         return (false);
-    tmp->u.disp.messages = esplit(ptr, '\n');
-    tmp->u.disp.name = "";
-    tmp->u.disp.boss_id = -1;
-    tmp->u.disp.box = get_instance(game, DIALOGBOX);
-    if (tmp->u.disp.messages == NULL)
+    tmp->u.disp.dlg.messages = esplit(ptr, '\n');
+    tmp->u.disp.dlg.name = "";
+    tmp->u.disp.dlg.boss_id = -1;
+    tmp->u.disp.dlg.box = get_instance(game, DIALOGBOX);
+    if (tmp->u.disp.dlg.messages == NULL)
         return (false);
-    if (tmp->u.disp.box == NULL)
+    if (tmp->u.disp.dlg.box == NULL)
         return (false);
     free(ptr);
     return (true);
@@ -61,5 +61,5 @@ bool parse_disp_text(game_t *game, struct cinema **head, char *buf)
     if (disp_set_box(game, head, ptr, &tmp) == false)
         return (false);
     tmp.cycle_count = rpg_strtoll(buf, &buf);
-    return (tmp.u.disp.messages != NULL && push_back_cinema(head, &tmp));
+    return (tmp.u.disp.dlg.messages != NULL && push_back_cinema(head, &tmp));
 }

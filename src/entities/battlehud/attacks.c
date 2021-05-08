@@ -65,7 +65,7 @@ void update_attacks(game_t *game UNUSED, battlehud_t *hud)
         sfSprite_setColor(hud->atk_btn[i].btn, sfWhite);
         if (hud->atk_btn[i].is_mouse_over) {
             sfSprite_setColor(hud->atk_btn[i].btn,
-                sfColor_fromRGB(10, 10, 10));
+                sfColor_fromRGB(200, 200, 200));
         }
         if (hud->atk_btn[i].clicked) {
             sfSprite_setColor(hud->atk_btn[i].btn,
