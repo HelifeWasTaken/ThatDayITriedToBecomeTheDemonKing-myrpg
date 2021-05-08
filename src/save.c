@@ -66,9 +66,17 @@ void save_current(game_t *game)
     if (file == NULL)
         return;
     estrncpy(get_game_state(game)->save.map_id, game->scene->world_file, 255);
-    fwrite(&SAVE_MAGIC_NUMBER, sizeof(int), 1, file);
-    fwrite(&get_game_state(game)->save, sizeof(game_save_t), 1, file);
+    if (fwrite(&SAVE_MAGIC_NUMBER, sizeof(int), 1, file) == -1) {
+        fclose(file);
+        return;
+    }
+    if (fwrite(&get_game_state(game)->save,
+                sizeof(game_save_t), 1, file) == -1) {
+        fclose(file);
+        return;
+    }
     fclose(file);
+    return;
 }
 
 bool configure_state(game_t *game)
