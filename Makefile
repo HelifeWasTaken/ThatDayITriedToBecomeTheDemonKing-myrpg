@@ -133,6 +133,7 @@ SRC_QUEST	=	src/entities/quest_menu/quest_menu.c	\
 				src/entities/quest_menu/create_text.c
 
 SRC = 	src/game.c \
+		src/save.c \
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
 	src/entities/settings/mute_button.c	\
