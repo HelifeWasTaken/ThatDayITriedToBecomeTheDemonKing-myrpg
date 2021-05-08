@@ -16,6 +16,7 @@
 #include "myrpg/entities.h"
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
+#include "myrpg/cinema.h"
 
 bool create_pause_menu(game_t *game UNUSED, entity_t *entity)
 {
@@ -56,6 +57,8 @@ void update_pause_menu(game_t *game UNUSED, entity_t *entity)
 
     if (pause->is_display == true)
         game->is_paused = true;
+    if (GBL_IS_IN_CINEMATIC)
+        return;
     if (IS_KEY_PRESS_FRAME(sfKeyEscape)) {
         pause->is_display = (!pause->is_display);
         game->is_paused = !game->is_paused;

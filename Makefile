@@ -130,7 +130,11 @@ SRC_PAUSE	=	src/entities/pause_menu/pause_menu.c \
 				src/entities/pause_menu/create_button.c	\
 				src/entities/pause_menu/func.c
 
+SRC_QUEST	=	src/entities/quest_menu/quest_menu.c	\
+				src/entities/quest_menu/create_text.c
+
 SRC = 	src/game.c \
+		src/save.c \
 	src/entities/settings/init_settings.c \
 	src/entities/settings/init_scroll.c \
 	src/entities/settings/mute_button.c	\
@@ -167,7 +171,8 @@ SRC = 	src/game.c \
 		$(SRC_INVENTORY) \
 		$(SRC_CINEMA) \
 		$(SRC_ATH)  \
-    $(SRC_PAUSE)
+    $(SRC_PAUSE)	\
+	$(SRC_QUEST)
 
 OBJ 	=	$(SRC:.c=.o)
 

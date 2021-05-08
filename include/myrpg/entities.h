@@ -54,7 +54,8 @@ enum entity_type {
     PNJ,
     PAUSE_MENU,
     CINEMA,
-    BOSS
+    BOSS,
+    QUEST_MENU
 };
 
 //----------------------------------------
@@ -525,5 +526,21 @@ void update_boss(game_t *game, entity_t *entity);
 void draw_boss(game_t *game, entity_t *entity);
 void destroy_boss(game_t *game, entity_t *entity);
 bool handle_boss_events(game_t *game, entity_t *entity, sfEvent *event);
+
+typedef struct quest_menu {
+    entity_t *entity;
+    pausable_clock_t *clock;
+    sfSprite *sprite;
+    bool is_display;
+    sfText *back;
+    sfText *text;
+} quest_menu_t;
+
+bool create_text_quest(game_t *game, entity_t *entity);
+bool create_quest_menu(game_t *game, entity_t *entity);
+void update_quest_menu(game_t *game, entity_t *entity);
+void draw_quest_menu(game_t *game, entity_t *entity);
+void destroy_quest_menu(game_t *game, entity_t *entity);
+bool handle_quest_menu_events(game_t *game, entity_t *entity, sfEvent *event);
 
 #endif /* DDBE0D45_A6F4_48A8_BD16_E3A1287341DF */

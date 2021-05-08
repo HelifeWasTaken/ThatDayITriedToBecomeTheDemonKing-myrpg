@@ -8,6 +8,7 @@
 #include "distract/entity.h"
 #include "distract/game.h"
 #include "myrpg/entities.h"
+#include "myrpg/scenes.h"
 #include <SFML/Window/Event.h>
 #include <SFML/Window/Keyboard.h>
 
@@ -26,4 +27,6 @@ void handle_debug_keybind(game_t *game UNUSED,
         switch_to_world(game, "asset/map_asset/map_files/dev_room.json");
         get_game_state(game)->save.player_pos = (sfVector2f) { 219, 229 };
     }
+    if (key->control && key->code == sfKeyE)
+        ememset(&get_game_state(game)->save.levels_done, 1, sizeof(bool) * 3);
 }

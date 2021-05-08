@@ -75,7 +75,9 @@ static const entity_info_t ENTITIES[] = {
     ENTITY(CINEMA, &create_cinema, NULL,
         &destroy_cinema, &update_cinema, NULL),
     ENTITY(BOSS, &create_boss, &draw_boss,
-            &destroy_boss, &update_boss, NULL)
+            &destroy_boss, &update_boss, NULL),
+    ENTITY(QUEST_MENU, &create_quest_menu, &draw_quest_menu,
+            &destroy_quest_menu, &update_quest_menu, &handle_quest_menu_events)
 };
 
 static bool configure_window(game_t *game)
@@ -101,25 +103,6 @@ static bool configure_entities(game_t *game UNUSED)
         if (!register_entity(game, &ENTITIES[i]))
             return (false);
     }
-    return (true);
-}
-
-bool configure_state(game_t *game)
-{
-    game_state_t *state = dcalloc(sizeof(game_state_t), 1);
-
-    D_ASSERT(state, NULL, "", false);
-    state->params.music_vol = 1;
-    state->params.vfx_vol = 1;
-    state->params.voice_vol = 1;
-    for (int index = 0; index != 15; index++) {
-        state->save.item[index].type = game->item_loaded[index].type;
-        state->save.item[index].id = index;
-        state->save.item[index].nb = 1;
-    }
-    state->save.player_hp = 20;
-    state->save.player_lv = 1;
-    game->state = state;
     return (true);
 }
 
@@ -149,11 +132,12 @@ int load_game(void)
 
     if (game == NULL || configure_game(game) == false)
         return (84);
+    seed_generator();
     set_pending_scene(game, MENU_SCENE);
-    game->scene->world_file = DEFAULT_WORLD_FILE;
-    get_game_state(game)->save.player_pos = DEFAULT_PLAYER_POS;
     do {
+        save_current(game);
         code = load_pending_scene(game);
+        save_current(game);
         if (code != 0)
             return (code);
     } while (has_pending_scene(game));

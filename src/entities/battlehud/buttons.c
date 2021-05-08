@@ -38,6 +38,8 @@ static bool fill_buttons(game_t *game UNUSED, battlehud_t *hud)
     hud->attack->entity->pos = VEC2F(hud->entity->pos.x + 100,
         hud->entity->pos.y + 100);
     hud->attack->on_click = on_attack_click;
+    if (hud->run == NULL)
+        return (true);
     hud->run->title = "Run";
     hud->run->entity->pos = VEC2F(hud->entity->pos.x + 100,
         hud->entity->pos.y + 250);
@@ -54,10 +56,12 @@ bool create_battlehud_buttons(game_t *game, battlehud_t *hud)
     tmp = create_entity(game, GUI_BUTTON);
     D_ASSERT(tmp, NULL, "Cannot create battlehud buttons", false);
     attack = tmp->instance;
-    tmp = create_entity(game, GUI_BUTTON);
-    D_ASSERT(tmp, NULL, "Cannot create battlehud buttons", false);
-    run = tmp->instance;
     hud->attack = attack;
-    hud->run = run;
+    if (get_game_state(game)->last_boss_id == -1) {
+        tmp = create_entity(game, GUI_BUTTON);
+        D_ASSERT(tmp, NULL, "Cannot create battlehud buttons", false);
+        run = tmp->instance;
+        hud->run = run;
+    }
     return (fill_buttons(game, hud));
 }

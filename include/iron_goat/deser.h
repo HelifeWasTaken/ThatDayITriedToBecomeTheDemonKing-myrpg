@@ -99,7 +99,6 @@
     #define DESER_OPT_CHECK(conf, new, info, tmp, ptr) \
         if (info[i].opt == true) { \
             if (json_exist(conf, info[i].data, info[i].type) == false) { \
-                DEBUG_PRINTF("Data did not exist"); \
                 continue; \
             } \
         }
@@ -109,13 +108,11 @@
         for (size_t i = 0; i < ARRAY_SIZE(info); i++) { \
             OPT(json) tmp = {0}; \
             char *ptr = (char *)new; \
-            DEBUG_PRINTF("Loading %s data", info[i].data); \
             DESER_OPT_CHECK(conf, new, info, tmp, ptr); \
             if ((tmp = json_get(conf, info[i].data, \
                 info[i].type)).is_ok == false) \
                 return (false); \
             DESER_LOOP_INTERN_COPY(conf, new, info, tmp, ptr); \
-            DEBUG_PRINTF("Data sucessfully loaded"); \
         } \
         return (true)
 

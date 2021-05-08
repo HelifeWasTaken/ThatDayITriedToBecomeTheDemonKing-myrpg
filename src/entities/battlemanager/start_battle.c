@@ -16,6 +16,7 @@ static void trigger_battle_win(game_t *game, int boss_id)
 
     state->save.player_xp += 35;
     if (state->save.player_xp >= 100) {
+        state->save.player_hp += 3;
         state->save.player_xp = 0;
         state->save.player_lv += 1;
     }
@@ -23,7 +24,7 @@ static void trigger_battle_win(game_t *game, int boss_id)
     if (boss_id == 3) {
         for (int i = 0; i < 3; i++)
             state->save.levels_done[i] = true;
-        switch_to_scene(game, PLAY_SCENE);
+        switch_to_world(game, "asset/map_asset/map_files/cattle.json");
     }
 }
 

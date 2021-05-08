@@ -92,7 +92,5 @@ int start_attack(game_t *game UNUSED, battlemanager_t *manager)
     manager->is_mutual_attack = (spell_cmp == 0);
     manager->source->mana -= manager->spell->mana;
     set_animable_animation(&manager->source->animable, manager->spell->anim);
-    eprintf("%s -> %s: %s\n", manager->source->name, manager->target->name,
-        manager->spell->name);
     return (0);
 }

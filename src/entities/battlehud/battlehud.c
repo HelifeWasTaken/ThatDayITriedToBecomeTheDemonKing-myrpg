@@ -65,10 +65,12 @@ void update_battlehud(game_t *game, entity_t *entity)
     && !is_attack_anim_in_progress(battlehud->manager)
     && !battlehud->show_attacks) {
         battlehud->attack->is_enabled = true;
-        battlehud->run->is_enabled = true;
+        if (battlehud->run)
+            battlehud->run->is_enabled = true;
     } else {
         battlehud->attack->is_enabled = false;
-        battlehud->run->is_enabled = false;
+        if (battlehud->run)
+            battlehud->run->is_enabled = false;
     }
     update_attacks(game, battlehud);
     tick_pausable_clock(battlehud->clock);
