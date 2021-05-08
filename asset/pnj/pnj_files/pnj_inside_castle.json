@@ -193,17 +193,5 @@
         },
         "pos": {"x": 501, "y": 526},
         "message": "bonjour"
-    },
-    {
-        "name": "bob",
-        "file_path": "asset/pnj/pnj_asset/volcano/demon.png",
-        "frame": 5,
-        "rect": {
-            "left": 0,
-            "top": 0,
-            "width": 200,
-            "height": 134
-        },
-        "pos": {"x": 121, "y": 58}
     }
 ]

@@ -29,7 +29,7 @@ static const battle_opponent_t BOSSES[] = {
         .asset_file = "asset/enemies/boss/demon.png",
         .asset_rect = { 0, 0, 3000, 3600 },
         .level = 1,
-        .health = 300,
+        .health = 65,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -47,10 +47,21 @@ static const battle_opponent_t BOSSES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 68,
+                .efficiency = 9,
                 .type = BST_ROCK,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/fire_attack_boss.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 10,
+                .attack_fx_size = { 3, 3 }
+            },
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 12,
+                .type = BST_PAPER,
+                .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/volcano_boss_second_atk.png",
                 .attack_fx_frames_per_line = 5,
                 .attack_fx_frames_count = 10,
                 .attack_fx_size = { 3, 3 }
@@ -62,7 +73,7 @@ static const battle_opponent_t BOSSES[] = {
         .asset_file = "asset/enemies/boss/forest_lion.png",
         .asset_rect = { 0, 0, 1000, 2400 },
         .level = 1,
-        .health = 300,
+        .health = 55,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -80,10 +91,21 @@ static const battle_opponent_t BOSSES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 68,
-                .type = BST_ROCK,
+                .efficiency = 8,
+                .type = BST_SCISSOR,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/boss_natural_hit.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 20,
+                .attack_fx_size = { 3, 3 }
+            },
+                        {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 10,
+                .type = BST_PAPER,
+                .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/forest_bosss_second_atk.png",
                 .attack_fx_frames_per_line = 5,
                 .attack_fx_frames_count = 20,
                 .attack_fx_size = { 3, 3 }
@@ -94,8 +116,8 @@ static const battle_opponent_t BOSSES[] = {
         .name = "Troll King",
         .asset_file = "asset/enemies/boss/troll_king.png",
         .asset_rect = { 0, 0, 3600, 7920 },
-        .level = 1,
-        .health = 300,
+        .level = 5,
+        .health = 50,
         .mana = 10,
         .max_mana = 10,
         .scale = { 0.9, 0.9 },
@@ -103,7 +125,7 @@ static const battle_opponent_t BOSSES[] = {
         .animable_info = {
             .animations = {
                 { 0, 4 },
-                { 5, 50 },
+                { 20, 50 },
                 { 0, 0 }
             },
             .frame_size = { 3600 / 5, 7920 / 11 },
@@ -113,10 +135,21 @@ static const battle_opponent_t BOSSES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 68,
+                .efficiency = 5,
                 .type = BST_ROCK,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/sand_boss.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 20,
+                .attack_fx_size = { 3, 3 }
+            },
+                        {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 7,
+                .type = BST_PAPER,
+                .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/shockwave.png",
                 .attack_fx_frames_per_line = 5,
                 .attack_fx_frames_count = 20,
                 .attack_fx_size = { 3, 3 }
@@ -128,7 +161,7 @@ static const battle_opponent_t BOSSES[] = {
         .asset_file = "asset/enemies/boss/final_boss.png",
         .asset_rect = { 0, 0, 2500, 4500 },
         .level = 1,
-        .health = 15,
+        .health = 80,
         .mana = 10,
         .max_mana = 10,
         .scale = { 0.5, 0.5 },
@@ -136,7 +169,7 @@ static const battle_opponent_t BOSSES[] = {
         .animable_info = {
             .animations = {
                 { 0, 9 },
-                { 10, 41 },
+                { 25, 41 },
                 { 0, 0 }
             },
             .frame_size = { 2500 / 5, 4500 / 9 },
@@ -146,10 +179,21 @@ static const battle_opponent_t BOSSES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 20,
+                .efficiency = 10,
                 .type = BST_ROCK,
                 .anim = BAT_ANIM_ATTACK,
-                .attack_fx_file = "asset/fx/classic_hit.png",
+                .attack_fx_file = "asset/fx/final_boss_hit.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 10,
+                .attack_fx_size = { 3, 3 }
+            },
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 10,
+                .type = BST_SCISSOR,
+                .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/final_boss_second_atk.png",
                 .attack_fx_frames_per_line = 5,
                 .attack_fx_frames_count = 10,
                 .attack_fx_size = { 3, 3 }
