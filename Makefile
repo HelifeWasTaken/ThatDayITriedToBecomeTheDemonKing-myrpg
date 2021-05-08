@@ -48,6 +48,7 @@ SRC_MAP =	src/entities/map_loader/map_loader.c \
 		src/entities/map_loader/object/get_object_info.c \
 		src/entities/map_loader/object/message/destroy_message.c \
 		src/entities/map_loader/object/message/load_pnj.c \
+		src/entities/map_loader/object/message/load_pnj_type.c \
 		src/entities/map_loader/object/warpzone/destroy_warpzone.c \
 		src/entities/map_loader/object/warpzone/load_warp.c \
 		src/entities/map_loader/object/warpzone/warp_entity.c \
@@ -147,6 +148,7 @@ SRC = 	src/game.c \
 		src/entities/dialogbox/show_text.c \
 		src/entities/dialogbox/dialogbox_events.c \
 		src/entities/dialog/dialog.c \
+		src/entities/dialog/is_dialog_visible.c \
 		src/entities/npc/pnj_loader.c \
 		src/entities/npc/create_pnj.c \
 		src/entities/npc/pnj_drawing.c \

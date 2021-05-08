@@ -426,6 +426,11 @@
                  "name":"boss",
                  "properties":[
                         {
+                         "name":"npc_type",
+                         "type":"int",
+                         "value":3
+                        },
+                        {
                          "name":"boss_id",
                          "type":"int",
                          "value":3
@@ -434,6 +439,33 @@
                          "name":"message",
                          "type":"string",
                          "value":"I see, you have taken down the gardian and now you coming to kill me\nYour dream will never come true \nNOW face the power of my legendary guard, COME JOZEF"
+                        },
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"sign"
+                        }],
+                 "rotation":0,
+                 "type":"pnj",
+                 "visible":true,
+                 "width":0,
+                 "x":365,
+                 "y":451.333333333333
+                },
+                {
+                 "height":0,
+                 "id":18,
+                 "name":"boss",
+                 "properties":[
+                        {
+                         "name":"npc_type",
+                         "type":"int",
+                         "value":-3
+                        },
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"You're not brave. Go away, little one."
                         },
                         {
                          "name":"name",
