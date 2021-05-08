@@ -6,9 +6,9 @@ move        -5 -30  50
 move        -10 40  50
 move        0   0   20
 set         593 416
-disp        "Overworld: Your adventure starts here!" 50
-disp        "Wow it seems dangerous here" 50
-disp        "I can be attacked at any moment!" 50
-disp        "I should remeber the basics of rock paper scissors" 50
-disp        "I heard it was strong agains monsters" 50
-disp        "Rock beats scissors, scissors beats paper, paper beats rocks" 50
+disp        "Overworld: Your adventure starts here!" 1
+disp        "Wow it seems dangerous here" 1
+disp        "I can be attacked at any moment!" 1
+disp        "I should remeber the basics of rock paper scissors" 1
+disp        "I heard it was strong agains monsters" 1
+disp        "Rock beats scissors, scissors beats paper, paper beats rocks" 1
