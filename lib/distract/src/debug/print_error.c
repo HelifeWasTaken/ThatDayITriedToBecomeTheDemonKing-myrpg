@@ -6,7 +6,7 @@
 */
 #include "unistd.h"
 
-static int len(char *str)
+int len(char *str)
 {
     size_t i = 0;
 
@@ -17,7 +17,5 @@ static int len(char *str)
 
 void print_error(char *error)
 {
-    write(2, "[ERR]  ", 7);
-    write(2, error, len(error));
-    write(2, "\n", 1);
+    (void)error;
 }

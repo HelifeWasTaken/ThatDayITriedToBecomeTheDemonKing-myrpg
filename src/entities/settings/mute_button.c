@@ -25,7 +25,6 @@ bool create_mute_button(game_t *game UNUSED, entity_t *entity)
     sfTexture *texture = create_texture(game, MUTE_BUTTON, NULL);
     sfFont *font = sfFont_createFromFile(FONT);
 
-
     D_ASSERT(mute_button, NULL, NULL,  false);
     D_ASSERT(texture, NULL, NULL,  false);
     mute_button->str = sfText_create();

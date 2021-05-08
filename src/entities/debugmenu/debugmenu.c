@@ -86,10 +86,8 @@ bool handle_debugmenu_events(game_t *game UNUSED,
     debugmenu_t *debugmenu = entity->instance;
 
     if (event->type == sfEvtKeyPressed) {
-        if (event->key.code == sfKeyF2) {
+        if (event->key.code == sfKeyF2)
             debugmenu->enabled = !debugmenu->enabled;
-            eprintf("Debug menu: %hhu\n", debugmenu->enabled);
-        }
         if (debugmenu->enabled)
             handle_debug_keybind(game, &event->key, debugmenu);
     }
