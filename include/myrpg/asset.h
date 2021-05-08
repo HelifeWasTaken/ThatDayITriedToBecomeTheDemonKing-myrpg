@@ -120,5 +120,7 @@
     #define BG_PAUSE "asset/setting/setting_background.png"
     #define DEFAULT_WORLD_FILE  "asset/map_asset/map_files/map_village.json"
     #define DEFAULT_PLAYER_POS  VEC2F(1535, 42)
+    #define TEXT "Quest:\n  become the demon king!\n" \
+        "  defeat the fours guardians"
 
 #endif
