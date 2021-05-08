@@ -13,7 +13,7 @@
     ///
     /// If true, enable debug menu when F2 is pressed
     ///
-    #define ENABLE_DEBUG_MENU 1
+    #define ENABLE_DEBUG_MENU 0
 
     #define DRAW_SPRITE sfRenderWindow_drawSprite
     #define SET_SPRITE_POS sfSprite_setPosition
