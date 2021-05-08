@@ -23,7 +23,7 @@ static void trigger_battle_win(game_t *game, int boss_id)
     if (boss_id == 3) {
         for (int i = 0; i < 3; i++)
             state->save.levels_done[i] = true;
-        switch_to_scene(game, PLAY_SCENE);
+        switch_to_world(game, "asset/map_asset/map_files/cattle.json");
     }
 }
 

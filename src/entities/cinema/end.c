@@ -20,7 +20,6 @@
 #include "myrpg/scenes.h"
 
 static const char *CINEMA_FILES_END[] = {
-    "asset/cinematic/end/init.cinematic",
     "asset/cinematic/end/1.cinematic",
     "asset/cinematic/end/2.cinematic",
     "asset/cinematic/end/3.cinematic"
