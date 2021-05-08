@@ -25,7 +25,6 @@ static bool check_collision(sfVector2u *pos_v, hero_t *hero)
         return (true);
     if (pos_v->x >= hero->layers->manager.mapsize.x ||
             pos_v->y >= hero->layers->manager.mapsize.y) {
-        print_error("Warning: Unexpected collision encoutered");
         return (false);
     }
     return (!hero->layers->manager.collision->data.map[
