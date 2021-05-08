@@ -67,7 +67,11 @@ bool update_cinema_data(cinema_entity_t **cinema,
         game_t *game, entity_t *entity)
 {
     (*cinema)->cine->cycle_count--;
-    if ((*cinema)->cine->cycle_count < 0)
+    if (game->input.keys[sfKeyEscape].is_pressed == sfTrue) {
+        while ((*cinema)->cine)
+            pop_front_cinema(game, &(*cinema)->cine);
+    }
+    if ((*cinema)->cine && (*cinema)->cine->cycle_count < 0)
         pop_front_cinema(game, &(*cinema)->cine);
     if ((*cinema)->cine == NULL) {
         GBL_IS_IN_CINEMATIC = false;

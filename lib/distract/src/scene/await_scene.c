@@ -8,6 +8,7 @@
 #include "distract/game.h"
 #include "distract/resources.h"
 #include "distract/scene.h"
+#include "distract/sound.h"
 #include <stdio.h>
 
 static void pause_music(scene_t *parent_scene)
@@ -28,7 +29,7 @@ static void pause_music(scene_t *parent_scene)
     }
 }
 
-static void resume_music(scene_t *parent_scene)
+static void resume_music(game_t *game, scene_t *parent_scene)
 {
     hashmap_t *hashmap = parent_scene->resources;
     struct hashmap_list *list = NULL;
@@ -39,8 +40,10 @@ static void resume_music(scene_t *parent_scene)
         if (list == NULL)
             continue;
         resources = list->value;
-        if (resources->type == R_MUSIC)
+        if (resources->type == R_MUSIC) {
+            sfMusic_setVolume(resources->music, game->sound->volumes[0]);
             sfMusic_play(resources->music);
+        }
     }
 }
 
@@ -59,6 +62,6 @@ int await_scene(game_t *game, int scene_id)
     deallocate_scene(game->scene);
     reset_game_events(game);
     game->scene = parent_scene;
-    resume_music(parent_scene);
+    resume_music(game, parent_scene);
     return (code);
 }

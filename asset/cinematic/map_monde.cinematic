@@ -11,4 +11,7 @@ disp        "Wow it seems dangerous here" 1
 disp        "I can be attacked at any moment!" 1
 disp        "I should remeber the basics of rock paper scissors" 1
 disp        "I heard it was strong agains monsters" 1
+disp        "In the manual I got it says: " 1
 disp        "Rock beats scissors, scissors beats paper, paper beats rocks" 1
+disp        "Just click on the attack button and chose your attack type" 1
+disp        "I think it should be enough" 1

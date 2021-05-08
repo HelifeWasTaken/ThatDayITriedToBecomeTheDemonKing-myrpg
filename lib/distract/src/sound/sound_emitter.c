@@ -38,7 +38,6 @@ float get_sound_volume(game_t *game, unsigned char sound_type)
 bool play_sound(game_t *game, int sound_type, char *file)
 {
     sound_emitter_t *emitter = game->sound;
-
     float volume = sound_type == -1 ? 100 : emitter->volumes[sound_type];
     sfSound *sound = create_sound(game, file);
 

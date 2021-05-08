@@ -10,4 +10,5 @@ disp        "If you are stuck in any way just reload the scene" 1
 disp        "by going back to the menu and then use the button play" 1
 disp        "He tells me to tell you also that you can move me with" 1
 disp        "arrow keys and interact with the world with space" 1
+disp        "And the game is automatically saved! Don't even think about cheating we implemented a checksum !" 1
 disp        "But who the fuck am I talking to ????? And why do I hear voices ???" 1
