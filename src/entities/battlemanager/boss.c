@@ -55,7 +55,7 @@ static const battle_opponent_t BOSSES[] = {
                 .attack_fx_frames_count = 10,
                 .attack_fx_size = { 3, 3 }
             },
-                        {
+            {
                 .name = "Attack",
                 .mana = 0,
                 .efficiency = 12,
