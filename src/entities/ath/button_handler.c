@@ -39,6 +39,7 @@ void update_button_handler(game_t *game UNUSED, entity_t *entity)
     sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(game->window);
     sfFloatRect buton_pos;
 
+    update_ath(game, entity);
     for (int i = 0; i < 4; i++) {
         buton_pos = sfSprite_getGlobalBounds(ath->button_sprite[i]);
         if (sfFloatRect_contains(&buton_pos, mouse_pos.x,
