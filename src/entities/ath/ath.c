@@ -48,19 +48,20 @@ bool handle_ath_events(game_t *game UNUSED,
 bool create_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = dcalloc(sizeof(ath_t), 1);
-    sfTexture *player_ath_texture = create_texture(game, PLAYER_ATH,
-        &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
+    sfIntRect rect = IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H);
+    sfTexture *player_ath_texture = create_texture(game, PLAYER_ATH, &rect);
+    sfFont *font = create_font(game, FONT);
 
-    if (!ath || !player_ath_texture)
-        return (false);
-    ath->view = get_entity(game, VIEW)->instance;
-    ath->player_ath_sprite = create_sprite(player_ath_texture,
-        &IRECT(0, 0, PLAYER_ATH_W, PLAYER_ATH_H));
+    D_ASSERT(font && ath, false, "error font", false);
+    ath->view = get_instance(game, VIEW);
+    ath->lv = sfText_create();
+    D_ASSERT((player_ath_texture && ath->view && ath->lv), false, "21", false);
+    sfText_setFont(ath->lv, font);
+    ath->player_ath_sprite = create_sprite(player_ath_texture, &rect);
+    sfText_setPosition(ath->lv, VEC2F(200, 830));
     D_ASSERT(ath->player_ath_sprite, NULL, "error sprite ath", false);
     ath->ath_pos = VEC2F(0, PLAYER_ATH_POS_Y);
-    SET_SPRITE_POS(ath->player_ath_sprite, ath->ath_pos);
-    if (create_ath_second_part(ath, game, NULL) == false)
-        return (false);
+    D_ASSERT(create_ath_second_part(ath, game, NULL), false, "22", false);
     entity->instance = ath;
     ath->entity = entity;
     entity->z = 10000;
@@ -72,6 +73,7 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
 
+    SET_SPRITE_POS(ath->player_ath_sprite, ath->ath_pos);
     if (GBL_IS_IN_CINEMATIC == true)
         return;
     DRAW_SPRITE(game->window, ath->player_ath_sprite, NULL);
@@ -80,6 +82,17 @@ void draw_ath(game_t *game UNUSED, entity_t *entity)
             sfRenderWindow_drawSprite(game->window, ath->ath_stones[i], NULL);
     for (unsigned int i = 0; i < 4; i++)
         sfRenderWindow_drawSprite(game->window, ath->button_sprite[i], NULL);
+    sfRenderWindow_drawText(game->window, ath->lv, NULL);
+}
+
+void update_ath(game_t *game, entity_t *entity)
+{
+    ath_t *ath = entity->instance;
+
+    ememset(ath->lv_text, 0, (sizeof(char) * 100));
+    estrcpy(ath->lv_text, "Level ");
+    eitoa(get_game_state(game)->save.player_lv, ath->lv_text + 6, "0123456789");
+    sfText_setString(ath->lv, ath->lv_text);
 }
 
 void destroy_ath(game_t *game UNUSED, entity_t *entity)
