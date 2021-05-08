@@ -1,4 +1,7 @@
 set_hero 233 607
 set      233 201
 move     0   100   66
-move     0  0 10
+set     233 607
+disp    "The desert: Sanctuary of the rock guardian" 50
+disp    "This is the sanctuary of the guardian of the desert" 50
+disp    "I hope I am at least level 3" 50

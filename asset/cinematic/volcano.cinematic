@@ -1,3 +1,7 @@
+set_hero 433 586
 set 260 174
 move 20 70 90
-move 0 0 10
+set 433 586
+disp "The volcano: A hot place to be" 50
+disp "Wow I feel like I am in Doom insane!" 50
+disp "I hope I am at least level 7" 50

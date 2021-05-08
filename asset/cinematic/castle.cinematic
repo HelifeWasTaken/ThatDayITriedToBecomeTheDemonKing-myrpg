@@ -1,4 +1,7 @@
-set_hero 1161 2142
-set 1161 2142
-move -100 -235 70
-move 0 0 20
+set_hero    1161 2142
+set         1161 2142
+move        -100 -235 70
+set         1161 2142
+disp        "The castle: A place full of idiots" 50
+disp        "What am I am even doing here" 50
+disp        "No way I'm going in that castle" 50
