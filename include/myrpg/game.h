@@ -12,6 +12,8 @@
     #include "distract/game.h"
 
     int load_game(void);
+    bool configure_state(game_t *game);
+    void save_current(game_t *game);
     void not_implemented(game_t *game, entity_t *entity);
 
 #endif /* C2B24367_058C_4C72_ADEA_FD6702E90B19 */
