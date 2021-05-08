@@ -291,6 +291,7 @@ typedef struct dialog {
     char *name;
     char **messages;
     int boss_id;
+    int npc_type;
 } dialog_t;
 
 bool create_dialog(game_t *game, entity_t *entity);

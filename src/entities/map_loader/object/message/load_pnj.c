@@ -65,6 +65,7 @@ static bool load_pnj_entity(game_t *game, struct layer_object_data *data)
     dialog->messages = data->object.pnj.message;
     dialog->name = data->object.pnj.name;
     dialog->boss_id = data->object.pnj.boss_id;
+    dialog->npc_type = data->object.pnj.npc_type;
     dialog->entity->pos = VEC2F(data->rect.left, data->rect.top);
     return (true);
 }
@@ -87,7 +88,8 @@ bool load_pnj(game_t *game, struct layer_object_data *data, ig_object_t *obj)
 {
     if (load_pnj_name(data, obj) == false ||
         load_pnj_message(data, obj) == false ||
-        load_pnj_boss_id(data, obj) == false)
+        load_pnj_boss_id(data, obj) == false ||
+        load_pnj_type(data, obj) == false)
         return (false);
     if (load_pnj_entity(game, data) == false)
         return (false);
