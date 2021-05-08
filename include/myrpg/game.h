@@ -11,6 +11,12 @@
     #include "distract/entity.h"
     #include "distract/game.h"
 
+    #include <fcntl.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <stddef.h>
+    #include <stdlib.h>
+
     int load_game(void);
     bool configure_state(game_t *game);
     void save_current(game_t *game);
@@ -31,14 +37,14 @@
         union time_u ptr;
         int fd = open("/dev/urandom", O_RDONLY);
 
-        if (fd == -1 || read(fd, ptr.s, 64) == -1) {
+        if (fd == -1 || read(fd, ptr.s, sizeof(int64_t)) == -1) {
             if (fd != -1)
                 close(fd);
             srand(DEFAULT_SEED);
             return;
         }
         close(fd);
-        srand(DEFAULT_SEED);
+        srand(ptr.value);
     }
 
 #endif /* C2B24367_058C_4C72_ADEA_FD6702E90B19 */
