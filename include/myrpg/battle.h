@@ -80,6 +80,7 @@ typedef struct boss_data {
     sfVector2f pos_offset;
     animable_info_t animable_info;
     int boss_id;
+    bool trigger_battle;
 } boss_data_t;
 
 int start_battle(game_t *game, int boss_id);
