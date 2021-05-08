@@ -12,27 +12,50 @@
 #include <myrpg/entities.h>
 #include <stdlib.h>
 
+struct button_checker_gui {
+    sfMouseButtonEvent click;
+    game_t *game;
+    sfEvent *event;
+    sfFloatRect bounds;
+    gui_button_t *button;
+    entity_t *entity;
+    sfVector2f pos;
+};
+
+bool handle_button_click_events_part2(struct button_checker_gui *checker)
+{
+    if (checker->event->type == sfEvtMouseButtonReleased)
+        checker->button->clicked = false;
+    if (checker->event->type == sfEvtMouseButtonPressed
+            || checker->event->type == sfEvtMouseButtonReleased) {
+        checker->click = checker->event->mouseButton;
+        if (checker->click.button == sfMouseLeft
+                && sfFloatRect_contains(&checker->bounds,
+                    checker->pos.x, checker->pos.y))
+            checker->button->clicked = (checker->event->type ==
+                    sfEvtMouseButtonPressed);
+        if (checker->click.button == sfMouseLeft
+                && sfFloatRect_contains(&checker->bounds,
+                    checker->pos.x, checker->pos.y)
+                && checker->event->type == sfEvtMouseButtonReleased
+                && checker->button->is_enabled) {
+            checker->button->on_click(checker->game, checker->entity);
+            return (true);
+        }
+    }
+    return (false);
+}
+
 bool handle_button_click_events(game_t *game, entity_t *entity, sfEvent *event)
 {
     gui_button_t *button = entity->instance;
     sfFloatRect bounds = sfText_getGlobalBounds(button->text);
-    sfMouseButtonEvent click;
+    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfMouseButtonEvent click = {0};
+    sfVector2f pos = sfRenderWindow_mapPixelToCoords(game->window,
+            mouse, game->gui_view);
 
-    if (event->type == sfEvtMouseButtonReleased)
-        button->clicked = false;
-    if (event->type == sfEvtMouseButtonPressed
-        || event->type == sfEvtMouseButtonReleased) {
-            click = event->mouseButton;
-            if (click.button == sfMouseLeft
-                && sfFloatRect_contains(&bounds, click.x, click.y))
-                    button->clicked = (event->type == sfEvtMouseButtonPressed);
-            if (click.button == sfMouseLeft
-                && sfFloatRect_contains(&bounds, click.x, click.y)
-                && event->type == sfEvtMouseButtonReleased
-                && button->is_enabled) {
-                    button->on_click(game, entity);
-                    return (true);
-            }
-    }
-    return (false);
+    return (handle_button_click_events_part2(&(struct button_checker_gui){
+            click, game, event, bounds, button, entity, pos
+        }));
 }

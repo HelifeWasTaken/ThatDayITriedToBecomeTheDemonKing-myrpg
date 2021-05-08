@@ -11,6 +11,7 @@
         },
         "pos": {"x": 1295, "y": 199},
         "boss_id": 1,
+        "trigger_battle": true,
         "hp": 500,
         "mana": 50,
         "scale": {"x": 1, "y": 1},
