@@ -26,7 +26,7 @@ static const char *CINEMA_FILES[CINEMATIC_COUNT] = {
     "asset/cinematic/volcano.cinematic",
     "asset/cinematic/forest.cinematic",
     "asset/cinematic/castle.cinematic",
-    NULL,
+    "asset/cinematic/inside_castle.cinematic",
     NULL
 };
 
