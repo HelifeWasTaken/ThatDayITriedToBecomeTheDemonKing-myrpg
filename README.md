@@ -84,3 +84,25 @@ This code follows completely the C Epitech Coding style
 As this is a school project and segfault is unforgivable we tried the game with `valgrind --exit-on-first-error=yes` and played the full game for 1h30
 Even though 4Mb was leaked for such a big project  such a big quality while following C Epitech Coding Style and 1h30of use I can say we are pretty proud of so few leaks
 Thoses could be easily checked with functions of 30 lines at least x)
+
+# Assets
+
+## Tilesets
+  * [TimeFantasy] http://timefantasy.net/`
+
+## Music
+  
+  * E1M1 | Doom
+  * Ouverture | Dragon Quest
+  * Final Destination | Super Smash Bros
+  * Sanctuary Guardian | EarthBound
+  * Ancient Egyptian Music - Golden Scarabs | Fantasy & World Music by the Fiechters
+  * There is no need to be upset | ???
+  * Knights of Blackhall | Brandon Fiechter
+  * Pumpkin Woods | Derek Fiechter, Brandon Fiechter
+  * Egyptian Warriors | Derek Fiechter, Brandon Fiechter
+  * Epic Dark Battle Music - Escape | Powerful Fantasy Horror
+  * Volcano Theme | Nintendo
+  * Decisive Battle | Hollow Knight
+  * Lillia, The Bashful Bloom | League of Legends
+  * Val Habar | Monster Hunter 4
