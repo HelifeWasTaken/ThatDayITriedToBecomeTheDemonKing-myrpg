@@ -88,7 +88,7 @@ Thoses could be easily checked with functions of 30 lines at least x)
 # Assets
 
 ## Tilesets
-  * [TimeFantasy] http://timefantasy.net/`
+  * [TimeFantasy](http://timefantasy.net/)
 
 ## Music
   
