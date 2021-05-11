@@ -47,10 +47,8 @@ bool handle_attack_button_click_events(game_t *game,
         battlehud_atk_button_t *button, sfEvent *event)
 {
     sfFloatRect bounds = sfSprite_getGlobalBounds(button->btn);
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
     sfMouseButtonEvent click = {0};
-    sfVector2f pos = sfRenderWindow_mapPixelToCoords(game->window,
-            mouse, game->gui_view);
+    sfVector2f pos = get_mouse_pos(game);
 
     return (handle_attack_button_click_events_part2(
         &(struct button_checker_battle){
@@ -62,14 +60,12 @@ bool handle_attack_button_events(game_t *game,
     battlehud_atk_button_t *button, sfEvent *event)
 {
     sfFloatRect bounds = sfSprite_getGlobalBounds(button->btn);
-    sfMouseMoveEvent move;
+    sfVector2f move = get_mouse_pos(game);
 
     if (handle_attack_button_click_events(game, button, event))
         return (true);
-    if (event->type == sfEvtMouseMoved) {
-        move = event->mouseMove;
+    if (event->type == sfEvtMouseMoved)
         button->is_mouse_over = sfFloatRect_contains(&bounds, move.x, move.y);
-    }
     return (false);
 }
 

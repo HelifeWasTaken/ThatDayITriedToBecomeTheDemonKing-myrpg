@@ -47,3 +47,31 @@ bool parse_new_scene(game_t *game UNUSED, struct cinema **head, char *buf)
         return (false);
     return (push_back_cinema(head, &tmp));
 }
+
+bool parse_new_music(game_t *game UNUSED, struct cinema **head, char *buf)
+{
+    struct cinema tmp = {0};
+    char *ptr = estrchr(buf, '"') + 1;
+
+    tmp.type = PLAY_MUSIC_CINEMATIC;
+    parse_space(&buf);
+    buf = estrchr(ptr, '"') + 1;
+    if (ptr == NULL || ptr == (char *)1 ||
+        buf == NULL || buf == (char *)1) {
+        print_error("Missing quotes on string parse_new_scene");
+        return (false);
+    }
+    tmp.u.scene = estrndup(ptr, buf - ptr - 1);
+    if (tmp.u.scene == NULL)
+        return (false);
+    return (push_back_cinema(head, &tmp));
+}
+
+bool parse_end_music(game_t *game UNUSED,
+        struct cinema **head UNUSED, char *buf UNUSED)
+{
+    struct cinema tmp = {0};
+
+    tmp.type = STOP_MUSIC_CINEMATIC;
+    return (push_back_cinema(head, &tmp));
+}

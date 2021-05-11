@@ -25,34 +25,15 @@ static const char *CINEMA_FILES_END[] = {
     "asset/cinematic/end/3.cinematic"
 };
 
-static const char *MUSIC_END = "asset/song/travel_cut.ogg";
-
 bool stop_end_scene(game_t *game, cinema_entity_t *cinema UNUSED)
 {
     parameters_t params = {0};
 
     ememcpy(&params, &get_game_state(game)->params, sizeof(params));
-    if (get_game_state(game)->end_music) {
-        sfMusic_stop(get_game_state(game)->end_music);
-        sfMusic_destroy(get_game_state(game)->end_music);
-        get_game_state(game)->end_music = NULL;
-    }
     ememset(game->state, 0, sizeof(game_state_t));
     ememcpy(&get_game_state(game)->params, &params, sizeof(params));
     default_save(game, -1);
     switch_to_scene(game, MENU_SCENE);
-    return (true);
-}
-
-static bool play_end_music(game_t *game, cinema_entity_t *cinema UNUSED)
-{
-    if (get_game_state(game)->end_music == NULL) {
-        get_game_state(game)->end_music = sfMusic_createFromFile(MUSIC_END);
-        if (get_game_state(game)->end_music == NULL)
-            return (false);
-    }
-    if (sfMusic_getStatus(get_game_state(game)->end_music) != sfPlaying)
-        sfMusic_play(get_game_state(game)->end_music);
     return (true);
 }
 
@@ -69,8 +50,6 @@ static bool read_end(game_t *game, cinema_entity_t *cinema)
 
 bool create_cinema_end(game_t *game, cinema_entity_t *cinema)
 {
-    if (play_end_music(game, cinema) == false)
-        return (false);
     if (ARRAY_SIZE(CINEMA_FILES_END) <=
             get_game_state(game)->cinematics_end_count)
         return (stop_end_scene(game, cinema));

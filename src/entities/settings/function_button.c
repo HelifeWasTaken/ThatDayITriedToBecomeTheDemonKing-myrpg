@@ -23,7 +23,7 @@
 void vfx_scrolin(game_t *game UNUSED,
     parameters_t *parm UNUSED, entity_t *entity UNUSED)
 {
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse = get_mouse_pos(game);
     vfx_scroll_t *sc = entity->instance;
     sfFloatRect bar = sfSprite_getGlobalBounds(sc->sprite_bar);
     sfVector2f pos = sfSprite_getPosition(sc->scrolin);

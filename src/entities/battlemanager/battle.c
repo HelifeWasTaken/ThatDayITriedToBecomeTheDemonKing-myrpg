@@ -70,6 +70,7 @@ int create_battle(game_t *game, battlemanager_t *battlemanager)
             continue;
         texture = create_texture(game, BATTLE_BG[i].file, &rect);
         battlemanager->background = create_sprite(texture, NULL);
+        D_ASSERT((texture && battlemanager->background), false, "bg", -1)
         sfSprite_setScale(battlemanager->background, BATTLE_BG[i].size);
         break;
     }

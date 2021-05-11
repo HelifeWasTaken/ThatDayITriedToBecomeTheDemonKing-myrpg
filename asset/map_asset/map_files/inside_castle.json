@@ -120,7 +120,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"I'm the princess guard"
+                         "value":"I'm the princess guard. I would protect her for my life."
                         },
                         {
                          "name":"name",
@@ -142,7 +142,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"I'm working"
+                         "value":"Don't disturb me. I'm working."
                         },
                         {
                          "name":"name",
@@ -296,7 +296,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Where is the king"
+                         "value":"Where is the king?"
                         },
                         {
                          "name":"name",
@@ -318,7 +318,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"The dev forgot to put a king in that throne"
+                         "value":"I think the king went outside two hours ago.\nI wonder what he's doing..."
                         },
                         {
                          "name":"name",
@@ -340,7 +340,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"I don't know why I am staying here defending nothing"
+                         "value":"I don't know why I am staying here defending nothing."
                         },
                         {
                          "name":"name",
@@ -384,7 +384,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Where is the king"
+                         "value":"Where is the king?"
                         },
                         {
                          "name":"name",
@@ -406,7 +406,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"I am making a meal for the chief battle"
+                         "value":"I am making a meal for the chief!"
                         },
                         {
                          "name":"name",
@@ -438,7 +438,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"I see, you have taken down the gardian and now you coming to kill me\nYour dream will never come true \nNOW face the power of my legendary guard, COME JOZEF"
+                         "value":"I see you have taken down the three gardians.\nAre you coming to kill me? Is that your dream?\nToo bad, that will never happen!\nYou don't have that power!\nNOW, face the power of my legendary guard! COME JOZEF!"
                         },
                         {
                          "name":"name",
@@ -449,7 +449,7 @@
                  "type":"pnj",
                  "visible":true,
                  "width":0,
-                 "x":365,
+                 "x":360,
                  "y":451.333333333333
                 },
                 {
@@ -465,7 +465,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"You're not brave. Go away, little one."
+                         "value":"You're not brave enough to come talk to me.\nGo away, little one, or I may call my guardian."
                         },
                         {
                          "name":"name",
@@ -476,7 +476,7 @@
                  "type":"pnj",
                  "visible":true,
                  "width":0,
-                 "x":365,
+                 "x":360,
                  "y":451.333333333333
                 }],
          "opacity":1,

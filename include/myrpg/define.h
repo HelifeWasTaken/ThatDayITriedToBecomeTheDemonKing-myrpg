@@ -13,7 +13,11 @@
     ///
     /// If true, enable debug menu when F2 is pressed
     ///
-    #define ENABLE_DEBUG_MENU 0
+    #ifdef DEBUG
+        #define ENABLE_DEBUG_MENU 1
+    #else
+        #define ENABLE_DEBUG_MENU 0
+    #endif
 
     #define DRAW_SPRITE sfRenderWindow_drawSprite
     #define SET_SPRITE_POS sfSprite_setPosition
@@ -26,6 +30,16 @@
     # else
         #define IN_DEBUG_MENU(...) ((void)0)
     #endif // ENABLE_DEBUG_MENU
+
+    ///
+    /// in case of an AppImage, we need to patch the path using an environment
+    /// variable to keep the behaviour consistent with the unpacked version
+    ///
+    #ifdef APPIMAGE
+        #define SAVE_PATH getenv("SAVE_FILE")
+    #else
+        #define SAVE_PATH "save"
+    #endif
 
     #define USAGE \
         " __       __            _______                      \n" \

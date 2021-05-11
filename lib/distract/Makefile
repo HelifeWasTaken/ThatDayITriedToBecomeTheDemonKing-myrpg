@@ -122,7 +122,7 @@ ${TARGET}: ${OBJ}
 	cp ${TARGET} ../
 	mkdir -p ../../include
 	mkdir -p ../../include/distract
-	ln -rsf ./include/distract/*.h ../../include/distract
+	cp -rf ./include/distract/*.h ../../include/distract
 
 coverage: test
 	gcovr

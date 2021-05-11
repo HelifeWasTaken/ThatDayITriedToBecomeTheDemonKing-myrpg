@@ -22,6 +22,8 @@
         SWITCH_SCENE_CINEMATIC,
         SET_HERO,
         DISP_TEXT,
+        PLAY_MUSIC_CINEMATIC,
+        STOP_MUSIC_CINEMATIC,
         CINEMATIC_TYPES_COUNT
     };
 
@@ -43,6 +45,7 @@
                 bool wait;
             } disp;
             char *scene;
+            char *music;
         } u;
         struct cinema *next;
     } cinema_t;
@@ -55,6 +58,7 @@
     bool parse_set_camera(game_t *game, struct cinema **head, char *buf);
     bool parse_disp_text(game_t *game, struct cinema **head, char *buf);
     bool parse_new_scene(game_t *game, struct cinema **head, char *buf);
+    bool parse_end_music(game_t *game UNUSED, struct cinema **head, char *buf);
 
     bool cinema_reader_command(game_t *game, struct cinema **head,
         char const *filepath);
@@ -75,13 +79,16 @@
     void cinema_set(game_t *game, cinema_entity_t *cine);
     void cinema_move(game_t *game, cinema_entity_t *cine);
     void cinema_new_scene(game_t *game, cinema_entity_t *cine);
+    void cinema_new_music(game_t *game, cinema_entity_t *cine);
 
     bool create_cinema_load(game_t *game, cinema_entity_t *cinema, u64_t id);
     bool create_cinema_end(game_t *game, cinema_entity_t *cinema);
 
+    bool parse_new_music(game_t *game UNUSED, struct cinema **head, char *buf);
     bool stop_end_scene(game_t *game, cinema_entity_t *cinema UNUSED);
     bool parse_hero_pos(game_t *game, struct cinema **head, char *buf);
     bool parse_disp_text(game_t *game, struct cinema **head, char *buf);
     void cinema_disp_text(game_t *game UNUSED, cinema_entity_t *cine);
+    void cinema_end_music(game_t *game, cinema_entity_t *cine);
 
 #endif /* E6D588AA_7D6D_4915_A5DE_40860486DCD3 */

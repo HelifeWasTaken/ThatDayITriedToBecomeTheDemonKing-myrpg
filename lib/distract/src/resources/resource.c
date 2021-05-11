@@ -18,7 +18,7 @@ resource_t *create_resource(game_t *game, char *file, enum resource_type type)
 {
     resource_t *resource = dmalloc(sizeof(resource_t));
 
-    if (resource == NULL) {
+    if (file == NULL || resource == NULL) {
         print_error("Failed to init resource");
         return (NULL);
     }

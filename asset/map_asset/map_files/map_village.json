@@ -333,7 +333,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"farm"
+                         "value":"Farm"
                         },
                         {
                          "name":"name",
@@ -355,7 +355,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"It's been 30 years that I have been working for mister JAM"
+                         "value":"I've been working for mister JAM for 30 years now"
                         },
                         {
                          "name":"name",
@@ -399,7 +399,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"SILENCE !!!!!!! You're gonna wake up the kid ... Oh right you can't speak"
+                         "value":"SILENCE!!!!!!! You're gonna wake up the kid!\n...\nOh right, you can't speak"
                         },
                         {
                          "name":"name",
@@ -421,7 +421,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Nothing here, your poor."
+                         "value":"Nothing here, you're poor."
                         },
                         {
                          "name":"name",
@@ -443,7 +443,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"A long long time ago the world was build by 3 giant\nThe fire, the hearth and the stone.\nAnd they...... OH fuck it !! every one know who created that game"
+                         "value":"A long, long time ago the world was built by 3 giants\nThe fire, the earth and the stone.\nAnd they...... OH fuck it!! Everyone know who created that game"
                         },
                         {
                          "name":"name",
@@ -465,7 +465,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"I realy love flowers"
+                         "value":"I really love flowers"
                         },
                         {
                          "name":"name",
@@ -641,7 +641,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"How sasha can eat so many potato"
+                         "value":"How Sasha can eat so many potatoes?"
                         },
                         {
                          "name":"name",
@@ -707,7 +707,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"The dev actualy made me pull water out of no where. What a joke"
+                         "value":"The dev actually made me pull water out of nowhere. What a joke"
                         },
                         {
                          "name":"name",
@@ -729,7 +729,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Did you heard what the elder said ?"
+                         "value":"Did you hear what the elder said?"
                         },
                         {
                          "name":"name",
@@ -795,7 +795,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Hello pnj number 65"
+                         "value":"Hello NPC number 65"
                         },
                         {
                          "name":"name",

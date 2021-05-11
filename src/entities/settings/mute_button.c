@@ -25,7 +25,6 @@ bool create_mute_button(game_t *game UNUSED, entity_t *entity)
     sfTexture *texture = create_texture(game, MUTE_BUTTON, NULL);
     sfFont *font = sfFont_createFromFile(FONT);
 
-
     D_ASSERT(mute_button, NULL, NULL,  false);
     D_ASSERT(texture, NULL, NULL,  false);
     mute_button->str = sfText_create();
@@ -84,7 +83,7 @@ bool handle_mute_button_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     mute_button_t *mute = entity->instance;
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse = get_mouse_pos(game);
     sfFloatRect rect = sfSprite_getGlobalBounds(mute->sprite);
 
     if (sfFloatRect_contains(&rect, mouse.x, mouse.y))

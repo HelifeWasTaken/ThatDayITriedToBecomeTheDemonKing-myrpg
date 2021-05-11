@@ -53,7 +53,7 @@ void destroy_inventory(game_t *game UNUSED, entity_t *entity)
 void update_inventory(game_t *game UNUSED, entity_t *entity)
 {
     inventory_t *inventory = entity->instance;
-    sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f pos = get_mouse_pos(game);
     game_state_t *state = game->state;
 
     sfSprite_setPosition(inventory->cursor_item, VEC2F(pos.x, pos.y));
@@ -95,7 +95,7 @@ bool handle_inventory_events(game_t *game UNUSED,
 {
     inventory_t *inventory = entity->instance;
     sfFloatRect rect = sfCircleShape_getGlobalBounds(inventory->box);
-    sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f pos = get_mouse_pos(game);
 
     inventory_management(game, entity);
     if (sfFloatRect_contains(&rect, pos.x, pos.y)) {

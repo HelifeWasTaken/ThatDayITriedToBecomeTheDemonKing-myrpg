@@ -17,6 +17,7 @@
 #include "myrpg/asset.h"
 #include "myrpg/define.h"
 #include "myrpg/cinema.h"
+#include <SFML/Window/Event.h>
 
 bool create_pause_menu(game_t *game UNUSED, entity_t *entity)
 {
@@ -85,15 +86,17 @@ void draw_pause_menu(game_t *game UNUSED, entity_t *entity)
 }
 
 bool handle_pause_menu_events(game_t *game UNUSED,
-    entity_t *entity UNUSED, sfEvent *event UNUSED)
+    entity_t *entity UNUSED, sfEvent *event)
 {
     pause_menu_t *pause = entity->instance;
-    sfVector2i mous = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse = get_mouse_pos(game);
     sfFloatRect rect;
 
+    if (event->type == sfEvtLostFocus && GBL_IS_IN_CINEMATIC == false)
+        pause->is_display = true;
     for (int index = 0; index != 3; index++) {
         rect = sfSprite_getGlobalBounds(pause->btn[index]);
-        if (sfFloatRect_contains(&rect, mous.x, mous.y)
+        if (sfFloatRect_contains(&rect, mouse.x, mouse.y)
             && pause->is_display == true) {
             sfText_setColor(pause->str[index], sfColor_fromRGB(255, 0, 0));
             function_button_pause(game, entity, index);

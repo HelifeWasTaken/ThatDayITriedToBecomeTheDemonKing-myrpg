@@ -25,11 +25,16 @@ ifeq ($(EPIDEBUG), 1)
 	CFLAGS += -Wno-error=extra -Wextra -Wnonnull
 	CFLAGS += -fno-builtin
 	CFLAGS += -ftrapv -ggdb -g3
+	CFLAGS += -DDEBUG
 endif
 
 ifeq ($(SAN), 1)
 	CFLAGS += -fsanitize=undefined,bounds-strict,address -fsanitize-recover=address -O1
 	ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1
+endif
+
+ifeq ($(APPIMAGE), 1)
+	CFLAGS += -DAPPIMAGE
 endif
 
 LFLAGS = -ldistract -ltgoat -lcsfml-system -lcsfml-graphics -lcsfml-audio -lcsfml-window -lm
@@ -74,6 +79,7 @@ SRC_LIFECYCLE = src/scenes/play/lifecycle.c \
         src/scenes/menu/lifecycle.c     \
         src/scenes/key_config/lifecycle.c \
         src/scenes/settings_menu/lifecycle.c  \
+        src/scenes/settings_menu/create.c  \
 		src/scenes/battle/lifecycle.c \
 
 SRC_UTIL = src/util/sfml_deser.c \
@@ -207,6 +213,11 @@ clean_tests:
 $(TARGET): ${OBJ}
 	${CC} ${CFLAGS} -o ${TARGET} ${OBJ} src/main.c ${LFLAGS}
 
+appimage:
+	APPIMAGE=1 make re
+	docker run -v ${PWD}:/data:Z -w /data --rm appimagecrafters/appimage-builder:latest appimage-builder
+	rm -f my_rpg ${OBJ}
+
 clean:
 	rm -f ${TARGET}
 	${MAKE} clean -j -C ./lib/distract/
@@ -219,4 +230,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all build_lib re_lib build_all tests_run clean_tests clean fclean re
+.PHONY: all build_lib re_lib build_all tests_run clean_tests clean fclean re appimage

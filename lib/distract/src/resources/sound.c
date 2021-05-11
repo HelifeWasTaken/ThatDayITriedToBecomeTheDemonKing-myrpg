@@ -19,6 +19,8 @@ static char *get_sb_filepath(char *filepath)
     char *sb_filepath = malloc(sizeof(char) * (dstrlen(filepath) + 1));
     int i = 0;
 
+    if (sb_filepath == NULL)
+        return (NULL);
     for (i = 0; filepath[i] != '\0'; i++) {
         sb_filepath[i] = filepath[i];
     }

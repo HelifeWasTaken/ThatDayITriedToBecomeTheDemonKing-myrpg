@@ -42,7 +42,7 @@ void default_save(game_t *game, int fd)
 
 static void read_save(game_t *game)
 {
-    int fd = open("save", O_RDONLY);
+    int fd = open(SAVE_PATH, O_RDONLY);
     int magic = 0;
     ssize_t size = 0;
 
@@ -68,7 +68,7 @@ void save_current(game_t *game)
 
     if (IS_GAME_FINISHED(game))
         return;
-    file = fopen("save", "w");
+    file = fopen(SAVE_PATH, "w");
     if (file == NULL)
         return;
     estrncpy(get_game_state(game)->save.map_id, game->scene->world_file, 255);

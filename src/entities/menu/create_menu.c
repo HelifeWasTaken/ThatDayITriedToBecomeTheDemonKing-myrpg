@@ -30,7 +30,7 @@ static bool create_background_loop(game_t *game, menu_t *menu,
         menu->button_sprite[i] = create_sprite(button_texture, NULL);
         if (menu->button_sprite[i] == NULL)
             return (false);
-        sfSprite_setScale(menu->button_sprite[i], VEC2F(2, 2));
+        sfSprite_setScale(menu->button_sprite[i], VEC2F(1.5f, 1.5f));
         SET_SPRITE_POS(menu->button_sprite[i], VEC2F(BUTTON_MENU_POS[i],
             WINDOW_H / 1.5));
         pos_y--;

@@ -22,11 +22,11 @@ static bool fill_labels(game_t *game UNUSED, battlehud_t *hud)
     sfVector2f pos = hud->entity->pos;
 
     hud->lv_label->entity->pos = VEC2F(pos.x + 900, pos.y + 125);
-    hud->lv_label->title = estrdup("Lv.   XXXXXX");
+    hud->lv_label->title = estrdup("Lv.   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     hud->hp_label->entity->pos = VEC2F(pos.x + 900, pos.y + 175);
-    hud->hp_label->title = estrdup("HP:   XXXXXX");
+    hud->hp_label->title = estrdup("HP:   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     hud->xp_label->entity->pos = VEC2F(pos.x + 900, pos.y + 225);
-    hud->xp_label->title = estrdup("XP:   XXXXXX");
+    hud->xp_label->title = estrdup("XP:   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     D_ASSERT(hud->lv_label->title, NULL, "Cannot stralloc battlehud", false);
     D_ASSERT(hud->xp_label->title, NULL, "Cannot stralloc battlehud", false);
     D_ASSERT(hud->hp_label->title, NULL, "Cannot stralloc battlehud", false);
@@ -73,9 +73,12 @@ void update_battlehub_labels(game_t *game UNUSED, battlehud_t *hud UNUSED)
     int offset_hp = 5 + (4 - count_digits(opponent->health, 3));
     int offset_xp = 5 + (4 - count_digits(state->save.player_xp, 3));
 
-    ememset(hud->lv_label->title + 5, ' ', 6);
-    ememset(hud->hp_label->title + 5, ' ', 6);
-    ememset(hud->xp_label->title + 5, ' ', 6);
+    D_ASSERT((offset_lv < 0 || offset_lv > 8), true, "Invalid level", (void)0)
+    D_ASSERT((offset_hp < 0 || offset_hp > 8), true, "Invalid hp", (void)0)
+    D_ASSERT((offset_xp < 0 || offset_xp > 8), true, "Invalid xp", (void)0)
+    ememset(hud->lv_label->title + 5, ' ', 34);
+    ememset(hud->hp_label->title + 5, ' ', 34);
+    ememset(hud->xp_label->title + 5, ' ', 34);
     eitoa(opponent->level, hud->lv_label->title + offset_lv, base);
     eitoa(opponent->health, hud->hp_label->title + offset_hp, base);
     eitoa(state->save.player_xp, hud->xp_label->title + offset_xp, base);

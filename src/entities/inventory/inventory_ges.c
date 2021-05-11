@@ -57,7 +57,7 @@ bool deplacement(game_t *game, entity_t *entity, int i)
 void equipment(game_t *game UNUSED, entity_t *entity UNUSED)
 {
     inventory_t *inventory = entity->instance;
-    sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f pos = get_mouse_pos(game);
     sfFloatRect rect;
 
     for (int index = 0; index != 5; index++) {
@@ -75,7 +75,7 @@ void equipment(game_t *game UNUSED, entity_t *entity UNUSED)
 void inventory_management(game_t *game, entity_t *entity)
 {
     inventory_t *inventory = entity->instance;
-    sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f pos = get_mouse_pos(game);
     sfFloatRect rect;
 
     for (int index = 0; index != 15; index++) {

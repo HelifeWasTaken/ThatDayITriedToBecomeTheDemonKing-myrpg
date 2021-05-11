@@ -31,7 +31,7 @@ bool handle_menu_events(game_t *game UNUSED,
         entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     menu_t *menu = entity->instance;
-    sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse_pos = get_mouse_pos(game);
     sfFloatRect buton_pos;
 
     for (int i = 0; i < 3; i++) {

@@ -4,4 +4,13 @@ move        50  70  90
 move        0   0   50
 set         1607    81
 disp        "This was all a dream..." 1
-disp        "After all a pnj cannot be a final boss" 1
+disp        "After all an NPC cannot be a final boss" 1
+set         -393 70
+play_music  "asset/song/end1.ogg" 0
+disp        "created by" 1
+disp        "Thibault DUFAURE" 1
+disp        "Alexis CHERON" 1
+disp        "Ludovic PELTIER" 1
+disp        "Mattis DALLEAU" 1
+disp        "lol" 1
+end_music   0

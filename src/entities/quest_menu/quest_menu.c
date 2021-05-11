@@ -51,7 +51,7 @@ void update_quest_menu(game_t *game UNUSED, entity_t *entity)
 {
     quest_menu_t *quest_menu = entity->instance;
     sfFloatRect rect = sfText_getGlobalBounds(quest_menu->back);
-    sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f pos = get_mouse_pos(game);
 
     if (sfFloatRect_contains(&rect, pos.x, pos.y)) {
         sfText_setColor(quest_menu->back, sfRed);
@@ -78,7 +78,7 @@ bool handle_quest_menu_events(game_t *game UNUSED,
 {
     quest_menu_t *quest = entity->instance;
     sfFloatRect rect = sfText_getGlobalBounds(quest->back);
-    sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f pos = get_mouse_pos(game);
 
     if (sfFloatRect_contains(&rect, pos.x, pos.y)
         && quest->is_display == true && sfMouse_isButtonPressed(sfMouseLeft)) {

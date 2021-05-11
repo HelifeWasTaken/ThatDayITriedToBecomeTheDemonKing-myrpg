@@ -11,6 +11,7 @@
 #include "distract/entity.h"
 #include "distract/resources.h"
 #include "distract/sound.h"
+#include "erty/estdlib.h"
 #include "myrpg/entities.h"
 #include "myrpg/state.h"
 #include "myrpg/asset.h"
@@ -30,7 +31,7 @@ static char *select_music(game_t *game)
     int boss_id = get_game_state(game)->last_boss_id;
     char **music = (void *)(char const **)BOSS_MUSIC;
 
-    if (boss_id == -1)
+    if (boss_id <= -1 || boss_id >= (int)(ARRAY_SIZE(BOSS_MUSIC)))
         return ("asset/song/battle_theme.ogg");
     return (music[boss_id]);
 }
@@ -72,8 +73,10 @@ int battle_lifecycle(game_t *game)
     battlemanager_t *manager = initialize_manager(game);
     int exit_code;
     sfEvent event;
+    char *music_name = select_music(game);
 
-    D_ASSERT(play_music(game, MUSIC, select_music(game)), false,
+    D_ASSERT(music_name, false, "Can't find music", 84);
+    D_ASSERT(play_music(game, MUSIC, music_name), false,
         "Can't play music", 84);
     D_ASSERT(manager, NULL, "Cannot create battle", 84);
     while (is_scene_updated(game)) {

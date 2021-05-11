@@ -45,10 +45,10 @@ bool set_pnj_loop(game_t *game, pnj_t **pnj)
     for (usize_t i = 0; i < (*pnj)->pnj_vector->size; i++) {
         texture = create_texture(game, (*pnj)->pnj_vector->data[i].file_path,
                 NULL);
+        D_ASSERT(texture, NULL, "could not load pnj texture", false);
         (*pnj)->pnj_vector->data[i].rect_size =
             VEC2U((*pnj)->pnj_vector->data[i].rect.width,
                     (*pnj)->pnj_vector->data[i].rect.height);
-        D_ASSERT(texture, NULL, "could not load pnj texture", false);
         (*pnj)->pnj_vector->data[i].sprite = create_sprite(texture,
                 &(*pnj)->pnj_vector->data[i].rect);
         sfSprite_setPosition((*pnj)->pnj_vector->data[i].sprite,

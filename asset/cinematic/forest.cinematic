@@ -4,5 +4,5 @@ move 10 -139 70
 set 701 103
 disp    "The forest: Bad herb and legends" 1
 disp "The guardian of the forest lay here" 1
-disp "Begone bad herb !!!" 1
+disp "Be gone bad herb!!!" 1
 disp "I hope I am least level 5" 1

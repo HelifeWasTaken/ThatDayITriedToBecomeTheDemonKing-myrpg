@@ -213,7 +213,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"It's been like 5 minute since someone came in that forest...\nNot so epic right ? Not my fault if the dev was beginner"
+                         "value":"It's been like 5 minutes since someone entered that forest...\nFive minutes!\nNot so epic, right? Not my fault if the dev was a beginner"
                         },
                         {
                          "name":"name",
@@ -235,7 +235,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"hey listen !!!"
+                         "value":"hey! listen!!!"
                         },
                         {
                          "name":"name",
@@ -257,7 +257,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"If you are looking for something you can ask to the gardian of this forest\nHis cave is behind a tree. "
+                         "value":"If you are looking for something, you can ask to the gardian of the forest\nHis cave is behind a tree.\nI wonder what we would do without him."
                         },
                         {
                          "name":"name",
@@ -279,7 +279,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"You have in front of you the ultima master blade\nYou would be proud of it\n- No way i'm fucking playing zelda right now"
+                         "value":"You have in front of you the ultima master blade\nYou would be proud of it.\n- No way I'm fucking playing Zelda right now!"
                         },
                         {
                          "name":"name",

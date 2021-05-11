@@ -349,12 +349,12 @@ SRC 	=	$(SRC_ERTY) \
 OBJ 	=	$(SRC:.c=.o)
 
 all:
-	make -j -C . $(NAME)
+	make  -C . $(NAME)
 	cp $(NAME) ../
 	cp -r erty/include/erty/ iron_goat/include/iron_goat/ ../../include/
 
 $(NAME): ## Call build_lib
-	make -j -C . build_lib
+	make  -C . build_lib
 
 build_lib: $(OBJ) ## Build The other one
 	$(AR) $(NAME) $(OBJ)
@@ -366,8 +366,8 @@ clean:
 fclean: clean
 
 re:
-	make  clean 		-j -C .
-	make  all			-j -C .
+	make  clean 		 -C .
+	make  all			 -C .
 
 expand:
 	$(CC) $(SRC) $(CFLAGS) -E -o $(NAME)

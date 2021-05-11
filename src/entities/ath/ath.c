@@ -26,7 +26,7 @@ bool handle_ath_events(game_t *game UNUSED,
 {
     ath_t *ath = entity->instance;
     inventory_t *inventory = get_entity(game, INVENTORY)->instance;
-    sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse_pos = get_mouse_pos(game);
     sfFloatRect buton_pos;
 
     if (GBL_IS_IN_CINEMATIC == true)

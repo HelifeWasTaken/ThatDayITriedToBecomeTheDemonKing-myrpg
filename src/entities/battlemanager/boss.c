@@ -73,7 +73,7 @@ static const battle_opponent_t BOSSES[] = {
         .asset_file = "asset/enemies/boss/forest_lion.png",
         .asset_rect = { 0, 0, 1000, 2400 },
         .level = 1,
-        .health = 55,
+        .health = 60,
         .mana = 10,
         .max_mana = 10,
         .scale = { 1, 1 },
@@ -91,7 +91,7 @@ static const battle_opponent_t BOSSES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 8,
+                .efficiency = 9,
                 .type = BST_SCISSOR,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/boss_natural_hit.png",
@@ -179,7 +179,7 @@ static const battle_opponent_t BOSSES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 10,
+                .efficiency = 9,
                 .type = BST_ROCK,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/final_boss_hit.png",
@@ -190,12 +190,23 @@ static const battle_opponent_t BOSSES[] = {
             {
                 .name = "Attack",
                 .mana = 0,
-                .efficiency = 10,
+                .efficiency = 9,
                 .type = BST_SCISSOR,
                 .anim = BAT_ANIM_ATTACK,
                 .attack_fx_file = "asset/fx/final_boss_second_atk.png",
                 .attack_fx_frames_per_line = 5,
                 .attack_fx_frames_count = 10,
+                .attack_fx_size = { 3, 3 }
+            },
+            {
+                .name = "Attack",
+                .mana = 0,
+                .efficiency = 9,
+                .type = BST_PAPER,
+                .anim = BAT_ANIM_ATTACK,
+                .attack_fx_file = "asset/fx/classic_hit_second.png",
+                .attack_fx_frames_per_line = 5,
+                .attack_fx_frames_count = 20,
                 .attack_fx_size = { 3, 3 }
             }
         }

@@ -348,7 +348,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Are you serious i just finished to clean that place and you walking here"
+                         "value":"Are you serious? I just finished cleaning that place and you are walking here?"
                         },
                         {
                          "name":"name",
@@ -392,7 +392,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Water is super effective agains ground. OH s*** wrong game"
+                         "value":"Water is super effective against ground. OH s*** wrong game"
                         },
                         {
                          "name":"name",
@@ -414,7 +414,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"If i find that little green boy his name was Zelda or something"
+                         "value":"If i find that little green boy, his name was Zelda or something"
                         },
                         {
                          "name":"name",
@@ -458,7 +458,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Hmmm, yeah that's should be ok...\nMaybe that way is better i think ?\nOh please don't disturbe me young man"
+                         "value":"Hmm, yeah, that should be ok...\nMaybe that way is better I think?\nOh please don't disturbe me, young man"
                         },
                         {
                          "name":"name",
@@ -568,7 +568,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"One question one awnser \n-one piece or naruto ?!!"
+                         "value":"One question, one answer\none piece or naruto?!!"
                         },
                         {
                          "name":"name",

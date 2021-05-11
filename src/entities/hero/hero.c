@@ -27,16 +27,16 @@ bool create_hero(game_t *game UNUSED, entity_t *entity)
     sfIntRect rect = IRECT(0, 0, 135, 332);
     sfTexture *texture = create_texture(game, HERO_PATH, &rect);
 
+    D_ASSERT((hero && texture), false, "Hero could not be created", false);
     hero->layers = get_instance(game, LAYER_MANAGER);
     hero->dialogbox = get_instance(game, DIALOGBOX);
-    D_ASSERT(hero, NULL, "Hero could not be created", false);
-    D_ASSERT(texture, NULL, "Tetxure could not be created", false);
-    D_ASSERT(hero->layers, NULL, "Layer could not be found", false);
-    D_ASSERT(hero->dialogbox, NULL, "Dialogbox could not be found", false);
+    D_ASSERT((hero->layers && hero->dialogbox), false, "Hero deps", false);
     hero->entity = entity;
     hero->animation_clock = create_pausable_clock(game);
     hero->movement_clock = create_pausable_clock(game);
     hero->sprite = create_sprite(texture, &IRECT(0, 0 , 45, 83));
+    D_ASSERT((hero->animation_clock && hero->movement_clock && hero->sprite),
+        false, "Hero and clocks could not be created", false);
     hero->entity->pos = get_game_state(game)->save.player_pos;
     entity->instance = hero;
     hero->entity->z = hero->layers->manager.z;

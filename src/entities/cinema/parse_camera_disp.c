@@ -8,7 +8,6 @@
 #include "myrpg/cinema.h"
 #include "distract/debug.h"
 
-
 static void read_disp_text(char s2[1000], char s[1000], char **ptr)
 {
     unsigned int index_s = 0;

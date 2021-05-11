@@ -388,7 +388,7 @@ void update_mute_button(game_t *game, entity_t *entity);
 void draw_mute_button(game_t *game, entity_t *entity);
 void destroy_mute_button(game_t *game, entity_t *entity);
 bool handle_mute_button_events(game_t *game, entity_t *entity, sfEvent *event);
-void init_scroll_bar(game_t *game);
+bool init_scroll_bar(game_t *game);
 
 typedef struct battlemanager {
     sfSprite *background;

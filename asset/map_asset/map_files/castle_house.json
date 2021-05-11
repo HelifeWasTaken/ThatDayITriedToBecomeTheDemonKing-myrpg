@@ -223,7 +223,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"My husband love walking outside\nEven if the dev never made him come back"
+                         "value":"My husband loves walking outside\nEven if the dev never made him come back"
                         },
                         {
                          "name":"name",
@@ -267,7 +267,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"I am working every day to make the legenday ultima blade"
+                         "value":"I am working every day to make the legendary Ultima blade"
                         },
                         {
                          "name":"name",
@@ -289,7 +289,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"My mother is helping a old woman cleaning her house\n"
+                         "value":"My mother is helping an old woman clean her house"
                         },
                         {
                          "name":"name",
@@ -311,7 +311,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"you have just to strcat in \/bin\/your string hmmm ?\ndon't worry i just noticed something i need to do"
+                         "value":"you just have to strcat in \/bin\/your string hmmm?\ndon't worry i just noticed something i need to do"
                         },
                         {
                          "name":"name",

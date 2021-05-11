@@ -95,4 +95,11 @@ void destroy_pausable_clock(pausable_clock_t *clock);
 ///
 void restart_pausable_clock(pausable_clock_t *clock);
 
+static inline sfVector2f get_mouse_pos(game_t *game)
+{
+    return (sfRenderWindow_mapPixelToCoords(game->window,
+        sfMouse_getPositionRenderWindow(game->window),
+        game->gui_view));
+}
+
 #endif //DISTRACT_GAME_H

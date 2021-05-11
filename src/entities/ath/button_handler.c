@@ -36,7 +36,7 @@ void function_handler(game_t *game, UNUSED entity_t *entity, int i)
 void update_button_handler(game_t *game UNUSED, entity_t *entity)
 {
     ath_t *ath = entity->instance;
-    sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse_pos = get_mouse_pos(game);
     sfFloatRect buton_pos;
 
     update_ath(game, entity);

@@ -258,5 +258,18 @@
        },
        "pos": {"x": 136, "y": 842},
        "message": "bonjour"
+   },
+   {
+       "name": "david",
+       "file_path": "asset/pnj/pnj_asset/pnj_village/ending.png",
+       "frame": 3,
+       "rect": {
+           "left": 0,
+           "top": 0,
+           "width": 38,
+           "height": 36
+       },
+       "pos": {"x": -393, "y": 70},
+       "message": "bonjour"
    }
 ]

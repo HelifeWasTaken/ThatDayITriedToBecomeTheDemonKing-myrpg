@@ -88,7 +88,7 @@ void update_cinema(game_t *game UNUSED, entity_t *entity)
     cinema_entity_t *cinema = entity->instance;
     void (*fun[CINEMATIC_TYPES_COUNT])(game_t *, cinema_entity_t *cine) = {
         cinema_set, cinema_move, cinema_new_scene,
-        cinema_hero_set, cinema_disp_text
+        cinema_hero_set, cinema_disp_text, cinema_new_music, cinema_end_music
     };
 
     if (cinema->cine == NULL) {

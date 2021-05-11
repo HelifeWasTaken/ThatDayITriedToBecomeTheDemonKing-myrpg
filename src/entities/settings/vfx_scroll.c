@@ -72,7 +72,7 @@ bool handle_vfx_scroll_events(game_t *game UNUSED,
 {
     vfx_scroll_t *vfx_scroll = entity->instance;
     sfFloatRect scrollin = sfSprite_getGlobalBounds(vfx_scroll->sprite_bar);
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse = get_mouse_pos(game);
 
     scrollin.left = scrollin.left + 100;
     scrollin.width = scrollin.width - 160;

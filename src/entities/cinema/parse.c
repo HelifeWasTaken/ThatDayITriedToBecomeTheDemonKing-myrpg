@@ -58,6 +58,14 @@ static const struct cinema_parser CINEMA_PRSR[] = {
     {
         .match  = "set_hero",
         .fun    = parse_hero_pos
+    },
+    {
+        .match = "play_music",
+        .fun = parse_new_music
+    },
+    {
+        .match = "end_music",
+        .fun = parse_end_music
     }
 };
 

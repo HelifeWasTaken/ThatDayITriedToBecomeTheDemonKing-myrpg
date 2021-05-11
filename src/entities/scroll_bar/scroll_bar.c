@@ -64,7 +64,7 @@ bool handle_scroll_bar_events(game_t *game UNUSED,
     entity_t *entity UNUSED, sfEvent *event UNUSED)
 {
     scroll_bar_t *scroll = entity->instance;
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse = get_mouse_pos(game);
     sfFloatRect scroll_r = sfRectangleShape_getGlobalBounds(scroll->scroll_bar);
 
     if (sfFloatRect_contains(&scroll_r, mouse.x, mouse.y)

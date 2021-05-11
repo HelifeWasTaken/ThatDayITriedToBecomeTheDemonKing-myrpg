@@ -1,0 +1,46 @@
+# appimage-builder recipe see https://appimage-builder.readthedocs.io for details
+version: 1
+script:
+  - mkdir -p AppDir/bin AppDir/app AppDir/usr/share/icons/hicolor/256x256
+  - cp -Rf asset include my_rpg .appimage.sh AppDir/app
+AppDir:
+  path: ./AppDir
+  after_bundle:
+    - ln -rsf AppDir/bin/bash AppDir/bin/sh
+    - chmod +x AppDir/app/.appimage.sh
+    - cp -f asset/hero/bard_head.png AppDir/usr/share/icons/hicolor/256x256
+  app_info:
+    id: com.myrpg.game
+    name: MyRPG
+    icon: bard_head
+    version: latest
+    exec: bin/bash
+    exec_args: -c "'$APPDIR/app/.appimage.sh' $@"
+  runtime:
+    env:
+      APPDIR_LIBRARY_PATH: $APPDIR/lib/x86_64-linux-gnu:$APPDIR/usr/lib/x86_64-linux-gnu:$APPDIR/usr/lib/x86_64-linux-gnu/pulseaudio
+      APPDIR_LD_LIBRARY_PATH: $APPDIR/lib/x86_64-linux-gnu:$APPDIR/usr/lib/x86_64-linux-gnu:$APPDIR/usr/lib/x86_64-linux-gnu/pulseaudio
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse'
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+
+    include:
+      - bash
+      - coreutils
+      - libcsfml-dev
+      - libsfml-dev
+  files:
+    include: []
+    exclude:
+    - usr/share/man
+    - usr/share/doc/*/README.*
+    - usr/share/doc/*/changelog.*
+    - usr/share/doc/*/NEWS.*
+    - usr/share/doc/*/TODO.*
+AppImage:
+  arch: x86_64
+  update-information: guess
+  sign-key: None

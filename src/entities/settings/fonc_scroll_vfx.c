@@ -32,7 +32,7 @@ static void change_vfx(vfx_scroll_t *vfx_scroll,
 
 bool fonc_scroll_vfx(game_t *game UNUSED, entity_t *entity UNUSED)
 {
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse = get_mouse_pos(game);
     vfx_scroll_t *scrl = entity->instance;
     sfFloatRect bar = sfSprite_getGlobalBounds(scrl->sprite_bar);
     sfFloatRect pos = sfSprite_getGlobalBounds(scrl->scrolin);

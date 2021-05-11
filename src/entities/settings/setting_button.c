@@ -81,7 +81,7 @@ bool handle_settings_events(game_t *game UNUSED,
 {
     settings_t *button = entity->instance;
     sfFloatRect pos;
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfVector2f mouse = get_mouse_pos(game);
 
     pos = sfSprite_getGlobalBounds(button->sprite_button);
     if (sfFloatRect_contains(&pos, mouse.x, mouse.y)) {

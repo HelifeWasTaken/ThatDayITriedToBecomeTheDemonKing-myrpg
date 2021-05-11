@@ -3,5 +3,5 @@ set 260 174
 move 20 70 90
 set 433 586
 disp "The volcano: A hot place to be" 1
-disp "Wow I feel like I am in Doom insane!" 1
+disp "Wow I feel like I am in Doom! Insane!" 1
 disp "I hope I am at least level 7" 1
