@@ -1,4 +1,4 @@
-# ThatDayITriedToBecomeTheDemonKing-myrpg
+# ThatDayITriedToBecomeTheDemonKing
 An rpg game for an epitech project
 
 # Build
