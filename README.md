@@ -30,7 +30,9 @@ To launch the game use: `./my_rpg`
 
 ## Screenshots
 
-In work...
+<img align='center' src="https://raw.githubusercontent.com/Heliferepo/ThatDayITriedToBecomeTheDemonKing-myrpg/master/Screenshots/rpg1.png" width="1000">
+<img align='center' src="https://raw.githubusercontent.com/Heliferepo/ThatDayITriedToBecomeTheDemonKing-myrpg/master/Screenshots/rpg2.png" width="1000">
+<img align='center' src="https://raw.githubusercontent.com/Heliferepo/ThatDayITriedToBecomeTheDemonKing-myrpg/master/Screenshots/rpg3.png" width="1000">
 
 ## Trailer
 
