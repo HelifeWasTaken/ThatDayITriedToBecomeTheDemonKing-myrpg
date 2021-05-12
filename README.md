@@ -89,6 +89,8 @@ Thoses could be easily checked with functions of 30 lines at least x)
 
 ## Tilesets
   * [TimeFantasy](http://timefantasy.net/)
+  * [Bosses](https://www.pinterest.com/biggestgifcollectionintheworld/pixel-art/) Original creator Unknown (Randoms Pics were found on imgur)
+  * [Enemies](https://luizmelo.itch.io/monsters-creatures-fantasy)
 
 ## Music
   
