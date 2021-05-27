@@ -36,7 +36,9 @@ To launch the game use: `./my_rpg`
 
 ## Trailer
 
-In work...
+[![Trailer](https://img.youtube.com/vi/HLd6OS2BSeE/0.jpg)](https://www.youtube.com/watch?v=HLd6OS2BSeE)
+
+(Youtube Video)
 
 ## Coding Style
 
